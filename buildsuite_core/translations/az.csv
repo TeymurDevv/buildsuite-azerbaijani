@@ -6714,7 +6714,7 @@ Edit Address in Form,Ünvanı formada redaktə et
 Begin typing for results.,Nəticələri görmək üçün yazmağa başlayın.
 Type {0} or more characters for results.,Nəticələr üçün ən azı {0} simvol yazın.
 {0} results found,{0} nəticə tapıldı
-"{0}, list item {1} of {2}","{0}, siyahıda {2} elementdən {1}-ci"
+"{0}, list item {1} of {2}","{0}, siyahıdakı yeri: {1}/{2}"
 Capture,Çək
 No Images,Şəkil yoxdur
 Switch Camera,Kameranı dəyiş
@@ -14451,7 +14451,7 @@ Group By must be a string,Qruplaşdırma meyarı mətn olmalıdır
 Status must be one of {0},Vəziyyət bunlardan biri olmalıdır: {0}
 {0} must be a JSON object,{0} JSON obyekti olmalıdır
 No email found for {0} {1},{0} {1} üçün e-poçt tapılmadı
-Step {0} is not an If step,{0}-cı addım şərt addımı deyil
+Step {0} is not an If step,{0} nömrəli addım şərt addımı deyil
 {0} must be equal to '{1}',{0} dəyəri “{1}” ilə eyni olmalıdır
 Append To can be one of {0},Əlavə ediləcəyi yer bunlardan biri ola bilər: {0}
 Must specify a Query to run,İcra ediləcək sorğu göstərilməlidir
@@ -14467,7 +14467,7 @@ Filter must be a list or dict,Filtr siyahı və ya lüğət olmalıdır
 Login with {0} is not enabled,{0} vasitəsilə giriş aktiv deyil
 Quotation {0} not of type {1},{0} qiymət təklifi {1} növündə deyil
 Supplier {0} not found in {1},{1} daxilində {0} təchizatçısı tapılmadı
-{0} does not exist in row {1},{1}-ci sətirdə {0} mövcud deyil
+{0} does not exist in row {1},{1} nömrəli sətirdə {0} mövcud deyil
 {0} is mandatory for Item {1},{1} malı üçün {0} məcburidir
 {0} not allowed to be renamed,{0} adını dəyişməyə icazə verilmir
 Add Items in the Purpose Table,Məqsədlər cədvəlinə mallar əlavə edin
@@ -14495,10 +14495,10 @@ Cannot fetch image from {0}: {1},Şəkli {0} mənbəyindən gətirmək mümkün 
 Could not update the header row.,Başlıq sətrini yeniləmək mümkün olmadı.
 Error: Data missing in table {0},Xəta: {0} cədvəlində məlumat çatışmır
 From Date must be before To Date,Başlanğıc tarixi bitmə tarixindən əvvəl olmalıdır
-Item Code required at Row No {0},{0}-cı sətirdə mal kodu tələb olunur
+Item Code required at Row No {0},{0} nömrəli sətirdə mal kodu tələb olunur
 No permission to delete {0} {1}.,{0} {1} sənədini silməyə icazə yoxdur.
 Payment term {0} not used in {1},{1} sənədində {0} ödəniş şərti istifadə edilmir
-Row {0}: Account {1} is disabled,{0}-cı sətir: {1} hesabı deaktivdir
+Row {0}: Account {1} is disabled,Sətir {0}: {1} hesabı deaktivdir
 Unit of Measure {0} is disabled.,{0} ölçü vahidi deaktivdir.
 Work Order {0} is already Closed,{0} iş sifarişi artıq bağlanıb
 {0} '{1}' not in Fiscal Year {2},{0} “{1}” {2} maliyyə ilinə daxil deyil
@@ -14514,7 +14514,7 @@ Not permitted to update Serial No,Seriya nömrəsini yeniləməyə icazə yoxdur
 Path {0} is not within module {1},{0} yolu {1} moduluna daxil deyil
 Please set the series to be used.,İstifadə olunacaq seriyanı təyin edin.
 Relationships must be a JSON list,Əlaqələr JSON siyahısı olmalıdır
-Row #{0}: {1} {2} is already paid,{0}-cı sətir: {1} {2} artıq ödənilib
+Row #{0}: {1} {2} is already paid,Sətir {0}: {1} {2} artıq ödənilib
 Submit a {0} to finish this step.,Bu addımı tamamlamaq üçün {0} sənədini təsdiqləyin.
 Types of activities for Time Logs,Vaxt jurnalları üçün fəaliyyət növləri
 {0} account is not of company {1},{0} hesabı {1} şirkətinə aid deyil
@@ -14533,7 +14533,7 @@ Options not set for link field {0},{0} bağlantı sahəsinin seçimləri təyin 
 Please add a subject to your email,Məktubunuza mövzu əlavə edin
 Please select BOM against item {0},{0} malı üçün material spesifikasiyasını seçin
 Record alias could not be resolved,Qeydin alternativ adı müəyyən edilmədi
-Row {0}: Please enter Account Name,{0}-cı sətir: hesabın adını daxil edin
+Row {0}: Please enter Account Name,Sətir {0}: hesabın adını daxil edin
 Status {0} cannot be set manually.,{0} vəziyyəti əl ilə təyin edilə bilməz.
 This {0} account is out of credit.,Bu {0} hesabının krediti tükənib.
 Unable to read file format for {0},{0} üçün fayl formatını oxumaq mümkün olmadı
@@ -14547,9 +14547,9 @@ Latitude must be between -90 and 90,Coğrafi enlik -90 ilə 90 arasında olmalı
 Only Custom Modules can be renamed.,Yalnız fərdi modulların adı dəyişdirilə bilər.
 Please set account in Warehouse {0},{0} anbarında hesabı təyin edin
 Purchase Order {0} is not submitted,{0} satınalma sifarişi təsdiqlənməyib
-Row #{0}: '{1}' does not match {2}.,{0}-cı sətir: “{1}” dəyəri {2} ilə uyğun gəlmir.
-Row #{0}: {1} {2} must be submitted,{0}-cı sətir: {1} {2} təsdiqlənməlidir
-Row {0}: {1} must be greater than 0,{0}-cı sətir: {1} sıfırdan böyük olmalıdır
+Row #{0}: '{1}' does not match {2}.,Sətir {0}: “{1}” dəyəri {2} ilə uyğun gəlmir.
+Row #{0}: {1} {2} must be submitted,Sətir {0}: {1} {2} təsdiqlənməlidir
+Row {0}: {1} must be greater than 0,Sətir {0}: {1} sıfırdan böyük olmalıdır
 Start entering data below this line,Məlumatları bu sətirdən aşağı daxil etməyə başlayın
 The selected item cannot have Batch,Seçilmiş mal üçün partiya təyin edilə bilməz
 To Date cannot be before From Date.,Bitmə tarixi başlanğıc tarixindən əvvəl ola bilməz.
@@ -14586,7 +14586,7 @@ Only stock items can be forecast: {0},Yalnız anbar uçotuna alınan malları pr
 Please select the document type first,Əvvəlcə sənəd növünü seçin
 Price List {0} is not enabled for {1},{0} qiymət siyahısı {1} üçün aktiv deyil
 Report cannot be set for Single types,Təkqeydli sənəd növləri üçün hesabat təyin edilə bilməz
-Row #{0}: Please set reorder quantity,{0}-cı sətir: təkrar sifariş miqdarını təyin edin
+Row #{0}: Please set reorder quantity,Sətir {0}: təkrar sifariş miqdarını təyin edin
 Sample Size must be greater than zero,Nümunənin ölçüsü sıfırdan böyük olmalıdır
 Status must be Cancelled or Completed,Vəziyyət “Ləğv edilib” və ya “Tamamlanıb” olmalıdır
 This condition could not be evaluated,Bu şərti qiymətləndirmək mümkün olmadı
@@ -14606,7 +14606,7 @@ Parent Company must be a group company,Üst şirkət qrup şirkəti olmalıdır
 Payment amount must be greater than 0.,Ödəniş məbləği sıfırdan böyük olmalıdır.
 Please select the document type first.,Əvvəlcə sənəd növünü seçin.
 Recurse Over Qty cannot be less than 0,Rekursiyada nəzərə alınan miqdar 0-dan az ola bilməz
-Row {0}: Activity Type {1} is disabled,{0}-cı sətir: {1} fəaliyyət növü deaktivdir
+Row {0}: Activity Type {1} is disabled,Sətir {0}: {1} fəaliyyət növü deaktivdir
 Same Company is entered more than once,Eyni şirkət bir dəfədən çox daxil edilib
 Studio App {0} is not exported to {1}.,{0} Studio tətbiqi {1} məkanına ixrac edilməyib.
 User-scoped memories must have a user.,İstifadəçi üzrə yaddaş qeydlərində istifadəçi göstərilməlidir.
@@ -14624,7 +14624,7 @@ No permission to read Communication {0},{0} yazışmasını oxumağa icazə yoxd
 Only 200 inserts allowed in one request,Bir sorğuda ən çox 200 qeyd əlavə edilə bilər
 Please add 'Supplier' role to user {0}.,{0} istifadəçisinə “Təchizatçı” rolunu əlavə edin.
 Please set Tax ID for the customer '%s',“%s” müştərisi üçün vergi identifikatorunu təyin edin
-Row #{0}: Parcel {1} cannot be negative,{0}-cı sətir: {1} bağlamasının dəyəri mənfi ola bilməz
+Row #{0}: Parcel {1} cannot be negative,Sətir {0}: {1} bağlamasının dəyəri mənfi ola bilməz
 Sales Order status cannot be set to {0},Satış sifarişinin vəziyyətini {0} olaraq təyin etmək olmaz
 Submitted Job Card cannot be processed.,Təsdiqlənmiş iş kartını işləmək mümkün deyil.
 The field Asset Account cannot be blank,Aktiv hesabı sahəsi boş qala bilməz
@@ -14641,7 +14641,7 @@ Most probably your password is too long.,"Çox güman ki, parolunuz həddindən 
 No primary email found for customer: {0},{0} müştərisi üçün əsas e-poçt ünvanı tapılmadı
 Parent Item {0} must not be a Stock Item,{0} üst malı anbar uçotuna alınan mal ola bilməz
 Please set Accounting Dimension {} in {},{} uçot ölçüsünü burada təyin edin: {}
-Row #{0}: Item {1} is not a service item,{0}-cı sətir: {1} xidmət növlü mal deyil
+Row #{0}: Item {1} is not a service item,Sətir {0}: {1} xidmət növlü mal deyil
 Row #{}: Please assign task to a member.,{}-ci sətir: tapşırığı komanda üzvünə təyin edin.
 Serial number {0} entered more than once,{0} seriya nömrəsi bir neçə dəfə daxil edilib
 Stock transactions before {0} are frozen,{0} tarixindən əvvəlki anbar əməliyyatları dondurulub
@@ -14665,11 +14665,11 @@ Method {0} is not available for discovery,{0} metodu avtomatik aşkarlanma üç�
 Not authorized to edit frozen Account {0},Dondurulmuş {0} hesabını redaktə etməyə səlahiyyətiniz yoxdur
 Parent Item {0} must not be a Fixed Asset,{0} üst malı əsas vəsait ola bilməz
 Process loss quantity cannot be negative.,Texnoloji itki miqdarı mənfi ola bilməz.
-Row #{0}: Account {1} is a group account.,{0}-cı sətir: {1} qrup hesabıdır.
+Row #{0}: Account {1} is a group account.,Sətir {0}: {1} qrup hesabıdır.
 Scrap date cannot be before purchase date,Silinmə tarixi alış tarixindən əvvəl ola bilməz
 Set closing balance as per bank statement,Bağlanış qalığını bank çıxarışına uyğun təyin edin
 Short keyboard patterns are easy to guess,Klaviaturadakı qısa düymə ardıcıllıqlarını təxmin etmək asandır
-Target warehouse is mandatory for row {0},{0}-cı sətirdə təyinat anbarı məcburidir
+Target warehouse is mandatory for row {0},{0} nömrəli sətirdə təyinat anbarı məcburidir
 Timeout must be between 1 and {0} seconds,Gözləmə müddəti 1 ilə {0} saniyə arasında olmalıdır
 You are not allowed to update this layout,Bu tərtibatı yeniləməyə icazəniz yoxdur
 You do not have import permission for {0},{0} üçün idxal icazəniz yoxdur
@@ -14690,8 +14690,8 @@ Please check your email login credentials.,E-poçt hesabına giriş məlumatlar�
 Please select at least one attribute value,Ən azı bir atribut dəyəri seçin
 Rebuilding of tree is not supported for {},{} üçün ağacın yenidən qurulması dəstəklənmir
 Relevant excerpts from the attached files:,Əlavə edilmiş fayllardan müvafiq parçalar:
-Row #{0}: set the Part Number or the Item.,{0}-cı sətir: hissə nömrəsini və ya malı göstərin.
-Row {0}: Please select a BOM for Item {1}.,{0}-cı sətir: {1} malı üçün material spesifikasiyasını seçin.
+Row #{0}: set the Part Number or the Item.,Sətir {0}: hissə nömrəsini və ya malı göstərin.
+Row {0}: Please select a BOM for Item {1}.,Sətir {0}: {1} malı üçün material spesifikasiyasını seçin.
 Row({0}): {1} is already discounted in {2},Sətir {0}: {1} üzrə {2} daxilində artıq endirim edilib
 Serial Nos {0} does not belong to Item {1},{0} seriya nömrələri {1} malına aid deyil
 System Generated Fields can not be renamed,Sistemin yaratdığı sahələrin adları dəyişdirilə bilməz
@@ -14705,15 +14705,15 @@ Batch {0} is not available in warehouse {1},{0} partiyası {1} anbarında mövcu
 Cost Center {} doesn't belong to Company {},{} xərc mərkəzi {} şirkətinə aid deyil
 Customer {0} does not belong to project {1},{0} müştərisi {1} layihəsinə aid deyil
 Direct return is not allowed for Timesheet.,İş vaxtı tabeli üçün birbaşa qaytarmaya icazə verilmir.
-Error: {0} Row #{1}: Value missing for: {2},"Xəta: {0}, {1}-ci sətir: {2} dəyəri göstərilməyib"
+Error: {0} Row #{1}: Value missing for: {2},"Xəta: {0}, {1} nömrəli sətir: {2} dəyəri göstərilməyib"
 Import Path is required for Imported tools.,İdxal edilmiş alətlər üçün idxal yolu tələb olunur.
 Invalid data source name in copied content.,Kopyalanmış məzmunda məlumat mənbəyinin adı etibarsızdır.
 Maintenance Schedule {0} exists against {1},{1} üzrə {0} texniki xidmət qrafiki mövcuddur
 Number of periods must be greater than zero,Dövrlərin sayı sıfırdan böyük olmalıdır
 Please do not change the template headings.,Şablonun başlıqlarını dəyişməyin.
 Record a transfer between two bank accounts,İki bank hesabı arasında köçürməni qeydə al
-Row #{0}: Batch No {1} is already selected.,{0}-cı sətir: {1} partiya nömrəsi artıq seçilib.
-Row {0}: Parent Step must be an earlier row,{0}-cı sətir: üst addım əvvəlki sətirlərdən biri olmalıdır
+Row #{0}: Batch No {1} is already selected.,Sətir {0}: {1} partiya nömrəsi artıq seçilib.
+Row {0}: Parent Step must be an earlier row,Sətir {0}: üst addım əvvəlki sətirlərdən biri olmalıdır
 Set default {0} account for non stock items,Anbar uçotuna alınmayan mallar üçün standart {0} hesabını təyin edin
 The STEP file refers to a missing {0} #{1}.,STEP faylı mövcud olmayan {0} #{1} elementinə istinad edir.
 Transactions to be imported into the system,Sistemə idxal ediləcək əməliyyatlar
@@ -14732,13 +14732,13 @@ No {0} found for Inter Company Transactions.,Şirkətlərarası əməliyyatlar �
 Options required for Vue Component field {0},{0} Vue komponenti sahəsi üçün seçimlər tələb olunur
 Please set Document Type for Data Source {0},{0} məlumat mənbəyinin sənəd növünü təyin edin
 Price List {0} is disabled or does not exist,{0} qiymət siyahısı deaktivdir və ya mövcud deyil
-Row #{0}: From Date cannot be before To Date,{0}-cı sətir: başlanğıc tarixi bitmə tarixindən əvvəl ola bilməz
-Row #{0}: The batch {1} has already expired.,{0}-cı sətir: {1} partiyasının müddəti artıq bitib.
+Row #{0}: From Date cannot be before To Date,Sətir {0}: başlanğıc tarixi bitmə tarixindən əvvəl ola bilməz
+Row #{0}: The batch {1} has already expired.,Sətir {0}: {1} partiyasının müddəti artıq bitib.
 Sales Invoice {0} has already been submitted,{0} satış hesab-fakturası artıq təsdiqlənib
 Serial and Batch Bundle {0} is not submitted,{0} seriya və partiya dəsti təsdiqlənməyib
 Start Date cannot be before the current date,Başlanğıc tarixi cari tarixdən əvvəl ola bilməz
 The operation {0} can not add multiple times,{0} əməliyyatını bir neçə dəfə əlavə etmək olmaz
-UOM Conversion factor is required in row {0},{0}-cı sətirdə ölçü vahidinin çevirmə əmsalı tələb olunur
+UOM Conversion factor is required in row {0},{0} nömrəli sətirdə ölçü vahidinin çevirmə əmsalı tələb olunur
 Validity period of this quotation has ended.,Bu qiymət təklifinin etibarlılıq müddəti bitib.
 You are not allowed to update global layouts,Ümumi tərtibatları yeniləməyə icazəniz yoxdur
 {0}: Only submitted vouchers can be cleared.,{0}: yalnız təsdiqlənmiş sənədlərə təsdiq tarixi qoyula bilər.
@@ -14754,7 +14754,7 @@ Only Administrator is allowed to use Recorder,İcra qeydedicisindən yalnız adm
 Packed Items cannot be transferred internally,Qablaşdırılmış mallar daxili köçürmə ilə ötürülə bilməz
 Please adjust the qty or edit {0} to proceed.,Davam etmək üçün miqdarı düzəldin və ya {0} sənədini redaktə edin.
 Related record condition needs a relationship,Əlaqəli qeyd şərtində əlaqə göstərilməlidir
-Row #{0}: Depreciation Start Date is required,{0}-cı sətir: amortizasiyanın başlanğıc tarixi tələb olunur
+Row #{0}: Depreciation Start Date is required,Sətir {0}: amortizasiyanın başlanğıc tarixi tələb olunur
 Sales orders are not available for production,İstehsal üçün satış sifarişi mövcud deyil
 Script tools must not specify an Import Path.,Skript alətlərində idxal yolu göstərilməməlidir.
 Summary for this month and pending activities,Bu ayın icmalı və gözləyən fəaliyyətlər
@@ -14765,7 +14765,7 @@ You are not allowed to delete Standard Report,Standart hesabatı silməyə icaz�
 A folder appears when you create a file in it.,Qovluğun içində fayl yaratdıqda qovluq görünür.
 Account {0}: Parent account {1} does not exist,{0} hesabı: {1} üst hesabı mövcud deyil
 Asset created after being split from Asset {0},{0} aktivi bölündükdən sonra yaradılmış aktiv
-At row {0}: Qty is mandatory for the batch {1},{0}-cı sətir: {1} partiyası üçün miqdar məcburidir
+At row {0}: Qty is mandatory for the batch {1},Sətir {0}: {1} partiyası üçün miqdar məcburidir
 Cost Center {0} does not belong to Company {1},{0} xərc mərkəzi {1} şirkətinə aid deyil
 Downtime overlaps with {0} for workstation {1},{1} iş stansiyasının boşdayanması {0} ilə üst-üstə düşür
 Finished Good {0} does not have a default BOM.,{0} hazır məhsulu üçün standart material spesifikasiyası yoxdur.
@@ -14773,9 +14773,9 @@ Module is required for a standard Kanban Board,Standart Kanban lövhəsi üçün
 Opening Stock can only be set for stock items.,İlkin qalıq yalnız anbar uçotuna alınan mallar üçün təyin edilə bilər.
 Please find attached the proforma invoice {0}.,{0} proforma hesab-fakturası məktuba əlavə edilib.
 Print Format {0} does not belong to report {1},{0} çap formatı {1} hesabatına aid deyil
-Row #{0}: {1} must match the Payment Schedule.,{0}-cı sətir: {1} ödəniş qrafikinə uyğun gəlməlidir.
+Row #{0}: {1} must match the Payment Schedule.,Sətir {0}: {1} ödəniş qrafikinə uyğun gəlməlidir.
 Security Error: The Path provided is not safe.,Təhlükəsizlik xətası: göstərilən yol təhlükəsiz deyil.
-Taxes row #{0}: {1} cannot be smaller than {2},Vergilərin {0}-cı sətri: {1} dəyəri {2} dəyərindən az ola bilməz
+Taxes row #{0}: {1} cannot be smaller than {2},Vergilərin {0} nömrəli sətri: {1} dəyəri {2} dəyərindən az ola bilməz
 There is an error in your Address Template {0},{0} ünvan şablonunda xəta var
 This format cannot use the Typst renderer: {0},Bu format Typst render vasitəsindən istifadə edə bilməz: {0}
 User {0} does not have access to this document,{0} istifadəçisinin bu sənədə giriş icazəsi yoxdur
@@ -14793,8 +14793,8 @@ Payment Requests cannot be created against: {0},Bu sənədlər üzrə ödəniş 
 Please select a supplier for fetching payments.,Ödənişləri gətirmək üçün təchizatçı seçin.
 Prospect {0} is already converted to a Customer,{0} müştəri namizədi artıq müştəriyə çevrilib
 Reposting cannot be started when status is {0}.,Vəziyyət {0} olduqda yenidən işlənmə başladıla bilməz.
-Row #{0}: Parameter {1} is added more than once,{0}-cı sətir: {1} göstəricisi bir neçə dəfə əlavə edilib
-Row {0}: Hours value must be greater than zero.,{0}-cı sətir: saatların sayı sıfırdan böyük olmalıdır.
+Row #{0}: Parameter {1} is added more than once,Sətir {0}: {1} göstəricisi bir neçə dəfə əlavə edilib
+Row {0}: Hours value must be greater than zero.,Sətir {0}: saatların sayı sıfırdan böyük olmalıdır.
 Sales Person {0} is repeated in the sales team.,{0} satış əməkdaşı satış komandasında təkrar göstərilib.
 Serial No / Batch No are mandatory for Item {0},{0} malı üçün seriya və ya partiya nömrəsi məcburidir
 Standard Stock Entry Type {0} cannot be deleted,{0} standart anbar əməliyyatı növü silinə bilməz
@@ -14811,16 +14811,16 @@ Could not index the attached file. Please retry.,Əlavə edilmiş faylı indeksl
 Either target qty or target amount is mandatory.,Hədəf miqdar və ya hədəf məbləğ göstərilməlidir.
 Flow can't connect {0} here. Add it in Settings.,Proses burada {0} ilə əlaqə qura bilmir. Onu parametrlərdə əlavə edin.
 "If you still want to proceed, please enable {0}.","Yenə də davam etmək istəyirsinizsə, {0} seçimini aktivləşdirin."
-Item Tax Row {0}: Account {1} is a group account,Mal üzrə verginin {0}-cı sətri: {1} qrup hesabıdır
+Item Tax Row {0}: Account {1} is a group account,Mal üzrə verginin {0} nömrəli sətri: {1} qrup hesabıdır
 Logical conditions need at least 1 sub-condition,Məntiqi şərtlərdə ən azı bir alt şərt olmalıdır
 Multiple items cannot be marked as finished item,Bir neçə malı eyni vaxtda hazır məhsul saymaq olmaz
 Password is required or select Awaiting Password,Parol daxil edin və ya “Parol gözlənilir” seçin
 Please generate To Delete list before submitting,Təsdiqləməzdən əvvəl silinəcək qeydlərin siyahısını yaradın
 Please set {0} in Company {1} to retain samples.,Nümunələri saxlamaq üçün {1} şirkətində {0} təyin edin.
 Project-wise data is not available for Quotation,Qiymət təklifi üçün layihələr üzrə məlumat mövcud deyil
-Row #{0}: Consumed Asset {1} cannot be cancelled,{0}-cı sətir: sərf edilmiş {1} aktivi ləğv edilə bilməz
-Row {0}: Advance against Customer must be credit,{0}-cı sətir: müştəri üzrə avans kreditdə göstərilməlidir
-Row {0}: Task {1} ends after its parent task {2},{0}-cı sətir: {1} tapşırığı onun üst tapşırığı {2} bitdikdən sonra başa çatır
+Row #{0}: Consumed Asset {1} cannot be cancelled,Sətir {0}: sərf edilmiş {1} aktivi ləğv edilə bilməz
+Row {0}: Advance against Customer must be credit,Sətir {0}: müştəri üzrə avans kreditdə göstərilməlidir
+Row {0}: Task {1} ends after its parent task {2},Sətir {0}: {1} tapşırığı onun üst tapşırığı {2} bitdikdən sonra başa çatır
 Submit this design before making a new revision.,Yeni redaksiya yaratmazdan əvvəl bu layihəni təsdiqləyin.
 The classic builder can no longer create formats,Klassik redaktor artıq format yarada bilmir
 Trigger sessions always auto-approve tool calls.,Tətikləyici sessiyaları alət çağırışlarını həmişə avtomatik təsdiqləyir.
@@ -14839,8 +14839,8 @@ Party type is required to create a payment entry.,Ödəniş qeydi yaratmaq üç�
 Please select rows to create GL Reposting Entries,Baş kitab yazılışlarını yenidən işləmək üçün sətirləri seçin
 Please set opening number of booked depreciations,Uçota alınmış amortizasiya yazılışlarının ilkin sayını təyin edin
 Reference No & Reference Date is required for {0},{0} üçün istinad nömrəsi və istinad tarixi tələb olunur
-Row #{0}: Item {1} has no stock in warehouse {2}.,{0}-cı sətir: {2} anbarında {1} malının qalığı yoxdur.
-Row {0}: Please select an valid BOM for Item {1}.,{0}-cı sətir: {1} malı üçün etibarlı material spesifikasiyası seçin.
+Row #{0}: Item {1} has no stock in warehouse {2}.,Sətir {0}: {2} anbarında {1} malının qalığı yoxdur.
+Row {0}: Please select an valid BOM for Item {1}.,Sətir {0}: {1} malı üçün etibarlı material spesifikasiyası seçin.
 There is one unreconciled transaction before {0}.,{0} tarixindən əvvəl bir üzləşdirilməmiş əməliyyat var.
 Trial Balance requires {0} to be synced to DuckDB,Dövriyyə-qalıq cədvəli üçün {0} DuckDB ilə sinxronlaşdırılmalıdır
 You need to be a system user to access this page.,Bu səhifəyə daxil olmaq üçün sistem istifadəçisi olmalısınız.
@@ -14857,8 +14857,8 @@ Not allowed to create accounting dimension for {0},{0} üçün uçot ölçüsü 
 Parent Cost Center must belong to the same Company,Üst xərc mərkəzi eyni şirkətə aid olmalıdır
 Please set the Default Cost Center in {0} company.,{0} şirkəti üçün standart xərc mərkəzini təyin edin.
 Reserved Qty should be greater than Delivered Qty.,Rezerv edilmiş miqdar çatdırılmış miqdardan çox olmalıdır.
-Row #{0}: {1} is already included in this Dunning.,{0}-cı sətir: {1} artıq bu ödəniş tələbinə daxil edilib.
-Row {0}: Purchase Invoice {1} has no stock impact.,{0}-cı sətir: {1} alış hesab-fakturası anbar qalığına təsir etmir.
+Row #{0}: {1} is already included in this Dunning.,Sətir {0}: {1} artıq bu ödəniş tələbinə daxil edilib.
+Row {0}: Purchase Invoice {1} has no stock impact.,Sətir {0}: {1} alış hesab-fakturası anbar qalığına təsir etmir.
 Serial No {0} is not present in the warehouse {1}.,{0} seriya nömrəsi {1} anbarında yoxdur.
 Stock not available for Item {0} in Warehouse {1}.,{1} anbarında {0} malı üzrə ehtiyat yoxdur.
 The Supplier Scorecard standing of {0} is now {1}.,{0} təchizatçısının qiymətləndirmə dərəcəsi indi {1} olaraq təyin edilib.
@@ -14878,9 +14878,9 @@ Only CSV and Excel formats are supported for export,İxrac üçün yalnız CSV v
 Please attach an image file to set HTML for Footer.,Alt hissənin HTML kodunu təyin etmək üçün şəkil faylı əlavə edin.
 Please enable Applicable on Booking Actual Expenses,“Faktiki xərclər uçota alınarkən tətbiq et” seçimini aktivləşdirin
 Receiver List is empty. Please create Receiver List,Alıcı siyahısı boşdur. Alıcı siyahısı yaradın
-Row #{0}: Commission Rate must be between 0 and 100,{0}-cı sətir: komissiya faizi 0 ilə 100 arasında olmalıdır
-Row #{0}: Item {1} is not a Customer Provided Item.,{0}-cı sətir: {1} müştərinin verdiyi mal deyil.
-Row #{0}: Unreserve stock before deleting item {1}.,{0}-cı sətir: {1} malını silməzdən əvvəl onun rezervini ləğv edin.
+Row #{0}: Commission Rate must be between 0 and 100,Sətir {0}: komissiya faizi 0 ilə 100 arasında olmalıdır
+Row #{0}: Item {1} is not a Customer Provided Item.,Sətir {0}: {1} müştərinin verdiyi mal deyil.
+Row #{0}: Unreserve stock before deleting item {1}.,Sətir {0}: {1} malını silməzdən əvvəl onun rezervini ləğv edin.
 Shipping Account {0} does not belong to Company {1},{0} daşıma hesabı {1} şirkətinə aid deyil
 Terms and Conditions {0} could not be rendered: {1},{0} şərt və müddəalarını göstərmək mümkün olmadı: {1}
 There are {0} unreconciled transactions before {1}.,{1} tarixindən əvvəl {0} üzləşdirilməmiş əməliyyat var.
@@ -14901,11 +14901,11 @@ Planned End Date cannot be before Planned Start Date,Plan üzrə bitmə tarixi b
 Please ensure {} account {} is a Receivable account.,{} üzrə {} hesabının debitor borcları hesabı olduğunu yoxlayın.
 Proforma Invoice is not enabled in Selling Settings.,Satış parametrlərində proforma hesab-faktura aktiv deyil.
 Rate or Discount is required for the price discount.,Qiymət endirimi üçün tarif və ya endirim dəyəri tələb olunur.
-Row #{0}: Consumed Asset {1} is added more than once,{0}-cı sətir: sərf edilmiş {1} aktivi bir neçə dəfə əlavə edilib
-Row #{0}: Serial No {1} does not belong to Batch {2},{0}-cı sətir: {1} seriya nömrəsi {2} partiyasına aid deyil
+Row #{0}: Consumed Asset {1} is added more than once,Sətir {0}: sərf edilmiş {1} aktivi bir neçə dəfə əlavə edilib
+Row #{0}: Serial No {1} does not belong to Batch {2},Sətir {0}: {1} seriya nömrəsi {2} partiyasına aid deyil
 Same item and warehouse combination already entered.,Eyni mal və anbar birləşməsi artıq daxil edilib.
 Start date should be less than end date for Item {0},{0} malı üçün başlanğıc tarixi bitmə tarixindən əvvəl olmalıdır
-The Payment Term at row {0} is possibly a duplicate.,{0}-cı sətirdə ödəniş şərti təkrarlanmış ola bilər.
+The Payment Term at row {0} is possibly a duplicate.,{0} nömrəli sətirdə ödəniş şərti təkrarlanmış ola bilər.
 This is based on stock movement. See {0} for details,Bu göstərici ehtiyatların hərəkətinə əsaslanır. Ətraflı məlumat: {0}
 Work-in-Progress Warehouse is required before Submit,Təsdiqləməzdən əvvəl bitməmiş istehsal anbarı göstərilməlidir
 You cannot enable both the settings '{0}' and '{1}'.,“{0}” və “{1}” parametrlərini eyni vaxtda aktivləşdirə bilməzsiniz.
@@ -14922,9 +14922,9 @@ LDAP settings incorrect. validation response was: {0},LDAP parametrləri yanlı�
 Period Closing Voucher {0} GL Entry Processing Failed,{0} dövr bağlanış sənədi üzrə baş kitab yazılışları işlənmədi
 Please select Finished Good Item for Service Item {0},{0} xidmət mövqeyi üçün hazır məhsulu seçin
 Record a payment entry against a customer or supplier,Müştəri və ya təchizatçı üzrə ödəniş qeydi yaradın
-Row #{0}: Contact {1} does not belong to Customer {2},{0}-cı sətir: {1} əlaqə şəxsi {2} müştərisinə aid deyil
-Row #{0}: Stock is already reserved for the Item {1}.,{0}-cı sətir: {1} malı üzrə ehtiyat artıq rezerv edilib.
-Row {0}: Conversion Factor must be greater than zero.,{0}-cı sətir: çevirmə əmsalı sıfırdan böyük olmalıdır.
+Row #{0}: Contact {1} does not belong to Customer {2},Sətir {0}: {1} əlaqə şəxsi {2} müştərisinə aid deyil
+Row #{0}: Stock is already reserved for the Item {1}.,Sətir {0}: {1} malı üzrə ehtiyat artıq rezerv edilib.
+Row {0}: Conversion Factor must be greater than zero.,Sətir {0}: çevirmə əmsalı sıfırdan böyük olmalıdır.
 Stock Entries already created for Work Order {0}: {1},{0} iş sifarişi üçün anbar əməliyyatları artıq yaradılıb: {1}
 The following Assignment Days have been repeated: {0},Aşağıdakı təyinat günləri təkrarlanıb: {0}
 Timesheet {0} cannot be invoiced in its current state,{0} iş vaxtı tabeli üzrə cari vəziyyətdə hesab-faktura yaradıla bilməz
@@ -14942,7 +14942,7 @@ Item Price cannot be created for the template item {0},{0} şablon malı üçün
 MRP Log documents are being created in the background.,Material tələbatının planlaşdırılması üzrə jurnal sənədləri arxa planda yaradılır.
 New Asset Value is the same as the current asset value,Aktivin yeni dəyəri cari dəyəri ilə eynidir
 Price List {0} cannot be used on a selling transaction,{0} qiymət siyahısı satış əməliyyatında istifadə edilə bilməz
-Row #{0}: Dunning {1} belongs to a different customer.,{0}-cı sətir: {1} ödəniş tələbi başqa müştəriyə aiddir.
+Row #{0}: Dunning {1} belongs to a different customer.,Sətir {0}: {1} ödəniş tələbi başqa müştəriyə aiddir.
 Serial No {0} is already present in the warehouse {1}.,{0} seriya nömrəsi artıq {1} anbarındadır.
 Target Location is required for transferring Asset {0},{0} aktivini köçürmək üçün təyinat məkanı tələb olunur
 This schedule was created when Asset {0} was scrapped.,Bu qrafik {0} aktivi silinərkən yaradılıb.
@@ -14957,8 +14957,8 @@ Embedding provider returned {0} vectors for {1} inputs.,Vektorlaşdırma xidmət
 Index created successfully on column {0} of doctype {1},{1} sənəd növünün {0} sütununda indeks yaradıldı
 Not allowed to update stock transactions older than {0},{0} tarixindən əvvəlki anbar əməliyyatlarını yeniləməyə icazə verilmir
 Please mention the Current and New BOM for replacement.,Əvəzləmə üçün cari və yeni material spesifikasiyalarını göstərin.
-Row #{0}: Dates overlapping with other row in group {1},{0}-cı sətir: tarixlər {1} qrupundakı digər sətirlə üst-üstə düşür
-Row #{0}: Next Due Date cannot be before the Start Date,{0}-cı sətir: növbəti son tarix başlanğıc tarixindən əvvəl ola bilməz
+Row #{0}: Dates overlapping with other row in group {1},Sətir {0}: tarixlər {1} qrupundakı digər sətirlə üst-üstə düşür
+Row #{0}: Next Due Date cannot be before the Start Date,Sətir {0}: növbəti son tarix başlanğıc tarixindən əvvəl ola bilməz
 Select Google Calendar to which event should be synced.,Tədbirin sinxronlaşdırılacağı Google təqvimini seçin.
 Submit Job Card {0} before making its Manufacture entry,İstehsal yazılışını yaratmazdan əvvəl {0} iş kartını təsdiqləyin
 The holiday on {0} is not between From Date and To Date,{0} qeyri-iş günü başlanğıc və bitmə tarixləri aralığında deyil
@@ -14975,7 +14975,7 @@ Method '{0}' must be whitelisted and permit GET requests,“{0}” metodu icazə
 Parent Document Type is required to create a number card,Göstərici kartı yaratmaq üçün üst sənəd növü tələb olunur
 "Please check the value of ""Fetch From"" set for field {0}",{0} sahəsi üçün “Mənbədən gətir” dəyərini yoxlayın
 Returned exchange rate must be a positive finite number.,Qaytarılan məzənnə müsbət və sonlu ədəd olmalıdır.
-"Row #{0}: Select an accessible, submitted Sales Invoice.",{0}-cı sətir: giriş icazəniz olan təsdiqlənmiş satış hesab-fakturasını seçin.
+"Row #{0}: Select an accessible, submitted Sales Invoice.",Sətir {0}: giriş icazəniz olan təsdiqlənmiş satış hesab-fakturasını seçin.
 "Serial No {0} was delivered to Customer {1}, not to {2}.",{0} seriya nömrəsi {1} müştərisinə çatdırılıb. Göstərilən {2} müştərisi yanlışdır.
 The Loyalty Program isn't valid for the selected company,Sədaqət proqramı seçilmiş şirkət üçün etibarlı deyil
 UOM conversion factor required for UOM: {0} in Item: {1},{1} malında {0} ölçü vahidi üçün çevirmə əmsalı tələb olunur
@@ -14988,13 +14988,13 @@ Cannot create Work Orders from a stopped Material Request,Dayandırılmış mate
 Cannot reduce quantity than ordered or purchased quantity,Miqdarı sifariş edilmiş və ya alınmış miqdardan aşağı salmaq olmaz
 Delete this record to allow sending to this email address,Bu e-poçt ünvanına göndərişə icazə vermək üçün bu qeydi silin
 Feedback applies to finished runs only (this run is {0}).,Yalnız tamamlanmış icralara rəy vermək olar (bu icranın vəziyyəti: {0}).
-Item Row {0}: {1} {2} does not exist in above '{1}' table,Malın {0}-cı sətri: {1} {2} yuxarıdakı “{1}” cədvəlində mövcud deyil
+Item Row {0}: {1} {2} does not exist in above '{1}' table,Malın {0} nömrəli sətri: {1} {2} yuxarıdakı “{1}” cədvəlində mövcud deyil
 No outstanding invoices require exchange rate revaluation,Məzənnəyə görə yenidən qiymətləndirilməli ödənilməmiş hesab-faktura yoxdur
 POS Invoices will be consolidated in a background process,POS hesab-fakturaları arxa planda birləşdiriləcək
 Please refresh or reset the Plaid linking of the Bank {}.,{} bankı üçün Plaid bağlantısını yeniləyin və ya sıfırlayın.
 Please set the document name to fetch the Data Source {0},{0} məlumat mənbəyini gətirmək üçün sənədin adını təyin edin
-"Row #{0}: attach the 3D model as a STEP, STL or GLB file.","{0}-cı sətir: 3D modeli STEP, STL və ya GLB faylı kimi əlavə edin."
-Row {0}: Timesheet {1} has no unbilled billable time logs,{0}-cı sətir: {1} tabelində hesab-fakturaya daxil edilməmiş ödənişli vaxt qeydi yoxdur
+"Row #{0}: attach the 3D model as a STEP, STL or GLB file.","Sətir {0}: 3D modeli STEP, STL və ya GLB faylı kimi əlavə edin."
+Row {0}: Timesheet {1} has no unbilled billable time logs,Sətir {0}: {1} tabelində hesab-fakturaya daxil edilməmiş ödənişli vaxt qeydi yoxdur
 Share balances can only be changed through Share Transfer,Səhm qalıqları yalnız səhmlərin ötürülməsi sənədi ilə dəyişdirilə bilər
 The job card {0} is in {1} state and you cannot complete.,{0} iş kartı {1} vəziyyətindədir və tamamlana bilməz.
 Transfer materials for Work Order {0} from its Job Cards.,{0} iş sifarişi üçün materialları onun iş kartlarından köçürün.
@@ -15008,24 +15008,24 @@ Image is too large. Please use an image smaller than 5 MB.,Şəkil çox böyükd
 Only {0} {1} of {2} is pending to request in Job Card {3}.,{3} iş kartında {2} üçün yalnız {0} {1} tələb edilməmiş qalıb.
 Please select Periodic Accounting Entry Difference Account,Dövri mühasibat yazılışları üzrə fərq hesabını seçin
 Relationship provider returned an invalid record reference,Əlaqə xidməti qeydə etibarsız istinad qaytardı
-Row #{0}: Delivery Date {1} cannot be before From Date {2},{0}-cı sətir: {1} çatdırılma tarixi {2} başlanğıc tarixindən əvvəl ola bilməz
-Row #{0}: Stock cannot be reserved in group warehouse {1}.,{0}-cı sətir: {1} qrup anbarında ehtiyat rezerv edilə bilməz.
-Row {0}: {1} {2} cannot be same as {3} (Party Account) {4},{0}-cı sətir: {1} {2} ilə {3} (qarşı tərəfin hesabı) {4} eyni ola bilməz
+Row #{0}: Delivery Date {1} cannot be before From Date {2},Sətir {0}: {1} çatdırılma tarixi {2} başlanğıc tarixindən əvvəl ola bilməz
+Row #{0}: Stock cannot be reserved in group warehouse {1}.,Sətir {0}: {1} qrup anbarında ehtiyat rezerv edilə bilməz.
+Row {0}: {1} {2} cannot be same as {3} (Party Account) {4},Sətir {0}: {1} {2} ilə {3} (qarşı tərəfin hesabı) {4} eyni ola bilməz
 The colour {0} is not one the desk offers and was skipped.,{0} idarəetmə panelinin dəstəklədiyi rənglər arasında olmadığı üçün ötürüldü.
 "This runs in a read-only transaction, so it can not write.",Bu əməliyyat yalnız oxuma rejimində icra olunduğu üçün məlumat yaza bilmir.
 "To merge, following properties must be same for both items",Birləşdirmək üçün aşağıdakı xassələr hər iki malda eyni olmalıdır
 You are not allowed to update attendance for another user.,Başqa istifadəçinin davamiyyətini yeniləməyə icazəniz yoxdur.
 A Packing Slip can only be created for Draft Delivery Note.,Qablaşdırma siyahısı yalnız qaralama çatdırılma qaiməsi üzrə yaradıla bilər.
-Availability slots for {0} cannot overlap: rows {1} and {2},{0} üçün boş vaxt intervalları üst-üstə düşə bilməz: {1} və {2}-ci sətirlər
+Availability slots for {0} cannot overlap: rows {1} and {2},{0} üçün boş vaxt intervalları üst-üstə düşə bilməz: {1} və {2} nömrəli sətirlər
 Cannot set Notification with event {0} on Document Type {1},{1} sənəd növünə {0} hadisəli bildiriş təyin etmək mümkün deyil
 Consumed quantity of item {0} exceeds transferred quantity.,{0} malı üzrə sərf edilmiş miqdar köçürülmüş miqdarı aşır.
 Insurance Start date should be less than Insurance End date,Sığortanın başlanğıc tarixi bitmə tarixindən əvvəl olmalıdır
 No POS Profile found. Please create a New POS Profile first,POS profili tapılmadı. Əvvəlcə yeni POS profili yaradın
 POS Invoices will be unconsolidated in a background process,POS hesab-fakturalarının birləşdirilməsi arxa planda geri alınacaq
 Please add a Temporary Opening account in Chart of Accounts,Hesablar planına müvəqqəti açılış hesabı əlavə edin
-Row #{0}: Stock cannot be reserved for a non-stock Item {1},{0}-cı sətir: anbar uçotuna alınmayan {1} malını rezerv etmək mümkün deyil
-Row {0}: Applicable Charges for Item {1} cannot be positive,{0}-cı sətir: {1} malına tətbiq edilən xərclər müsbət ola bilməz
-Row {0}: Salvage Value Percentage must be between 0 and 100,{0}-cı sətir: ləğvetmə dəyərinin faizi 0 ilə 100 arasında olmalıdır
+Row #{0}: Stock cannot be reserved for a non-stock Item {1},Sətir {0}: anbar uçotuna alınmayan {1} malını rezerv etmək mümkün deyil
+Row {0}: Applicable Charges for Item {1} cannot be positive,Sətir {0}: {1} malına tətbiq edilən xərclər müsbət ola bilməz
+Row {0}: Salvage Value Percentage must be between 0 and 100,Sətir {0}: ləğvetmə dəyərinin faizi 0 ilə 100 arasında olmalıdır
 Standard list layout {0} already exists with a similar name,Oxşar adda {0} standart siyahı tərtibatı artıq mövcuddur
 To cancel a {} you need to cancel the POS Closing Entry {}.,{} sənədini ləğv etmək üçün {} POS növbəsinin bağlanış qeydini ləğv edin.
 You need the Workspace Manager role to edit this workspace.,Bu iş sahəsini redaktə etmək üçün iş sahəsi meneceri rolu tələb olunur.
@@ -15053,7 +15053,7 @@ Options for {0} must be set before setting the default value.,Standart dəyərd�
 Please delete the field from {0} or add the required doctype.,Sahəni {0} sənədindən silin və ya tələb olunan sənəd növünü əlavə edin.
 Please specify at least one attribute in the Attributes table,Atributlar cədvəlində ən azı bir atribut göstərin
 Quantity to Manufacture can not be zero for the operation {0},{0} əməliyyatı üzrə istehsal ediləcək miqdar sıfır ola bilməz
-"Row #{0}: Item {1} must be taken from {2}, where {3} sent it.",{0}-cı sətir: {1} malını {3} tərəfindən göndərildiyi {2} mənbəyindən götürmək lazımdır.
+"Row #{0}: Item {1} must be taken from {2}, where {3} sent it.",Sətir {0}: {1} malını {3} tərəfindən göndərildiyi {2} mənbəyindən götürmək lazımdır.
 Sales Forecast {0} already has Master Production Schedule {1},{0} satış proqnozu üçün {1} əsas istehsal qrafiki artıq mövcuddur
 Serial and Batch Bundle not set for item {0} in warehouse {1},{1} anbarındakı {0} malı üçün seriya və partiya dəsti təyin edilməyib
 The field {0} in {1} does not allow ignoring user permissions,{1} daxilində {0} sahəsi istifadəçi icazələrinin nəzərə alınmamasına imkan vermir
@@ -15070,8 +15070,8 @@ Duplicate entry against the item code {0} and manufacturer {1},{0} mal kodu və 
 No available quantity to reserve for item {0} in warehouse {1},{1} anbarında {0} malı üzrə rezerv edilə biləcək miqdar yoxdur
 Permission Type '{0}' is reserved. Please choose another name.,“{0}” icazə növü sistem üçün ayrılıb. Başqa ad seçin.
 Please set default Cash or Bank account in Mode of Payment {0},{0} ödəniş üsulunda standart kassa və ya bank hesabını təyin edin
-Row #{0}: Finished Good Item {1} must be a sub-contracted item,{0}-cı sətir: {1} hazır məhsulu subpodrat malı olmalıdır
-Row {0}: level {1} does not follow the level of the row above.,{0}-cı sətir: {1} səviyyəsi əvvəlki sətrin səviyyəsinə uyğun gəlmir.
+Row #{0}: Finished Good Item {1} must be a sub-contracted item,Sətir {0}: {1} hazır məhsulu subpodrat malı olmalıdır
+Row {0}: level {1} does not follow the level of the row above.,Sətir {0}: {1} səviyyəsi əvvəlki sətrin səviyyəsinə uyğun gəlmir.
 Start Time can't be greater than or equal to End Time for {0}.,{0} üçün başlanğıc vaxtı bitmə vaxtından əvvəl olmalıdır.
 The uploaded file does not appear to be in valid MT940 format.,Yüklənmiş fayl etibarlı MT940 formatında görünmür.
 You are not permitted to access this resource. Login to access,Bu resursa giriş icazəniz yoxdur. Giriş üçün hesabınıza daxil olun
@@ -15087,7 +15087,7 @@ Enable developer mode to create a standard Print Format Snippet,Standart çap fo
 Item {0} is missing from this disassembly. Get the items again.,Bu sökülmə əməliyyatında {0} malı yoxdur. Malları yenidən gətirin.
 Please contact any of the following users for this transaction.,Bu əməliyyat üçün aşağıdakı istifadəçilərdən birinə müraciət edin.
 Purchase Invoice without any outstanding amount cannot be held.,Ödənilməmiş məbləği olmayan alış hesab-fakturasını gözlətmək olmaz.
-"Row #{0}: Item {1} in warehouse {2}: Available {3}, Needed {4}.","{0}-cı sətir: {2} anbarında {1} malından {3} mövcuddur, {4} tələb olunur."
+"Row #{0}: Item {1} in warehouse {2}: Available {3}, Needed {4}.","Sətir {0}: {2} anbarında {1} malından {3} mövcuddur, {4} tələb olunur."
 The job card {0} is in {1} state and you cannot start it again.,{0} iş kartı {1} vəziyyətindədir və yenidən başladıla bilməz.
 User {0}: Removed Employee role as there is no mapped employee.,{0} istifadəçisi: əlaqəli işçi olmadığı üçün “İşçi” rolu silindi.
 You have not performed any reconciliations in this session yet.,Bu sessiyada hələ heç bir üzləşdirmə aparmamısınız.
@@ -15097,8 +15097,8 @@ Cannot update items of Supplier Quotation {0} because it is {1}.,{0} təchizatç
 Dunning Letter for Dunning Type {0} in language '{1}' not found.,{0} növü üçün “{1}” dilində ödəniş tələbi məktubu tapılmadı.
 Invalid amount in accounting entries of {} {} for Account {}: {},{} {} sənədinin mühasibat yazılışlarında {} hesabı üzrə məbləğ yanlışdır: {}
 Please select Subcontracting Order instead of Purchase Order {0},{0} satınalma sifarişinin yerinə subpodrat sifarişini seçin
-Row #{0}: Cannot allocate more than {1} against payment term {2},{0}-cı sətir: {2} ödəniş şərti üzrə {1} dəyərindən çox bölüşdürmək olmaz
-Row #{idx}: {schedule_date} cannot be before {transaction_date}.,{idx}-ci sətir: {schedule_date} tarixi {transaction_date} tarixindən əvvəl ola bilməz.
+Row #{0}: Cannot allocate more than {1} against payment term {2},Sətir {0}: {2} ödəniş şərti üzrə {1} dəyərindən çox bölüşdürmək olmaz
+Row #{idx}: {schedule_date} cannot be before {transaction_date}.,Sətir {idx}: {schedule_date} tarixi {transaction_date} tarixindən əvvəl ola bilməz.
 Select a submitted Maintenance Schedule for the scheduled visits,Planlaşdırılmış səfərlər üçün təsdiqlənmiş texniki xidmət qrafikini seçin
 The Process Loss Qty has reset as per job cards Process Loss Qty,Texnoloji itki miqdarı iş kartlarındakı texnoloji itkilərə uyğun yeniləndi
 Valuation rate for customer provided items has been set to zero.,Müştərinin verdiyi malların uçot qiyməti sıfır təyin edilib.
@@ -15109,20 +15109,20 @@ Failed to setup defaults for country {0}. Please contact support.,{0} ölkəsi �
 "Only a submitted Purchase Order can be held, closed or re-opened.","Yalnız təsdiqlənmiş satınalma sifarişi gözlədilə, bağlana və ya yenidən açıla bilər."
 Please set a default Holiday List for Employee {0} or Company {1},{0} işçisi və ya {1} şirkəti üçün standart qeyri-iş günləri siyahısı təyin edin
 Reference No and Reference Date is mandatory for Bank transaction,Bank əməliyyatı üçün istinad nömrəsi və tarixi məcburidir
-Row #{0}: Stock quantity {1} ({2}) for item {3} cannot exceed {4},"{0}-cı sətir: {3} malı üzrə anbar miqdarı {1} ({2}), {4} dəyərindən çox ola bilməz"
-Row {0}: Item {1} is not the Finished Good of Purchase Order {2}.,{0}-cı sətir: {1} malı {2} satınalma sifarişinin hazır məhsulu deyil.
+Row #{0}: Stock quantity {1} ({2}) for item {3} cannot exceed {4},"Sətir {0}: {3} malı üzrə anbar miqdarı {1} ({2}), {4} dəyərindən çox ola bilməz"
+Row {0}: Item {1} is not the Finished Good of Purchase Order {2}.,Sətir {0}: {1} malı {2} satınalma sifarişinin hazır məhsulu deyil.
 Rule matched based on transaction description and other criteria.,Qayda əməliyyatın təsviri və digər meyarlara əsasən uyğun gəldi.
 Stock cannot be updated against the following Delivery Notes: {0},Bu çatdırılma qaimələri üzrə anbar qalığını yeniləmək mümkün deyil: {0}
 The reset password link has either been used before or is invalid,Parolun sıfırlanması bağlantısı artıq istifadə edilib və ya etibarsızdır
 Verification code has been sent to your registered email address.,Təsdiq kodu qeydiyyatdakı e-poçt ünvanınıza göndərildi.
 Zip file extracts to more than the maximum allowed size of {0} MB,ZIP arxivi açıldıqda ölçüsü icazəli {0} MB həddini aşır
 A Reverse Journal Entry {0} already exists for this Journal Entry.,Bu mühasibat yazılışı üçün {0} əks yazılışı artıq mövcuddur.
-Conversion factor for default Unit of Measure must be 1 in row {0},{0}-cı sətirdə standart ölçü vahidinin çevirmə əmsalı 1 olmalıdır
+Conversion factor for default Unit of Measure must be 1 in row {0},{0} nömrəli sətirdə standart ölçü vahidinin çevirmə əmsalı 1 olmalıdır
 For the 'Apply Rule On Other' condition the field {0} is mandatory,“Qaydanı digərinə tətbiq et” şərti üçün {0} sahəsi məcburidir
 "Only one step can be the Last Step, but it is ticked on steps {0}.",Yalnız bir addım sonuncu ola bilər. Bu seçim {0} addımlarında işarələnib.
 "Please select at least one filter: Item Code, Batch, or Serial No.","Ən azı bir filtr seçin: mal kodu, partiya və ya seriya nömrəsi."
-Row #{0}: A Product Bundle cannot contain its own parent Item {1}.,{0}-cı sətir: məhsul dəstinin tərkibində onun öz {1} üst malı ola bilməz.
-Row {0}: Not allowed to enable Allow on Submit for standard fields,{0}-cı sətir: standart sahələr üçün təsdiqdən sonra redaktə seçimi aktiv edilə bilməz
+Row #{0}: A Product Bundle cannot contain its own parent Item {1}.,Sətir {0}: məhsul dəstinin tərkibində onun öz {1} üst malı ola bilməz.
+Row {0}: Not allowed to enable Allow on Submit for standard fields,Sətir {0}: standart sahələr üçün təsdiqdən sonra redaktə seçimi aktiv edilə bilməz
 Status set to rejected as there are one or more rejected readings.,Bir və ya bir neçə ölçmə qəbul edilmədiyi üçün vəziyyət “Rədd edilib” olaraq təyin edildi.
 "This format uses a Typst block, so its PDF Renderer must be Typst.",Bu format Typst bloku istifadə etdiyi üçün PDF render vasitəsi də Typst olmalıdır.
 you must select Capital Work in Progress Account in accounts table,Hesablar cədvəlində başa çatmamış kapital qoyuluşları hesabını seçməlisiniz
@@ -15132,9 +15132,9 @@ Cannot create Material Request for item {0} in group warehouse {1}.,{1} qrup anb
 "Failed to erase demo data, please delete the demo company manually.",Nümayiş məlumatlarını silmək mümkün olmadı. Nümayiş şirkətini əl ilə silin.
 Only an Asset Repair with Repair Status Completed can be submitted.,Yalnız təmiri tamamlanmış aktivin təmir qeydi təsdiqlənə bilər.
 Please create purchase receipt or purchase invoice for the item {0},{0} malı üçün mal qəbulu sənədi və ya alış hesab-fakturası yaradın
-Row #{0}: Accepted Warehouse is mandatory for the accepted Item {1},{0}-cı sətir: qəbul edilmiş {1} malı üçün qəbul anbarı məcburidir
-Row #{0}: Quality Inspection {1} is not submitted for the item: {2},{0}-cı sətir: {2} malı üzrə {1} keyfiyyət yoxlaması təsdiqlənməyib
-Row #{idx}: {field_label} can not be negative for item {item_code}.,{idx}-ci sətir: {item_code} malı üçün {field_label} mənfi ola bilməz.
+Row #{0}: Accepted Warehouse is mandatory for the accepted Item {1},Sətir {0}: qəbul edilmiş {1} malı üçün qəbul anbarı məcburidir
+Row #{0}: Quality Inspection {1} is not submitted for the item: {2},Sətir {0}: {2} malı üzrə {1} keyfiyyət yoxlaması təsdiqlənməyib
+Row #{idx}: {field_label} can not be negative for item {item_code}.,Sətir {idx}: {item_code} malı üçün {field_label} mənfi ola bilməz.
 "Server Scripts are disabled on this bench, so code cannot run here.",Bu bench mühitində server skriptləri söndürüldüyü üçün burada kod icra edilə bilməz.
 The default value for the Check field {0} must be either '0' or '1',{0} işarələmə sahəsinin standart dəyəri “0” və ya “1” olmalıdır
 User {0} is disabled. Only a user who can edit Users can enable it.,{0} istifadəçisi deaktivdir. Onu yalnız istifadəçiləri redaktə edə bilən şəxs aktivləşdirə bilər.
@@ -15145,7 +15145,7 @@ Cost Center with existing transactions can not be converted to group,Əməliyyat
 Enter the name of the bank or lending institution before submitting.,Təsdiqləməzdən əvvəl bankın və ya kredit təşkilatının adını daxil edin.
 "Google Calendar - Could not create Calendar for {0}, error code {1}.",Google Təqvim: {0} üçün təqvim yaradılmadı. Xəta kodu: {1}.
 "Only a submitted Sales Order can be put On Hold, Closed or re-opened","Yalnız təsdiqlənmiş satış sifarişi gözlədilə, bağlana və ya yenidən açıla bilər"
-Row #{0}: Dunning charges require a Receive payment from a Customer.,{0}-cı sətir: ödəniş tələbi üzrə haqlar üçün müştəridən daxil olan ödəniş tələb olunur.
+Row #{0}: Dunning charges require a Receive payment from a Customer.,Sətir {0}: ödəniş tələbi üzrə haqlar üçün müştəridən daxil olan ödəniş tələb olunur.
 Row #{}: {} {} doesn't belong to Company {}. Please select valid {}.,{}-ci sətir: {} {} bu şirkətə aid deyil: {}. Düzgün {} seçin.
 Standard DocType Settings Map can only be changed in Developer Mode.,Sənəd növünün standart parametrlər uyğunluğu yalnız tərtibatçı rejimində dəyişdirilə bilər.
 This file is attached to a protected document and cannot be deleted.,Bu fayl qorunan sənədə əlavə edilib və silinə bilməz.
@@ -15159,8 +15159,8 @@ For Item {0} cannot be received more than {1} qty against the {2} {3},{2} {3} ü
 Need Workspace Manager role to edit private workspace of other users.,Başqa istifadəçilərin şəxsi iş sahəsini redaktə etmək üçün iş sahəsi meneceri rolu tələb olunur.
 Party Type and Party is required for Receivable / Payable account {0},{0} debitor/kreditor hesabı üçün qarşı tərəfin növü və adı tələb olunur
 Project {0} is only {1} complete. Complete or cancel its tasks first.,{0} layihəsi cəmi {1} tamamlanıb. Əvvəlcə tapşırıqlarını tamamlayın və ya ləğv edin.
-Row #{0}: Cannot delete item {1} which has work order assigned to it.,{0}-cı sətir: iş sifarişi təyin edilmiş {1} malını silmək mümkün deyil.
-Row {0}: A target already exists for this fiscal year and item group.,{0}-cı sətir: bu maliyyə ili və mal qrupu üzrə hədəf artıq mövcuddur.
+Row #{0}: Cannot delete item {1} which has work order assigned to it.,Sətir {0}: iş sifarişi təyin edilmiş {1} malını silmək mümkün deyil.
+Row {0}: A target already exists for this fiscal year and item group.,Sətir {0}: bu maliyyə ili və mal qrupu üzrə hədəf artıq mövcuddur.
 "Standard DocType cannot have default print format, use Customize Form",Standart sənəd növündə standart çap formatı birbaşa təyin edilmir. “Formanı fərdiləşdir” bölməsindən istifadə edin
 This verification link is invalid. Please book the appointment again.,Bu təsdiq bağlantısı etibarsızdır. Görüş üçün yenidən vaxt seçin.
 `doctype` and `fieldname` are required for deleting property setters.,Xassə tənzimləyicilərini silmək üçün `doctype` və `fieldname` tələb olunur.
@@ -15169,14 +15169,14 @@ Company cannot be changed for Warehouse {0} as it has child warehouses,Alt anbar
 Mapping must be a dictionary of raw material entries to finished goods,Uyğunluq xammal qeydləri ilə hazır məhsullar arasındakı əlaqələri göstərən lüğət olmalıdır
 Please contact your administrator to extend the credit limits for {0}.,{0} üçün kredit limitlərinin artırılması ilə bağlı administratorunuza müraciət edin.
 "Renaming it is only allowed via parent company {0}, to avoid mismatch.",Uyğunsuzluq yaranmasın deyə adı yalnız {0} üst şirkəti vasitəsilə dəyişmək olar.
-Row #{0}: Finished Good reference is mandatory for Secondary Item {1}.,{0}-cı sətir: {1} ikinci dərəcəli məhsulu üçün hazır məhsula istinad məcburidir.
-Row #{0}: Withholding Amount {1} does not match calculated amount {2}.,{0}-cı sətir: {1} tutulma məbləği hesablanmış {2} məbləğinə uyğun gəlmir.
-Row {0}: Total packed qty cannot be greater than {1} for the Item {2}.,{0}-cı sətir: {2} malı üçün ümumi qablaşdırılan miqdar {1} dəyərindən çox ola bilməz.
+Row #{0}: Finished Good reference is mandatory for Secondary Item {1}.,Sətir {0}: {1} ikinci dərəcəli məhsulu üçün hazır məhsula istinad məcburidir.
+Row #{0}: Withholding Amount {1} does not match calculated amount {2}.,Sətir {0}: {1} tutulma məbləği hesablanmış {2} məbləğinə uyğun gəlmir.
+Row {0}: Total packed qty cannot be greater than {1} for the Item {2}.,Sətir {0}: {2} malı üçün ümumi qablaşdırılan miqdar {1} dəyərindən çox ola bilməz.
 The block {0} points at a {1} this version of the app no longer ships.,{0} bloku tətbiqin bu versiyasında artıq təqdim edilməyən {1} elementinə istinad edir.
 You do not have permission to create or restore documents of type {0}.,{0} növlü sənədləri yaratmaq və ya bərpa etmək icazəniz yoxdur.
 {{{0}}} is not a valid fieldname pattern. It should be {{field_name}}.,{{{0}}} etibarlı sahə adı nümunəsi deyil. Düzgün forma: {{field_name}}.
 "Any one of following filters required: warehouse, Item Code, Item Group","Ən azı bir filtr tələb olunur: anbar, mal kodu və ya mal qrupu"
-Document Links Row #{0}: Parent DocType is mandatory for internal links,Sənəd bağlantılarının {0}-cı sətri: daxili bağlantılar üçün üst sənəd növü məcburidir
+Document Links Row #{0}: Parent DocType is mandatory for internal links,Sənəd bağlantılarının {0} nömrəli sətri: daxili bağlantılar üçün üst sənəd növü məcburidir
 "Page titles ""{0}"" and ""{1}"" both become ""{2}"". Rename one of the pages.",“{0}” və “{1}” səhifə başlıqlarının hər ikisi “{2}” olur. Səhifələrdən birinin adını dəyişin.
 Please select Maintenance Status as Completed or remove Completion Date,Texniki xidmətin vəziyyətini “Tamamlanıb” seçin və ya tamamlanma tarixini silin
 Purchase Receipt {0} is already made against Subcontracting Receipt {1},{1} subpodrat qəbulu sənədi əsasında {0} mal qəbulu sənədi artıq yaradılıb
@@ -15185,21 +15185,21 @@ You are not permitted to add or remove Company {0} in Allowed Companies,İcazəl
 {0} has changed since you opened it. Refresh to get the latest version.,{0} siz açdıqdan sonra dəyişdirilib. Son versiyanı görmək üçün səhifəni yeniləyin.
 {0}: Options {1} must be the same as doctype name {2} for the field {3},{0}: {3} sahəsi üçün {1} seçimləri {2} sənəd növünün adı ilə eyni olmalıdır
 Asset Depreciation Schedule not found for Asset {0} and Finance Book {1},{0} aktivi və {1} uçot kitabı üzrə amortizasiya qrafiki tapılmadı
-Document Links Row #{0}: Table Fieldname is mandatory for internal links,Sənəd bağlantılarının {0}-cı sətri: daxili bağlantılar üçün cədvəl sahəsinin adı məcburidir
+Document Links Row #{0}: Table Fieldname is mandatory for internal links,Sənəd bağlantılarının {0} nömrəli sətri: daxili bağlantılar üçün cədvəl sahəsinin adı məcburidir
 Item Search Index needs SQLite {0} or later. This server has SQLite {1}.,Mal axtarış indeksi üçün SQLite {0} və ya daha yeni versiya tələb olunur. Bu serverdə SQLite {1} var.
 Not in Developer Mode! Set in site_config.json or make 'Custom' DocType.,Tərtibatçı rejimi aktiv deyil. Onu site_config.json faylında təyin edin və ya fərdi sənəd növü yaradın.
 POS Opening Entry cannot be cancelled as unconsolidated Invoices exists.,Birləşdirilməmiş hesab-fakturalar olduğuna görə POS növbəsinin açılış qeydi ləğv edilə bilməz.
 Please check Multi Currency option to allow accounts with other currency,Başqa valyutalı hesablara icazə vermək üçün çoxvalyutalı uçotu aktivləşdirin
-Row #{0}: Next Depreciation Date cannot be before Available-for-use Date,{0}-cı sətir: növbəti amortizasiya tarixi istifadəyə hazırlıq tarixindən əvvəl ola bilməz
-Row #{0}: Work Order exists against full or partial quantity of Item {1},{0}-cı sətir: {1} malının tam və ya qismən miqdarı üzrə iş sifarişi artıq mövcuddur
+Row #{0}: Next Depreciation Date cannot be before Available-for-use Date,Sətir {0}: növbəti amortizasiya tarixi istifadəyə hazırlıq tarixindən əvvəl ola bilməz
+Row #{0}: Work Order exists against full or partial quantity of Item {1},Sətir {0}: {1} malının tam və ya qismən miqdarı üzrə iş sifarişi artıq mövcuddur
 Some of its serial nos or batches should be short of stock on this date.,Bu tarixdə onun bəzi seriya nömrələri və ya partiyaları üzrə ehtiyat çatışmazlığı olmalıdır.
 "You can only upload JPG, PNG, GIF, PDF, TXT, CSV or Microsoft documents.","Yalnız JPG, PNG, GIF, PDF, TXT, CSV və Microsoft sənədlərini yükləyə bilərsiniz."
-{0}: Field {1} in row {2} cannot be hidden and mandatory without default,"{0}: {2}-ci sətirdə {1} sahəsi standart dəyər olmadan həm gizli, həm də məcburi ola bilməz"
+{0}: Field {1} in row {2} cannot be hidden and mandatory without default,"{0}: {2} nömrəli sətirdə {1} sahəsi standart dəyər olmadan həm gizli, həm də məcburi ola bilməz"
 Commit or roll back the open transaction before starting a read-only one.,Yalnız oxuma əməliyyatına başlamazdan əvvəl açıq əməliyyatı təsdiqləyin və ya geri alın.
 "Leads help you get business, add all your contacts and more as your leads",Potensial müştərilər yeni sifarişlər əldə etməyə kömək edir. Əlaqə şəxslərinizi və digər namizədləri əlavə edin
 Please click on 'Generate Schedule' to fetch Serial No added for Item {0},{0} malına əlavə edilmiş seriya nömrəsini gətirmək üçün “Qrafik yarat” düyməsinə klikləyin
 Reassign the maintenance tasks of {0} before removing them from the team.,{0} komanda üzvünü qrupdan çıxarmazdan əvvəl onun texniki xidmət tapşırıqlarını başqasına təyin edin.
-Row {0}: Voucher is not eligible for clearance with the selected filters.,{0}-cı sətir: seçilmiş filtrlərlə bu sənədə təsdiq tarixi qoyula bilməz.
+Row {0}: Voucher is not eligible for clearance with the selected filters.,Sətir {0}: seçilmiş filtrlərlə bu sənədə təsdiq tarixi qoyula bilməz.
 The {0} agent is missing. Create a Flow Model first to auto-provision it.,{0} agenti yoxdur. Onu avtomatik yaratmaq üçün əvvəlcə proses modeli yaradın.
 To cancel this Sales Invoice you need to cancel the POS Closing Entry {}.,Bu satış hesab-fakturasını ləğv etmək üçün {} POS növbəsinin bağlanış qeydini ləğv edin.
 You need the Workspace Manager role to create a workspace others can see.,Başqalarının görə biləcəyi iş sahəsini yaratmaq üçün iş sahəsi meneceri rolu tələb olunur.
@@ -15207,7 +15207,7 @@ You need the Workspace Manager role to create a workspace others can see.,Başqa
 Cost Center {0} is a group cost center and cannot be used in an allocation,{0} qrup xərc mərkəzidir və bölgüdə istifadə edilə bilməz
 "If you {0} {1} worth item {2}, the scheme {3} will be applied on the item.",{2} malı üzrə {0} {1} dəyərində əməliyyat etdikdə mala {3} təşviqat proqramı tətbiq ediləcək.
 Payment Entry has been modified after you pulled it. Please pull it again.,Ödəniş qeydi onu gətirdiyinizdən sonra dəyişib. Yenidən gətirin.
-Row {0}: Workstation or Workstation Type is mandatory for an operation {1},{0}-cı sətir: {1} əməliyyatı üçün iş stansiyası və ya stansiya növü məcburidir
+Row {0}: Workstation or Workstation Type is mandatory for an operation {1},Sətir {0}: {1} əməliyyatı üçün iş stansiyası və ya stansiya növü məcburidir
 The bank account is not a company account. Please select a company account,Bu bank hesabı şirkət hesabı deyil. Şirkət hesabı seçin
 User {0} does not have doctype access via role permission for document {1},{0} istifadəçisinin rol icazələri {1} sənədinin növünə giriş vermir
 Assets not created for {item_code}. You will have to create asset manually.,{item_code} üzrə aktivlər yaradılmadı. Aktivi əl ilə yaratmalısınız.
@@ -15215,15 +15215,15 @@ Assets not created for {item_code}. You will have to create asset manually.,{ite
 "Fiscal Regime is mandatory, kindly set the fiscal regime in the company {0}",Vergi rejimi məcburidir. {0} şirkətində vergi rejimini təyin edin
 Packing Slip cannot be cancelled as Delivery Note {0} is already submitted.,{0} çatdırılma qaiməsi artıq təsdiqləndiyi üçün qablaşdırma siyahısı ləğv edilə bilməz.
 Purchase Orders are not allowed for {0} due to a scorecard standing of {1}.,{0} təchizatçısının qiymətləndirmə dərəcəsi {1} olduğu üçün satınalma sifarişinə icazə verilmir.
-Row #{0}: Process Loss Percentage should be less than 100% for {1} Item {2},{0}-cı sətir: {1} üzrə {2} malının texnoloji itki faizi 100%-dən az olmalıdır
+Row #{0}: Process Loss Percentage should be less than 100% for {1} Item {2},Sətir {0}: {1} üzrə {2} malının texnoloji itki faizi 100%-dən az olmalıdır
 "Server Scripts are disabled, so this tool won't run until they are enabled.",Server skriptləri söndürülüb. Bu alət yalnız onlar aktivləşdirildikdən sonra işləyəcək.
 The cost of the secondary items cannot exceed the raw material cost of {0}.,İkinci dərəcəli məhsulların maya dəyəri {0} xammalının dəyərindən çox ola bilməz.
 "To use a different finance book, please uncheck 'Include Default FB Assets'",Başqa uçot kitabı istifadə etmək üçün “Standart uçot kitabındakı aktivləri daxil et” seçimini söndürün
 {0} qty of Item {1} is being received into Warehouse {2} with capacity {3}.,{3} tutumlu {2} anbarına {1} malından {0} miqdarında qəbul edilir.
 Can not close Work Order. Since {0} Job Cards are in Work In Progress state.,{0} iş kartı icrada olduğuna görə iş sifarişini bağlamaq mümkün deyil.
 Item {0} is not part of the BOM {1} and cannot be added to this disassembly.,{0} malı {1} material spesifikasiyasına daxil olmadığı üçün bu sökülmə əməliyyatına əlavə edilə bilməz.
-Row #{0}: Opening Accumulated Depreciation must be less than or equal to {1},{0}-cı sətir: ilkin yığılmış amortizasiya {1} dəyərindən çox ola bilməz
-Row {0}: Transferred quantity cannot be greater than the requested quantity.,{0}-cı sətir: köçürülmüş miqdar tələb olunan miqdardan çox ola bilməz.
+Row #{0}: Opening Accumulated Depreciation must be less than or equal to {1},Sətir {0}: ilkin yığılmış amortizasiya {1} dəyərindən çox ola bilməz
+Row {0}: Transferred quantity cannot be greater than the requested quantity.,Sətir {0}: köçürülmüş miqdar tələb olunan miqdardan çox ola bilməz.
 The process for deletion of {0} data associated with {1} has been initiated.,{1} ilə əlaqəli {0} məlumatlarının silinməsinə başlanıb.
 "To select more than one transaction at a time, press and hold the shift key.",Bir neçə əməliyyatı eyni vaxtda seçmək üçün Shift düyməsini basıb saxlayın.
 You can only upload upto 5000 records in one go. (may be less in some cases),Bir dəfəyə ən çox 5000 qeyd yükləyə bilərsiniz. Bəzi hallarda hədd daha aşağı ola bilər.
@@ -15232,14 +15232,14 @@ Cannot change {0} for company {1} since it has active assets in this category,{1
 Documents: {0} have deferred revenue/expense enabled for them. Cannot repost.,{0} sənədlərində gələcək dövrlərin gəlir/xərc uçotu aktivdir. Yazılışları yenidən işləmək mümkün deyil.
 Module {0} is now shipped by {1}; this site's module of that name is now {2}.,{0} modulu artıq {1} ilə paylanır. Bu saytda həmin adlı modulun yeni adı {2} oldu.
 Parent Task {0} is not in Project {1}. Pick a group task of the same project.,{0} üst tapşırığı {1} layihəsinə daxil deyil. Eyni layihədən qrup tapşırığı seçin.
-Row #{0}: Installation can only be recorded against a submitted Delivery Note,{0}-cı sətir: quraşdırma yalnız təsdiqlənmiş çatdırılma qaiməsi üzrə qeydə alına bilər
+Row #{0}: Installation can only be recorded against a submitted Delivery Note,Sətir {0}: quraşdırma yalnız təsdiqlənmiş çatdırılma qaiməsi üzrə qeydə alına bilər
 Serial No status sync has been queued. Reload the report after a few minutes.,Seriya nömrələrinin vəziyyətlərinin sinxronlaşdırılması növbəyə alındı. Bir neçə dəqiqə sonra hesabatı yeniləyin.
 WeasyPrint cannot render this format: {0}. Switch the PDF Renderer to Chrome.,WeasyPrint bu formatı göstərə bilmir: {0}. PDF render vasitəsini Chrome-a dəyişin.
 Accounting Dimension <b>{0}</b> is required for 'Profit and Loss' account {1}.,{1} mənfəət və zərər hesabı üçün <b>{0}</b> uçot ölçüsü tələb olunur.
 Duplicate vouchers found. Remove the duplicate vouchers to continue to repost.,Təkrar sənədlər tapıldı. Yenidən işlənməyə davam etmək üçün onları silin.
 Raw material {0} is already mapped and can't be changed after {1} is submitted,{0} xammalı artıq uyğunlaşdırılıb. {1} təsdiqləndikdən sonra onu dəyişdirmək olmaz
-Row #{0}: select the serial and batch numbers for the new quantity of Item {1},{0}-cı sətir: {1} malının yeni miqdarı üçün seriya və partiya nömrələrini seçin
-Row {0}: Party Type and Party is required for Receivable / Payable account {1},{0}-cı sətir: {1} debitor/kreditor hesabı üçün qarşı tərəfin növü və adı tələb olunur
+Row #{0}: select the serial and batch numbers for the new quantity of Item {1},Sətir {0}: {1} malının yeni miqdarı üçün seriya və partiya nömrələrini seçin
+Row {0}: Party Type and Party is required for Receivable / Payable account {1},Sətir {0}: {1} debitor/kreditor hesabı üçün qarşı tərəfin növü və adı tələb olunur
 "The GL Entries will be cancelled in the background, it can take a few minutes.","Baş kitab yazılışları arxa planda ləğv ediləcək. Bu, bir neçə dəqiqə çəkə bilər."
 This is the last row. It will be auto populated based on the bank transaction.,"Bu, son sətirdir. Bank əməliyyatı əsasında avtomatik doldurulacaq."
 {0} Budget for Account {1} against {2} {3} is {4}. It will be exceeded by {5}.,{1} hesabının {2} {3} üzrə {0} büdcəsi {4} təşkil edir. Büdcə {5} qədər aşılacaq.
@@ -15247,9 +15247,9 @@ A row in {0} was removed because its design part is not in the new design file.,
 For operation {0}: Quantity ({1}) can not be greater than pending quantity({2}),{0} əməliyyatı üzrə miqdar ({1}) gözləyən miqdardan ({2}) çox ola bilməz
 "Invalid argument type: {0}. Only strings, numbers, dicts, and None are allowed.","Arqumentin növü etibarsızdır: {0}. Yalnız mətn, ədəd, lüğət və None qəbul edilir."
 No availability of slots are found. Please add on Appointment Booking Settings.,Boş vaxt intervalı tapılmadı. Görüşün bron edilməsi parametrlərində interval əlavə edin.
-"Row {0}: Account {1} must be a ledger account of type Bank, Cash or Receivable.","{0}-cı sətir: {1} ayrıca bank, kassa və ya debitor hesabı olmalıdır."
+"Row {0}: Account {1} must be a ledger account of type Bank, Cash or Receivable.","Sətir {0}: {1} ayrıca bank, kassa və ya debitor hesabı olmalıdır."
 "Successfully changed Stock UOM, please redefine conversion factors for new UOM.",Anbar ölçü vahidi dəyişdirildi. Yeni ölçü vahidi üçün çevirmə əmsallarını yenidən təyin edin.
-"To include tax in row {0} in Item rate, taxes in rows {1} must also be included",{0}-cı sətrin vergisini malın qiymətinə daxil etmək üçün {1} sətirlərinin vergiləri də daxil edilməlidir
+"To include tax in row {0} in Item rate, taxes in rows {1} must also be included",{0} nömrəli sətrin vergisini malın qiymətinə daxil etmək üçün {1} sətirlərinin vergiləri də daxil edilməlidir
 {0} is mandatory. Maybe Currency Exchange record is not created for {1} to {2}.,{0} məcburidir. {1} valyutasından {2} valyutasına məzənnə qeydi yaradılmamış ola bilər.
 {0}: an operation output can be used only when each operation produces an item.,{0}: əməliyyatın çıxış məhsulu yalnız hər əməliyyat ayrıca məhsul istehsal etdikdə istifadə edilə bilər.
 "'Inspection Required before Purchase' has disabled for the item {0}, no need to create the QI",{0} malında satınalmadan əvvəl yoxlama tələbi söndürülüb. Keyfiyyət yoxlaması yaratmağa ehtiyac yoxdur
@@ -15265,8 +15265,8 @@ Annual Budget for Account {0} against {1} {2} is {3}. It will be collectively ({
 Appointment Scheduling needs to be enabled for Appointment Booking through portal.,Portal vasitəsilə görüş sifariş etmək üçün görüşlərin planlaşdırılması aktivləşdirilməlidir.
 "As there are sufficient raw materials, Material Request is not required for Warehouse {0}.",Kifayət qədər xammal olduğuna görə {0} anbarı üçün material tələbi lazım deyil.
 Asset Value Adjustment cannot be posted before Asset's purchase date <b>{0}</b>.,Aktivin dəyərinə düzəliş onun <b>{0}</b> alış tarixindən əvvələ işlənə bilməz.
-At Row #{0}: The picked quantity {1} for the item {2} is greater than available stock {3} for the batch {4} in the warehouse {5}. Please restock the item.,{0}-cı sətir: {2} malının yığılmış {1} miqdarı {5} anbarında {4} partiyası üzrə mövcud {3} qalığından çoxdur. Malın ehtiyatını artırın.
-At row #{0}: the sequence id {1} cannot be less than previous row sequence id {2},{0}-cı sətir: {1} ardıcıllıq identifikatoru əvvəlki sətrin {2} identifikatorundan az ola bilməz
+At Row #{0}: The picked quantity {1} for the item {2} is greater than available stock {3} for the batch {4} in the warehouse {5}. Please restock the item.,Sətir {0}: {2} malının yığılmış {1} miqdarı {5} anbarında {4} partiyası üzrə mövcud {3} qalığından çoxdur. Malın ehtiyatını artırın.
+At row #{0}: the sequence id {1} cannot be less than previous row sequence id {2},Sətir {0}: {1} ardıcıllıq identifikatoru əvvəlki sətrin {2} identifikatorundan az ola bilməz
 "BOM {0} is the BOM of an operation in {1}, which track semi-finished goods. Amend those BOMs to use the new BOM so their operation materials are fetched again.",{0} material spesifikasiyası yarımfabrikatların izlənildiyi {1} daxilindəki əməliyyata aiddir. Əməliyyat materiallarının yenidən gətirilməsi üçün bu spesifikasiyaları yeni spesifikasiyaya uyğun düzəldin.
 Below Subscription Plans are of different currency to the party default billing currency/Company currency: {0},Bu abunə planlarının valyutası qarşı tərəfin standart hesablaşma valyutasından və ya şirkətin valyutasından fərqlidir: {0}
 Billing currency must be equal to either default company's currency or party account currency,Hesablaşma valyutası şirkətin standart valyutası və ya qarşı tərəfin hesab valyutası ilə eyni olmalıdır
@@ -15345,34 +15345,34 @@ Please set default cost of goods sold account in company {0} for booking roundin
 Recalculate Valuation Rate is only allowed for a Purchase Receipt or a Purchase Invoice with Update Stock,Uçot qiymətinin yenidən hesablanmasına yalnız mal qəbulu sənədində və ya anbar qalığını yeniləyən alış hesab-fakturasında icazə verilir
 Reserved Warehouse is mandatory for the Item {item_code} in Raw Materials supplied.,Verilmiş xammallar cədvəlində {item_code} malı üçün rezerv anbarı məcburidir.
 "Root Type for {0} must be one of the Asset, Liability, Income, Expense and Equity","{0} üçün kök növü aktiv, öhdəlik, gəlir, xərc və ya kapital olmalıdır"
-Row #{0}: % of Component Cost needs a BOM secondary item. Choose Valuation Rate or Manual for {1}.,{0}-cı sətir: komponentin maya dəyərinin faizi üçün spesifikasiyada ikinci dərəcəli məhsul olmalıdır. {1} üçün uçot qiyməti və ya əl ilə qiymətləndirmə seçin.
-Row #{0}: Batch No(s) {1} is not a part of the linked Subcontracting Inward Order. Please select valid Batch No(s).,{0}-cı sətir: {1} partiya nömrələri əlaqəli qəbul edilmiş subpodrat sifarişinə daxil deyil. Düzgün partiya nömrələrini seçin.
-Row #{0}: Cannot change the UOM or conversion factor of Item {1} after part of it was received or delivered.,{0}-cı sətir: {1} malının bir hissəsi artıq qəbul edildiyi və ya çatdırıldığı üçün onun ölçü vahidi və çevirmə əmsalı dəyişdirilə bilməz.
-Row #{0}: Cannot set Rate if the billed amount is greater than the amount for Item {1}.,"{0}-cı sətir: hesab-fakturaya daxil edilmiş məbləğ {1} malının məbləğindən çoxdursa, qiymət təyin etmək olmaz."
-Row #{0}: Child Item should not be a Product Bundle. Please remove Item {1} and Save,{0}-cı sətir: alt mal məhsul dəsti ola bilməz. {1} malını çıxarıb saxlayın
-Row #{0}: Customer Provided Item {1} cannot be added multiple times in the Subcontracting Inward process.,{0}-cı sətir: müştərinin verdiyi {1} malı qəbul edilmiş subpodrat prosesində bir neçə dəfə əlavə edilə bilməz.
-Row #{0}: Customer Provided Item {1} is not a part of Subcontracting Inward Order {2},{0}-cı sətir: müştərinin verdiyi {1} malı {2} qəbul edilmiş subpodrat sifarişinə daxil deyil
-Row #{0}: Dunning charges must use the income account {1} configured on Dunning {2}.,{0}-cı sətir: ödəniş tələbi haqları üçün {2} ödəniş tələbində təyin edilmiş {1} gəlir hesabı istifadə olunmalıdır.
-Row #{0}: Item {1} has Operation {2}. Set a Routing to create BOMs with operations.,{0}-cı sətir: {1} malında {2} əməliyyatı göstərilib. Əməliyyatlarla material spesifikasiyası yaratmaq üçün istehsal marşrutunu təyin edin.
-"Row #{0}: Item {1} mismatch. Changing of item code is not permitted, add another row instead.",{0}-cı sətir: {1} malı uyğun gəlmir. Mal kodunu dəyişmək olmaz. Yeni sətir əlavə edin.
-Row #{0}: Operation {1} is not completed for {2} qty of finished goods in Work Order {3}. Please update operation status via Job Card {4}.,{0}-cı sətir: {3} iş sifarişində {2} miqdarında hazır məhsul üçün {1} əməliyyatı tamamlanmayıb. {4} iş kartı vasitəsilə vəziyyəti yeniləyin.
-Row #{0}: Please select the Finished Good Item against which this Customer Provided Item will be used.,{0}-cı sətir: müştərinin verdiyi bu malın istehsalında istifadə ediləcəyi hazır məhsulu seçin.
-Row #{0}: Quantity of Item {1} cannot be more than {2} {3} against Subcontracting Inward Order {4},{0}-cı sətir: {4} qəbul edilmiş subpodrat sifarişi üzrə {1} malının miqdarı {2} {3} həddini aşa bilməz
-Row #{0}: Returned quantity cannot be greater than available quantity to return for Item {1},{0}-cı sətir: {1} malının qaytarılan miqdarı qaytarıla biləcək miqdardan çox ola bilməz
-Row #{0}: Serial No(s) {1} are not a part of the linked Subcontracting Inward Order. Please select valid Serial No(s).,{0}-cı sətir: {1} seriya nömrələri əlaqəli qəbul edilmiş subpodrat sifarişinə daxil deyil. Düzgün seriya nömrələrini seçin.
-Row #{0}: Source Warehouse {1} for item {2} must be same as Source Warehouse {3} in the Work Order.,{0}-cı sətir: {2} malının {1} mənbə anbarı iş sifarişindəki {3} mənbə anbarı ilə eyni olmalıdır.
-Row #{0}: Target Warehouse must be same as Customer Warehouse {1} from the linked Subcontracting Inward Order,{0}-cı sətir: təyinat anbarı əlaqəli qəbul edilmiş subpodrat sifarişindəki {1} müştəri anbarı ilə eyni olmalıdır
-Row #{0}: Unreserve stock before changing the UOM or conversion factor of Item {1}.,{0}-cı sətir: {1} malının ölçü vahidini və ya çevirmə əmsalını dəyişməzdən əvvəl rezervi ləğv edin.
-"Row #{0}: a dock entry opens a Sidebar, a Workspace or a web address, not a {1}.","{0}-cı sətir: tətbiqlər panelinin elementi yan paneli, iş sahəsini və ya veb ünvanı aça bilər. {1} dəstəklənmir."
-Row #{0}: {1} is received but is neither the finished good nor a secondary item. Set its Secondary Item Type or remove the row.,"{0}-cı sətir: {1} qəbul edilib, lakin nə hazır məhsul, nə də ikinci dərəcəli məhsul kimi göstərilib. İkinci dərəcəli məhsul növünü təyin edin və ya sətri silin."
-Row #{idx}: Received Qty must be equal to Accepted + Rejected Qty for Item {item_code}.,{idx}-ci sətir: {item_code} malının ümumi qəbul miqdarı yararlı və rədd edilmiş miqdarların cəminə bərabər olmalıdır.
-"Row {0} in {1} and row {2} in {3} apply to the same quantity and amount. Change the ranges, set a different {4}, or enable {5} on both rows.","{1} daxilində {0}-cı sətir və {3} daxilində {2}-ci sətir eyni miqdar və məbləğə aiddir. Aralıqları dəyişin, fərqli {4} təyin edin və ya hər iki sətirdə {5} aktivləşdirin."
-Row {0}: Allocated amount {1} must be less than or equal to invoice outstanding amount {2},{0}-cı sətir: bölüşdürülmüş {1} məbləği hesab-fakturanın ödənilməmiş {2} məbləğindən çox olmamalıdır
-Row {0}: Expense Head changed to {1} as no Purchase Receipt is created against Item {2}.,{0}-cı sətir: {2} malı üzrə mal qəbulu sənədi yaradılmadığından xərc maddəsi {1} olaraq dəyişdirildi.
-Row {0}: Landed Cost Voucher can only be made against a Manufacture or Repack Stock Entry. Stock Entry {1} is a {2}.,{0}-cı sətir: əlavə tədarük xərcləri sənədi yalnız istehsal və ya yenidən qablaşdırma anbar əməliyyatı üzrə yaradıla bilər. {1} əməliyyatının növü {2} olaraq göstərilib.
-Row {0}: Quantity not available for {4} in warehouse {1} at posting time of the entry ({2} {3}),{0}-cı sətir: yazılışın uçot vaxtında ({2} {3}) {1} anbarında {4} üçün tələb olunan miqdar yoxdur
-Row {0}: Warehouse {1} is linked to company {2}. Please select a warehouse belonging to company {3}.,{0}-cı sətir: {1} anbarı {2} şirkətinə bağlıdır. {3} şirkətinə aid anbar seçin.
-Row {idx}: Asset Naming Series is mandatory for the auto creation of assets for item {item_code}.,{idx}-ci sətir: {item_code} malı üçün aktivləri avtomatik yaratmaqdan ötrü aktivlərin adlandırma seriyası məcburidir.
+Row #{0}: % of Component Cost needs a BOM secondary item. Choose Valuation Rate or Manual for {1}.,Sətir {0}: komponentin maya dəyərinin faizi üçün spesifikasiyada ikinci dərəcəli məhsul olmalıdır. {1} üçün uçot qiyməti və ya əl ilə qiymətləndirmə seçin.
+Row #{0}: Batch No(s) {1} is not a part of the linked Subcontracting Inward Order. Please select valid Batch No(s).,Sətir {0}: {1} partiya nömrələri əlaqəli qəbul edilmiş subpodrat sifarişinə daxil deyil. Düzgün partiya nömrələrini seçin.
+Row #{0}: Cannot change the UOM or conversion factor of Item {1} after part of it was received or delivered.,Sətir {0}: {1} malının bir hissəsi artıq qəbul edildiyi və ya çatdırıldığı üçün onun ölçü vahidi və çevirmə əmsalı dəyişdirilə bilməz.
+Row #{0}: Cannot set Rate if the billed amount is greater than the amount for Item {1}.,"Sətir {0}: hesab-fakturaya daxil edilmiş məbləğ {1} malının məbləğindən çoxdursa, qiymət təyin etmək olmaz."
+Row #{0}: Child Item should not be a Product Bundle. Please remove Item {1} and Save,Sətir {0}: alt mal məhsul dəsti ola bilməz. {1} malını çıxarıb saxlayın
+Row #{0}: Customer Provided Item {1} cannot be added multiple times in the Subcontracting Inward process.,Sətir {0}: müştərinin verdiyi {1} malı qəbul edilmiş subpodrat prosesində bir neçə dəfə əlavə edilə bilməz.
+Row #{0}: Customer Provided Item {1} is not a part of Subcontracting Inward Order {2},Sətir {0}: müştərinin verdiyi {1} malı {2} qəbul edilmiş subpodrat sifarişinə daxil deyil
+Row #{0}: Dunning charges must use the income account {1} configured on Dunning {2}.,Sətir {0}: ödəniş tələbi haqları üçün {2} ödəniş tələbində təyin edilmiş {1} gəlir hesabı istifadə olunmalıdır.
+Row #{0}: Item {1} has Operation {2}. Set a Routing to create BOMs with operations.,Sətir {0}: {1} malında {2} əməliyyatı göstərilib. Əməliyyatlarla material spesifikasiyası yaratmaq üçün istehsal marşrutunu təyin edin.
+"Row #{0}: Item {1} mismatch. Changing of item code is not permitted, add another row instead.",Sətir {0}: {1} malı uyğun gəlmir. Mal kodunu dəyişmək olmaz. Yeni sətir əlavə edin.
+Row #{0}: Operation {1} is not completed for {2} qty of finished goods in Work Order {3}. Please update operation status via Job Card {4}.,Sətir {0}: {3} iş sifarişində {2} miqdarında hazır məhsul üçün {1} əməliyyatı tamamlanmayıb. {4} iş kartı vasitəsilə vəziyyəti yeniləyin.
+Row #{0}: Please select the Finished Good Item against which this Customer Provided Item will be used.,Sətir {0}: müştərinin verdiyi bu malın istehsalında istifadə ediləcəyi hazır məhsulu seçin.
+Row #{0}: Quantity of Item {1} cannot be more than {2} {3} against Subcontracting Inward Order {4},Sətir {0}: {4} qəbul edilmiş subpodrat sifarişi üzrə {1} malının miqdarı {2} {3} həddini aşa bilməz
+Row #{0}: Returned quantity cannot be greater than available quantity to return for Item {1},Sətir {0}: {1} malının qaytarılan miqdarı qaytarıla biləcək miqdardan çox ola bilməz
+Row #{0}: Serial No(s) {1} are not a part of the linked Subcontracting Inward Order. Please select valid Serial No(s).,Sətir {0}: {1} seriya nömrələri əlaqəli qəbul edilmiş subpodrat sifarişinə daxil deyil. Düzgün seriya nömrələrini seçin.
+Row #{0}: Source Warehouse {1} for item {2} must be same as Source Warehouse {3} in the Work Order.,Sətir {0}: {2} malının {1} mənbə anbarı iş sifarişindəki {3} mənbə anbarı ilə eyni olmalıdır.
+Row #{0}: Target Warehouse must be same as Customer Warehouse {1} from the linked Subcontracting Inward Order,Sətir {0}: təyinat anbarı əlaqəli qəbul edilmiş subpodrat sifarişindəki {1} müştəri anbarı ilə eyni olmalıdır
+Row #{0}: Unreserve stock before changing the UOM or conversion factor of Item {1}.,Sətir {0}: {1} malının ölçü vahidini və ya çevirmə əmsalını dəyişməzdən əvvəl rezervi ləğv edin.
+"Row #{0}: a dock entry opens a Sidebar, a Workspace or a web address, not a {1}.","Sətir {0}: tətbiqlər panelinin elementi yan paneli, iş sahəsini və ya veb ünvanı aça bilər. {1} dəstəklənmir."
+Row #{0}: {1} is received but is neither the finished good nor a secondary item. Set its Secondary Item Type or remove the row.,"Sətir {0}: {1} qəbul edilib, lakin nə hazır məhsul, nə də ikinci dərəcəli məhsul kimi göstərilib. İkinci dərəcəli məhsul növünü təyin edin və ya sətri silin."
+Row #{idx}: Received Qty must be equal to Accepted + Rejected Qty for Item {item_code}.,Sətir {idx}: {item_code} malının ümumi qəbul miqdarı yararlı və rədd edilmiş miqdarların cəminə bərabər olmalıdır.
+"Row {0} in {1} and row {2} in {3} apply to the same quantity and amount. Change the ranges, set a different {4}, or enable {5} on both rows.","{1} daxilində {0} nömrəli sətir və {3} daxilində {2} nömrəli sətir eyni miqdar və məbləğə aiddir. Aralıqları dəyişin, fərqli {4} təyin edin və ya hər iki sətirdə {5} aktivləşdirin."
+Row {0}: Allocated amount {1} must be less than or equal to invoice outstanding amount {2},Sətir {0}: bölüşdürülmüş {1} məbləği hesab-fakturanın ödənilməmiş {2} məbləğindən çox olmamalıdır
+Row {0}: Expense Head changed to {1} as no Purchase Receipt is created against Item {2}.,Sətir {0}: {2} malı üzrə mal qəbulu sənədi yaradılmadığından xərc maddəsi {1} olaraq dəyişdirildi.
+Row {0}: Landed Cost Voucher can only be made against a Manufacture or Repack Stock Entry. Stock Entry {1} is a {2}.,Sətir {0}: əlavə tədarük xərcləri sənədi yalnız istehsal və ya yenidən qablaşdırma anbar əməliyyatı üzrə yaradıla bilər. {1} əməliyyatının növü {2} olaraq göstərilib.
+Row {0}: Quantity not available for {4} in warehouse {1} at posting time of the entry ({2} {3}),Sətir {0}: yazılışın uçot vaxtında ({2} {3}) {1} anbarında {4} üçün tələb olunan miqdar yoxdur
+Row {0}: Warehouse {1} is linked to company {2}. Please select a warehouse belonging to company {3}.,Sətir {0}: {1} anbarı {2} şirkətinə bağlıdır. {3} şirkətinə aid anbar seçin.
+Row {idx}: Asset Naming Series is mandatory for the auto creation of assets for item {item_code}.,Sətir {idx}: {item_code} malı üçün aktivləri avtomatik yaratmaqdan ötrü aktivlərin adlandırma seriyası məcburidir.
 SBOM generation is already in progress. You will get a notification when it is ready.,Proqram komponentləri siyahısı (SBOM) artıq hazırlanır. Hazır olduqda bildiriş alacaqsınız.
 Scheduler is inactive. Reposting will only run once background jobs are processed.,Planlaşdırıcı deaktivdir. Yenidən işlənmə yalnız fon tapşırıqları icra edildikdən sonra başlayacaq.
 Serial No {0} is in warehouse {1} but is reserved for {2} {3} via {4}. Please use an unreserved serial number or cancel the reservation.,"{0} seriya nömrəsi {1} anbarındadır, lakin {4} vasitəsilə {2} {3} üçün rezerv edilib. Rezerv olunmamış seriya nömrəsi seçin və ya rezervi ləğv edin."
@@ -15423,7 +15423,7 @@ Warehouse {0} can not be converted to group as it is an Item's default warehouse
 "We support uploading CSV, XLSX, XLS and PDF files. Please make sure the file contains the correct columns.","CSV, XLSX, XLS və PDF faylları dəstəklənir. Faylda lazımi sütunların olduğunu yoxlayın."
 WeasyPrint is deprecated and cannot be selected for a new format. Use Chrome instead.,WeasyPrint köhnəlib və yeni format üçün seçilə bilməz. Chrome istifadə edin.
 "Workflow State '{0}' has Document Status {1}, but DocType '{2}' is not submittable. Only Document Status 0 (Draft) is allowed for non-submittable DocTypes.","“{0}” iş axını vəziyyətində sənəd statusu {1} olsa da, “{2}” sənəd növü təsdiqlənə bilməz. Belə sənəd növlərində yalnız status 0 (Qaralama) qəbul edilir."
-"You are not allowed to access this {0} record because it is linked to {1} '{2}' in row {3}, field {4}","Bu {0} qeydinə giriş icazəniz yoxdur, çünki {3}-cü sətirdəki {4} sahəsi {1} “{2}” ilə əlaqələndirilib"
+"You are not allowed to access this {0} record because it is linked to {1} '{2}' in row {3}, field {4}","Bu {0} qeydinə giriş icazəniz yoxdur, çünki {3} nömrəli sətirdəki {4} sahəsi {1} “{2}” ilə əlaqələndirilib"
 You can also add credit or debit values to pre-fill - these support both static values (like 200) or formulas (like transaction_amount * 0.25).,"Əvvəlcədən doldurmaq üçün kredit və ya debet dəyərləri əlavə edə bilərsiniz. Sabit dəyər (məsələn, 200) və ya düstur (məsələn, transaction_amount * 0.25) istifadə edilə bilər."
 "You cannot outward following {0} as either they are Delivered, Inactive or located in a different warehouse.","Bu {0} mövqelərini anbardan buraxa bilməzsiniz: onlar artıq çatdırılıb, deaktivdir və ya başqa anbardadır."
 You don't have permission to update Company details. Please contact your System Manager.,Şirkət məlumatlarını yeniləməyə icazəniz yoxdur. Sistem administratoruna müraciət edin.
@@ -15433,7 +15433,7 @@ frappe.sendmail takes no sender here: mail goes out from the site's own account.
 {0} cannot be amended because it is not cancelled. Please cancel the document before creating an amendment.,{0} ləğv edilmədiyindən ona düzəliş verilə bilməz. Düzəliş sənədi yaratmazdan əvvəl onu ləğv edin.
 "{0} contains an invalid Fetch From expression, Fetch From can't be self-referential.",{0} məlumatın götürülmə mənbəyi üçün etibarsız ifadə ehtiva edir. Sahə özünə istinad edə bilməz.
 {0} doesn't belong to Company {1}. Please select a Cost Center that belongs to Company {1}.,"{0}, {1} şirkətinə aid deyil. {1} şirkətinə aid xərc mərkəzi seçin."
-{0} has Payment Term based allocation enabled. Select a Payment Term for Row #{1} in Payment References section,{0} üçün ödəniş şərtləri üzrə bölgü aktivdir. Ödəniş istinadları bölməsində {1}-ci sətir üçün ödəniş şərti seçin
+{0} has Payment Term based allocation enabled. Select a Payment Term for Row #{1} in Payment References section,{0} üçün ödəniş şərtləri üzrə bölgü aktivdir. Ödəniş istinadları bölməsində {1} nömrəli sətir üçün ödəniş şərti seçin
 {0} is already a Reverse Journal Entry of {1}. Cancel it instead of reversing it.,{0} artıq {1} yazılışının əks yazılışıdır. Əks yazılış yaratmaq əvəzinə onu ləğv edin.
 "{0} is not a path inside a page. Give a relative path, with no query or fragment.",{0} səhifədaxili yol deyil. Sorğu və ya fraqment hissəsi olmayan nisbi yol verin.
 "{0} must begin and end with a letter and can only contain letters, hyphen or underscore.","{0} hərflə başlayıb hərflə bitməlidir və yalnız hərf, defis və alt xətt ehtiva edə bilər."
@@ -15459,7 +15459,7 @@ Passwords do not match!,Parollar uyğun gəlmir!
 Purchase Receipt Detail,Mal qəbulu sənədinin təfərrüatları
 {0} tasks finished late,{0} tapşırıq gec tamamlanıb
 Compact (narrow layouts),Yığcam (dar görünüşlər üçün)
-Importing row {0} of {1},{1} sətirdən {0}-cı idxal edilir
+Importing row {0} of {1},Sətir idxal edilir: {0}/{1}
 Move sections to new tab,Bölmələri yeni vərəqə köçür
 Printer mapping not set.,Printer uyğunluğu təyin edilməyib.
 Set by Item Tax Template,Malın vergi şablonuna əsasən təyin edilir
@@ -15811,7 +15811,7 @@ TDS Deducted,Mənbədə vergi tutulub
 Total Target,Ümumi hədəf
 Updating {0},{0} yenilənir
 Week {0} {1},Həftə: {0} {1}
-"{0}, Row {1}","{0}, {1}-ci sətir"
+"{0}, Row {1}","{0}, {1} nömrəli sətir"
 Achieved ({}),Əldə edilmiş ({})
 BOM Component,Material spesifikasiyasının komponenti
 Biotechnology,Biotexnologiya
@@ -15834,7 +15834,7 @@ Total Expense,Ümumi xərc
 Untitled chat,Adsız söhbət
 Wire Transfer,Bank köçürməsi
 Within 5 days,5 gün ərzində
-{0} row #{1}:,"{0}, {1}-ci sətir:"
+{0} row #{1}:,"{0}, {1} nömrəli sətir:"
 Agent Conflict,Agentlər arasında ziddiyyət
 Already Picked,Artıq yığılıb
 Asset scrapped,Aktiv silinib
@@ -15854,14 +15854,14 @@ Non-Conforming,Tələblərə uyğun deyil
 Parent Missing,Üst element yoxdur
 Pending Repost,Yenidən işlənmə gözlənilir
 Published Date,Dərc tarixi
-Row {0} failed,{0}-cı sətirdə xəta
+Row {0} failed,{0} nömrəli sətirdə xəta
 Selling Amount,Satış məbləği
 Stock Movement,Ehtiyatların hərəkəti
 Template Error,Şablon xətası
 Total Outgoing,Çıxışların cəmi
 Transportation,Nəqliyyat
 Value Too Long,Dəyər çox uzundur
-{0} in row {1},{1}-ci sətirdə {0}
+{0} in row {1},{1} nömrəli sətirdə {0}
 Account Missing,Hesab göstərilməyib
 All Item Groups,Bütün mal qrupları
 Asset submitted,Aktiv təsdiqləndi
@@ -15985,7 +15985,7 @@ Invalid doctype {0},{0} sənəd növü etibarsızdır
 Job is not running.,Tapşırıq icra olunmur.
 Material Request No,Material tələbinin nömrəsi
 Model Not Permitted,Modelə icazə verilmir
-Operations row #{0},Əməliyyatların {0}-cı sətri
+Operations row #{0},Əməliyyatların {0} nömrəli sətri
 Preferences updated,Seçimlər yeniləndi
 Purchase Price List,Alış qiymət siyahısı
 Reserved Serial No.,Rezerv edilmiş seriya nömrəsi
@@ -16216,7 +16216,7 @@ Sales Person {0} is a group.,{0} satış nümayəndəsi qrupdur.
 Content must be a JSON object,Məzmun JSON obyekti olmalıdır
 Image link '{0}' is not valid,“{0}” şəkil keçidi yanlışdır
 No permission to read {0} {1},{0} {1} sənədini oxumağa icazə yoxdur
-Row #{}: Party ID is required,{}-ci sətir: tərəfin ID-si tələb olunur
+Row #{}: Party ID is required,Sətir {}: tərəfin ID-si tələb olunur
 UOM {0} not found in Item {1},{1} məhsulunda {0} ölçü vahidi tapılmadı
 {0} entered twice in Item Tax,Məhsul vergisində {0} iki dəfə daxil edilib
 {0} is not a valid Party Type,{0} düzgün tərəf növü deyil
@@ -16226,7 +16226,7 @@ Filters must be a JSON object.,Filtrlər JSON obyekti olmalıdır.
 From and To dates are required,Başlanğıc və bitmə tarixləri tələb olunur
 No permission to read file {0},{0} faylını oxumağa icazə yoxdur
 "Ordered {0} times, last on {1}","{0} dəfə sifariş edilib, son sifariş {1} tarixində olub"
-Row #{}: {} {} does not exist.,{}-ci sətir: {} {} mövcud deyil.
+Row #{}: {} {} does not exist.,Sətir {}: {} {} mövcud deyil.
 This is a formula based value.,Bu dəyər düsturla hesablanır.
 {0} against Bill {1} dated {2},{2} tarixli {1} hesabı üzrə {0}
 {0} is not a sub-agent of {1}.,"{0}, {1} agentinin alt agenti deyil."
@@ -16249,7 +16249,7 @@ Here are the options to proceed:,Davam etmək üçün variantlar:
 Item {0} is not a template item.,{0} şablon məhsul deyil.
 No permission to update {0} {1}.,{0} {1} sənədini yeniləməyə icazə yoxdur.
 Please add {1} role to user {0}.,{0} istifadəçisinə {1} rolunu əlavə edin.
-Row {0}: Step Key must be unique,{0}-ci sətir: addımın açarı unikal olmalıdır
+Row {0}: Step Key must be unique,Sətir {0}: addımın açarı unikal olmalıdır
 User ID not set for Employee {0},{0} işçisi üçün istifadəçi ID-si təyin edilməyib
 Work Order {0} must be submitted,{0} istehsal sifarişi təsdiqlənməlidir
 {0} can't run in read-only code.,{0} yalnız oxu rejimli kodda icra edilə bilməz.
@@ -16265,7 +16265,7 @@ Not permitted to view Contact {0},{0} əlaqə şəxsinin məlumatına baxmağa i
 Please add Root Account for - {0},{0} üçün kök hesab əlavə edin
 Print Format {0} has no HTML body,{0} çap formatının HTML məzmunu yoxdur
 Route {0} is already used by: {1},{0} yolunu artıq {1} istifadə edir
-Row {0}: Account {1} is disabled.,{0}-ci sətir: {1} hesabı deaktivdir.
+Row {0}: Account {1} is disabled.,Sətir {0}: {1} hesabı deaktivdir.
 Tasks cannot be sorted by {0} {1},Tapşırıqları {0} {1} üzrə sıralamaq olmur
 Wait for Event requires a timeout,Hadisə gözlənilərkən gözləmə müddəti göstərilməlidir
 {0} are mandatory in POS Settings,Satış nöqtəsi ayarlarında {0} məcburidir
@@ -16284,7 +16284,7 @@ PDF Generator set to Chromium: {0},PDF yaratmaq üçün Chromium təyin edildi: 
 Please add the Bank Account column,Bank hesabı sütununu əlavə edin
 Please select Qty against item {0},{0} məhsulunun miqdarını seçin
 Release date must be in the future,Buraxılış tarixi gələcəkdə olmalıdır
-Row {0}: unsupported Step Type {1},{0}-ci sətir: {1} addım növü dəstəklənmir
+Row {0}: unsupported Step Type {1},Sətir {0}: {1} addım növü dəstəklənmir
 The folio numbers are not matching,Folio nömrələri uyğun gəlmir
 Time logs are required for {0} {1},{0} {1} üçün vaxt qeydləri tələb olunur
 Use a few uncommon words together.,Az işlənən bir neçə sözü birlikdə istifadə edin.
@@ -16298,8 +16298,8 @@ Lead {0} is already in Prospect {1},{0} potensial müştərisi artıq {1} namiz�
 Only one {0} can be set as primary.,Yalnız bir {0} əsas kimi təyin edilə bilər.
 Posting timestamp must be after {0},Uçot vaxtı {0} tarixindən sonra olmalıdır
 Read the documentation to know more,Ətraflı məlumat üçün sənədləri oxuyun
-Row #{0}: Asset {1} is already sold,{0}-ci sətir: {1} aktivi artıq satılıb
-Row #{}: POS Invoice {} has been {},{}-ci sətir: {} satış nöqtəsi hesab-fakturasının vəziyyəti: {}
+Row #{0}: Asset {1} is already sold,Sətir {0}: {1} aktivi artıq satılıb
+Row #{}: POS Invoice {} has been {},Sətir {}: {} satış nöqtəsi hesab-fakturasının vəziyyəti: {}
 Serial No is mandatory for Item {0},{0} məhsulu üçün seriya nömrəsi məcburidir
 The Sales Person is linked with {0},Satış nümayəndəsi {0} ilə əlaqəlidir
 The shares don't exist with the {0},{0} üzrə belə səhmlər mövcud deyil
@@ -16317,7 +16317,7 @@ No records found in Allocation table,Bölgü cədvəlində qeyd tapılmadı
 Parent Task {0} must be a Group Task,{0} üst tapşırığı qrup tapşırığı olmalıdır
 Please pull items from Delivery Note,Məhsulları çatdırılma qaiməsindən gətirin
 Reasoning effort must be one of {0}.,Mühakimə səviyyəsi bu dəyərlərdən biri olmalıdır: {0}.
-Row #{0}: The batch {1} is disabled.,{0}-ci sətir: {1} partiyası deaktivdir.
+Row #{0}: The batch {1} is disabled.,Sətir {0}: {1} partiyası deaktivdir.
 Same Field is entered more than once,Eyni sahə bir dəfədən çox daxil edilib
 Target Asset {0} cannot be submitted,{0} hədəf aktivini təsdiqləmək mümkün deyil
 This action requires a Document Type,Bu əməliyyat üçün sənəd növü tələb olunur
@@ -16337,7 +16337,7 @@ Parentfield not specified in {0}: {1},{0} daxilində üst sahə göstərilməyib
 Please set default {0} in Company {1},{1} şirkətində standart {0} təyin edin
 Print Format {0} is not valid for {1},{0} çap formatı {1} üçün uyğun deyil
 Rewind target must be a whole number.,Geri qayıtma hədəfi tam ədəd olmalıdır.
-Row {0}: Quantity cannot be negative.,{0}-ci sətir: miqdar mənfi ola bilməz.
+Row {0}: Quantity cannot be negative.,Sətir {0}: miqdar mənfi ola bilməz.
 Selected Print Format does not exist.,Seçilmiş çap formatı mövcud deyil.
 The CSV file needs a Quantity column.,CSV faylında miqdar sütunu olmalıdır.
 This design has no previous revision.,Bu layihənin əvvəlki redaksiyası yoxdur.
@@ -16357,7 +16357,7 @@ Parent Field must be a valid fieldname,Üst sahənin adı düzgün sahə adı ol
 Please enter Account for Change Amount,Qaytarılacaq pul qalığı üçün hesabı daxil edin
 Please set API URL for Data Source {0},{0} məlumat mənbəyi üçün API ünvanı təyin edin
 Related record does not exist: {0} {1},Əlaqəli qeyd mövcud deyil: {0} {1}
-Row {0}: {1} is not a valid Party Type,{0}-ci sətir: {1} düzgün tərəf növü deyil
+Row {0}: {1} is not a valid Party Type,Sətir {0}: {1} düzgün tərəf növü deyil
 Save the Project before duplicating it,Surətini yaratmazdan əvvəl layihəni saxlayın
 To Date must be greater than From Date,Bitmə tarixi başlanğıc tarixindən sonra olmalıdır
 Valid From date not in Fiscal Year {0},Qüvvəyə minmə tarixi {0} maliyyə ilinə daxil deyil
@@ -16375,7 +16375,7 @@ No tables were extracted from this PDF.,Bu PDF-dən heç bir cədvəl çıxarıl
 Party Type {0} is not valid for {1} {2},{0} tərəf növü {1} {2} üçün uyğun deyil
 Please enter Root Type for account- {0},{0} hesabı üçün kök növünü daxil edin
 Please set an email id for the Lead {0},{0} potensial müştərisi üçün e-poçt ünvanını təyin edin
-Row #{0}: Qty must be a positive number,{0}-ci sətir: miqdar müsbət ədəd olmalıdır
+Row #{0}: Qty must be a positive number,Sətir {0}: miqdar müsbət ədəd olmalıdır
 Shift Factor must be greater than zero.,Növbə əmsalı sıfırdan böyük olmalıdır.
 Supplier Scorecard standing of {0}: {1},{0} təchizatçısının qiymətləndirmə kartı üzrə səviyyəsi: {1}
 The reference number of the transaction,Əməliyyatın istinad nömrəsi
@@ -16452,7 +16452,7 @@ Voucher No is mandatory,Sənəd nömrəsi məcburidir
 cancelled this document,bu sənədi ləğv etdi
 {0} must be valid JSON.,{0} düzgün JSON olmalıdır.
 (B) Expected Balance Qty,(B) Gözlənilən qalıq miqdarı
-Already imported row {0},{0}-ci sətir artıq idxal edilib
+Already imported row {0},Sətir {0} artıq idxal edilib
 Assignment Update on {0},{0} üzrə təyinat yeniləməsi
 Bank statement imported.,Bank çıxarışı idxal edildi.
 Chief Technology Officer,Texnologiya üzrə direktor
@@ -16575,7 +16575,7 @@ Invitation to join {0} expired,{0} üçün qoşulma dəvətinin müddəti bitib
 No contacts linked to document,Sənədlə əlaqələndirilmiş əlaqə şəxsi yoxdur
 Please enter Write Off Account,Silinmə hesabını daxil edin
 Reposting entries created: {0},Yenidən uçotaalma yazılışları yaradıldı: {0}
-Row {0}: Invalid reference {1},{0}-ci sətir: {1} istinadı yanlışdır
+Row {0}: Invalid reference {1},Sətir {0}: {1} istinadı yanlışdır
 Select the differences to fix.,Düzəldiləcək fərqləri seçin.
 Supplier Quotation {0} Created,{0} təchizatçı təklifi yaradıldı
 Unknown automation action: {0},Naməlum avtomatlaşdırma əməliyyatı: {0}
@@ -17357,7 +17357,7 @@ Online Auctions,Onlayn hərraclar
 Pharmaceuticals,Əczaçılıq məhsulları
 Project Update.,Layihə yeniləməsi.
 Requesting Site,Sorğu göndərən sayt
-Skipped row {0},{0}-ci sətir ötürüldü
+Skipped row {0},Sətir {0} ötürüldü
 Stops on orders,Sifarişlərdə dayandırır
 Total {0} ({1}),Cəmi {0} ({1})
 Travel Expenses,Ezamiyyət xərcləri
@@ -17428,7 +17428,7 @@ Invalid Page Title,Səhifə başlığı yanlışdır
 Invalid sort order,Sıralama ardıcıllığı yanlışdır
 It tried to write.,Yazmağa cəhd etdi.
 Label is mandatory,Etiket məcburidir
-Materials row #{0},Materiallar cədvəlinin {0}-ci sətri
+Materials row #{0},"Materiallar cədvəli, sətir {0}"
 Missing Dependency,Asılılıq çatışmır
 Negotiation/Review,Danışıqlar/baxış
 No accounts found.,Hesab tapılmadı.
@@ -17522,8 +17522,8 @@ New BOM {0} must be submitted and active,Yeni {0} material spesifikasiyası təs
 Not allowed to print cancelled documents,Ləğv edilmiş sənədlərin çapına icazə verilmir
 Party query filters must be a dictionary,Tərəf sorğusunun filtrləri açar-dəyər lüğəti olmalıdır
 Please set default UOM in Stock Settings,Ehtiyat ayarlarında standart ölçü vahidini təyin edin
-Row #{0}: Parameter {1} is already added,{0}-ci sətir: {1} parametri artıq əlavə edilib
-Row {0}: Task {1} is not a Template Task,{0}-ci sətir: {1} şablon tapşırıq deyil
+Row #{0}: Parameter {1} is already added,Sətir {0}: {1} parametri artıq əlavə edilib
+Row {0}: Task {1} is not a Template Task,Sətir {0}: {1} şablon tapşırıq deyil
 Shipping rule only applicable for Buying,Bu daşınma qaydası yalnız alışlara tətbiq edilir
 Submit this design before creating BOMs.,Material spesifikasiyalarını yaratmazdan əvvəl bu layihəni təsdiqləyin.
 The reset password link has been expired,Parolun sıfırlanması üçün keçidin müddəti bitib
@@ -17545,8 +17545,8 @@ Item {0} is not a batch or serial no item,{0} məhsulunun partiya və ya seriya 
 "Name already taken, please set a new name",Bu ad artıq istifadə olunur. Başqa ad seçin
 Only Administrator can delete Email Queue,E-poçt növbəsini yalnız administrator silə bilər
 Party is required create a payment entry.,Ödəniş qeydi yaratmaq üçün tərəfi göstərin.
-Quantity required for Item {0} in row {1},{1}-ci sətirdə {0} məhsulu üçün miqdar tələb olunur
-Row #{0}: Parcel count must be at least 1,{0}-ci sətir: bağlama sayı ən azı 1 olmalıdır
+Quantity required for Item {0} in row {1},Sətir {1}: {0} məhsulu üçün miqdar tələb olunur
+Row #{0}: Parcel count must be at least 1,Sətir {0}: bağlama sayı ən azı 1 olmalıdır
 Sender Field should have Email in options,Göndərən sahəsinin seçimlərində Email göstərilməlidir
 Set the Design Name or the Finished Good.,Layihənin adını və ya hazır məhsulu təyin edin.
 Skills are not configured for this agent.,Bu agent üçün bacarıqlar qurulmayıb.
@@ -17571,8 +17571,8 @@ Please enter a valid Write Off Cost Center,Silinmə üçün düzgün xərc mərk
 PlutoPrint is not installed on this server,Bu serverdə PlutoPrint quraşdırılmayıb
 Receipt Document Type {0} is not supported,{0} qəbul sənədi növü dəstəklənmir
 Role has been set as per the user type {0},Rol {0} istifadəçi növünə əsasən təyin edilib
-Row {0}: Account {1} must be a {2} account,{0}-ci sətir: {1} hesabı {2} növlü hesab olmalıdır
-Row {0}: Qty in Stock UOM can not be zero.,{0}-ci sətir: ehtiyatın ölçü vahidi ilə miqdar sıfır ola bilməz.
+Row {0}: Account {1} must be a {2} account,Sətir {0}: {1} hesabı {2} növlü hesab olmalıdır
+Row {0}: Qty in Stock UOM can not be zero.,Sətir {0}: ehtiyatın ölçü vahidi ilə miqdar sıfır ola bilməz.
 Scheduler is inactive. Cannot enqueue job.,Planlaşdırıcı deaktivdir. İşi növbəyə almaq mümkün deyil.
 Service Item {0} must be a non-stock item.,{0} xidmətinin anbar uçotu aparılmamalıdır.
 Target Item {0} must be a Fixed Asset item,{0} hədəf məhsulu əsas vəsait olmalıdır
@@ -17593,8 +17593,8 @@ No attachment found for the prepared report,Hazırlanmış hesabatın əlavəsi 
 Only a new list layout can be made standard,Yalnız yeni siyahı düzülüşü standart kimi təyin edilə bilər
 Please select a bank and set the date range,Bankı seçin və tarix intervalını təyin edin
 References to Sales Invoices are Incomplete,Satış hesab-fakturalarına istinadlar natamamdır
-Row #{0}: Secondary Item Qty cannot be zero,{0}-ci sətir: ikinci məhsulun miqdarı sıfır ola bilməz
-Row {0}: UOM Conversion Factor is mandatory,{0}-ci sətir: ölçü vahidinin çevirmə əmsalı məcburidir
+Row #{0}: Secondary Item Qty cannot be zero,Sətir {0}: ikinci məhsulun miqdarı sıfır ola bilməz
+Row {0}: UOM Conversion Factor is mandatory,Sətir {0}: ölçü vahidinin çevirmə əmsalı məcburidir
 Shipping Address does not belong to the {0},Çatdırılma ünvanı {0} üçün qeyd edilməyib
 The selected BOMs are not for the same item,Seçilən material spesifikasiyaları fərqli məhsullara aiddir
 Warehouse not found against the account {0},{0} hesabı üzrə anbar tapılmadı
@@ -17613,8 +17613,8 @@ Not a valid Comma Separated Value (CSV File),Vergüllə ayrılmış dəyərlər 
 POS Profile {} does not belong to company {},{} satış nöqtəsi profili {} şirkətinə aid deyil
 Please set Fiscal Code for the customer '%s',“%s” müştərisi üçün vergi kodunu təyin edin
 Price or product discount slabs are required,Qiymət və ya məhsul endiriminin pillələri tələb olunur
-Row #{0}: Quantity must be a positive number,{0}-ci sətir: miqdar müsbət ədəd olmalıdır
-Row #{}: POS Invoice {} is not submitted yet,{}-ci sətir: {} satış nöqtəsi hesab-fakturası hələ təsdiqlənməyib
+Row #{0}: Quantity must be a positive number,Sətir {0}: miqdar müsbət ədəd olmalıdır
+Row #{}: POS Invoice {} is not submitted yet,Sətir {}: {} satış nöqtəsi hesab-fakturası hələ təsdiqlənməyib
 Scheduled trigger requires a Cron Expression,Planlı başladıcı üçün Cron ifadəsi tələb olunur
 Set {0} in asset category {1} or company {2},{1} aktiv kateqoriyasında və ya {2} şirkətində {0} təyin edin
 Summary for this week and pending activities,Bu həftənin və gözləyən işlərin icmalı
@@ -17635,7 +17635,7 @@ Only a System Manager can write a script step,Skript addımını yalnız sistem 
 Pass a whitelisted API's path from find_apis.,find_apis nəticəsindən icazəli API-nin yolunu ötürün.
 Please enter Approving Role or Approving User,Təsdiqləyən rolu və ya istifadəçini daxil edin
 Reposting is still in progress in background.,Yazılışlar arxa planda hələ yenidən uçota alınır.
-Row #{}: Please use a different Finance Book.,{}-ci sətir: fərqli maliyyə kitabı istifadə edin.
+Row #{}: Please use a different Finance Book.,Sətir {}: fərqli maliyyə kitabı istifadə edin.
 Same supplier has been entered multiple times,Eyni təchizatçı bir neçə dəfə daxil edilib
 Serial No {0} does not belong to Batch No {1},{0} seriya nömrəsi {1} partiyasına aid deyil
 The field {0} in {1} links to {2} and not {3},{1} sənədində {0} sahəsi {2} ilə əlaqəlidir. Gözlənilən əlaqə: {3}
@@ -17654,7 +17654,7 @@ Only a submitted Quotation can be set as Lost.,Yalnız təsdiqlənmiş qiymət t
 POS Invoice should have the field {0} checked.,Satış nöqtəsi hesab-fakturasında {0} sahəsi işarələnməlidir.
 Please select a Subcontracting Purchase Order.,Subpodrat üzrə satınalma sifarişini seçin.
 Purchase Invoice can be held after submitting.,Alış hesab-fakturasını təsdiqdən sonra gözləməyə almaq olar.
-Row #{0}:Quantity for Item {1} cannot be zero.,{0}-ci sətir: {1} məhsulunun miqdarı sıfır ola bilməz.
+Row #{0}:Quantity for Item {1} cannot be zero.,Sətir {0}: {1} məhsulunun miqdarı sıfır ola bilməz.
 Select an account to print in account currency,Hesab valyutası ilə çap üçün hesab seçin
 The bank account is disabled. Please enable it,Bank hesabı deaktivdir. Onu aktivləşdirin
 There were issues unlinking payment entry {0}.,{0} ödəniş qeydinin əlaqələri silinərkən problem yarandı.
@@ -17673,9 +17673,9 @@ Only an issued Proforma Invoice can be emailed.,Yalnız rəsmiləşdirilmiş pro
 Phone Number {0} set in field {1} is not valid.,{1} sahəsində göstərilən {0} telefon nömrəsi yanlışdır.
 Please set filters to fetch the Data Source {0},{0} məlumat mənbəyini gətirmək üçün filtrləri təyin edin
 Quantity to Manufacture must be greater than 0.,İstehsal miqdarı 0-dan böyük olmalıdır.
-Row #{0}: '{1}' cannot be used to search items.,{0}-ci sətir: məhsul axtarışında “{1}” istifadə edilə bilməz.
-Row #{0}: Quantity for Item {1} cannot be zero.,{0}-ci sətir: {1} məhsulunun miqdarı sıfır ola bilməz.
-Row {0}: Item {1} must be a subcontracted item.,{0}-ci sətir: {1} subpodrat məhsulu olmalıdır.
+Row #{0}: '{1}' cannot be used to search items.,Sətir {0}: məhsul axtarışında “{1}” istifadə edilə bilməz.
+Row #{0}: Quantity for Item {1} cannot be zero.,Sətir {0}: {1} məhsulunun miqdarı sıfır ola bilməz.
+Row {0}: Item {1} must be a subcontracted item.,Sətir {0}: {1} subpodrat məhsulu olmalıdır.
 Security Alert: Your password has been changed.,Təhlükəsizlik bildirişi: parolunuz dəyişdirilib.
 "Serial No {0} was sold to Customer {1}, not {2}",{0} seriya nömrəsi {1} müştərisinə satılıb. Göstərdiyiniz müştəri: {2}
 Started a background job to create {1} {0}. {2},{1} {0} yaratmaq üçün arxa plan işi başlandı. {2}
@@ -17699,8 +17699,8 @@ Password size exceeded the maximum allowed size.,Parolun uzunluğu icazə veril�
 Please set Fixed Asset Account in {} against {}.,{} daxilində {} üçün əsas vəsait hesabını təyin edin.
 Please specify which value field must be checked,Hansı dəyər sahəsinin yoxlanılacağını göstərin
 Quantity cannot be greater than {0} for Item {1},{1} məhsulunun miqdarı {0} dəyərindən böyük ola bilməz
-Row #{0}: Finished Good Item Qty can not be zero,{0}-ci sətir: hazır məhsulun miqdarı sıfır ola bilməz
-Row {0}: Cost center is required for an item {1},{0}-ci sətir: {1} məhsulu üçün xərc mərkəzi tələb olunur
+Row #{0}: Finished Good Item Qty can not be zero,Sətir {0}: hazır məhsulun miqdarı sıfır ola bilməz
+Row {0}: Cost center is required for an item {1},Sətir {0}: {1} məhsulu üçün xərc mərkəzi tələb olunur
 Serial No {0} is still in stock in Warehouse {1},{0} seriya nömrəsi hələ də {1} anbarındadır
 Supplies subject to the reverse charge provision,Əks vergitutma qaydasına tabe olan təqdimetmələr
 The following invalid Pricing Rules are deleted:,Aşağıdakı yanlış qiymət qaydaları silinib:
@@ -21413,7 +21413,7 @@ Please mention 'Weight UOM' along with Weight.,Çəki ilə birlikdə çəki öl�
 Please pick a company name other than Company.,Şirkət üçün “Company” sözündən fərqli ad seçin.
 Please select a value for {0} quotation_to {1},{0} üçün quotation_to {1} dəyərini seçin
 Please select rows to create Reposting Entries,Yenidən işlənmə qeydləri yaratmaq üçün sətirləri seçin
-Row #{0}: {1} can not be negative for item {2},{0}-cı sətir: {2} malı üzrə {1} mənfi ola bilməz
+Row #{0}: {1} can not be negative for item {2},Sətir {0}: {2} malı üzrə {1} mənfi ola bilməz
 Sell quantity cannot exceed the asset quantity,Satılacaq miqdar aktivlərin miqdarından çox ola bilməz
 Show Aggregate Value from Subsidiary Companies,Törəmə şirkətlərin ümumi dəyərini göstər
 Show Differences Settled by Adjustment Entries,Düzəliş yazılışları ilə bağlanmış fərqləri göstər
@@ -21499,7 +21499,7 @@ Get Items from Material Requests against this Supplier,Bu təchizatçı üzrə m
 Lost Reasons are required in case opportunity is Lost.,Satış imkanı itirildikdə səbəblər göstərilməlidir.
 Please select atleast one operation to create Job Card,İş kartı yaratmaq üçün ən azı bir əməliyyat seçin
 Please select only one row to create a Reposting Entry,Yenidən işlənmə qeydi yaratmaq üçün yalnız bir sətir seçin
-Please specify a valid Row ID for row {0} in table {1},{1} cədvəlinin {0}-cı sətri üçün düzgün sətir identifikatoru göstərin
+Please specify a valid Row ID for row {0} in table {1},{1} cədvəlinin {0} nömrəli sətri üçün düzgün sətir identifikatoru göstərin
 To add Operations tick the 'With Operations' checkbox.,Əməliyyatlar əlavə etmək üçün “Əməliyyatlarla” seçimini işarələyin.
 {0}% of total invoice value will be given as discount.,Hesab-fakturanın ümumi dəyərinin {0}%-i endirim kimi veriləcək.
 A separate Purchase Order is created for each Supplier.,Hər təchizatçı üçün ayrıca satınalma sifarişi yaradılır.
@@ -21528,7 +21528,7 @@ Please select Company and Posting Date to getting entries,Yazılışları gətir
 Rejected Warehouse and Accepted Warehouse cannot be same.,İmtina edilmiş və qəbul edilmiş malların anbarları eyni ola bilməz.
 "Scan mode enabled, existing quantity will not be fetched.",Skan rejimi aktivdir. Mövcud miqdar gətirilməyəcək.
 {0}: select the typed value {1} from the list or clear it,{0}: daxil etdiyiniz {1} dəyərini siyahıdan seçin və ya silin
-Actual type tax cannot be included in Item rate in row {0},{0}-cı sətirdə faktiki məbləğlə hesablanan vergi malın qiymətinə daxil edilə bilməz
+Actual type tax cannot be included in Item rate in row {0},{0} nömrəli sətirdə faktiki məbləğlə hesablanan vergi malın qiymətinə daxil edilə bilməz
 Further nodes can be only created under 'Group' type nodes,Yeni qovşaqlar yalnız qrup tipli qovşaqların altında yaradıla bilər
 Material Consumption is not set in Manufacturing Settings.,İstehsal parametrlərində material sərfiyyatı təyin edilməyib.
 Save or discard your other changes to this customer first.,Əvvəlcə bu müştəri üzrə digər dəyişiklikləri saxlayın və ya ləğv edin.
@@ -21623,7 +21623,7 @@ Different 'Source Warehouse' and 'Target Warehouse' can be set for each row.,Hə
 Note: Automatic log deletion only applies to logs of type <i>Update Cost</i>,Qeyd: jurnalların avtomatik silinməsi yalnız <i>Xərci yenilə</i> tipli qeydlərə şamil olunur
 Total quantity in delivery schedule cannot be greater than the item quantity,Çatdırılma qrafikində ümumi miqdar malın miqdarından çox ola bilməz
 All communications including and above this shall be moved into the new Issue,Bu yazışma və ondan yuxarıdakı bütün yazışmalar yeni müraciətə köçürüləcək
-Call Schedule Row {0}: To time slot should always be ahead of From time slot.,Zəng qrafikinin {0}-cı sətrində bitmə vaxtı başlanğıc vaxtından sonra olmalıdır.
+Call Schedule Row {0}: To time slot should always be ahead of From time slot.,Zəng qrafikinin {0} nömrəli sətrində bitmə vaxtı başlanğıc vaxtından sonra olmalıdır.
 "This table is used to set details about the 'Item', 'Qty', 'Basic Rate', etc.","Bu cədvəldə mal, miqdar, əsas qiymət və digər məlumatlar göstərilir."
 Cannot convert Task to non-group because the following child Tasks exist: {0}.,Bu alt tapşırıqlar mövcud olduğuna görə tapşırığı adi tapşırığa çevirmək mümkün deyil: {0}.
 "Quotations, orders, invoices and payments for this customer will show up here.","Bu müştəri üzrə qiymət təklifləri, sifarişlər, hesab-fakturalar və ödənişlər burada görünəcək."
@@ -21632,7 +21632,7 @@ Total proforma {0} (including past proformas) exceeds the ordered {0} for: {1},{
 A Holiday List can be added to exclude counting these days for the Workstation.,Bu günləri iş stansiyasının qrafikindən çıxarmaq üçün qeyri-iş günləri siyahısı əlavə edə bilərsiniz.
 "After this, only items in Customer Specific Items can be sold to this customer.",Bundan sonra bu müştəriyə yalnız ona aid mallar siyahısındakı mallar satıla bilər.
 Allowed Users is required for data synchronization from remote Frappe CRM site.,Uzaq Frappe CRM saytı ilə məlumatları sinxronlaşdırmaq üçün icazəli istifadəçilər göstərilməlidir.
-"For row {0} in {1}. To include {2} in Item rate, rows {3} must also be included",{1} sənədinin {0}-cı sətrində {2} göstəricisini malın qiymətinə daxil etmək üçün {3} sətirləri də daxil edilməlidir
+"For row {0} in {1}. To include {2} in Item rate, rows {3} must also be included",{1} sənədinin {0} nömrəli sətrində {2} göstəricisini malın qiymətinə daxil etmək üçün {3} sətirləri də daxil edilməlidir
 "If the BOM results in Scrap material, the Scrap Warehouse needs to be selected.","Material spesifikasiyasına görə istehsal tullantı yaradırsa, tullantı anbarı seçilməlidir."
 Payment Reconciliation Job: {0} is running for this party. Can't reconcile now.,Bu tərəf üçün {0} ödəniş üzləşdirmə tapşırığı icra olunur. Hazırda yeni üzləşdirmə aparmaq olmaz.
 Payment of {0} received successfully. Waiting for other requests to complete...,{0} məbləğində ödəniş qəbul edildi. Digər sorğuların tamamlanması gözlənilir...
@@ -21646,7 +21646,7 @@ To add subcontracted Item's raw materials if include exploded items is disabled.
 No default warehouse set for this company. Entry will use Stock Settings default.,Bu şirkət üçün standart anbar yoxdur. Qeyddə anbar parametrlərinin standart anbarı istifadə ediləcək.
 Note: This Cost Center is a Group. Cannot make accounting entries against groups.,Qeyd: bu xərc mərkəzi qrupdur. Qrup üzrə mühasibat yazılışı aparıla bilməz.
 Reserved Qty for Subcontract: Raw materials quantity to make subcontracted items.,Subpodrat üçün rezerv miqdarı: subpodratla istehsal ediləcək mallar üçün lazım olan xammal miqdarı.
-"In row {0} of Appointment Booking Slots: ""To Time"" must be later than ""From Time"".",Görüş vaxtlarının {0}-cı sətrində bitmə vaxtı başlanğıc vaxtından sonra olmalıdır.
+"In row {0} of Appointment Booking Slots: ""To Time"" must be later than ""From Time"".",Görüş vaxtlarının {0} nömrəli sətrində bitmə vaxtı başlanğıc vaxtından sonra olmalıdır.
 "Number of new Cost Center, it will be included in the cost center name as a prefix",Yeni xərc mərkəzinin nömrəsi. Xərc mərkəzinin adının əvvəlinə əlavə ediləcək
 Payment Request took too long to respond. Please try requesting for payment again.,Ödəniş sorğusuna vaxtında cavab alınmadı. Ödəniş sorğusunu yenidən göndərin.
 Rows: {0} have 'Payment Entry' as reference_type. This should not be set manually.,{0} sətirlərində reference_type dəyəri “Payment Entry” olaraq göstərilib. Bu dəyər əl ilə təyin edilməməlidir.
@@ -21660,7 +21660,7 @@ Convert company currency amounts to account currency at the exchange rate on To 
 Discount Percentage can be applied either against a Price List or for all Price List.,Endirim faizi konkret bir qiymət siyahısına və ya bütün qiymət siyahılarına tətbiq edilə bilər.
 Enter the quantity of the Item that will be manufactured from this Bill of Materials.,Bu material spesifikasiyası əsasında istehsal ediləcək malın miqdarını daxil edin.
 "Further accounts can be made under Groups, but entries can be made against non-Groups",Qrupların altında yeni hesablar yaradıla bilər. Yazılışlar yalnız qrup olmayan hesablara işlənir
-Row {0}: The entire expense amount for account {1} in {2} has already been allocated.,{0}-cı sətir: {2} üzrə {1} hesabının bütün xərc məbləği artıq bölüşdürülüb.
+Row {0}: The entire expense amount for account {1} in {2} has already been allocated.,Sətir {0}: {2} üzrə {1} hesabının bütün xərc məbləği artıq bölüşdürülüb.
 Serial No and Batch Selector cannot be use when Use Serial / Batch Fields is enabled.,Seriya və partiya sahələri aktiv olduqda seriya və partiya nömrələri seçicisindən istifadə edilə bilməz.
 This is a Template BOM and will be used to make the work order for {0} of the item {1},"Bu, {1} malından {0} miqdarında istehsal üçün iş sifarişinin yaradılmasında istifadə ediləcək şablon material spesifikasiyasıdır"
 Using negative stock disables FIFO/Moving average valuation when inventory is negative.,Mənfi anbar qalığına icazə verildikdə qalıq mənfi olduğu müddətdə FIFO və sürüşən orta dəyər üsulu ilə qiymətləndirmə işləmir.
@@ -21689,9 +21689,9 @@ The reserved stock will be released when you update items. Are you certain you w
 "These raw materials are short in their source warehouse, so the transfer cannot be submitted yet.",Mənbə anbarında bu xammal kifayət deyil. Buna görə köçürməni hələ təsdiqləmək mümkün deyil.
 "Company is required to load address, taxes, and payment terms. Set Company, then select {0} again.","Ünvanı, vergiləri və ödəniş şərtlərini yükləmək üçün şirkət tələb olunur. Şirkəti təyin edib {0} seçimini yenidən edin."
 "Pricing Rule is made to overwrite Price List / define discount percentage, based on some criteria.",Qiymətqoyma qaydası müəyyən meyarlara əsasən siyahı qiymətini əvəz etmək və ya endirim faizi təyin etmək üçün yaradılır.
-"Row #{0}: Reference Document Type must be one of Purchase Order, Purchase Invoice or Journal Entry","{0}-cı sətir: istinad sənədinin növü satınalma sifarişi, alış hesab-fakturası və ya mühasibat yazılışı olmalıdır"
+"Row #{0}: Reference Document Type must be one of Purchase Order, Purchase Invoice or Journal Entry","Sətir {0}: istinad sənədinin növü satınalma sifarişi, alış hesab-fakturası və ya mühasibat yazılışı olmalıdır"
 "Here, you can select a senior of this Employee. Based on this, Organization Chart will be populated.",Burada işçinin birbaşa rəhbərini seçə bilərsiniz. Təşkilati struktur bu məlumata əsasən qurulacaq.
-"Row #{0}: Reference Document Type must be one of Sales Order, Sales Invoice, Journal Entry or Dunning","{0}-cı sətir: istinad sənədinin növü satış sifarişi, satış hesab-fakturası, mühasibat yazılışı və ya ödəniş tələbi olmalıdır"
+"Row #{0}: Reference Document Type must be one of Sales Order, Sales Invoice, Journal Entry or Dunning","Sətir {0}: istinad sənədinin növü satış sifarişi, satış hesab-fakturası, mühasibat yazılışı və ya ödəniş tələbi olmalıdır"
 {0} draft {1} documents already exist for this Pick List: {2}. Do you still want to create a new one?,Bu yığım siyahısı üzrə {0} ədəd {1} qaralaması artıq var: {2}. Yenə də yenisini yaratmaq istəyirsiniz?
 Also you can't switch back to FIFO after setting the valuation method to Moving Average for this item.,Bu malın qiymətləndirmə üsulunu sürüşən orta dəyərə keçirdikdən sonra FIFO üsuluna qayıda bilməzsiniz.
 "To not apply Pricing Rule in a particular transaction, all applicable Pricing Rules should be disabled.",Konkret əməliyyatda qiymətqoyma qaydalarının tətbiq edilməməsi üçün ona uyğun bütün qaydalar söndürülməlidir.
@@ -21808,7 +21808,7 @@ Serial No Range,Seriya nömrələri aralığı
 Show GL Balance,Baş kitab qalığını göstər
 Solvency Ratios,Ödəmə qabiliyyəti əmsalları
 Start Reposting,Yenidən işləməyə başla
-Step {0} Output,{0}-cı addımın nəticəsi
+Step {0} Output,{0} nömrəli addımın nəticəsi
 Turnover Ratios,Dövriyyə əmsalları
 Unbilled orders,Hesab-fakturası tərtib edilməmiş sifarişlər
 Unblock Invoice,Hesab-fakturanın blokunu aç
@@ -22088,7 +22088,7 @@ Restart Subscription,Abunəliyi yenidən başlat
 Return / Credit Note,Qaytarma / kredit-nota
 Return of Components,Komponentlərin qaytarılması
 Revaluation Journals,Yenidən qiymətləndirmə yazılışları
-Row #{0}: Item added,{0}-cı sətir: mal əlavə edildi
+Row #{0}: Item added,Sətir {0}: mal əlavə edildi
 Scan Job Card Qrcode,İş kartının QR kodunu skan et
 Select Finished Good,Hazır məhsulu seç
 Select Operation Row,Əməliyyat sətrini seç
@@ -22305,7 +22305,7 @@ Select Supplier for Items,Mallar üçün təchizatçı seç
 Setting Item Locations...,Malların yerləşmə yerləri təyin edilir...
 Show Warehouse-wise Stock,Anbarlar üzrə ehtiyatları göstər
 Successfully Set Supplier,Təchizatçı təyin edildi
-{0}: placement {1} of {2},{0}: {2} yerləşdirmədən {1}-ci
+{0}: placement {1} of {2},{0}: yerləşdirmə {1}/{2}
 Account for Return Entries,Qaytarma yazılışları üçün hesab
 Across {0} purchase orders,{0} satınalma sifarişi üzrə
 Activity Cost per Employee,İşçilər üzrə fəaliyyətin dəyəri
@@ -22447,7 +22447,7 @@ Price is not set for the item.,Mal üçün qiymət göstərilməyib.
 Reconcile the Bank Transaction,Bank əməliyyatını üzləşdir
 Regenerate Stock Closing Entry,Anbar üzrə bağlanış qeydini yenidən yarat
 Reposting has been queued for:,Bunlar üzrə yenidən işlənmə növbəyə alınıb:
-Row #{0}: Qty increased by {1},{0}-cı sətir: miqdar {1} qədər artırıldı
+Row #{0}: Qty increased by {1},Sətir {0}: miqdar {1} qədər artırıldı
 "Sales invoices, net of returns","Satış üzrə hesab-fakturalar, qaytarmalar çıxılmaqla"
 Select a Supplier for Item {0},{0} malı üçün təchizatçı seçin
 Serial No {0} is already added,{0} seriya nömrəsi artıq əlavə edilib
