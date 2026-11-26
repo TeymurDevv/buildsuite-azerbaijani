@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 // Generic, meta-driven form for an arbitrary DocType. Renders each field by its
 // fieldtype via the shared DocTypeFieldControl, honouring reqd / read_only /
 // hidden / depends_on, plus full-width child-table grids (DocTypeChildTable) and
@@ -283,7 +284,7 @@ async function load() {
 		}
 		snapshot();
 	} catch (err) {
-		formError.value = err.message || "Failed to load record.";
+		formError.value = err.message || __("Failed to load record.");
 	} finally {
 		loading.value = false;
 		await nextTick();
@@ -318,7 +319,7 @@ function missingRequired() {
 	const missing = [];
 	let firstTab = null;
 	const flag = (label, ti) => {
-		missing.push(label);
+		missing.push(__(label));
 		if (firstTab === null) firstTab = ti;
 	};
 	tabs.value.forEach((t, ti) => {
@@ -341,7 +342,7 @@ function guardRequired() {
 	const { missing, firstTab } = missingRequired();
 	if (missing.length) {
 		if (firstTab !== null) activeTab.value = firstTab;
-		formError.value = `Please fill: ${missing.join(", ")}.`;
+		formError.value = __("Please fill: {0}.", [missing.join(", ")]);
 		return false;
 	}
 	return true;
@@ -359,11 +360,11 @@ async function onSave() {
 		const isNew = !isEdit.value;
 		const doc = isNew ? await insertRecord(payload) : await saveRecord(payload);
 		await runDocHook(props.doctype, "afterSave", doc, { isNew });
-		showToast(isEdit.value ? "Saved." : "Created.");
+		showToast(isEdit.value ? __("Saved.") : __("Created."));
 		if (!isEdit.value && doc?.name) goEdit(doc.name);
 		else await load();
 	} catch (err) {
-		formError.value = err.message || "Save failed.";
+		formError.value = err.message || __("Save failed.");
 	} finally {
 		busy.value = false;
 	}
@@ -376,10 +377,10 @@ async function onSubmit() {
 	try {
 		await saveRecord({ ...form }); // persist edits before submitting
 		await submitRecord(props.doctype, props.name);
-		showToast("Submitted.");
+		showToast(__("Submitted."));
 		await load();
 	} catch (err) {
-		formError.value = err.message || "Submit failed.";
+		formError.value = err.message || __("Submit failed.");
 	} finally {
 		busy.value = false;
 	}
@@ -387,19 +388,19 @@ async function onSubmit() {
 
 async function onCancel() {
 	const ok = await confirmDialog({
-		title: `Cancel ${props.name}?`,
-		message: "This cancels the submitted document.",
-		confirmLabel: "Cancel document",
+		title: __("Cancel {0}?", [props.name]),
+		message: __("This cancels the submitted document."),
+		confirmLabel: __("Cancel document"),
 		destructive: true,
 	});
 	if (!ok) return;
 	busy.value = true;
 	try {
 		await cancelRecord(props.doctype, props.name);
-		showToast("Cancelled.");
+		showToast(__("Cancelled."));
 		await load();
 	} catch (err) {
-		formError.value = err.message || "Cancel failed.";
+		formError.value = err.message || __("Cancel failed.");
 	} finally {
 		busy.value = false;
 	}
@@ -407,18 +408,18 @@ async function onCancel() {
 
 async function onAmend() {
 	const ok = await confirmDialog({
-		title: `Amend ${props.name}?`,
-		message: "Creates a fresh editable draft copy; the original stays cancelled.",
-		confirmLabel: "Amend",
+		title: __("Amend {0}?", [props.name]),
+		message: __("Creates a fresh editable draft copy; the original stays cancelled."),
+		confirmLabel: __("Amend"),
 	});
 	if (!ok) return;
 	busy.value = true;
 	try {
 		const res = await amendRecord(props.doctype, props.name);
-		showToast("Amended — a draft was created.");
+		showToast(__("Amended — a draft was created."));
 		goEdit(res.name);
 	} catch (err) {
-		formError.value = err.message || "Amend failed.";
+		formError.value = err.message || __("Amend failed.");
 	} finally {
 		busy.value = false;
 	}
@@ -426,19 +427,19 @@ async function onAmend() {
 
 async function onDelete() {
 	const ok = await confirmDialog({
-		title: `Delete ${props.name}?`,
-		message: "This permanently removes the record.",
-		confirmLabel: "Delete",
+		title: __("Delete {0}?", [props.name]),
+		message: __("This permanently removes the record."),
+		confirmLabel: __("Delete"),
 		destructive: true,
 	});
 	if (!ok) return;
 	busy.value = true;
 	try {
 		await deleteRecord(props.doctype, props.name);
-		showToast("Deleted.");
+		showToast(__("Deleted."));
 		goList();
 	} catch (err) {
-		formError.value = err.message || "Delete failed.";
+		formError.value = err.message || __("Delete failed.");
 		busy.value = false;
 	}
 }
@@ -453,7 +454,9 @@ const DANGER =
 	<div>
 		<div v-if="isEdit && submittable" class="mb-4 flex items-center gap-2">
 			<StatusBadge :status="statusLabel" />
-			<span v-if="isDraft" class="text-[11px] text-ink-500">{{ __('Not submitted yet.') }}</span>
+			<span v-if="isDraft" class="text-[11px] text-ink-500">{{
+				__("Not submitted yet.")
+			}}</span>
 		</div>
 
 		<div
@@ -464,7 +467,7 @@ const DANGER =
 		</div>
 
 		<div v-if="metaLoading || loading" class="text-sm text-ink-500 py-10 text-center">
-			{{ __('Loading…') }}
+			{{ __("Loading…") }}
 		</div>
 
 		<form v-else @submit.prevent="onSave">
@@ -478,7 +481,7 @@ const DANGER =
 					class="desk-save-btn"
 					:disabled="busy"
 				>
-					{{ busy ? "Creating…" : "Create" }}
+					{{ busy ? __("Creating…") : __("Create") }}
 				</button>
 
 				<!-- Draft: Save is primary while dirty; once clean, Submit takes over. -->
@@ -489,7 +492,7 @@ const DANGER =
 						class="desk-save-btn"
 						:disabled="busy || !dirty"
 					>
-						{{ busy ? "Saving…" : "Save" }}
+						{{ busy ? __("Saving…") : __("Save") }}
 					</button>
 					<button
 						v-if="submittable && perms.submit"
@@ -498,7 +501,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onSubmit"
 					>
-						{{ __('Submit') }}
+						{{ __("Submit") }}
 					</button>
 					<button
 						v-if="perms.delete && !single"
@@ -507,7 +510,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onDelete"
 					>
-						{{ __('Delete') }}
+						{{ __("Delete") }}
 					</button>
 				</template>
 
@@ -520,7 +523,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onCancel"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 				</template>
 
@@ -533,7 +536,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onAmend"
 					>
-						{{ __('Amend') }}
+						{{ __("Amend") }}
 					</button>
 					<button
 						v-if="perms.delete"
@@ -542,11 +545,11 @@ const DANGER =
 						:disabled="busy"
 						@click="onDelete"
 					>
-						{{ __('Delete') }}
+						{{ __("Delete") }}
 					</button>
 				</template>
 
-				<button type="button" :class="SECONDARY" @click="goList">{{ __('Back') }}</button>
+				<button type="button" :class="SECONDARY" @click="goList">{{ __("Back") }}</button>
 			</div>
 
 			<!-- Tabs (Tab Break fields) -->
@@ -566,7 +569,7 @@ const DANGER =
 					"
 					@click="activeTab = ti"
 				>
-					{{ t.label || "Details" }}
+					{{ __(t.label || "Details") }}
 				</button>
 			</div>
 
@@ -577,7 +580,7 @@ const DANGER =
 					v-if="s.label"
 					class="text-[11px] font-semibold uppercase tracking-wider text-ink-700 mb-3 pb-1.5 border-b border-ink-200"
 				>
-					{{ s.label }}
+					{{ __(s.label) }}
 				</h3>
 
 				<div
@@ -587,9 +590,9 @@ const DANGER =
 					<DeskField
 						v-for="f in s.fields"
 						:key="f.fieldname"
-						:label="f.label || f.fieldname"
+						:label="__(f.label || f.fieldname)"
 						:required="!!f.reqd"
-						:hint="f.description || ''"
+						:hint="__(f.description)"
 					>
 						<DocTypeFieldControl
 							v-model="form[f.fieldname]"
@@ -602,7 +605,7 @@ const DANGER =
 
 				<div v-for="t in s.tables" :key="t.fieldname" class="mb-4">
 					<div class="text-[11px] font-medium text-ink-700 mb-1.5">
-						{{ t.label || t.fieldname
+						{{ __(t.label || t.fieldname)
 						}}<span v-if="t.reqd" class="text-danger-600"> *</span>
 					</div>
 					<DocTypeChildTable

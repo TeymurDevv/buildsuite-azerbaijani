@@ -9,7 +9,9 @@ import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores";
 import { showToast } from "@/utils/appToast";
 import { getProjectTemplate, saveProjectTemplate } from "@/utils/projectTemplateApi";
-import { __ } from "@/utils/translate";
+import { __, templateTaskSubject } from "@/utils/translate";
+import { PROJECT_TYPE_TEMPLATES } from "@/data/projectTypeTemplates";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskForm from "@/components/desk/DeskForm.vue";
 import DeskActionBar from "@/components/desk/DeskActionBar.vue";
@@ -64,13 +66,58 @@ function removeRow(list, i) {
 	list.splice(i, 1);
 }
 
+// Only the exact labels supplied with this category are presentation text.
+// New rows and edits keep their original spelling and canonical stage links.
+const stockLabels = new WeakMap();
+function populate(data) {
+	workPackages.splice(0, workPackages.length, ...(data?.work_packages || []));
+	stages.splice(0, stages.length, ...(data?.stages || []));
+	tasks.splice(0, tasks.length, ...(data?.tasks || []));
+	const seed = PROJECT_TYPE_TEMPLATES[props.id];
+	if (!seed) return;
+	for (const row of workPackages) {
+		if (
+			seed.defaultWorkPackages.some(
+				(entry) => entry.code === row.code && entry.name === row.work_package_name
+			)
+		) {
+			stockLabels.set(row, row.work_package_name);
+		}
+	}
+	for (const row of stages) {
+		if (
+			seed.defaultStages.some(
+				(entry) =>
+					entry.stageName === row.stage_name &&
+					entry.offsetStartDays === Number(row.offset_start_days) &&
+					entry.offsetEndDays === Number(row.offset_end_days)
+			)
+		) {
+			stockLabels.set(row, row.stage_name);
+		}
+	}
+	for (const row of tasks) {
+		if (
+			seed.defaultTasks.some(
+				(entry) =>
+					entry.name === row.subject && entry.workPackageCode === row.work_package_code
+			)
+		) {
+			stockLabels.set(row, row.subject);
+		}
+	}
+}
+function templateLabel(row, field) {
+	const source = row[field];
+	if (stockLabels.get(row) !== source) return source;
+	return field === "subject" ? templateTaskSubject(source, true) : __(source);
+}
+
 async function load() {
 	loading.value = true;
 	try {
 		const data = await getProjectTemplate(props.id);
-		workPackages.splice(0, workPackages.length, ...(data?.work_packages || []));
-		stages.splice(0, stages.length, ...(data?.stages || []));
-		tasks.splice(0, tasks.length, ...(data?.tasks || []));
+		populate(data);
 	} catch (err) {
 		showToast(err.message || __("Failed to load template"), "error");
 	} finally {
@@ -101,9 +148,7 @@ async function save() {
 			stages,
 			tasks,
 		});
-		workPackages.splice(0, workPackages.length, ...(data?.work_packages || []));
-		stages.splice(0, stages.length, ...(data?.stages || []));
-		tasks.splice(0, tasks.length, ...(data?.tasks || []));
+		populate(data);
 		showToast(__("Template saved"));
 	} catch (err) {
 		showToast(err.message || __("Failed to save template"), "error");
@@ -119,7 +164,10 @@ const breadcrumbs = computed(() => [
 	{ label: __("BuildSuite Core"), to: "/" },
 	{ label: __("Settings"), to: "/settings" },
 	{ label: __("Project Categories"), to: "/settings/project-categories" },
-	{ label: props.id, to: `/settings/project-categories/${props.id}` },
+	{
+		label: standardSettingsLabel("Project Category", props.id),
+		to: `/settings/project-categories/${props.id}`,
+	},
 	{ label: __("Template") },
 ]);
 
@@ -134,7 +182,7 @@ onMounted(() => {
 
 <template>
 	<DeskPage
-		:title="__('{0} template', [props.id])"
+		:title="__('{0} template', [standardSettingsLabel('Project Category', props.id)])"
 		:subtitle="__('Defaults imported when a project is created under this category')"
 		:breadcrumbs="breadcrumbs"
 	>
@@ -178,7 +226,10 @@ onMounted(() => {
 										<DeskInput v-model="w.code" :placeholder="__('WP-XXX')" />
 									</td>
 									<td class="py-1 pr-2">
-										<DeskInput v-model="w.work_package_name" />
+										<DeskInput
+											:model-value="templateLabel(w, 'work_package_name')"
+											@update:model-value="w.work_package_name = $event"
+										/>
 									</td>
 									<td class="py-1 pr-2">
 										<DeskInput v-model="w.budget" type="number" min="0" />
@@ -189,6 +240,7 @@ onMounted(() => {
 									<td class="py-1 text-center">
 										<button
 											class="text-ink-400 hover:text-danger-600"
+											:aria-label="__('Remove work package')"
 											@click="removeRow(workPackages, i)"
 										>
 											×
@@ -236,7 +288,12 @@ onMounted(() => {
 									:key="i"
 									class="border-b border-ink-50"
 								>
-									<td class="py-1 pr-2"><DeskInput v-model="s.stage_name" /></td>
+									<td class="py-1 pr-2">
+										<DeskInput
+											:model-value="templateLabel(s, 'stage_name')"
+											@update:model-value="s.stage_name = $event"
+										/>
+									</td>
 									<td class="py-1 pr-2">
 										<DeskInput
 											v-model="s.offset_start_days"
@@ -261,6 +318,7 @@ onMounted(() => {
 									<td class="py-1 text-center">
 										<button
 											class="text-ink-400 hover:text-danger-600"
+											:aria-label="__('Remove stage')"
 											@click="removeRow(stages, i)"
 										>
 											×
@@ -311,7 +369,12 @@ onMounted(() => {
 									:key="i"
 									class="border-b border-ink-50"
 								>
-									<td class="py-1 pr-2"><DeskInput v-model="t.subject" /></td>
+									<td class="py-1 pr-2">
+										<DeskInput
+											:model-value="templateLabel(t, 'subject')"
+											@update:model-value="t.subject = $event"
+										/>
+									</td>
 									<td class="py-1 pr-2">
 										<DeskSelect v-model="t.priority">
 											<option v-for="p in PRIORITIES" :key="p" :value="p">
@@ -333,14 +396,19 @@ onMounted(() => {
 									<td class="py-1 pr-2">
 										<DeskSelect v-model="t.stage">
 											<option value="">—</option>
-											<option v-for="n in stageNames" :key="n" :value="n">
-												{{ n }}
+											<option
+												v-for="stage in stages.filter((s) => s.stage_name)"
+												:key="stage.stage_name"
+												:value="stage.stage_name"
+											>
+												{{ templateLabel(stage, "stage_name") }}
 											</option>
 										</DeskSelect>
 									</td>
 									<td class="py-1 text-center">
 										<button
 											class="text-ink-400 hover:text-danger-600"
+											:aria-label="__('Remove task')"
 											@click="removeRow(tasks, i)"
 										>
 											×

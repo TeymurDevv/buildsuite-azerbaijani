@@ -10,6 +10,8 @@
  *   }
  */
 
+import { __ } from "./translate.js";
+
 // Human-readable labels for common Frappe field names. Falls back to
 // Title-Cased snake_case for anything not listed.
 const FIELD_LABELS = {
@@ -32,7 +34,9 @@ const FIELD_LABELS = {
 };
 
 function fieldLabel(name) {
-	return FIELD_LABELS[name] ?? name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+	return __(
+		FIELD_LABELS[name] ?? name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+	);
 }
 
 /**
@@ -136,7 +140,7 @@ export function parseFrappeError(err) {
 				.map((f) => f.trim())
 				.filter(Boolean)
 				.forEach((f) => {
-					fieldErrors[f] = `${fieldLabel(f)} is required`;
+					fieldErrors[f] = __("{0} is required", [fieldLabel(f)]);
 				});
 		}
 
@@ -150,18 +154,16 @@ export function parseFrappeError(err) {
 					.map((f) => f.trim())
 					.filter(Boolean)
 					.forEach((f) => {
-						fieldErrors[f] ??= `${fieldLabel(f)} is required`;
+						fieldErrors[f] ??= __("{0} is required", [fieldLabel(f)]);
 					});
 			}
 		}
 
-		const labels = [
-			...new Set(Object.values(fieldErrors).map((e) => e.replace(" is required", ""))),
-		];
+		const labels = [...new Set(Object.keys(fieldErrors).map(fieldLabel))];
 		return {
 			summary: labels.length
-				? `Required: ${labels.join(", ")}`
-				: "Some required fields are missing",
+				? __("Required: {0}", [labels.join(", ")])
+				: __("Some required fields are missing"),
 			fieldErrors,
 		};
 	}

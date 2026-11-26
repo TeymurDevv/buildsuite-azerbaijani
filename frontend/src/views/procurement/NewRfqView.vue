@@ -7,7 +7,6 @@
 // request line it came from. Saved via save_request_for_quotation.
 import { computed, defineAsyncComponent, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { frappeRequest } from "frappe-ui-frappe-request";
 import { showToast } from "@/utils/appToast";
 import {
 	getRfq,
@@ -31,7 +30,7 @@ import CostCodePicker from "@/components/CostCodePicker.vue";
 import ItemFormModal from "@/components/ItemFormModal.vue";
 import PartyFormModal from "@/views/finance/PartyFormModal.vue";
 import { usePermissions } from "@/composables/usePermissions";
-import { getDefaultTerms } from "@/data/termsApi";
+import { getDefaultTerms, getRfqTemplate } from "@/data/termsApi";
 import { __ } from "@/utils/translate";
 
 const RichTextEditor = defineAsyncComponent(() => import("@/components/RichTextEditor.vue"));
@@ -76,6 +75,15 @@ const saving = ref(false);
 // Remount the rich-text editor when the terms are set for us (template pull or record load), so it
 // initialises with that body rather than reporting it as an edit and dropping the template link.
 const editorKey = ref(0);
+// Keep the stored commercial text when the visible template is localized and no edit was made.
+const sourceTerms = ref(null);
+let termsRevision = 0;
+function loadTerms(record, templateName) {
+	form.value.tc_name = templateName || "";
+	sourceTerms.value = record.terms || "";
+	form.value.terms = record.display_terms ?? sourceTerms.value;
+	editorKey.value += 1;
+}
 
 // ---- suppliers: picked from the master; contact + email are copied in and stay editable ----
 const supplierPick = ref("");
@@ -165,21 +173,21 @@ const validLines = computed(() =>
 
 // ---- terms: a template copies its text in; editing afterwards makes them this request's own ----
 async function onPickTerms(name) {
+	const revision = ++termsRevision;
 	form.value.tc_name = name || "";
 	if (!name) return;
 	try {
-		const res = await frappeRequest({
-			url: "frappe.client.get_value",
-			params: { doctype: "Terms and Conditions", filters: name, fieldname: "terms" },
-		});
-		form.value.terms = res?.terms || "";
-		editorKey.value += 1;
+		const record = await getRfqTemplate(name);
+		if (revision === termsRevision) loadTerms(record, record.name);
 	} catch {
+		if (revision !== termsRevision) return;
 		form.value.tc_name = "";
 		showToast(__("Could not read that terms template."), "error");
 	}
 }
 function onTermsEdited() {
+	termsRevision += 1;
+	sourceTerms.value = null;
 	form.value.tc_name = "";
 }
 
@@ -188,10 +196,8 @@ function onTermsEdited() {
 if (!isEdit.value) {
 	getDefaultTerms("Request for Quotation")
 		.then((def) => {
-			if (!def || form.value.terms) return;
-			form.value.tc_name = def.name;
-			form.value.terms = def.terms || "";
-			editorKey.value += 1;
+			if (!def || termsRevision || form.value.terms || isEdit.value) return;
+			loadTerms(def, def.name);
 		})
 		.catch(() => {
 			// no default: the terms start empty
@@ -237,7 +243,7 @@ watch(
 				})),
 			};
 			if (!form.value.lines.length) form.value.lines = [emptyLine()];
-			editorKey.value += 1;
+			loadTerms(r, r.tc_name);
 		} catch (err) {
 			showToast(err.message || __("Failed to load request"), "error");
 		}
@@ -305,7 +311,7 @@ async function onSave() {
 			closing_date: form.value.closing_date || "",
 			subject: form.value.subject.trim(),
 			message_for_supplier: form.value.message_for_supplier || "",
-			terms: form.value.terms || "",
+			terms: sourceTerms.value ?? form.value.terms,
 			tc_name: form.value.tc_name || "",
 			suppliers: form.value.suppliers.map((s) => ({
 				supplier: s.supplier,

@@ -11,7 +11,7 @@ import { parseFrappeError } from "@/utils/frappeError";
 import { fmtCurrency, fmtDate } from "@/utils/format";
 import { toDateInputValue } from "@/utils/dateInput";
 import { useUserNames } from "@/composables/useUserNames";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskLink from "@/components/desk/DeskLink.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
@@ -94,7 +94,7 @@ async function onDelete() {
 		<div v-if="loading" class="text-sm">{{ __("Loading tender…") }}</div>
 		<template v-else>
 			<div class="text-sm">
-				{{ __('Tender') }} <span class="font-mono">{{ id }}</span> {{ __('not found.') }}
+				{{ __("Tender") }} <span class="font-mono">{{ id }}</span> {{ __("not found.") }}
 			</div>
 			<DeskLink to="/tenders" class="text-sm mt-2 inline-block">{{
 				__("← Back to tenders")
@@ -289,7 +289,9 @@ async function onDelete() {
 								{{ r.source_ref }}
 							</div>
 						</td>
-						<td class="px-3 py-3 text-ink-600">{{ r.unit || "—" }}</td>
+						<td class="px-3 py-3 text-ink-600">
+							{{ standardLinkLabel("UOM", r.unit) || "—" }}
+						</td>
 						<td class="px-3 py-3 text-right tabular-nums">{{ r.qty }}</td>
 						<td class="px-3 py-3 text-right tabular-nums">
 							{{ fmtCurrency(r.rate) }}

@@ -21,7 +21,7 @@ import StatusBadge from "@/components/StatusBadge.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
 import { usePermissions } from "@/composables/usePermissions";
 import { fmtDate } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const props = defineProps({ id: String });
 const router = useRouter();
@@ -333,7 +333,9 @@ const breadcrumbs = computed(() => [
 							{{ e.is_deduction ? "−" : ""
 							}}{{ Number(e.quantity || 0).toLocaleString(numberLocale("en-IN")) }}
 						</td>
-						<td class="px-3 py-2 text-ink-500">{{ e.uom }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", e.uom) }}
+						</td>
 						<td class="px-3 py-2 text-center">
 							<span
 								v-if="e.is_deduction"
@@ -359,7 +361,11 @@ const breadcrumbs = computed(() => [
 						<td
 							class="px-3 py-2 text-right tabular-nums text-sm font-semibold text-info-700"
 						>
-							{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
+							{{
+								Number(mb.measured_total || 0).toLocaleString(
+									numberLocale("en-IN")
+								)
+							}}
 						</td>
 						<td colspan="2"></td>
 					</tr>

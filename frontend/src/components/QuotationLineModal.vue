@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // The library picker for quotation lines — today, the Assembly catalogue at its resolved
 // rate. Manual is not offered: "+ Add row" types straight into the grid with no dialog.
 // The quantity always stays the user's — a library knows the work, not how much of it.
@@ -39,9 +40,9 @@ const assemblyOptions = computed(() =>
 	(assembliesRes.data || []).map((a) => ({
 		value: a.name,
 		label: a.assembly_name,
-		group: a.category,
-		hint: `${a.name} · ${a.uom} · ${fmtCurrency(a.rate_per_unit)}`,
-	})),
+		group: __(a.category),
+		hint: `${a.name} · ${standardLinkLabel("UOM", a.uom)} · ${fmtCurrency(a.rate_per_unit)}`,
+	}))
 );
 
 const marginPct = computed(() => Number(props.marginPercent) || 0);
@@ -54,7 +55,7 @@ watch(
 		if (!isOpen) return;
 		Object.assign(row, BLANK);
 		error.value = "";
-	},
+	}
 );
 
 function pickAssembly(name) {
@@ -73,15 +74,15 @@ function close() {
 
 function submit() {
 	if (!row.assembly) {
-		error.value = "Pick something from the assembly list.";
+		error.value = __("Pick something from the assembly list.");
 		return;
 	}
 	if (!row.description.trim()) {
-		error.value = "Say what the line is for.";
+		error.value = __("Say what the line is for.");
 		return;
 	}
 	if (!(Number(row.qty) > 0)) {
-		error.value = "Quantity has to be more than nothing.";
+		error.value = __("Quantity has to be more than nothing.");
 		return;
 	}
 	// `code` is the estimator's own and stays editable; `source_ref` is the trail back to the
@@ -101,78 +102,125 @@ function submit() {
 
 <template>
 	<Teleport to="body">
-		<div v-if="open"
+		<div
+			v-if="open"
 			class="fixed inset-0 bg-ink-900/40 z-[60] flex items-start justify-center p-4 overflow-y-auto"
-			@click="close">
-			<div class="bg-white w-full max-w-2xl mt-16 shadow-fp-lg" style="border-radius: 12px"
-				@click.stop>
-				<header class="px-5 py-3 border-b border-ink-100 flex items-center justify-between">
+			@click="close"
+		>
+			<div
+				class="bg-white w-full max-w-2xl mt-16 shadow-fp-lg"
+				style="border-radius: 12px"
+				@click.stop
+			>
+				<header
+					class="px-5 py-3 border-b border-ink-100 flex items-center justify-between"
+				>
 					<div>
-						<div class="text-sm font-semibold text-ink-900">{{ __('Add a line') }}</div>
+						<div class="text-sm font-semibold text-ink-900">
+							{{ __("Add a line") }}
+						</div>
 						<div class="text-[11px] text-ink-500">
-							{{ __('Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use') }}
-							<span class="text-ink-700">{{ __('+ Add row') }}</span> {{ __('on the grid.') }}
+							{{
+								__(
+									"Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use"
+								)
+							}}
+							<span class="text-ink-700">{{ __("+ Add row") }}</span>
+							{{ __("on the grid.") }}
 						</div>
 					</div>
-					<button type="button" class="text-ink-400 hover:text-ink-900 text-xl leading-none px-1"
-						:title="__('Close')" @click="close">
+					<button
+						type="button"
+						class="text-ink-400 hover:text-ink-900 text-xl leading-none px-1"
+						:title="__('Close')"
+						@click="close"
+					>
 						&times;
 					</button>
 				</header>
 
 				<div class="px-5 py-4 space-y-4">
-					<DeskField label="Assembly" required>
-						<DeskSearchableSelect :model-value="row.assembly" :options="assemblyOptions"
-							:placeholder="__('Pick an assembly…')" search-placeholder="Search assemblies…"
-							@update:model-value="pickAssembly" />
+					<DeskField :label="__('Assembly')" required>
+						<DeskSearchableSelect
+							:model-value="row.assembly"
+							:options="assemblyOptions"
+							:placeholder="__('Pick an assembly…')"
+							:search-placeholder="__('Search assemblies…')"
+							@update:model-value="pickAssembly"
+						/>
 					</DeskField>
 
-					<DeskField label="Description" required>
-						<DeskTextarea v-model="row.description" :rows="2"
-							:placeholder="__('What the line is for')" />
+					<DeskField :label="__('Description')" required>
+						<DeskTextarea
+							v-model="row.description"
+							:rows="2"
+							:placeholder="__('What the line is for')"
+						/>
 					</DeskField>
 
 					<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-						<DeskField label="Code">
+						<DeskField :label="__('Code')">
 							<DeskInput v-model="row.code" :placeholder="__('optional')" />
 						</DeskField>
-						<DeskField label="Unit">
-							<DeskLinkPicker v-model="row.uom" doctype="UOM" label-field="name"
-								value-field="name" :placeholder="__('Unit')" />
+						<DeskField :label="__('Unit')">
+							<DeskLinkPicker
+								v-model="row.uom"
+								doctype="UOM"
+								label-field="name"
+								value-field="name"
+								:placeholder="__('Unit')"
+							/>
 						</DeskField>
-						<DeskField label="Quantity" required>
+						<DeskField :label="__('Quantity')" required>
 							<DeskInput v-model.number="row.qty" type="number" min="0" step="any" />
 						</DeskField>
-						<DeskField label="Rate" required>
-							<DeskInput v-model.number="row.rate" type="number" min="0" step="any" />
+						<DeskField :label="__('Rate')" required>
+							<DeskInput
+								v-model.number="row.rate"
+								type="number"
+								min="0"
+								step="any"
+							/>
 						</DeskField>
 					</div>
 
-					<div class="flex items-center justify-between bg-ink-50 px-3 py-2"
-						style="border-radius: 6px">
-						<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-							{{ __('Line amount') }}
+					<div
+						class="flex items-center justify-between bg-ink-50 px-3 py-2"
+						style="border-radius: 6px"
+					>
+						<span
+							class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
+						>
+							{{ __("Line amount") }}
 						</span>
 						<span class="text-sm font-semibold text-ink-900 tabular-nums">
 							{{ fmtCurrency(amount) }}
 						</span>
 					</div>
-					<div v-if="marginPct" class="flex items-center justify-between px-3 text-[11px] text-ink-500">
-						<span>{{ __('Sell rate · +') }}{{ marginPct }}{{ __('% margin') }}</span>
+					<div
+						v-if="marginPct"
+						class="flex items-center justify-between px-3 text-[11px] text-ink-500"
+					>
+						<span>{{ __("Sell rate · +") }}{{ marginPct }}{{ __("% margin") }}</span>
 						<span class="tabular-nums">{{ fmtCurrency(sellRate) }}</span>
 					</div>
 
 					<p v-if="error" class="text-xs text-danger-700">{{ error }}</p>
 				</div>
 
-				<footer class="px-5 py-3 border-t border-ink-100 flex items-center justify-end gap-2">
-					<button type="button"
+				<footer
+					class="px-5 py-3 border-t border-ink-100 flex items-center justify-end gap-2"
+				>
+					<button
+						type="button"
 						class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700"
-						style="border-radius: 6px" @click="close">
-						{{ __('Cancel') }}
+						style="border-radius: 6px"
+						@click="close"
+					>
+						{{ __("Cancel") }}
 					</button>
 					<button type="button" class="desk-save-btn !text-xs" @click="submit">
-						{{ __('Add line') }}
+						{{ __("Add line") }}
 					</button>
 				</footer>
 			</div>

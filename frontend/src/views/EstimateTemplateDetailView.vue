@@ -13,7 +13,7 @@ import { useDocTypeList } from "@/composables/useDocTypeList";
 import { showToast } from "@/utils/appToast";
 import { createDataAdapter } from "@/data/adapters";
 import { fmtINR, fmtDate } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskSection from "@/components/desk/DeskSection.vue";
 import DeskField from "@/components/desk/DeskField.vue";
@@ -719,7 +719,7 @@ async function removeRow(name) {
 									>
 								</div>
 								<div class="px-2 py-1.5 text-xs text-ink-700">
-									{{ row.unit || "—" }}
+									{{ standardLinkLabel("UOM", row.unit) || "—" }}
 								</div>
 								<div class="px-2 py-1">
 									<input

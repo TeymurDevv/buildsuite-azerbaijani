@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 import { numberLocale } from "@/utils/locale";
 // Generic, report-agnostic renderer for a Frappe/ERPNext Report (Query or Script).
 //
@@ -126,9 +127,12 @@ const missingRequired = computed(() =>
 
 async function runWith() {
 	if (missingRequired.value.length) {
-		error.value = `Set the required filter${
-			missingRequired.value.length > 1 ? "s" : ""
-		}: ${missingRequired.value.map((f) => f.label).join(", ")}.`;
+		error.value = __(
+			missingRequired.value.length === 1
+				? "Set the required filter: {0}."
+				: "Set the required filters: {0}.",
+			[missingRequired.value.map((f) => __(f.label)).join(", ")]
+		);
 		rows.value = [];
 		columns.value = [];
 		return;
@@ -140,7 +144,7 @@ async function runWith() {
 		columns.value = (res.columns || [])
 			.filter((c) => c && (c.label || c.fieldname))
 			.map((c, i) => ({
-				label: c.label || c.fieldname || `Column ${i + 1}`,
+				label: __(c.label || c.fieldname) || __("Column {0}", [i + 1]),
 				fieldname: c.fieldname || c.label || String(i),
 				fieldtype: c.fieldtype || "Data",
 				// The link target doctype — without it recordRoute() can't build a route, so a
@@ -155,7 +159,7 @@ async function runWith() {
 		collapsed.value = new Set();
 		page.value = 1;
 	} catch (err) {
-		error.value = err.message || "Failed to run report.";
+		error.value = err.message || __("Failed to run report.");
 		columns.value = [];
 		rows.value = [];
 		reportSummary.value = [];
@@ -171,12 +175,11 @@ function summaryValueText(card) {
 	switch (card.datatype) {
 		case "Currency":
 			return fmtINR(v);
-		case "Percent":
-			{
-				const percent = Math.round((Number(v) || 0) * 100) / 100;
-				const locale = numberLocale();
-				return `${locale ? percent.toLocaleString(locale) : percent}%`;
-			}
+		case "Percent": {
+			const percent = Math.round((Number(v) || 0) * 100) / 100;
+			const locale = numberLocale();
+			return `${locale ? percent.toLocaleString(locale) : percent}%`;
+		}
 		case "Int":
 			return Number(v).toLocaleString(numberLocale("en-IN"));
 		case "Float":
@@ -291,12 +294,11 @@ function cellText(row, col) {
 	switch (col.fieldtype) {
 		case "Currency":
 			return fmtINR(v);
-		case "Percent":
-			{
-				const percent = Math.round((Number(v) || 0) * 100) / 100;
-				const locale = numberLocale();
-				return `${locale ? percent.toLocaleString(locale) : percent}%`;
-			}
+		case "Percent": {
+			const percent = Math.round((Number(v) || 0) * 100) / 100;
+			const locale = numberLocale();
+			return `${locale ? percent.toLocaleString(locale) : percent}%`;
+		}
 		case "Int":
 			return Number(v).toLocaleString(numberLocale("en-IN"));
 		case "Float":
@@ -389,9 +391,9 @@ const inputClass =
 			v-if="activeFilters.length"
 			class="report-print-only mb-3 text-xs border border-ink-300 rounded px-3 py-2"
 		>
-			<span class="font-semibold">{{ __('Filters:') }}</span>
+			<span class="font-semibold">{{ __("Filters:") }}</span>
 			<span v-for="(af, i) in activeFilters" :key="af.label">
-				{{ af.label }}: <strong>{{ af.value }}</strong
+				{{ __(af.label) }}: <strong>{{ af.value }}</strong
 				><span v-if="i < activeFilters.length - 1"> · </span>
 			</span>
 		</div>
@@ -403,7 +405,7 @@ const inputClass =
 		>
 			<div v-for="f in filterDefs" :key="f.fieldname" class="flex flex-col gap-1 min-w-0">
 				<label class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					{{ f.label }}<span v-if="f.mandatory" class="text-danger-600"> *</span>
+					{{ __(f.label) }}<span v-if="f.mandatory" class="text-danger-600"> *</span>
 				</label>
 
 				<!-- Link / Dynamic Link -->
@@ -413,7 +415,7 @@ const inputClass =
 						:doctype="f.options || 'DocType'"
 						:label-field="labelFieldFor(f.options)"
 						value-field="name"
-						:placeholder="`All ${f.label.toLowerCase()}`"
+						:placeholder="__('All {0}', [__(f.label)])"
 					/>
 				</div>
 
@@ -423,8 +425,8 @@ const inputClass =
 					v-model="filterValues[f.fieldname]"
 					class="!w-44"
 				>
-					<option value="">{{ __('All') }}</option>
-					<option v-for="o in selectOptions(f)" :key="o" :value="o">{{ o }}</option>
+					<option value="">{{ __("All") }}</option>
+					<option v-for="o in selectOptions(f)" :key="o" :value="o">{{ __(o) }}</option>
 				</DeskSelect>
 
 				<!-- Date / Datetime -->
@@ -446,7 +448,7 @@ const inputClass =
 						:true-value="1"
 						:false-value="0"
 					/>
-					<span>{{ __('Yes') }}</span>
+					<span>{{ __("Yes") }}</span>
 				</label>
 
 				<!-- Int / Float / Currency -->
@@ -472,10 +474,10 @@ const inputClass =
 					class="text-[11px] text-ink-500 hover:underline"
 					@click="clearFilters"
 				>
-					{{ __('Clear') }}
+					{{ __("Clear") }}
 				</button>
 				<button type="button" class="text-xs desk-save-btn" @click="applyFilters">
-					{{ __('Apply') }}
+					{{ __("Apply") }}
 				</button>
 			</div>
 		</div>
@@ -491,7 +493,7 @@ const inputClass =
 				class="bg-white border border-ink-200 rounded-lg px-3 py-2.5"
 			>
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					{{ card.label }}
+					{{ __(card.label) }}
 				</div>
 				<div class="text-lg font-semibold tabular-nums mt-0.5" :class="summaryTone(card)">
 					{{ summaryValueText(card) }}
@@ -511,13 +513,17 @@ const inputClass =
 				class="text-xs px-2.5 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400 w-64 max-w-full"
 			/>
 			<span v-if="!loading && !error" class="text-[11px] text-ink-400">
-				{{ filtered.length.toLocaleString(numberLocale("en-IN")) }} {{ __('row') }}{{
-					filtered.length === 1 ? "" : "s"
+				{{
+					__(filtered.length === 1 ? "{0} row" : "{0} rows", [
+						filtered.length.toLocaleString(numberLocale("en-IN")),
+					])
 				}}
 			</span>
 		</div>
 
-		<div v-if="loading" class="py-16 text-center text-sm text-ink-400">{{ __('Running report…') }}</div>
+		<div v-if="loading" class="py-16 text-center text-sm text-ink-400">
+			{{ __("Running report…") }}
+		</div>
 		<div
 			v-else-if="error"
 			class="bg-danger-50 border border-danger-200 rounded-lg px-4 py-6 text-sm text-danger-700"
@@ -607,7 +613,7 @@ const inputClass =
 								:colspan="columns.length || 1"
 								class="px-3 py-12 text-center text-xs text-ink-400 italic"
 							>
-								{{ search ? "No rows match the search." : "No rows." }}
+								{{ search ? __("No rows match the search.") : __("No rows.") }}
 							</td>
 						</tr>
 					</tbody>
@@ -625,16 +631,16 @@ const inputClass =
 					:disabled="page <= 1"
 					@click="go(-1)"
 				>
-					{{ __('← Prev') }}
+					{{ __("← Prev") }}
 				</button>
-				<span>{{ __('Page') }} {{ page }} / {{ pageCount }}</span>
+				<span>{{ __("Page") }} {{ page }} / {{ pageCount }}</span>
 				<button
 					type="button"
 					class="px-2 py-1 border border-ink-200 rounded-md disabled:opacity-40 hover:bg-ink-50"
 					:disabled="page >= pageCount"
 					@click="go(1)"
 				>
-					{{ __('Next →') }}
+					{{ __("Next →") }}
 				</button>
 			</div>
 		</template>

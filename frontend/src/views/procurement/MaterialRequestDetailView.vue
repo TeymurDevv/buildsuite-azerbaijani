@@ -20,7 +20,7 @@ import UserAvatar from "@/components/UserAvatar.vue";
 import { usePermissions } from "@/composables/usePermissions";
 import { useWorkflow } from "@/composables/useWorkflow";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const props = defineProps({ id: String });
 const router = useRouter();
@@ -295,7 +295,10 @@ const breadcrumbs = computed(() => [
 			v-if="isCancelled"
 			class="mb-4 px-4 py-2.5 bg-ink-100 border border-ink-200 rounded-md text-xs text-ink-600"
 		>
-			{{ __('This request is') }} <span class="font-semibold">{{ __('cancelled') }}</span> {{ __('— it\'s out of the procurement queue. Click') }} <span class="font-medium">{{ __('Amend') }}</span> {{ __('to raise a corrected draft.') }}
+			{{ __("This request is") }} <span class="font-semibold">{{ __("cancelled") }}</span>
+			{{ __("— it's out of the procurement queue. Click") }}
+			<span class="font-medium">{{ __("Amend") }}</span>
+			{{ __("to raise a corrected draft.") }}
 		</div>
 
 		<!-- Summary strip -->
@@ -394,7 +397,9 @@ const breadcrumbs = computed(() => [
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ it.qty }}
 						</td>
-						<td class="px-3 py-2 text-ink-500">{{ it.uom || "—" }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", it.uom) || "—" }}
+						</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ it.rate ? fmtINR(it.rate) : "—" }}
 						</td>

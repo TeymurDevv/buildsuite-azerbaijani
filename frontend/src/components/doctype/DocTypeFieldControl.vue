@@ -84,19 +84,21 @@ function onCheck(e) {
 		value-field="name"
 		:disabled="linkDisabled"
 		:placeholder="
-			field.fieldtype === 'Dynamic Link' && !linkDoctype ? 'Pick type first' : 'Search…'
+			field.fieldtype === 'Dynamic Link' && !linkDoctype
+				? __('Pick type first')
+				: __('Search…')
 		"
 	/>
 	<DeskSelect v-else-if="kind === 'select'" v-model="val" :disabled="disabled">
 		<option value="">—</option>
-		<option v-for="o in options" :key="o" :value="o">{{ o }}</option>
+		<option v-for="o in options" :key="o" :value="o">{{ __(o) }}</option>
 	</DeskSelect>
 	<label
 		v-else-if="kind === 'check'"
 		class="inline-flex items-center gap-2 text-xs text-ink-700 h-[34px]"
 	>
 		<input type="checkbox" :checked="!!modelValue" :disabled="disabled" @change="onCheck" />
-		<span v-if="!compact">{{ __('Yes') }}</span>
+		<span v-if="!compact">{{ __("Yes") }}</span>
 	</label>
 	<DeskInput v-else-if="kind === 'date'" v-model="val" type="date" :disabled="disabled" />
 	<DeskInput

@@ -12,7 +12,7 @@ import { usePermissions } from "@/composables/usePermissions";
 import { parseFrappeError } from "@/utils/frappeError";
 import { showToast } from "@/utils/appToast";
 import { fmtINR, fmtDate, currencySymbol } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import FrappeUserBadge from "@/components/FrappeUserBadge.vue";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskList from "@/components/desk/DeskList.vue";
@@ -407,7 +407,7 @@ async function removeRate() {
 				>
 			</template>
 			<template #cell-unit="{ row }">
-				<span class="text-ink-600 text-xs">{{ row.unit }}</span>
+				<span class="text-ink-600 text-xs">{{ standardLinkLabel("UOM", row.unit) }}</span>
 			</template>
 			<template #cell-currentRate="{ row }">
 				<span class="tabular-nums text-ink-900 font-medium">{{

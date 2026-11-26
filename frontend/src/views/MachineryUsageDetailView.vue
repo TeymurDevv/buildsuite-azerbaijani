@@ -13,7 +13,7 @@ import { showToast } from "@/utils/appToast";
 import { createDataAdapter } from "@/data/adapters";
 import { submitMachineryUsage, cancelMachineryUsage } from "@/data/equipmentApi";
 import { fmtINR, fmtDate, currencySymbol } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskSection from "@/components/desk/DeskSection.vue";
 import DeskField from "@/components/desk/DeskField.vue";
@@ -294,7 +294,7 @@ const breadcrumbs = computed(() => [
 				>
 				<DeskField :label="__('Quantity')"
 					><div class="text-sm text-ink-800 tabular-nums">
-						{{ doc.quantity }} {{ doc.unit }}
+						{{ doc.quantity }} {{ standardLinkLabel("UOM", doc.unit) }}
 					</div></DeskField
 				>
 				<DeskField :label="__('Rate')"

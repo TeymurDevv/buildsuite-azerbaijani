@@ -647,7 +647,14 @@ function backToProject() {
 							{{ fmtCompactINR(kpis.po_value) }}
 						</div>
 						<div class="text-[10px] text-ink-400 mt-0.5">
-							{{ kpis.po_count }} PO{{ kpis.po_count === 1 ? "" : "s" }}
+							{{
+								__(
+									kpis.po_count === 1
+										? "{0} purchase order"
+										: "{0} purchase orders",
+									[kpis.po_count]
+								)
+							}}
 							{{ __("placed") }}
 						</div>
 					</div>
@@ -753,7 +760,7 @@ function backToProject() {
 					<div
 						class="text-[10px] uppercase tracking-wider text-ink-500 font-medium mb-1.5"
 					>
-						{{ __("Current stage") }}{{ currentStages.length === 1 ? "" : "s" }}
+						{{ __(currentStages.length === 1 ? "Current stage" : "Current stages") }}
 					</div>
 					<div class="grid grid-cols-1 gap-3">
 						<div
@@ -784,10 +791,13 @@ function backToProject() {
 											>
 												{{
 													s.days_left >= 0
-														? `${s.days_left} day${
-																s.days_left === 1 ? "" : "s"
-														  } remaining`
-														: `${-s.days_left} days overdue`
+														? __(
+																s.days_left === 1
+																	? "{0} day remaining"
+																	: "{0} days remaining",
+																[s.days_left]
+														  )
+														: __("{0} days overdue", [-s.days_left])
 												}}
 											</span>
 										</template>
@@ -819,12 +829,14 @@ function backToProject() {
 							<div
 								class="flex items-center justify-between text-[11px] text-ink-600 mt-1.5"
 							>
-								<span
-									>{{ s.done_count }} {{ __('of') }} {{ s.task_count }} {{ __('activit') }}{{
-										s.task_count === 1 ? "y" : "ies"
-									}}
-									{{ __('complete') }}</span
-								>
+								<span>{{
+									__(
+										s.task_count === 1
+											? "{0} of {1} activity complete"
+											: "{0} of {1} activities complete",
+										[s.done_count, s.task_count]
+									)
+								}}</span>
 								<span
 									:class="[
 										'px-2 py-0.5 rounded-full font-medium',
@@ -1169,14 +1181,22 @@ function backToProject() {
 				>
 					<p class="text-[11px] text-ink-500">
 						<template v-if="photosCurated">
-							{{ __('Showing') }} {{ shownPhotos.length }} {{ __('of') }} {{ photos.length }} {{ __('photographs — a spread across') }} {{ photoActivityCount }} {{ __('activit') }}{{
-								photoActivityCount === 1 ? "y" : "ies"
+							{{
+								__(
+									"Photos shown: {0} of {1}. Activities represented this period: {2}.",
+									[shownPhotos.length, photos.length, photoActivityCount]
+								)
 							}}
-							{{ __('recorded in this period.') }}
 						</template>
 						<template v-else>
-							{{ photos.length }} {{ __('photograph') }}{{ photos.length === 1 ? "" : "s" }}
-							{{ __('recorded in this period.') }}
+							{{
+								__(
+									photos.length === 1
+										? "{0} photograph recorded in this period."
+										: "{0} photographs recorded in this period.",
+									[photos.length]
+								)
+							}}
 						</template>
 					</p>
 					<button
@@ -1283,7 +1303,7 @@ function backToProject() {
 					class="mt-3 pt-3 border-t border-ink-100 text-center text-[10px] text-ink-400"
 				>
 					{{ __("Generated using") }}
-					<span class="font-semibold text-brand-600">{{ __('BuildSuite') }}</span>
+					<span class="font-semibold text-brand-600">{{ __("BuildSuite") }}</span>
 				</div>
 			</footer>
 		</main>

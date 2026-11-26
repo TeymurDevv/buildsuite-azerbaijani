@@ -197,7 +197,7 @@ const breadcrumbs = [
 					<span
 						v-else-if="row.type"
 						class="text-[11px] px-1.5 py-0.5 bg-ink-100 text-ink-700 rounded"
-						>{{ row.type }}</span
+						>{{ __(row.type) }}</span
 					>
 					<span v-else class="text-ink-400">—</span>
 				</template>

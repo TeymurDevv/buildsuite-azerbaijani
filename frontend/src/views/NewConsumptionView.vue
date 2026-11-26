@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // Record / edit a Material Consumption, draft only.
 // The store is derived from the project, never picked.
 
@@ -56,7 +57,7 @@ async function loadStock(project) {
 		warehouse.value = res.warehouse || "";
 		stock.value = res.rows || [];
 	} catch (err) {
-		if (my === stockReq) showToast(err.message || "Could not load site stock", "error");
+		if (my === stockReq) showToast(err.message || __("Could not load site stock"), "error");
 	} finally {
 		if (my === stockReq) loadingStock.value = false;
 	}
@@ -108,7 +109,7 @@ onMounted(async () => {
 			};
 		});
 	} catch (err) {
-		showToast(err.message || "Could not load this entry", "error");
+		showToast(err.message || __("Could not load this entry"), "error");
 	}
 });
 
@@ -121,7 +122,11 @@ const pickerOptions = computed(() =>
 			value: r.item_code,
 			label: r.item_name,
 			// Code trails the qty so search matches either.
-			hint: `${r.available} ${r.uom} available · ${r.item_code}`,
+			hint: __("{0} {1} available · {2}", [
+				r.available,
+				standardLinkLabel("UOM", r.uom),
+				r.item_code,
+			]),
 		}))
 );
 
@@ -163,27 +168,31 @@ async function onSave() {
 		await ext.beforeSave(payload, form);
 		const res = await saveMaterialConsumption(payload);
 		await ext.afterSave(res, { isNew: !editing.value });
-		showToast(editing.value ? "Consumption updated" : "Consumption recorded");
+		showToast(editing.value ? __("Consumption updated") : __("Consumption recorded"));
 		router.push(`/material-consumption/${res.name}`);
 	} catch (err) {
-		showToast(err.message || "Failed to save the consumption", "error");
+		showToast(err.message || __("Failed to save the consumption"), "error");
 	} finally {
 		saving.value = false;
 	}
 }
 
 const breadcrumbs = computed(() => [
-	{ label: "BuildSuite Core", to: "/" },
-	{ label: "Procurement", to: "/procurement" },
-	{ label: "Material Consumption", to: "/material-consumption" },
-	{ label: editing.value ? props.id : "New" },
+	{ label: __("BuildSuite Core"), to: "/" },
+	{ label: __("Procurement"), to: "/procurement" },
+	{ label: __("Material Consumption"), to: "/material-consumption" },
+	{ label: editing.value ? props.id : __("New") },
 ]);
 </script>
 
 <template>
 	<DeskPage
-		:title="editing ? `Edit ${props.id}` : 'Record Consumption'"
-		subtitle="Issues site material out of stock. Cost-code it against the BOQ if you want it costed."
+		:title="editing ? __('Edit {0}', [props.id]) : __('Record Consumption')"
+		:subtitle="
+			__(
+				'Issues site material out of stock. Cost-code it against the BOQ if you want it costed.'
+			)
+		"
 		:breadcrumbs="breadcrumbs"
 	>
 		<div
@@ -191,13 +200,21 @@ const breadcrumbs = computed(() => [
 			class="px-3 py-2 bg-warning-50 border border-warning-100 text-xs text-warning-700 dark:bg-ink-800 dark:border-ink-700"
 			style="border-radius: 6px"
 		>
-			{{ __('You don\'t have permission to') }} {{ editing ? "edit this" : "record a" }} {{ __('consumption.') }}
+			{{
+				editing
+					? __("You don't have permission to edit this consumption.")
+					: __("You don't have permission to record a consumption.")
+			}}
 		</div>
 		<DeskForm v-else>
 			<template #action-bar>
 				<DeskActionBar
 					:save-label="
-						saving ? 'Saving…' : editing ? 'Save changes' : 'Record consumption'
+						saving
+							? __('Saving…')
+							: editing
+							? __('Save changes')
+							: __('Record consumption')
 					"
 					:can-save="canSave"
 					:saving="saving"
@@ -210,10 +227,12 @@ const breadcrumbs = computed(() => [
 			<DeskSection id="booking" :title="__('Booking')" :cols="2">
 				<DeskField
 					name="project"
-					label="Project"
+					:label="__('Project')"
 					required
 					:hint="
-						editing ? 'Locked while editing — the record stays on its project.' : ''
+						editing
+							? __('Locked while editing — the record stays on its project.')
+							: ''
 					"
 				>
 					<DeskSearchableSelect
@@ -221,14 +240,18 @@ const breadcrumbs = computed(() => [
 						:options="projectOptions"
 						:disabled="editing"
 						:placeholder="__('— Select project —')"
-						search-placeholder="Search projects…"
+						:search-placeholder="__('Search projects…')"
 					/>
 				</DeskField>
 
 				<DeskField
 					name="cost_code"
-					label="Cost code"
-					hint="Optional. Set it to book this material against a BOQ group or line; leave it blank to record the issue without cost-coding it."
+					:label="__('Cost code')"
+					:hint="
+						__(
+							'Optional. Set it to book this material against a BOQ group or line; leave it blank to record the issue without cost-coding it.'
+						)
+					"
 				>
 					<CostCodePicker
 						v-model="form.cost_code"
@@ -238,10 +261,15 @@ const breadcrumbs = computed(() => [
 				</DeskField>
 			</DeskSection>
 
-			<DeskSection id="items-consumed" v-if="form.project" :title="__('Items consumed')" :cols="1">
+			<DeskSection
+				id="items-consumed"
+				v-if="form.project"
+				:title="__('Items consumed')"
+				:cols="1"
+			>
 				<!-- No store: an empty picker would look like an empty store. -->
 				<p v-if="!warehouse && !loadingStock" class="text-sm text-danger-700">
-					{{ __('This project has no store, so nothing can be issued from it.') }}
+					{{ __("This project has no store, so nothing can be issued from it.") }}
 				</p>
 
 				<template v-else-if="stock.length">
@@ -250,7 +278,7 @@ const breadcrumbs = computed(() => [
 							:model-value="addPick"
 							:options="pickerOptions"
 							:placeholder="__('+ Add item — search name or code…')"
-							search-placeholder="Search site stock…"
+							:search-placeholder="__('Search site stock…')"
 							@update:model-value="addItem"
 						/>
 					</div>
@@ -263,10 +291,10 @@ const breadcrumbs = computed(() => [
 						<div
 							class="grid grid-cols-[1fr_110px_140px_110px_44px] gap-2 items-center px-3 py-2 bg-ink-50 border-b border-ink-200 text-[10px] uppercase tracking-wider text-ink-500 font-medium"
 						>
-							<span>{{ __('Item') }}</span>
-							<span class="text-right">{{ __('In stock') }}</span>
-							<span class="text-right">{{ __('Issue now') }}</span>
-							<span class="text-right">{{ __('Left after') }}</span>
+							<span>{{ __("Item") }}</span>
+							<span class="text-right">{{ __("In stock") }}</span>
+							<span class="text-right">{{ __("Issue now") }}</span>
+							<span class="text-right">{{ __("Left after") }}</span>
 							<span></span>
 						</div>
 						<div
@@ -278,7 +306,9 @@ const breadcrumbs = computed(() => [
 								<div class="text-sm text-ink-900 truncate">
 									{{ line.item_name }}
 								</div>
-								<div class="text-[11px] text-ink-400">{{ line.uom }}</div>
+								<div class="text-[11px] text-ink-400">
+									{{ standardLinkLabel("UOM", line.uom) }}
+								</div>
 							</div>
 							<div class="text-xs tabular-nums text-ink-600 text-right">
 								{{ line.available }}
@@ -305,7 +335,7 @@ const breadcrumbs = computed(() => [
 							<button
 								type="button"
 								class="text-ink-400 hover:text-danger-600 text-sm justify-self-end"
-								:aria-label="`Remove ${line.item_name}`"
+								:aria-label="__('Remove {0}', [line.item_name])"
 								@click="form.lines.splice(i, 1)"
 							>
 								✕
@@ -314,19 +344,31 @@ const breadcrumbs = computed(() => [
 					</div>
 
 					<p v-if="form.lines.length" class="text-[11px] text-ink-400 mt-2">
-						{{ __('You can\'t issue more than is at site — quantities cap at receipts received less what\'s already been consumed.') }}
+						{{
+							__(
+								"You can't issue more than is at site — quantities cap at receipts received less what's already been consumed."
+							)
+						}}
 					</p>
 					<div
 						v-else
 						class="border border-dashed border-ink-200 py-6 text-center text-sm text-ink-500 mt-4"
 						style="border-radius: 8px"
 					>
-						{{ __('Nothing added yet. Use the picker above to choose what left the store.') }}
+						{{
+							__(
+								"Nothing added yet. Use the picker above to choose what left the store."
+							)
+						}}
 					</div>
 				</template>
 
 				<p v-else-if="!loadingStock" class="text-sm text-ink-500">
-					{{ __('Nothing in site stock for this project — record deliveries first; received material shows up here.') }}
+					{{
+						__(
+							"Nothing in site stock for this project — record deliveries first; received material shows up here."
+						)
+					}}
 				</p>
 			</DeskSection>
 			<ExtensionSlot :name="ext.slot('bottom')" :context="ext.context" />

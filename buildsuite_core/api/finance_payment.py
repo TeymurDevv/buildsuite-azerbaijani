@@ -1,7 +1,7 @@
 # Copyright (c) 2026, Infraholic Innovations Pvt. Ltd and contributors
 # For license information, please see license.txt
 
-"""Project Finance › Payments — a unified register of party payments over ERPNext Payment
+"""Project Finance / Payments — a unified register of party payments over ERPNext Payment
 Entries. Every invoice receipt, customer/supplier/subcontractor advance, bill payment and
 subcontractor payment IS a Payment Entry; this classifies each by direction (money in/out) and
 a friendly movement type, and cancels (reverses) one on request. Petty-cash disbursements are
@@ -11,6 +11,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
+from buildsuite_core.utils.finance_labels import money_account_rows
 from buildsuite_core.utils.project import default_company
 
 PE = "Payment Entry"
@@ -82,6 +83,7 @@ def list_payments(company: str | None = None):
 	for r in refs:
 		refs_by_pe.setdefault(r.parent, []).append(r)
 
+	account_labels = {a.name: a.display_id for a in money_account_rows(company)}
 	sub_suppliers = _subcontractor_suppliers()
 	out = []
 	for p in pes:
@@ -93,6 +95,7 @@ def list_payments(company: str | None = None):
 				"type": movement,
 				"party": p.party_name or p.party,
 				"account": account,
+				"account_label": account_labels.get(account, account),
 				"dir": direction,
 				"amount": flt(p.paid_amount),
 				"mode_of_payment": p.mode_of_payment,

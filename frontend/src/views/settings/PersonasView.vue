@@ -1,5 +1,5 @@
 <script setup>
-import { ROLES, ROLE_TO_PERSONA } from "@/data/roles";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 // Personas — settings list (backend-backed via the Persona master). Admin / BSA
 // gated. A persona maps to one or more Frappe roles; assigning it to a user grants
 // those roles (sync_persona_roles hook).
@@ -29,14 +29,13 @@ const columns = [
 ];
 
 function personaLabel(persona) {
-	const builtIn = ROLES.find(
-		(role) => role.id === persona.slug && role.name === persona.persona_name
-	);
-	return builtIn ? __(builtIn.name) : persona.persona_name;
+	return persona.name === persona.persona_name
+		? standardSettingsLabel("Persona", persona.name)
+		: persona.persona_name;
 }
 
 function roleLabel(role) {
-	return Object.hasOwn(ROLE_TO_PERSONA, role) ? __(role) : role;
+	return standardSettingsLabel("Role", role);
 }
 
 const items = computed(() => {

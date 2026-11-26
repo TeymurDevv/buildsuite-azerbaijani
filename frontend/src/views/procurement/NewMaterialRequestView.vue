@@ -274,7 +274,7 @@ const saveLabel = computed(() =>
 										:search-fields="['item_name', 'item_code', 'name']"
 										:placeholder="__('— Item —')"
 										:allow-create="canCreate('item')"
-										create-label="item"
+										:create-label="__('item')"
 										@update:model-value="onPickItem(line)"
 										@create="(text) => openItemCreate(line, text)"
 									/>

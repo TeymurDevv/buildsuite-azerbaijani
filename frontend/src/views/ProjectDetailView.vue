@@ -16,7 +16,7 @@ import { useConfirm } from "@/composables/useConfirm";
 import { usePermissions } from "@/composables/usePermissions";
 import { showToast } from "@/utils/appToast";
 import { useFormErrors } from "@/composables/useFormErrors";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 import StatusBadge from "@/components/StatusBadge.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
@@ -839,10 +839,10 @@ async function saveEdit() {
 		return;
 	}
 	const endErr = endBeforeStartError(editForm.value.startDate, editForm.value.endDate);
-	let boundsErr = endErr;
+	let boundsErr = endErr ? { field: "end", message: endErr } : null;
 	if (!boundsErr && project.value?.parentId) {
 		const b = await fetchProjectBounds(project.value.parentId);
-		boundsErr = outOfParentBoundsError(
+		boundsErr = outOfParentBoundsIssue(
 			editForm.value.startDate,
 			editForm.value.endDate,
 			b.start,
@@ -852,9 +852,11 @@ async function saveEdit() {
 	}
 	if (boundsErr) {
 		setEditErrors(
-			boundsErr.startsWith("Start") ? { startDate: boundsErr } : { endDate: boundsErr }
+			boundsErr.field === "start"
+				? { startDate: boundsErr.message }
+				: { endDate: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	try {

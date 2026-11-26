@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 // Named prose blocks on a tender — scope of work ahead of the items, terms after them.
 // The detail page passes `editable` and saves each change as it is made; `editable: false`
 // renders the same blocks as plain text, for a caller that only needs to show them.
@@ -93,9 +94,9 @@ async function swapTemplate(i, id) {
 	const current = props.sections[i];
 	if (current?.text && current.text !== body) {
 		const ok = await confirmDialog({
-			title: "Replace this section's text",
-			message: `Pulling in "${id}" overwrites what is in this section now.`,
-			confirmLabel: "Replace",
+			title: __("Replace this section's text"),
+			message: __('Pulling in "{0}" overwrites what is in this section now.', [id]),
+			confirmLabel: __("Replace"),
 		});
 		if (!ok) return;
 	}
@@ -109,80 +110,130 @@ async function swapTemplate(i, id) {
 			<div class="text-[11px] uppercase tracking-wider text-ink-600 font-medium">
 				{{ title }}
 				<span class="text-ink-400 normal-case tracking-normal">
-					· {{ sections.length }} {{ __('section') }}{{ sections.length === 1 ? "" : "s" }}
+					·
+					{{
+						__(sections.length === 1 ? "{0} section" : "{0} sections", [
+							sections.length,
+						])
+					}}
 				</span>
 			</div>
-			<button v-if="editable" type="button"
+			<button
+				v-if="editable"
+				type="button"
 				class="text-xs px-2.5 py-1 border border-ink-200 text-ink-700 hover:bg-ink-50"
-				style="border-radius: 6px" @click="newOpen = !newOpen">
+				style="border-radius: 6px"
+				@click="newOpen = !newOpen"
+			>
 				{{ addLabel }}
 			</button>
 		</div>
 
-		<div v-if="newOpen && editable" class="border border-brand-200 bg-brand-50 p-3 space-y-2"
-			style="border-radius: 8px">
+		<div
+			v-if="newOpen && editable"
+			class="border border-brand-200 bg-brand-50 p-3 space-y-2"
+			style="border-radius: 8px"
+		>
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 				<label class="block">
 					<span class="text-[10px] uppercase tracking-wider text-ink-600 font-medium">
-						{{ __('Start from a template') }}
+						{{ __("Start from a template") }}
 					</span>
-					<DeskLinkPicker v-model="draft.template" doctype="Terms and Conditions"
-						:filters="clauseFilters" :placeholder="__('Blank section')" />
+					<DeskLinkPicker
+						v-model="draft.template"
+						doctype="Terms and Conditions"
+						:filters="clauseFilters"
+						:placeholder="__('Blank section')"
+					/>
 				</label>
 				<label class="block">
 					<span class="text-[10px] uppercase tracking-wider text-ink-600 font-medium">
-						{{ __('Heading') }}
+						{{ __("Heading") }}
 					</span>
-					<DeskInput v-model="draft.heading"
-						:placeholder="__('Takes the template\'s name if left blank')" />
+					<DeskInput
+						v-model="draft.heading"
+						:placeholder="__('Takes the template\'s name if left blank')"
+					/>
 				</label>
 			</div>
 			<div class="flex justify-end gap-2">
-				<button type="button"
+				<button
+					type="button"
 					class="text-xs px-2.5 py-1 border border-ink-200 bg-white text-ink-700 hover:bg-ink-50"
-					style="border-radius: 6px" @click="newOpen = false">
-					{{ __('Cancel') }}
+					style="border-radius: 6px"
+					@click="newOpen = false"
+				>
+					{{ __("Cancel") }}
 				</button>
-				<button type="button" class="desk-save-btn" @click="addSection">{{ __('Add section') }}</button>
+				<button type="button" class="desk-save-btn" @click="addSection">
+					{{ __("Add section") }}
+				</button>
 			</div>
 		</div>
 
-		<div v-for="(s, i) in sections" :key="s.name || i" class="border border-ink-200 overflow-hidden"
-			style="border-radius: 8px">
-			<header class="px-4 py-2.5 bg-gradient-to-r from-brand-50 to-white border-b border-ink-100 flex items-center justify-between gap-2">
-				<DeskInput v-if="editable" :model-value="s.heading"
+		<div
+			v-for="(s, i) in sections"
+			:key="s.name || i"
+			class="border border-ink-200 overflow-hidden"
+			style="border-radius: 8px"
+		>
+			<header
+				class="px-4 py-2.5 bg-gradient-to-r from-brand-50 to-white border-b border-ink-100 flex items-center justify-between gap-2"
+			>
+				<DeskInput
+					v-if="editable"
+					:model-value="s.heading"
 					class="!w-auto flex-1 !text-sm !font-medium"
-					@change="(e) => patch(i, { heading: e.target.value })" />
+					@change="(e) => patch(i, { heading: e.target.value })"
+				/>
 				<div v-else class="text-sm font-medium text-ink-900">{{ s.heading }}</div>
 				<div class="flex items-center gap-2 shrink-0">
 					<span class="text-[10px] px-1.5 py-0.5 bg-ink-100 text-ink-600 rounded-full">
-						{{ s.template ? "Template" : "Manual" }}
+						{{ s.template ? __("Template") : __("Manual") }}
 					</span>
-					<button v-if="editable" type="button" class="text-ink-400 hover:text-danger-700 px-1"
-						:title="__('Remove section')" @click="remove(i)">
+					<button
+						v-if="editable"
+						type="button"
+						class="text-ink-400 hover:text-danger-700 px-1"
+						:title="__('Remove section')"
+						@click="remove(i)"
+					>
 						×
 					</button>
 				</div>
 			</header>
 			<div class="p-4 space-y-2" @focusout="(e) => commitText(i, e)">
 				<div v-if="editable" class="max-w-md">
-					<DeskLinkPicker :model-value="s.template" doctype="Terms and Conditions"
-						:filters="clauseFilters" :placeholder="__('Pull in a different clause…')"
-						@update:model-value="(v) => (v ? swapTemplate(i, v) : patch(i, { template: null }))" />
+					<DeskLinkPicker
+						:model-value="s.template"
+						doctype="Terms and Conditions"
+						:filters="clauseFilters"
+						:placeholder="__('Pull in a different clause…')"
+						@update:model-value="
+							(v) => (v ? swapTemplate(i, v) : patch(i, { template: null }))
+						"
+					/>
 				</div>
-				<RichTextEditor v-if="editable" :model-value="s.text"
-					@update:model-value="(v) => (typed = v)" />
+				<RichTextEditor
+					v-if="editable"
+					:model-value="s.text"
+					@update:model-value="(v) => (typed = v)"
+				/>
 				<p v-else class="text-sm text-ink-700 whitespace-pre-line leading-relaxed">
 					{{ s.text || "—" }}
 				</p>
 			</div>
 		</div>
 
-		<p v-if="!sections.length"
+		<p
+			v-if="!sections.length"
 			class="text-sm text-ink-400 border border-dashed border-ink-200 px-4 py-6 text-center"
-			style="border-radius: 8px">
+			style="border-radius: 8px"
+		>
 			{{ emptyHint }}
-			<span v-if="purposeHint" class="block text-[11px] text-ink-400 mt-1">{{ purposeHint }}</span>
+			<span v-if="purposeHint" class="block text-[11px] text-ink-400 mt-1">{{
+				purposeHint
+			}}</span>
 		</p>
 	</div>
 </template>

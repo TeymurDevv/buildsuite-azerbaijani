@@ -56,3 +56,24 @@ class TestFinanceAccount(BuildSuiteTestCase):
 			)
 		finally:
 			frappe.set_user("Administrator")
+
+	def test_localized_money_account_choices_preserve_posting_ids_and_custom_names(self):
+		from frappe.translate import print_language
+
+		from buildsuite_core.api.finance_report import cash_bank_accounts
+		from buildsuite_core.api.invoice import list_deposit_accounts
+
+		custom = fa.save_finance_account(name=f"Cash reserve {self._n}", type="Cash")
+		with print_language("en"):
+			english = {row.name: row for row in list_deposit_accounts(self.company)}
+		with print_language("az"):
+			az = {row.name: row for row in list_deposit_accounts(self.company)}
+			self.assertEqual(set(az), set(english))
+			self.assertEqual(az[custom["id"]].display_id, custom["id"])
+			self.assertEqual(az[custom["id"]].display_name, custom["name"])
+			for row in cash_bank_accounts(self.company):
+				if row.account_name == "Cash":
+					self.assertEqual(row.display_name, "Kassa")
+					self.assertEqual(row.display_id, row.name.replace("Cash", "Kassa", 1))
+					self.assertEqual(english[row.name].display_id, row.name)
+			self.assertNotIn("bs_opening_balance", az[custom["id"]])

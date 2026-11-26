@@ -26,7 +26,7 @@ import DeskList from "@/components/desk/DeskList.vue";
 import DeskLink from "@/components/desk/DeskLink.vue";
 import TaskFormModal from "@/components/TaskFormModal.vue";
 import { createDataAdapter } from "@/data/adapters";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 import { fmtCompactINR, fmtDate, currencySymbol } from "@/utils/format";
 import { __ } from "@/utils/translate";
@@ -219,7 +219,7 @@ function validate() {
 async function saveEdit() {
 	if (!validate()) return;
 	const b = await fetchProjectBounds(form.value.projectId);
-	const boundsErr = outOfParentBoundsError(
+	const boundsErr = outOfParentBoundsIssue(
 		form.value.startDate,
 		form.value.endDate,
 		b.start,
@@ -228,9 +228,11 @@ async function saveEdit() {
 	);
 	if (boundsErr) {
 		setErrors(
-			boundsErr.startsWith("Start") ? { startDate: boundsErr } : { endDate: boundsErr }
+			boundsErr.field === "start"
+				? { startDate: boundsErr.message }
+				: { endDate: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	saving.value = true;

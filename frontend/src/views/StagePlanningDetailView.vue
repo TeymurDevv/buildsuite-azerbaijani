@@ -18,7 +18,7 @@ import { useFormErrors } from "@/composables/useFormErrors";
 import { createDataAdapter } from "@/data/adapters";
 import { useProjectNames } from "@/composables/useProjectNames";
 import { usePermissions } from "@/composables/usePermissions";
-import { outOfParentBoundsError } from "@/utils/dateBounds";
+import { outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 
 // Mirrors the backend Stage Planning Approval workflow (permissions/setup.py
@@ -665,7 +665,7 @@ function validateEdit() {
 async function saveEdit() {
 	if (!validateEdit() || !stage.value) return;
 	const b = await fetchProjectBounds(stage.value.project);
-	const boundsErr = outOfParentBoundsError(
+	const boundsErr = outOfParentBoundsIssue(
 		editForm.value.plannedStart,
 		editForm.value.plannedEnd,
 		b.start,
@@ -674,9 +674,11 @@ async function saveEdit() {
 	);
 	if (boundsErr) {
 		setErrors(
-			boundsErr.startsWith("Start") ? { plannedStart: boundsErr } : { plannedEnd: boundsErr }
+			boundsErr.field === "start"
+				? { plannedStart: boundsErr.message }
+				: { plannedEnd: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	saving.value = true;
@@ -1005,9 +1007,9 @@ usePageTitle(() => stage.value?.stageName);
 					<span class="text-success-700 font-medium">{{
 						stageTaskStats.completed
 					}}</span>
-					{{ __('done ·') }}
+					{{ __("done ·") }}
 					<span class="text-info-700 font-medium">{{ stageTaskStats.inProgress }}</span>
-					{{ __('in progress') }}
+					{{ __("in progress") }}
 				</div>
 			</div>
 			<div
@@ -1374,14 +1376,19 @@ usePageTitle(() => stage.value?.stageName);
 
 						<DeskSection id="tasks" :title="__('Tasks')">
 							<div class="md:col-span-2 text-xs text-ink-500">
-								{{ (stage.stagePlanningTasks || []).length }} {{ __('task') }}{{
-									(stage.stagePlanningTasks || []).length === 1 ? "" : "s"
+								{{
+									__(
+										(stage.stagePlanningTasks || []).length === 1
+											? "{0} task"
+											: "{0} tasks",
+										[(stage.stagePlanningTasks || []).length]
+									)
 								}}
-								{{ __('linked · manage via the') }}
-								<span class="font-medium text-ink-700 dark:text-ink-300"
-									>{{ __('Add/Remove Tasks') }}</span
-								>
-								{{ __('button on the page.') }}
+								{{ __("linked · manage via the") }}
+								<span class="font-medium text-ink-700 dark:text-ink-300">{{
+									__("Add/Remove Tasks")
+								}}</span>
+								{{ __("button on the page.") }}
 							</div>
 						</DeskSection>
 					</div>

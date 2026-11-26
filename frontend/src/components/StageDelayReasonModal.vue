@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 // Stage delay reason entry modal. Opens before Stage Review when the stage is
 // detected as delayed and no reasons are on file yet (gate mode), or from a
 // "+ Add" inside the review dashboard. Shape mirrors an ERPNext-style Delay Log:
@@ -15,18 +16,8 @@ import DeskInput from "@/components/desk/DeskInput.vue";
 import DeskSelect from "@/components/desk/DeskSelect.vue";
 import DeskTextarea from "@/components/desk/DeskTextarea.vue";
 
-const REASON_PRESETS = [
-	"Payment delay",
-	"Material shortage",
-	"Equipment unavailability",
-	"Subcontractor underperformance",
-	"Design / drawing not ready",
-	"Inspection / approval pending",
-	"Site access issue",
-	"Weather (rain / storm / heat)",
-	"Pressure test not finished",
-	"Waiting for water leakage test",
-];
+import { delayReasons } from "@/data/stageDelayReasons";
+
 const CUSTOM_SENTINEL = "__custom__";
 const RESPONSIBLE_PARTIES = ["Own", "Subcontractor", "Client", "External", "Consultant"];
 
@@ -80,14 +71,14 @@ async function save() {
 	const e = {};
 	if (!finalReason.value) {
 		e.reason = isCustomReason.value
-			? "Enter the custom reason."
-			: 'Pick a reason or choose "Custom…".';
+			? __("Enter the custom reason.")
+			: __('Pick a reason or choose "Custom…".');
 	}
-	if (!form.responsibleParty) e.responsibleParty = "Select the responsible party.";
+	if (!form.responsibleParty) e.responsibleParty = __("Select the responsible party.");
 	if (form.daysDelayed !== "" && form.daysDelayed !== null) {
 		const n = Number(form.daysDelayed);
 		if (!Number.isFinite(n) || n < 0)
-			e.daysDelayed = "Enter a non-negative number, or leave blank.";
+			e.daysDelayed = __("Enter a non-negative number, or leave blank.");
 	}
 	errors.value = e;
 	if (Object.keys(e).length) return;
@@ -126,7 +117,7 @@ async function save() {
 		emit("saved", payload?.message || null);
 		close();
 	} catch (err) {
-		errors.value = { reason: err.message || "Could not save the delay reason." };
+		errors.value = { reason: err.message || __("Could not save the delay reason.") };
 	} finally {
 		saving.value = false;
 	}
@@ -151,12 +142,14 @@ async function save() {
 				>
 					<div class="min-w-0 flex-1">
 						<h2 class="text-sm font-semibold text-ink-900 dark:text-[#F5F5F5]">
-							{{ isGate ? "Record delay reason" : "Add delay reason" }}
+							{{ isGate ? __("Record delay reason") : __("Add delay reason") }}
 						</h2>
 						<p class="text-[11px] text-ink-500 mt-0.5 truncate">
-							<template v-if="isGate"
-								>{{ __('This stage appears to be delayed. Record the reason before opening Stage Review.') }}</template
-							>
+							<template v-if="isGate">{{
+								__(
+									"This stage appears to be delayed. Record the reason before opening Stage Review."
+								)
+							}}</template>
 							<template v-else>{{ stageName }}</template>
 						</p>
 					</div>
@@ -171,20 +164,23 @@ async function save() {
 				</header>
 
 				<div class="p-5 overflow-y-auto flex-1">
-					<DeskSection id="why-is-this-stage-delayed" :title="__('Why is this stage delayed?')">
+					<DeskSection
+						id="why-is-this-stage-delayed"
+						:title="__('Why is this stage delayed?')"
+					>
 						<DeskField
-							label="Reason"
+							:label="__('Reason')"
 							required
 							:error="errors.reason"
-							hint="Pick a common reason or choose Custom to enter your own."
+							:hint="__('Pick a common reason or choose Custom to enter your own.')"
 						>
 							<DeskSelect v-model="form.reasonSelect">
-								<option value="">{{ __('— Select reason —') }}</option>
-								<option v-for="r in REASON_PRESETS" :key="r" :value="r">
-									{{ r }}
+								<option value="">{{ __("— Select reason —") }}</option>
+								<option v-for="r in delayReasons" :key="r" :value="r">
+									{{ __(r) }}
 								</option>
 								<option disabled>──────────</option>
-								<option :value="CUSTOM_SENTINEL">{{ __('Custom…') }}</option>
+								<option :value="CUSTOM_SENTINEL">{{ __("Custom…") }}</option>
 							</DeskSelect>
 							<DeskInput
 								v-if="isCustomReason"
@@ -194,34 +190,44 @@ async function save() {
 							/>
 						</DeskField>
 						<DeskField
-							label="Responsible party"
+							:label="__('Responsible party')"
 							required
 							:error="errors.responsibleParty"
-							hint="Who is accountable for this delay — own team, subcontractor, client, etc."
+							:hint="
+								__(
+									'Who is accountable for this delay — own team, subcontractor, client, etc.'
+								)
+							"
 						>
 							<DeskSelect v-model="form.responsibleParty">
-								<option value="">{{ __('— Select —') }}</option>
+								<option value="">{{ __("— Select —") }}</option>
 								<option v-for="p in RESPONSIBLE_PARTIES" :key="p" :value="p">
-									{{ p }}
+									{{ __(p) }}
 								</option>
 							</DeskSelect>
 						</DeskField>
 						<DeskField
-							label="No. of days delayed"
+							:label="__('No. of days delayed')"
 							:error="errors.daysDelayed"
-							hint="Optional — leave blank for ongoing delays where duration is not yet known."
+							:hint="
+								__(
+									'Optional — leave blank for ongoing delays where duration is not yet known.'
+								)
+							"
 						>
 							<DeskInput
 								v-model="form.daysDelayed"
 								type="number"
 								min="0"
 								step="1"
-								placeholder="e.g. 3"
+								:placeholder="__('e.g. 3')"
 							/>
 						</DeskField>
 						<DeskField
-							label="Additional notes"
-							hint="Optional context — what happened, what's the plan, by when."
+							:label="__('Additional notes')"
+							:hint="
+								__('Optional context — what happened, what\'s the plan, by when.')
+							"
 						>
 							<DeskTextarea
 								v-model="form.note"
@@ -243,10 +249,10 @@ async function save() {
 						:disabled="saving"
 						@click="cancel"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button type="button" class="desk-save-btn" :disabled="saving" @click="save">
-						{{ saving ? "Saving…" : "Save reason" }}
+						{{ saving ? __("Saving…") : __("Save reason") }}
 					</button>
 				</footer>
 			</div>

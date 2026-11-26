@@ -26,7 +26,7 @@ import { usePermissions } from "@/composables/usePermissions";
 import { useWorkflow } from "@/composables/useWorkflow";
 import { fmtDate, fmtINR } from "@/utils/format";
 import { useReportAccess } from "@/composables/useReportAccess";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const RichTextEditor = defineAsyncComponent(() => import("@/components/RichTextEditor.vue"));
 
@@ -661,7 +661,9 @@ const breadcrumbs = computed(() => [
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ it.qty }}
 						</td>
-						<td class="px-3 py-2 text-ink-500">{{ it.uom || "—" }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", it.uom) || "—" }}
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -735,7 +737,7 @@ const breadcrumbs = computed(() => [
 			<div class="p-4">
 				<RichTextEditor
 					v-if="rfq.terms"
-					:model-value="rfq.terms"
+					:model-value="rfq.display_terms ?? rfq.terms"
 					:editable="false"
 					min-height="auto"
 				/>

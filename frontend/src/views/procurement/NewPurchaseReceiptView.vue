@@ -24,7 +24,7 @@ import DeskLinkPicker from "@/components/desk/DeskLinkPicker.vue";
 import { usePermissions } from "@/composables/usePermissions";
 import { useActiveCompany } from "@/composables/useActiveCompany";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const route = useRoute();
 // Warehouses are company-partitioned; scope the picker to the working company (default when
@@ -321,7 +321,9 @@ const saveLabel = computed(() =>
 								<td class="px-3 py-2 text-ink-900">
 									{{ l.item_name || l.item_code }}
 								</td>
-								<td class="px-3 py-2 text-ink-500">{{ l.uom || "—" }}</td>
+								<td class="px-3 py-2 text-ink-500">
+									{{ standardLinkLabel("UOM", l.uom) || "—" }}
+								</td>
 								<td class="px-3 py-2 text-right tabular-nums text-ink-500">
 									{{ l.ordered_qty }}
 								</td>

@@ -14,6 +14,7 @@ from frappe import _
 from frappe.utils import flt
 
 from buildsuite_core.utils import petty_cash as pc
+from buildsuite_core.utils.finance_labels import money_account_rows
 
 DOCTYPE = "Expense Entry"
 
@@ -395,12 +396,7 @@ def list_cash_bank_accounts(project: str | None = None, company: str | None = No
 	if not company:
 		return []
 	petty = pc.get_petty_cash_account(company)
-	accounts = frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_type"],
-		order_by="account_type, name",
-	)
+	accounts = money_account_rows(company)
 	return [a for a in accounts if a.name != petty]
 
 

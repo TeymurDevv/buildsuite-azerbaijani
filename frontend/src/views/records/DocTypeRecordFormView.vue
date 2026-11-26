@@ -13,10 +13,10 @@ const props = defineProps({
 });
 
 const isEdit = computed(() => !!props.name);
-const title = computed(() => (isEdit.value ? props.name : __("New {0}", [props.doctype])));
+const title = computed(() => (isEdit.value ? props.name : __("New {0}", [__(props.doctype)])));
 const breadcrumbs = computed(() => [
 	{ label: __("BuildSuite Core"), to: "/" },
-	{ label: props.doctype, to: `/records/${encodeURIComponent(props.doctype)}` },
+	{ label: __(props.doctype), to: `/records/${encodeURIComponent(props.doctype)}` },
 	{ label: isEdit.value ? props.name : __("New") },
 ]);
 </script>

@@ -13,6 +13,7 @@ from frappe import _
 from frappe.utils import flt
 
 from buildsuite_core.sdk.custom_fields import apply_custom_fields, custom_field_values
+from buildsuite_core.utils.finance_labels import money_account_rows
 
 BILL = "Subcontractor Bill"
 WORK_ORDER = "Subcontractor Work Order"
@@ -541,12 +542,7 @@ def list_pay_accounts(company: str | None = None):
 
 	company = company or default_company()
 	petty = get_petty_cash_account(company)
-	accounts = frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_type"],
-		order_by="account_type, name",
-	)
+	accounts = money_account_rows(company)
 	return [a for a in accounts if a.name != petty]
 
 

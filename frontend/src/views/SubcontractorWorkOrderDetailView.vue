@@ -24,7 +24,7 @@ import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskLink from "@/components/desk/DeskLink.vue";
 import StatusBadge from "@/components/StatusBadge.vue";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const props = defineProps({ id: String });
 const router = useRouter();
@@ -253,7 +253,11 @@ const tabs = computed(() => [
 				type="button"
 				class="text-xs px-2.5 py-1 border border-brand-300 bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium inline-flex items-center"
 				style="border-radius: 6px"
-				:title="__('Bill progress against this work order (derives this period from certified Measurement Books)')"
+				:title="
+					__(
+						'Bill progress against this work order (derives this period from certified Measurement Books)'
+					)
+				"
 				@click="onRaiseBill"
 			>
 				{{ __("+ Bill progress") }}
@@ -283,7 +287,9 @@ const tabs = computed(() => [
 				type="button"
 				class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 inline-flex items-center"
 				style="border-radius: 6px"
-				:title="__('Open the printable work order (Save as PDF from the browser print dialog)')"
+				:title="
+					__('Open the printable work order (Save as PDF from the browser print dialog)')
+				"
 				@click="onPrint"
 			>
 				{{ __("Print / PDF") }}
@@ -325,7 +331,9 @@ const tabs = computed(() => [
 				<div class="text-base font-semibold text-ink-900 tabular-nums mt-0.5">
 					{{ fmtINR(wo.total_value) }}
 				</div>
-				<div class="text-[10px] text-ink-500">{{ __("Retention {0}%", [wo.retention_percent]) }}</div>
+				<div class="text-[10px] text-ink-500">
+					{{ __("Retention {0}%", [wo.retention_percent]) }}
+				</div>
 			</div>
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
@@ -425,7 +433,9 @@ const tabs = computed(() => [
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ line.qty }}
 						</td>
-						<td class="px-3 py-2 text-ink-500">{{ line.uom || "—" }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", line.uom) || "—" }}
+						</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ fmtINR(line.rate) }}
 						</td>
@@ -440,7 +450,8 @@ const tabs = computed(() => [
 									: __('Sum across certified Measurement Books for this line')
 							"
 						>
-							{{ lineMeasured(line.name).toLocaleString(numberLocale("en-IN")) }} {{ line.uom }}
+							{{ lineMeasured(line.name).toLocaleString(numberLocale("en-IN")) }}
+							{{ standardLinkLabel("UOM", line.uom) }}
 						</td>
 					</tr>
 				</tbody>
@@ -509,7 +520,11 @@ const tabs = computed(() => [
 								{{ mb.entries_count }}
 							</td>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-900">
-								{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
+								{{
+									Number(mb.measured_total || 0).toLocaleString(
+										numberLocale("en-IN")
+									)
+								}}
 							</td>
 							<td class="px-3 py-2">
 								<StatusBadge :status="mb.status" size="xs" />
@@ -560,9 +575,9 @@ const tabs = computed(() => [
 							@click="router.push(`/subcontractor-bills/${b.name}`)"
 						>
 							<td class="px-3 py-2">
-								<DeskLink :to="`/subcontractor-bills/${b.name}`" @click.stop
-									>{{ __("Bill {0}", [b.ra_no]) }}</DeskLink
-								>
+								<DeskLink :to="`/subcontractor-bills/${b.name}`" @click.stop>{{
+									__("Bill {0}", [b.ra_no])
+								}}</DeskLink>
 							</td>
 							<td class="px-3 py-2 text-ink-500">{{ fmtDate(b.date) }}</td>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-700">
@@ -603,7 +618,11 @@ const tabs = computed(() => [
 				{{ wo.terms }}
 			</div>
 			<div v-else class="text-xs text-ink-400 italic">
-				{{ __("No terms set. Edit the work order to import a template or type custom terms.") }}
+				{{
+					__(
+						"No terms set. Edit the work order to import a template or type custom terms."
+					)
+				}}
 			</div>
 		</section>
 	</DeskPage>

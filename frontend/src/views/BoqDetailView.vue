@@ -32,7 +32,7 @@ import DeskTextarea from "@/components/desk/DeskTextarea.vue";
 import DeskLinkPicker from "@/components/desk/DeskLinkPicker.vue";
 import { fmtINR, fmtCompactINR, fmtDate, currencySymbol } from "@/utils/format";
 import { getWorkspaceIconPath } from "@/utils/workspaceIcons";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const props = defineProps({ id: { type: String, required: true } });
 const router = useRouter();
@@ -1473,7 +1473,7 @@ const breadcrumbs = computed(() => {
 <template>
 	<div v-if="!boq" class="px-6 py-12 text-center text-ink-500">
 		<div class="text-sm">
-			BOQ <span class="font-mono">{{ id }}</span> {{ __('not found.') }}
+			BOQ <span class="font-mono">{{ id }}</span> {{ __("not found.") }}
 		</div>
 		<DeskLink to="/boq" class="text-sm mt-2 inline-block">{{
 			__("← Back to BOQ list")
@@ -1664,7 +1664,8 @@ const breadcrumbs = computed(() => {
 						{{ fmtCompactINR(totals.actual) }}
 					</div>
 					<div class="text-[10px] text-ink-500 mt-0.5">
-						{{ fixedNumber(pctOf(totals.actual, totals.planned), 1) }}% {{ __("of plan") }}
+						{{ fixedNumber(pctOf(totals.actual, totals.planned), 1) }}%
+						{{ __("of plan") }}
 					</div>
 				</div>
 				<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 2px">
@@ -1675,7 +1676,8 @@ const breadcrumbs = computed(() => {
 						class="text-base font-semibold mt-0.5 tabular-nums"
 						:class="variancePill(totals.variancePct)"
 					>
-						{{ totals.variancePct > 0 ? "+" : "" }}{{ fixedNumber(totals.variancePct, 1) }}%
+						{{ totals.variancePct > 0 ? "+" : ""
+						}}{{ fixedNumber(totals.variancePct, 1) }}%
 					</div>
 					<div class="text-[10px] text-ink-500 mt-0.5 tabular-nums">
 						{{ fmtCompactINR(totals.variance) }} {{ __("delta") }}
@@ -1761,7 +1763,7 @@ const breadcrumbs = computed(() => {
 				</div>
 				<div class="ml-auto flex items-center gap-2">
 					<span v-if="!isEditable" class="text-[11px] text-ink-400 italic">
-						{{ __(boq.status) }} {{ __('— read-only · use') }}
+						{{ __(boq.status) }} {{ __("— read-only · use") }}
 						<button
 							v-if="canCreate('boq')"
 							type="button"
@@ -1770,7 +1772,7 @@ const breadcrumbs = computed(() => {
 						>
 							+ {{ __("Revision") }}
 						</button>
-						{{ __('to make changes') }}
+						{{ __("to make changes") }}
 					</span>
 					<button
 						v-if="isEditable && canEdit('boq')"
@@ -1922,7 +1924,9 @@ const breadcrumbs = computed(() => {
 									? fixedNumber(
 											((groupActual(g) - groupTotals(g.id).planned) /
 												groupTotals(g.id).planned) *
-											100, 1)
+												100,
+											1
+									  )
 									: fixedNumber(0, 1)
 							}}%
 						</div>
@@ -2105,7 +2109,9 @@ const breadcrumbs = computed(() => {
 										}}</span
 									>
 								</div>
-								<div class="px-3 py-1.5 text-xs text-ink-600">{{ item.unit }}</div>
+								<div class="px-3 py-1.5 text-xs text-ink-600">
+									{{ standardLinkLabel("UOM", item.unit) }}
+								</div>
 								<div
 									class="px-3 py-1.5 text-right tabular-nums text-sm text-ink-700"
 								>
@@ -2128,7 +2134,12 @@ const breadcrumbs = computed(() => {
 											v-if="itemActual(item)"
 											type="button"
 											class="tabular-nums text-sm text-ink-700 hover:text-brand-700 hover:underline decoration-dotted"
-											:title="`Actual for ${item.code} — click to see the source documents`"
+											:title="
+												__(
+													'Actual for {0} — click to see the source documents',
+													[item.code]
+												)
+											"
 											@click.stop="openItemActuals(item)"
 										>
 											{{ fmtCompactINR(itemActual(item)) }}
@@ -2173,7 +2184,9 @@ const breadcrumbs = computed(() => {
 											? fixedNumber(
 													((itemActual(item) - item.plannedAmount) /
 														item.plannedAmount) *
-													100, 1)
+														100,
+													1
+											  )
 											: fixedNumber(0, 1)
 									}}%
 								</div>
@@ -2256,7 +2269,7 @@ const breadcrumbs = computed(() => {
 									</div>
 									<div></div>
 									<div class="px-3 py-1 text-right text-[10px] text-ink-400">
-										{{ __("per") }} {{ item.unit }}
+										{{ __("per") }} {{ standardLinkLabel("UOM", item.unit) }}
 									</div>
 									<div></div>
 									<div></div>
@@ -2728,7 +2741,8 @@ const breadcrumbs = computed(() => {
 									:value="rm.id"
 								>
 									{{ rm.code }} · {{ rm.description }} · {{ currencySymbol()
-									}}{{ rm.currentRate }} {{ __("per") }} {{ rm.unit }}
+									}}{{ rm.currentRate }} {{ __("per") }}
+									{{ standardLinkLabel("UOM", rm.unit) }}
 								</option>
 							</DeskSelect>
 						</DeskField>
@@ -3508,7 +3522,9 @@ const breadcrumbs = computed(() => {
 											{{ row.group_name || __("Auto from template") }}
 										</div>
 									</div>
-									<div class="px-2 py-2 text-ink-700">{{ row.unit || "—" }}</div>
+									<div class="px-2 py-2 text-ink-700">
+										{{ standardLinkLabel("UOM", row.unit) || "—" }}
+									</div>
 									<div class="px-2 py-2 text-right tabular-nums text-ink-700">
 										{{ row.qty }}
 									</div>
@@ -3842,7 +3858,7 @@ const breadcrumbs = computed(() => {
 									</td>
 									<td class="py-2 pr-2 text-ink-600 whitespace-nowrap">
 										{{ e.kind === "Overtime" ? __("Overtime") : __(e.kind) }}
-										· {{ e.quantity }} {{ e.unit }}
+										· {{ e.quantity }} {{ standardLinkLabel("UOM", e.unit) }}
 									</td>
 									<td class="py-2 pr-2 text-right tabular-nums text-ink-600">
 										{{ fmtINR(e.rate) }}
@@ -3914,7 +3930,7 @@ const breadcrumbs = computed(() => {
 										</div>
 									</td>
 									<td class="py-2 pr-2 text-ink-600 whitespace-nowrap">
-										{{ e.quantity }} {{ e.unit }}
+										{{ e.quantity }} {{ standardLinkLabel("UOM", e.unit) }}
 									</td>
 									<td class="py-2 pr-2 text-right tabular-nums text-ink-600">
 										{{ fmtINR(e.rate) }}

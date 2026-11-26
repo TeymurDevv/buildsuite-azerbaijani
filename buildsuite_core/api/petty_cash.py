@@ -9,6 +9,8 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
+from buildsuite_core.utils.finance_labels import money_account_rows
+
 DOCTYPE = "Petty Cash Request"
 
 
@@ -202,16 +204,8 @@ def list_cash_bank_accounts(company: str | None = None):
 	from buildsuite_core.utils.project import default_company
 
 	company = company or default_company()
-	filters = {"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]}
 	petty = get_petty_cash_account(company)
-	if petty:
-		filters["name"] = ["!=", petty]
-	return frappe.get_all(
-		"Account",
-		filters=filters,
-		fields=["name", "account_type"],
-		order_by="account_type, name",
-	)
+	return money_account_rows(company, {"name": ["!=", petty]} if petty else None)
 
 
 @frappe.whitelist()

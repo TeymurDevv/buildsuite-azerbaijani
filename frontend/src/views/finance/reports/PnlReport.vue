@@ -61,10 +61,13 @@ const indirectTotal = computed(() => Number(data.value.totals?.indirect) || 0);
 const expenseTotal = computed(() => Number(data.value.totals?.expense) || 0);
 const profit = computed(() => Number(data.value.totals?.profit) || 0);
 // Margin against income — the one ratio a P&L reader asks for straight away.
-const marginPct = computed(() => (incomeTotal.value ? (profit.value / incomeTotal.value) * 100 : 0));
+const marginPct = computed(() =>
+	incomeTotal.value ? (profit.value / incomeTotal.value) * 100 : 0
+);
 
 const anyFilter = computed(
-	() => !!from.value || !!to.value || !!projectId.value || hideEmpty.value || !!accountQuery.value
+	() =>
+		!!from.value || !!to.value || !!projectId.value || hideEmpty.value || !!accountQuery.value
 );
 function clearFilters() {
 	from.value = "";
@@ -102,30 +105,81 @@ const rows = computed(() => {
 	const out = [];
 	const c = collapsed.value;
 
-	out.push({ kind: "group", key: "income", label: __("Income"), level: 0, amount: incomeTotal.value });
+	out.push({
+		kind: "group",
+		key: "income",
+		label: __("Income"),
+		level: 0,
+		amount: incomeTotal.value,
+	});
 	if (!c.income) {
-		out.push({ kind: "group", key: "direct-income", label: __("Direct Income"), level: 1, amount: incomeTotal.value });
+		out.push({
+			kind: "group",
+			key: "direct-income",
+			label: __("Direct Income"),
+			level: 1,
+			amount: incomeTotal.value,
+		});
 		if (!c["direct-income"]) {
 			for (const a of income.value)
-				out.push({ kind: "leaf", key: `inc-${a.name}`, label: a.name, level: 2, amount: a.amount, docs: a.docs });
+				out.push({
+					kind: "leaf",
+					key: `inc-${a.name}`,
+					label: a.name,
+					level: 2,
+					amount: a.amount,
+					docs: a.docs,
+				});
 		}
 	}
 	out.push({ kind: "total", label: __("Total Income (Credit)"), amount: incomeTotal.value });
 	out.push({ kind: "spacer" });
 
-	out.push({ kind: "group", key: "expenses", label: __("Expenses"), level: 0, amount: expenseTotal.value });
+	out.push({
+		kind: "group",
+		key: "expenses",
+		label: __("Expenses"),
+		level: 0,
+		amount: expenseTotal.value,
+	});
 	if (!c.expenses) {
 		if (directExpenses.value.length) {
-			out.push({ kind: "group", key: "direct-exp", label: __("Direct Expenses"), level: 1, amount: directTotal.value });
+			out.push({
+				kind: "group",
+				key: "direct-exp",
+				label: __("Direct Expenses"),
+				level: 1,
+				amount: directTotal.value,
+			});
 			if (!c["direct-exp"])
 				for (const a of directExpenses.value)
-					out.push({ kind: "leaf", key: `d-${a.name}`, label: a.name, level: 2, amount: a.amount, docs: a.docs });
+					out.push({
+						kind: "leaf",
+						key: `d-${a.name}`,
+						label: a.name,
+						level: 2,
+						amount: a.amount,
+						docs: a.docs,
+					});
 		}
 		if (indirectExpenses.value.length) {
-			out.push({ kind: "group", key: "indirect-exp", label: __("Indirect Expenses"), level: 1, amount: indirectTotal.value });
+			out.push({
+				kind: "group",
+				key: "indirect-exp",
+				label: __("Indirect Expenses"),
+				level: 1,
+				amount: indirectTotal.value,
+			});
 			if (!c["indirect-exp"])
 				for (const a of indirectExpenses.value)
-					out.push({ kind: "leaf", key: `i-${a.name}`, label: a.name, level: 2, amount: a.amount, docs: a.docs });
+					out.push({
+						kind: "leaf",
+						key: `i-${a.name}`,
+						label: a.name,
+						level: 2,
+						amount: a.amount,
+						docs: a.docs,
+					});
 		}
 	}
 	out.push({ kind: "total", label: __("Total Expense (Debit)"), amount: expenseTotal.value });
@@ -151,9 +205,16 @@ function indentStyle(level) {
 	<DeskPage :title="__('Profit & Loss')" :breadcrumbs="breadcrumbs" printable>
 		<div v-if="error" class="text-sm text-danger-600 py-10 text-center">{{ error }}</div>
 		<div v-else>
-			<ReportFilters :active="anyFilter" :shown="leafCount" :noun="__('accounts')" @clear="clearFilters">
+			<ReportFilters
+				:active="anyFilter"
+				:shown="leafCount"
+				noun="accounts"
+				@clear="clearFilters"
+			>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Project") }}</span>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Project")
+					}}</span>
 					<span class="w-52 inline-block">
 						<DeskLinkPicker
 							v-model="projectId"
@@ -166,14 +227,22 @@ function indentStyle(level) {
 					</span>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Period") }}</span>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Period")
+					}}</span>
 					<DeskInput v-model="from" type="date" class="!w-36" />
 					<span class="text-[11px] text-ink-400">{{ __("to") }}</span>
 					<DeskInput v-model="to" type="date" class="!w-36" />
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Find") }}</span>
-					<DeskInput v-model="accountQuery" :placeholder="__('Account name…')" class="!w-44" />
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Find")
+					}}</span>
+					<DeskInput
+						v-model="accountQuery"
+						:placeholder="__('Account name…')"
+						class="!w-44"
+					/>
 				</label>
 				<label class="flex items-center gap-1.5 cursor-pointer">
 					<input type="checkbox" v-model="hideEmpty" class="accent-brand-600" />
@@ -185,30 +254,50 @@ function indentStyle(level) {
 			     breakdown rather than inventing a different one. -->
 			<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
 				<div class="bg-white border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Total income") }}</div>
-					<div class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap">
+					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
+						{{ __("Total income") }}
+					</div>
+					<div
+						class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap"
+					>
 						{{ fmtINR(incomeTotal) }}
 					</div>
 					<div class="text-[10px] text-ink-400 mt-0.5">{{ __("posted invoices") }}</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Direct expenses") }}</div>
-					<div class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap">
+					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
+						{{ __("Direct expenses") }}
+					</div>
+					<div
+						class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap"
+					>
 						{{ fmtINR(directTotal) }}
 					</div>
 					<div class="text-[10px] text-ink-400 mt-0.5 tabular-nums">
-						{{ incomeTotal ? __("{0}% of income", [fixedNumber(((directTotal / incomeTotal) * 100), 1)]) : __("cost of sales") }}
+						{{
+							incomeTotal
+								? __("{0}% of income", [
+										fixedNumber((directTotal / incomeTotal) * 100, 1),
+								  ])
+								: __("cost of sales")
+						}}
 					</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Indirect expenses") }}</div>
-					<div class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap">
+					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
+						{{ __("Indirect expenses") }}
+					</div>
+					<div
+						class="text-lg font-semibold text-ink-900 tabular-nums mt-1 whitespace-nowrap"
+					>
 						{{ fmtINR(indirectTotal) }}
 					</div>
 					<div class="text-[10px] text-ink-400 mt-0.5">{{ __("overheads") }}</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{ __("Profit") }}</div>
+					<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
+						{{ __("Profit") }}
+					</div>
 					<div
 						class="text-lg font-semibold tabular-nums mt-1 whitespace-nowrap"
 						:class="profit < 0 ? 'text-danger-600' : 'text-success-700'"
@@ -219,7 +308,11 @@ function indentStyle(level) {
 						class="text-[10px] mt-0.5 tabular-nums"
 						:class="profit < 0 ? 'text-danger-600' : 'text-success-700'"
 					>
-						{{ incomeTotal ? __("{0}% margin", [fixedNumber(marginPct, 1)]) : __("no income in period") }}
+						{{
+							incomeTotal
+								? __("{0}% margin", [fixedNumber(marginPct, 1)])
+								: __("no income in period")
+						}}
 					</div>
 				</div>
 			</div>
@@ -233,28 +326,51 @@ function indentStyle(level) {
 						<tr>
 							<th class="w-10 text-right px-2 py-2 font-medium"></th>
 							<th class="text-left px-3 py-2 font-medium">{{ __("Account") }}</th>
-							<th class="text-right px-4 py-2 font-medium whitespace-nowrap">{{ periodLabel }}</th>
+							<th class="text-right px-4 py-2 font-medium whitespace-nowrap">
+								{{ periodLabel }}
+							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<template v-for="(r, i) in rows" :key="r.key || `${r.kind}-${i}`">
 							<tr v-if="r.kind === 'spacer'" class="border-b border-ink-100">
-								<td class="px-2 py-2 text-right text-ink-300 tabular-nums">{{ i + 1 }}</td>
+								<td class="px-2 py-2 text-right text-ink-300 tabular-nums">
+									{{ i + 1 }}
+								</td>
 								<td colspan="2"></td>
 							</tr>
 							<tr
 								v-else
 								class="border-b border-ink-100"
 								:class="[
-									r.kind === 'total' || r.kind === 'profit' ? 'bg-ink-50/60 font-semibold' : 'hover:bg-brand-50/30',
-									r.kind === 'group' || r.kind === 'leaf' ? 'cursor-pointer' : '',
+									r.kind === 'total' || r.kind === 'profit'
+										? 'bg-ink-50/60 font-semibold'
+										: 'hover:bg-brand-50/30',
+									r.kind === 'group' || r.kind === 'leaf'
+										? 'cursor-pointer'
+										: '',
 								]"
 								@click="
-									r.kind === 'group' ? toggleGroup(r.key) : r.kind === 'leaf' ? toggleDocs(r.key) : null
+									r.kind === 'group'
+										? toggleGroup(r.key)
+										: r.kind === 'leaf'
+										? toggleDocs(r.key)
+										: null
 								"
 							>
-								<td class="px-2 py-2 text-right text-ink-300 tabular-nums align-top">{{ i + 1 }}</td>
-								<td class="py-2 pr-3" :style="r.level != null ? indentStyle(r.level) : 'padding-left:12px'">
+								<td
+									class="px-2 py-2 text-right text-ink-300 tabular-nums align-top"
+								>
+									{{ i + 1 }}
+								</td>
+								<td
+									class="py-2 pr-3"
+									:style="
+										r.level != null
+											? indentStyle(r.level)
+											: 'padding-left:12px'
+									"
+								>
 									<span class="flex items-center gap-1.5">
 										<svg
 											v-if="r.kind === 'group'"
@@ -271,9 +387,13 @@ function indentStyle(level) {
 										</svg>
 										<span
 											:class="[
-												r.kind === 'group' ? 'font-semibold text-ink-900' : '',
+												r.kind === 'group'
+													? 'font-semibold text-ink-900'
+													: '',
 												r.kind === 'leaf' ? 'text-ink-700' : '',
-												r.kind === 'total' || r.kind === 'profit' ? 'text-ink-900' : '',
+												r.kind === 'total' || r.kind === 'profit'
+													? 'text-ink-900'
+													: '',
 											]"
 											>{{ r.label }}</span
 										>
@@ -281,7 +401,11 @@ function indentStyle(level) {
 								</td>
 								<td
 									class="px-4 py-2 text-right tabular-nums whitespace-nowrap"
-									:class="r.kind === 'profit' && r.amount < 0 ? 'text-danger-600' : 'text-ink-900'"
+									:class="
+										r.kind === 'profit' && r.amount < 0
+											? 'text-danger-600'
+											: 'text-ink-900'
+									"
 								>
 									{{ fmtINR(r.amount) }}
 								</td>
@@ -302,24 +426,40 @@ function indentStyle(level) {
 										>
 											<span class="min-w-0">
 												<span class="text-ink-800">{{ d.label }}</span>
-												<span class="text-ink-400 ml-1.5">{{ d.sub }}</span>
+												<span class="text-ink-400 ml-1.5">{{
+													d.sub
+												}}</span>
 											</span>
-											<span class="tabular-nums text-ink-700 flex-shrink-0">{{ fmtINR(d.amount) }}</span>
+											<span
+												class="tabular-nums text-ink-700 flex-shrink-0"
+												>{{ fmtINR(d.amount) }}</span
+											>
 										</div>
 									</div>
-									<div v-else class="text-[11px] text-ink-400 italic">{{ __("No contributing vouchers.") }}</div>
+									<div v-else class="text-[11px] text-ink-400 italic">
+										{{ __("No contributing vouchers.") }}
+									</div>
 								</td>
 							</tr>
 						</template>
 						<tr v-if="loading">
-							<td colspan="3" class="px-4 py-8 text-center text-sm text-ink-400 italic">{{ __("Loading…") }}</td>
+							<td
+								colspan="3"
+								class="px-4 py-8 text-center text-sm text-ink-400 italic"
+							>
+								{{ __("Loading…") }}
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
 			<p class="text-[11px] text-ink-400 mt-2 print:hidden">
-				{{ __("Income and expenses are posted GL entries, grouped by ledger account and scoped to the selected project and period. Direct vs indirect follows the chart of accounts' cost-of-sales boundary. Click an account to list its vouchers.") }}
+				{{
+					__(
+						"Income and expenses are posted GL entries, grouped by ledger account and scoped to the selected project and period. Direct vs indirect follows the chart of accounts' cost-of-sales boundary. Click an account to list its vouchers."
+					)
+				}}
 			</p>
 		</div>
 	</DeskPage>

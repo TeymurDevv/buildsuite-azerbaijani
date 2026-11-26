@@ -19,7 +19,7 @@ import ProcurementStatusPill from "@/components/procurement/ProcurementStatusPil
 import { useProjectOptions } from "@/composables/useProjectOptions";
 import { PROCUREMENT_REPORTS } from "@/data/procurementReportApi";
 import { fmtCompactINR, fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const route = useRoute();
 const router = useRouter();
@@ -244,42 +244,42 @@ const COUNTS = {
 	"requests-to-order": () => ({
 		shown: requestsToOrder.value.length,
 		total: rowsArr.value.length,
-		noun: __("requests"),
+		noun: "requests",
 		date: __("Needed by"),
 		find: __("Request, project…"),
 	}),
 	"delivery-followup": () => ({
 		shown: deliveryFollowup.value.length,
 		total: rowsArr.value.length,
-		noun: __("orders"),
+		noun: "orders",
 		date: __("Needed by"),
 		find: __("Order, supplier, project…"),
 	}),
 	"site-stock": () => ({
 		shown: siteStock.value.length,
 		total: rowsArr.value.length,
-		noun: __("items"),
+		noun: "items",
 		date: "",
 		find: __("Item or store…"),
 	}),
 	"rate-check": () => ({
 		shown: rateCheckRows.value.length,
 		total: (raw.value?.rows || []).length,
-		noun: __("items"),
+		noun: "items",
 		date: "",
 		find: __("Item, code, supplier…"),
 	}),
 	"purchase-register": () => ({
 		shown: purchaseRegister.value.length,
 		total: rowsArr.value.length,
-		noun: __("lines"),
+		noun: "lines",
 		date: __("Ordered"),
 		find: __("Item, order, supplier…"),
 	}),
 	"consumption-by-cost-code": () => ({
 		shown: consumptionByCostCode.value.length,
 		total: null,
-		noun: __("lines"),
+		noun: "lines",
 		date: __("Issued"),
 		find: __("Item or cost code…"),
 	}),
@@ -287,7 +287,7 @@ const COUNTS = {
 const counts = computed(() =>
 	COUNTS[slug.value]
 		? COUNTS[slug.value]()
-		: { shown: null, total: null, noun: __("rows"), date: "", find: __("Search…") }
+		: { shown: null, total: null, noun: "rows", date: "", find: __("Search…") }
 );
 
 const breadcrumbs = computed(() => [
@@ -723,7 +723,9 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString(numberLocale("en-IN"
 									>
 										{{ inr(r.available) }}
 									</td>
-									<td class="px-3 py-2 text-ink-500">{{ r.uom }}</td>
+									<td class="px-3 py-2 text-ink-500">
+										{{ standardLinkLabel("UOM", r.uom) }}
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -844,11 +846,11 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString(numberLocale("en-IN"
 										[rateUnlinked]
 								  )
 						}}
-						{{ __('Linking the item to a Rate Master entry under') }}
-						<RouterLink to="/items" class="text-brand-700 hover:underline"
-							>{{ __('Items') }}</RouterLink
-						>
-						{{ __('brings it into this report.') }}
+						{{ __("Linking the item to a Rate Master entry under") }}
+						<RouterLink to="/items" class="text-brand-700 hover:underline">{{
+							__("Items")
+						}}</RouterLink>
+						{{ __("brings it into this report.") }}
 					</p>
 				</div>
 
@@ -909,7 +911,9 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString(numberLocale("en-IN"
 									<td class="px-3 py-2 text-ink-900">{{ r.item }}</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 										{{ inr(r.qty) }}
-										<span class="text-[10px] text-ink-500">{{ r.uom }}</span>
+										<span class="text-[10px] text-ink-500">{{
+											standardLinkLabel("UOM", r.uom)
+										}}</span>
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 										{{ fmtINR(r.rate) }}
@@ -987,7 +991,9 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString(numberLocale("en-IN"
 									<td class="px-3 py-2 text-ink-700">{{ r.item }}</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-900">
 										{{ inr(r.qty) }}
-										<span class="text-[10px] text-ink-500">{{ r.uom }}</span>
+										<span class="text-[10px] text-ink-500">{{
+											standardLinkLabel("UOM", r.uom)
+										}}</span>
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 										{{ r.value ? fmtINR(r.value) : "—" }}

@@ -36,7 +36,8 @@ function updateField(event) {
 			class="text-xs text-ink-600 bg-white hover:bg-ink-50 pl-2.5 pr-7 py-1 appearance-none"
 			:disabled="!options.length"
 			style="border: none; outline: none; min-width: 9.5rem"
-			:title="__(!options.length ? 'Sort unavailable' : 'Sort field')"
+			:title="options.length ? __('Sort field') : __('Sort unavailable')"
+			:aria-label="__('Sort field')"
 			@change="updateField"
 		>
 			<option v-if="!options.length" value="">{{ __("Sort unavailable") }}</option>

@@ -70,8 +70,13 @@ const detailRow = computed(() => rows.value[detailIndex.value] || {});
 			<thead class="bg-ink-50 text-ink-500 uppercase tracking-wider text-[10px]">
 				<tr>
 					<th class="px-2 py-2 w-8 text-left">#</th>
-					<th v-for="c in columns" :key="c.fieldname" class="px-2 py-2 text-left font-medium">
-						{{ c.label || c.fieldname }}<span v-if="c.reqd" class="text-danger-600"> *</span>
+					<th
+						v-for="c in columns"
+						:key="c.fieldname"
+						class="px-2 py-2 text-left font-medium"
+					>
+						{{ __(c.label || c.fieldname)
+						}}<span v-if="c.reqd" class="text-danger-600"> *</span>
 					</th>
 					<th class="w-16"></th>
 				</tr>
@@ -110,14 +115,14 @@ const detailRow = computed(() => rows.value[detailIndex.value] || {});
 				</tr>
 				<tr v-if="!rows.length">
 					<td :colspan="columns.length + 2" class="px-2 py-3 text-center text-ink-400">
-						{{ __('No rows yet.') }}
+						{{ __("No rows yet.") }}
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div v-if="!disabled" class="px-2 py-1.5 border-t border-ink-100">
 			<button type="button" class="text-xs text-brand-600 hover:underline" @click="addRow">
-				{{ __('+ Add row') }}
+				{{ __("+ Add row") }}
 			</button>
 		</div>
 
@@ -125,10 +130,9 @@ const detailRow = computed(() => rows.value[detailIndex.value] || {});
 			:open="detailOpen"
 			:row="detailRow"
 			:doctype="doctype"
-			:title="`Row ${detailIndex + 1} · ${doctype}`"
+			:title="__('Row {0} · {1}', [detailIndex + 1, __(doctype)])"
 			:disabled="disabled"
 			@close="detailIndex = -1"
 		/>
 	</div>
 </template>
-

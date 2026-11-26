@@ -96,11 +96,13 @@ function inAmountRange(n) {
 }
 
 // Distinct accounts + parties across the register — the filter pools.
-const accountOptions = computed(() =>
-	[...new Set(movements.value.map((m) => m.account).filter(Boolean))].sort((a, b) =>
-		a.localeCompare(b)
-	)
-);
+const accountOptions = computed(() => {
+	const options = new Map();
+	for (const m of movements.value) {
+		if (m.account) options.set(m.account, m.account_label || m.account);
+	}
+	return [...options].sort((a, b) => a[1].localeCompare(b[1]));
+});
 const partyOptions = computed(() => {
 	const names = [...new Set(movements.value.map((m) => m.party).filter(Boolean))].sort((a, b) =>
 		a.localeCompare(b)
@@ -119,7 +121,9 @@ const filtered = computed(() => {
 			inPeriod(m.date) &&
 			inAmountRange(m.amount) &&
 			(!term ||
+				__(m.type).toLocaleLowerCase().includes(term) ||
 				m.type.toLowerCase().includes(term) ||
+				(m.account_label || "").toLocaleLowerCase().includes(term) ||
 				(m.party || "").toLowerCase().includes(term) ||
 				(m.account || "").toLowerCase().includes(term) ||
 				(m.ref || "").toLowerCase().includes(term))
@@ -213,7 +217,9 @@ const breadcrumbs = [
 					class="text-xs px-2 py-1.5 border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-200"
 				>
 					<option value="">{{ __("All accounts") }}</option>
-					<option v-for="a in accountOptions" :key="a" :value="a">{{ a }}</option>
+					<option v-for="[id, label] in accountOptions" :key="id" :value="id">
+						{{ label }}
+					</option>
 				</select>
 				<div class="w-52">
 					<DeskSearchableSelect
@@ -328,7 +334,9 @@ const breadcrumbs = [
 								>
 							</td>
 							<td class="px-4 py-2.5 text-ink-900">{{ m.party }}</td>
-							<td class="px-4 py-2.5 text-ink-500">{{ m.account || "—" }}</td>
+							<td class="px-4 py-2.5 text-ink-500">
+								{{ m.account_label || m.account || "—" }}
+							</td>
 							<td class="px-4 py-2.5 font-mono text-ink-400 text-[10px]">
 								{{ m.ref || "—" }}
 							</td>

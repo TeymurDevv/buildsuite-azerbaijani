@@ -1,4 +1,5 @@
 <script setup>
+import { delayReasons as standardDelayReasons } from "@/data/stageDelayReasons";
 // Stage Review — per-stage meeting dashboard. Vue-styled composite (like the
 // Project Dashboard), rendered inside DeskShell. Adapter-backed; reads the
 // stage (+ its task rows and delay log), the linked tasks' live progress, and
@@ -314,9 +315,9 @@ function goBack() {
 		<nav class="text-xs text-ink-500 mb-3 flex items-center gap-1.5 flex-wrap">
 			<RouterLink to="/" class="hover:text-ink-700">{{ __("BuildSuite Core") }}</RouterLink>
 			<span>›</span>
-			<RouterLink to="/stage-plannings" class="hover:text-ink-700"
-				>{{ __("Stage Planning") }}</RouterLink
-			>
+			<RouterLink to="/stage-plannings" class="hover:text-ink-700">{{
+				__("Stage Planning")
+			}}</RouterLink>
 			<span>›</span>
 			<RouterLink
 				v-if="project"
@@ -379,7 +380,8 @@ function goBack() {
 					{{ taskCount }}
 				</div>
 				<div class="text-[11px] text-ink-500 mt-0.5">
-					{{ completedTaskCount }} {{ __('done ·') }} {{ inProgressTaskCount }} {{ __('in progress') }}
+					{{ completedTaskCount }} {{ __("done ·") }} {{ inProgressTaskCount }}
+					{{ __("in progress") }}
 				</div>
 			</div>
 			<div
@@ -395,7 +397,7 @@ function goBack() {
 						>{{ meanActualProgress }}%</span
 					>
 					<span class="text-sm text-ink-500 tabular-nums"
-						>/ {{ meanPlannedProgress }}{{ __('% planned') }}</span
+						>/ {{ meanPlannedProgress }}{{ __("% planned") }}</span
 					>
 				</div>
 				<div class="text-[11px] mt-0.5 flex items-center gap-1 flex-wrap">
@@ -403,11 +405,13 @@ function goBack() {
 						v-if="plannedVsActualPts !== 0"
 						:class="plannedVsActualPts > 0 ? 'text-success-700' : 'text-danger-700'"
 						class="font-medium"
-						>{{ plannedVsActualPts > 0 ? "+" : "" }}{{ plannedVsActualPts }} {{ __('pts vs plan') }}</span
+						>{{ plannedVsActualPts > 0 ? "+" : "" }}{{ plannedVsActualPts }}
+						{{ __("pts vs plan") }}</span
 					>
 					<span v-else class="text-ink-500">{{ __("on plan") }}</span>
 					<span v-if="expectedProgress !== null" class="text-ink-400"
-						>{{ __('· expected') }} {{ expectedProgress }}{{ __('% by calendar') }}</span
+						>{{ __("· expected") }} {{ expectedProgress
+						}}{{ __("% by calendar") }}</span
 					>
 				</div>
 			</div>
@@ -424,7 +428,8 @@ function goBack() {
 					{{ labourTotals.total }}
 				</div>
 				<div class="text-[11px] text-ink-500 mt-0.5">
-					{{ labourTotals.skilled }} {{ __('skilled ·') }} {{ labourTotals.unskilled }} {{ __('unskilled') }}
+					{{ labourTotals.skilled }} {{ __("skilled ·") }} {{ labourTotals.unskilled }}
+					{{ __("unskilled") }}
 				</div>
 			</div>
 			<div
@@ -438,7 +443,7 @@ function goBack() {
 					v-if="daysOverrun > 0"
 					class="text-2xl font-semibold text-danger-700 mt-1 tabular-nums"
 				>
-					{{ daysOverrun }}{{ __('d over') }}
+					{{ daysOverrun }}{{ __("d over") }}
 				</div>
 				<div
 					v-else-if="expectedProgress !== null && expectedProgress < 100"
@@ -490,13 +495,11 @@ function goBack() {
 						>{{ __("planned") }}</span
 					>
 				</span>
-				<span class="text-[11px] text-ink-500 ml-auto"
-					>{{
-						taskCount === 1
-							? __("{0} task in stage", [taskCount])
-							: __("{0} tasks in stage", [taskCount])
-					}}</span
-				>
+				<span class="text-[11px] text-ink-500 ml-auto">{{
+					taskCount === 1
+						? __("{0} task in stage", [taskCount])
+						: __("{0} tasks in stage", [taskCount])
+				}}</span>
 			</header>
 
 			<div
@@ -525,7 +528,9 @@ function goBack() {
 							class="text-sm text-ink-900 font-medium hover:underline truncate block dark:text-[#F5F5F5]"
 							>{{ tr.task.name }}</RouterLink
 						>
-						<span v-else class="text-sm text-ink-400 italic">{{ __("No task linked") }}</span>
+						<span v-else class="text-sm text-ink-400 italic">{{
+							__("No task linked")
+						}}</span>
 						<div v-if="tr.task" class="text-[11px] text-ink-500 mt-0.5 truncate">
 							{{ fmtDate(tr.row.plannedStart) || "—" }} →
 							{{ fmtDate(tr.row.plannedEnd) || "—" }}
@@ -579,7 +584,7 @@ function goBack() {
 							"
 							class="text-[10px] px-1.5 py-0.5 rounded-full font-medium tabular-nums whitespace-nowrap"
 							>{{ rowPlannedActualVariance(tr) > 0 ? "+" : ""
-							}}{{ rowPlannedActualVariance(tr) }} {{ __('pts') }}</span
+							}}{{ rowPlannedActualVariance(tr) }} {{ __("pts") }}</span
 						>
 						<span v-else class="text-[10px] text-ink-400">—</span>
 					</div>
@@ -618,12 +623,16 @@ function goBack() {
 					{{ __("Delay reasons") }}
 				</h2>
 				<span v-if="delayReasons.length" class="text-[11px] text-ink-500 ml-3">
-					<span class="font-semibold text-ink-900 tabular-nums dark:text-[#F5F5F5]">{{
-						delayDaysSummary.total
-					}}</span>
-					{{ __('day') }}{{ delayDaysSummary.total === 1 ? "" : "s" }} {{ __('total') }}
+					{{
+						__(
+							delayDaysSummary.total === 1
+								? "{0} day in total"
+								: "{0} days in total",
+							[delayDaysSummary.total]
+						)
+					}}
 					<span v-if="delayDaysSummary.pending > 0" class="text-ink-400"
-						>· {{ delayDaysSummary.pending }} TBD</span
+						>· {{ __("{0} pending", [delayDaysSummary.pending]) }}</span
 					>
 				</span>
 				<button
@@ -665,13 +674,15 @@ function goBack() {
 					<div class="text-right text-ink-400 tabular-nums">
 						{{ delayReasons.length - i }}
 					</div>
-					<div class="text-ink-900 font-medium dark:text-[#F5F5F5]">{{ d.reason }}</div>
+					<div class="text-ink-900 font-medium dark:text-[#F5F5F5]">
+						{{ standardDelayReasons.includes(d.reason) ? __(d.reason) : d.reason }}
+					</div>
 					<div>
 						<span
 							v-if="d.responsibleParty"
 							class="text-[10px] px-1.5 py-0.5 rounded-full font-medium"
 							:class="partyPill(d.responsibleParty)"
-							>{{ d.responsibleParty }}</span
+							>{{ __(d.responsibleParty) }}</span
 						>
 						<span v-else class="text-[10px] text-ink-400">—</span>
 					</div>
@@ -695,7 +706,8 @@ function goBack() {
 				</div>
 			</div>
 			<div v-else class="px-5 py-8 text-center text-sm text-ink-400 italic">
-				{{ __('No delay reasons logged. Use') }} <span class="font-medium">{{ __('+ Add') }}</span> {{ __('to record one.') }}
+				{{ __("No delay reasons logged. Use") }}
+				<span class="font-medium">{{ __("+ Add") }}</span> {{ __("to record one.") }}
 			</div>
 		</section>
 
@@ -785,11 +797,12 @@ function goBack() {
 							</div>
 						</div>
 						<div class="text-[11px] text-ink-500">
-							{{ __('From') }}
-							<span class="font-medium text-ink-700 tabular-nums">{{
-								labourTotals.entries
-							}}</span>
-							{{ __('progress entr') }}{{ labourTotals.entries === 1 ? "y" : "ies" }} {{ __('filed against this stage\'s tasks. Counts are deployment-days (cumulative across filed entries) — not concurrent headcount.') }}
+							{{
+								__(
+									"Progress entries for this stage: {0}. Totals are worker-days across those entries.",
+									[labourTotals.entries]
+								)
+							}}
 						</div>
 					</div>
 				</section>
@@ -818,7 +831,9 @@ function goBack() {
 						</h2>
 					</header>
 					<div class="px-5 py-10 text-center text-sm text-ink-400 italic">
-						{{ __("Stage activity (submissions, approvals, edits) will appear here.") }}
+						{{
+							__("Stage activity (submissions, approvals, edits) will appear here.")
+						}}
 					</div>
 				</section>
 			</div>

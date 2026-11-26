@@ -5,7 +5,7 @@ import Autocomplete from "../../../node_modules/frappe-ui/src/components/Autocom
 import { useDocTypeList } from "@/composables/useDocTypeList";
 import { companyFilterForDoctype } from "@/composables/useActiveCompany";
 import { useHiddenUsers } from "@/composables/useHiddenUsers";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 // Users that BuildSuite Core's own UI must never surface (Administrator, Guest,
 // platform System-Manager admins). Applied to every User picker centrally.
@@ -178,8 +178,7 @@ function applyClientFilters(rows, filters = []) {
 // link values (people, companies and custom reports) use their stored label.
 const standardLabels = computed(() => window.standard_link_labels?.[props.doctype] || {});
 function displayLabel(value, fallback) {
-	const labels = standardLabels.value;
-	return Object.hasOwn(labels, value) ? __(labels[value]) : String(fallback ?? "");
+	return standardLinkLabel(props.doctype, value, String(fallback ?? ""));
 }
 
 const serverOrFilters = computed(() => {

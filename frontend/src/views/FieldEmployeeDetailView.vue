@@ -9,7 +9,7 @@ import { useDataStore } from "@/stores";
 import { useConfirm } from "@/composables/useConfirm";
 import { useFormErrors } from "@/composables/useFormErrors";
 import { showToast } from "@/utils/appToast";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import { isPermissionDenied } from "@/utils/frappeError";
 import { createDataAdapter } from "@/data/adapters";
 import { usePermissions } from "@/composables/usePermissions";
@@ -197,7 +197,9 @@ const breadcrumbs = computed(() => [
 					<div class="text-sm text-ink-900">{{ doc.last_name || "—" }}</div>
 				</DeskField>
 				<DeskField :label="__('Gender')">
-					<div class="text-sm text-ink-700">{{ doc.gender || "—" }}</div>
+					<div class="text-sm text-ink-700">
+						{{ standardLinkLabel("Gender", doc.gender) || "—" }}
+					</div>
 				</DeskField>
 
 				<DeskField :label="__('Date of birth')">

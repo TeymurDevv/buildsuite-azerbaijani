@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 import frappeui from "frappe-ui/vite";
+import { localizeRichEditor } from "./localizeRichEditor";
 
 // Resolve the local Frappe backend for the dev-server proxy — from VITE_FRAPPE_HOST
 // or the bench's site config — so no host/port is hardcoded in the repo. The proxy
@@ -29,6 +30,7 @@ export default defineConfig(({ command }) => ({
 		__FRAPPE_DEV_HOST__: JSON.stringify(command === "serve" ? frappeBackend() : ""),
 	},
 	plugins: [
+		localizeRichEditor(),
 		// Frappe UI's Autocomplete exposes neither props nor slots for these captions.
 		// Compile them with the same runtime translator as BuildSuite's own templates.
 		{

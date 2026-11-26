@@ -8,7 +8,7 @@ import { useConfirm } from "@/composables/useConfirm";
 import { usePermissions } from "@/composables/usePermissions";
 import { useFormErrors } from "@/composables/useFormErrors";
 import { useDocTypeList } from "@/composables/useDocTypeList";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import { showToast } from "@/utils/appToast";
 import { createDataAdapter } from "@/data/adapters";
 import { fmtINR } from "@/utils/format";
@@ -366,7 +366,9 @@ async function removeComponent(index) {
 							@change="(e) => changeCoefficient(i, e.target.value)"
 						/>
 					</div>
-					<div class="px-3 py-2 text-xs text-ink-700">{{ row.uom || "—" }}</div>
+					<div class="px-3 py-2 text-xs text-ink-700">
+						{{ standardLinkLabel("UOM", row.uom) || "—" }}
+					</div>
 					<div class="px-3 py-2 text-right text-sm tabular-nums text-ink-700">
 						{{ fmtINR(row.rate) }}
 					</div>

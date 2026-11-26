@@ -12,19 +12,33 @@ const props = defineProps({
 	minHeight: { type: String, default: "10rem" },
 });
 const emit = defineEmits(["update:modelValue"]);
+// TipTap can normalize loaded HTML (for example, inserting a trailing paragraph)
+// during mount. Only changes after an editing interaction belong to the user.
+let interacted = false;
+function beginInteraction() {
+	interacted = true;
+}
+function onEditorChange(html) {
+	if (props.editable && interacted && html !== props.modelValue) emit("update:modelValue", html);
+}
 </script>
 
 <template>
 	<div
 		class="rich-text-editor bg-white border border-ink-200 rounded-md overflow-hidden"
 		:class="{ 'rich-text-editor--readonly': !editable }"
+		@pointerdown.capture="beginInteraction"
+		@keydown.capture="beginInteraction"
+		@beforeinput.capture="beginInteraction"
+		@drop.capture="beginInteraction"
+		@click.capture="beginInteraction"
 	>
 		<TextEditor
 			:content="props.modelValue"
 			:fixed-menu="editable"
 			:editable="editable"
 			:editor-class="`prose prose-sm max-w-none px-3 py-2 focus:outline-none rte-content`"
-			@change="(html) => emit('update:modelValue', html)"
+			@change="onEditorChange"
 		/>
 	</div>
 </template>

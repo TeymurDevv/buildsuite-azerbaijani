@@ -24,7 +24,7 @@ import DeskSelect from "@/components/desk/DeskSelect.vue";
 import DeskTextarea from "@/components/desk/DeskTextarea.vue";
 import DeskLinkPicker from "@/components/desk/DeskLinkPicker.vue";
 import { createDataAdapter } from "@/data/adapters";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 import { currencySymbol } from "@/utils/format";
 
@@ -70,7 +70,7 @@ function validate() {
 async function save() {
 	if (!validate()) return;
 	const b = await fetchProjectBounds(form.projectId);
-	const boundsErr = outOfParentBoundsError(
+	const boundsErr = outOfParentBoundsIssue(
 		form.startDate,
 		form.endDate,
 		b.start,
@@ -79,9 +79,11 @@ async function save() {
 	);
 	if (boundsErr) {
 		setErrors(
-			boundsErr.startsWith("Start") ? { startDate: boundsErr } : { endDate: boundsErr }
+			boundsErr.field === "start"
+				? { startDate: boundsErr.message }
+				: { endDate: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	saving.value = true;

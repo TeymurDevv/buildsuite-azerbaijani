@@ -19,7 +19,7 @@ import ProcurementStatusPill from "@/components/procurement/ProcurementStatusPil
 import { usePermissions } from "@/composables/usePermissions";
 import { useWorkflow } from "@/composables/useWorkflow";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const props = defineProps({ id: String });
 const router = useRouter();
@@ -237,25 +237,35 @@ const breadcrumbs = computed(() => [
 			v-if="isDraft"
 			class="mb-4 px-4 py-2.5 bg-ink-50 border border-ink-200 rounded-md text-xs text-ink-600"
 		>
-			{{ __("Draft — not posted to stock yet. Submit it to record the goods into the warehouse.") }}
+			{{
+				__(
+					"Draft — not posted to stock yet. Submit it to record the goods into the warehouse."
+				)
+			}}
 		</div>
 
 		<!-- Summary strip -->
 		<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
 			<div class="bg-white border border-ink-200 rounded-lg p-3">
-				<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Supplier") }}</div>
+				<div class="text-[10px] uppercase tracking-wider text-ink-500">
+					{{ __("Supplier") }}
+				</div>
 				<div class="text-sm text-ink-900 mt-0.5 truncate">
 					{{ pr.supplier_name || pr.supplier }}
 				</div>
 			</div>
 			<div class="bg-white border border-ink-200 rounded-lg p-3">
-				<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Project") }}</div>
+				<div class="text-[10px] uppercase tracking-wider text-ink-500">
+					{{ __("Project") }}
+				</div>
 				<DeskLink :to="`/projects/${pr.project}`" class="text-sm">{{
 					pr.project_name || pr.project
 				}}</DeskLink>
 			</div>
 			<div class="bg-white border border-ink-200 rounded-lg p-3">
-				<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Received on") }}</div>
+				<div class="text-[10px] uppercase tracking-wider text-ink-500">
+					{{ __("Received on") }}
+				</div>
 				<div class="text-sm text-ink-900 mt-0.5">{{ fmtDate(pr.posting_date) }}</div>
 				<div v-if="pr.purchase_order" class="text-[10px] text-ink-500">
 					{{ __("against") }}
@@ -267,7 +277,9 @@ const breadcrumbs = computed(() => [
 				</div>
 			</div>
 			<div class="bg-white border border-ink-200 rounded-lg p-3">
-				<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Value received") }}</div>
+				<div class="text-[10px] uppercase tracking-wider text-ink-500">
+					{{ __("Value received") }}
+				</div>
 				<div class="text-base font-semibold text-ink-900 tabular-nums mt-0.5">
 					{{ fmtINR(total) }}
 				</div>
@@ -282,7 +294,9 @@ const breadcrumbs = computed(() => [
 				<h3 class="text-xs uppercase tracking-wider font-semibold text-ink-700">
 					{{ __("Items received") }}
 				</h3>
-				<span class="text-[10px] text-ink-500">{{ __("Into {0}", [pr.warehouse || "—"]) }}</span>
+				<span class="text-[10px] text-ink-500">{{
+					__("Into {0}", [pr.warehouse || "—"])
+				}}</span>
 			</div>
 			<table class="w-full text-xs" style="min-width: 620px">
 				<thead class="bg-white text-ink-500 uppercase tracking-wider text-[10px]">
@@ -297,7 +311,9 @@ const breadcrumbs = computed(() => [
 				<tbody>
 					<tr v-for="(it, i) in pr.items" :key="i" class="border-t border-ink-100">
 						<td class="px-3 py-2 text-ink-900">{{ it.item_name || it.item_code }}</td>
-						<td class="px-3 py-2 text-ink-500">{{ it.uom || "—" }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", it.uom) || "—" }}
+						</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ fmtINR(it.rate) }}
 						</td>

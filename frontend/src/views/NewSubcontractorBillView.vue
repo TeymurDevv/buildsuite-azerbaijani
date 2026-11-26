@@ -13,7 +13,7 @@ import { showToast } from "@/utils/appToast";
 // Custom Fields, controls and save hooks an installed app adds to this form (sdk/useExtensionFields).
 import ExtensionSlot from "@/components/ExtensionSlot.vue";
 import { useExtensionFields } from "@/sdk/useExtensionFields";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import { getBill, getWoBillContext, saveBill } from "@/data/subcontractApi";
 import { useAutosave } from "@/composables/useAutosave";
 import DeskPage from "@/components/desk/DeskPage.vue";
@@ -384,8 +384,9 @@ const breadcrumbs = computed(() => [
 					v-if="woContext"
 					class="mt-3 text-xs text-ink-600 bg-info-50 border border-info-100 rounded-md px-3 py-2"
 				>
-					{{ woContext.subcontractor_name }} · {{ woContext.project_name }} {{ __('· This will be') }}
-					<span class="font-medium">{{ __('Bill') }} {{ woContext.next_ra_no }}</span>
+					{{ woContext.subcontractor_name }} · {{ woContext.project_name }}
+					{{ __("· This will be") }}
+					<span class="font-medium">{{ __("Bill") }} {{ woContext.next_ra_no }}</span>
 				</div>
 
 				<section class="mt-6">
@@ -415,20 +416,32 @@ const breadcrumbs = computed(() => [
 									<td class="px-3 py-2 text-ink-900">{{ l.scope }}</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 										{{ fmtINR(l.rate)
-										}}<span class="text-ink-400">/{{ l.uom }}</span>
+										}}<span class="text-ink-400"
+											>/{{ standardLinkLabel("UOM", l.uom) }}</span
+										>
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-info-700">
 										{{
-											Number(l.measured_qty_to_date).toLocaleString(numberLocale("en-IN"))
+											Number(l.measured_qty_to_date).toLocaleString(
+												numberLocale("en-IN")
+											)
 										}}
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-500">
-										{{ Number(l.previous_qty).toLocaleString(numberLocale("en-IN")) }}
+										{{
+											Number(l.previous_qty).toLocaleString(
+												numberLocale("en-IN")
+											)
+										}}
 									</td>
 									<td
 										class="px-3 py-2 text-right tabular-nums text-ink-900 font-medium"
 									>
-										{{ Number(l.this_period_qty).toLocaleString(numberLocale("en-IN")) }}
+										{{
+											Number(l.this_period_qty).toLocaleString(
+												numberLocale("en-IN")
+											)
+										}}
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums font-medium">
 										{{ fmtINR(l.this_period_amount) }}

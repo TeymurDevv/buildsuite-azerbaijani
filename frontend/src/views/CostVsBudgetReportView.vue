@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 // Cost vs Budget by Cost Code — the project cost-control report, launched from the project
 // overview (?project=). Per BOQ cost code, grouped by cost type: Planned (Approved BOQ),
 // Committed (submitted subcontractor work orders) and Actual (recognised spend across every
@@ -102,7 +103,7 @@ async function load(pid) {
 		rows.value = res.rows || [];
 		boq.value = res.boq || null;
 	} catch (err) {
-		showToast(err.message || "Failed to load Cost vs Budget", "error");
+		showToast(err.message || __("Failed to load Cost vs Budget"), "error");
 		rows.value = [];
 		boq.value = null;
 	} finally {
@@ -191,7 +192,7 @@ const breadcrumbs = [
 							:options="costTypeOptions"
 							allow-clear
 							:placeholder="__('All types')"
-							search-placeholder="Search…"
+							:search-placeholder="__('Search…')"
 						/>
 					</span>
 				</label>

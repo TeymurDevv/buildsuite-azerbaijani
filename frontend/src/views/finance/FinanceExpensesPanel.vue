@@ -1226,7 +1226,7 @@ const expenseAccountFilters = computed(() => [
 								<DeskSelect v-model="form.company_account">
 									<option value="" disabled>{{ __("Pick an account…") }}</option>
 									<option v-for="a in payAccounts" :key="a.name" :value="a.name">
-										{{ a.name }}
+										{{ a.display_id || a.name }}
 									</option>
 								</DeskSelect>
 							</DeskField>

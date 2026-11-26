@@ -344,7 +344,7 @@ const toneDot = {
 								stroke-linejoin="round"
 								v-html="getWorkspaceIconPath('wallet')"
 							/>
-							{{ __("Accounts") }}
+							{{ __("Ledger accounts") }}
 						</h3>
 						<RouterLink
 							to="/settings/finance-accounts"
@@ -384,7 +384,7 @@ const toneDot = {
 								</div>
 								<div class="min-w-0">
 									<div class="text-xs text-ink-900 font-medium truncate">
-										{{ acc.name }}
+										{{ acc.display_name || acc.name }}
 									</div>
 									<div class="text-[10px] text-ink-500">{{ __(acc.type) }}</div>
 								</div>

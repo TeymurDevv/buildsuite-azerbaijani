@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 // Trade field — a searchable Construction Trade picker with an inline "+ New" that creates a
 // trade on the spot (saved permanently) and selects it, so a subcontractor's trade can be added
 // without leaving the form. Construction Trade is autonamed field:trade_name.
@@ -33,9 +34,9 @@ async function createTrade() {
 		emit("update:modelValue", res.name);
 		pickerKey.value++;
 		open.value = false;
-		showToast(`Trade "${res.name}" created.`);
+		showToast(__('Trade "{0}" created.', [res.name]));
 	} catch (err) {
-		showToast(err.message || "Could not create the trade.", "error");
+		showToast(err.message || __("Could not create the trade."), "error");
 	} finally {
 		saving.value = false;
 	}
@@ -62,7 +63,7 @@ async function createTrade() {
 			:title="__('Create a new trade')"
 			@click="openCreate"
 		>
-			{{ __('+ New') }}
+			{{ __("+ New") }}
 		</button>
 	</div>
 
@@ -79,7 +80,9 @@ async function createTrade() {
 				<header
 					class="px-4 py-3 border-b border-ink-200 flex items-center justify-between"
 				>
-					<h2 class="text-sm font-semibold text-ink-900">{{ __('Create new trade') }}</h2>
+					<h2 class="text-sm font-semibold text-ink-900">
+						{{ __("Create new trade") }}
+					</h2>
 					<button
 						type="button"
 						class="text-ink-400 hover:text-ink-900"
@@ -91,7 +94,7 @@ async function createTrade() {
 				<div class="px-4 py-4">
 					<label
 						class="block text-[11px] uppercase tracking-wider text-ink-500 font-medium mb-1"
-						>{{ __('Trade name') }}</label
+						>{{ __("Trade name") }}</label
 					>
 					<input
 						v-model="name"
@@ -109,7 +112,7 @@ async function createTrade() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="open = false"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button
 						type="button"
@@ -117,7 +120,7 @@ async function createTrade() {
 						:disabled="saving || !name.trim()"
 						@click="createTrade"
 					>
-						{{ saving ? "Creating…" : "Create trade" }}
+						{{ saving ? __("Creating…") : __("Create trade") }}
 					</button>
 				</footer>
 			</div>

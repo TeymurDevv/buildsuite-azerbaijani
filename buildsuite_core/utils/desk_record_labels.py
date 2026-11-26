@@ -8,8 +8,12 @@ import frappe
 from frappe.translate import get_user_lang
 from frappe.utils import sanitize_html
 
+from buildsuite_core.buildsuite_core.doctype.persona.seed_personas import PERSONAS
+from buildsuite_core.buildsuite_core.doctype.project_category.seed_categories import CATEGORIES
 from buildsuite_core.buildsuite_core.doctype.project_category.seed_project_templates import TEMPLATES
+from buildsuite_core.buildsuite_core.doctype.subcontractor.seed_subcontract import TRADES
 from buildsuite_core.default_workflows import _ACTIONS, _STATES, _WORKFLOW_ROLES
+from buildsuite_core.install import INVOICE_TERMS, RFQ_TERMS_TITLE
 from buildsuite_core.permissions.setup import BUILDSUITE_ROLES, WORKFLOW_EDITOR_ROLE
 from buildsuite_core.print_formats import _FORMATS
 from buildsuite_core.report_access import _REPORT_ANCHORS, _REPORT_PREFIX
@@ -96,6 +100,23 @@ def _packaged_labels():
 			"Module Def": sorted(modules),
 			"User Type": ["System User", "Website User"],
 			"Project Type": ["Internal", "External", "Other"],
+			# Frappe's update_genders() setup fixtures. Other gender records can be site-defined.
+			"Gender": [
+				"Male",
+				"Female",
+				"Other",
+				"Transgender",
+				"Genderqueer",
+				"Non-Conforming",
+				"Prefer not to say",
+			],
+			"Terms and Conditions": [RFQ_TERMS_TITLE, *(name for name, _ in INVOICE_TERMS)],
+			"Persona": [row[0] for row in PERSONAS],
+			"Project Category": [name for name, _ in CATEGORIES],
+			"Construction Trade": {
+				name: "Electrical works" if name == "Electrical" else name for name in TRADES
+			},
+			"Task Type": ["Activity", "Milestone", "Inspection"],
 			"Task": sorted({row[1] for template in TEMPLATES.values() for row in template["tasks"]}),
 			"Email Template": {"Dispatch Notification": "Your order is out for delivery!"},
 		}
@@ -104,11 +125,13 @@ def _packaged_labels():
 
 
 def standard_display_labels(doctype):
-	"""Map stable report or UOM IDs to display sources for translated pickers."""
+	"""Map shipped record IDs to English labels for translated pickers."""
 	values = _packaged_labels().get(doctype, {})
-	if doctype == "UOM":
+	if doctype == "Gender":
+		return {name: "Gender non-conforming" if name == "Non-Conforming" else name for name in values}
+	if doctype in {"Terms and Conditions", "UOM", "Role", "Persona", "Project Category", "Task Type"}:
 		return {name: name for name in values}
-	if doctype == "Report":
+	if doctype in {"Report", "Construction Trade"}:
 		return dict(values)
 	return {}
 

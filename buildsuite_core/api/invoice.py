@@ -1,7 +1,7 @@
 # Copyright (c) 2026, Infraholic Innovations Pvt. Ltd and contributors
 # For license information, please see license.txt
 
-"""Whitelisted endpoints for Project Finance › Invoices — the Vue front-end over ERPNext's
+"""Whitelisted endpoints for Project Finance / Invoices — the Vue front-end over ERPNext's
 Sales Invoice (money in). An "invoice" IS a Sales Invoice: these endpoints create drafts,
 list them with aging, submit/cancel, and receive payments (a real Payment Entry against the
 SI). Single-company for now — the company is the project's, else the default (see the
@@ -11,6 +11,8 @@ import frappe
 from frappe import _
 from frappe.utils import flt, nowdate
 
+from buildsuite_core.print_text import buildsuite_print_terms
+from buildsuite_core.utils.finance_labels import money_account_rows
 from buildsuite_core.utils.project import default_company
 from buildsuite_core.utils.session import as_administrator
 
@@ -171,6 +173,7 @@ def _serialize(doc):
 		"additional_discount_percentage": doc.additional_discount_percentage,
 		"discount_amount": doc.discount_amount,
 		"terms": doc.terms,
+		"display_terms": buildsuite_print_terms(doc.terms),
 		"tc_name": doc.tc_name,
 		"docstatus": doc.docstatus,
 		"net_total": doc.net_total,
@@ -436,7 +439,14 @@ def delete_invoice(name: str):
 # Receive payment (Payment Entry against the SI)
 # --------------------------------------------------------------------------- #
 @frappe.whitelist()
-def record_receipt(name: str, amount: str | float | None = None, date: str | None = None, mode_of_payment: str | None = None, deposit_to: str | None = None, reference_no: str | None = None):
+def record_receipt(
+	name: str,
+	amount: str | float | None = None,
+	date: str | None = None,
+	mode_of_payment: str | None = None,
+	deposit_to: str | None = None,
+	reference_no: str | None = None,
+):
 	"""Create + submit a Payment Entry receiving against the invoice, into a Bank/Cash account."""
 	from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 
@@ -505,7 +515,14 @@ def list_receipts(name: str):
 # Customer advances (on-account receipts, no invoice yet)
 # --------------------------------------------------------------------------- #
 @frappe.whitelist()
-def record_advance(customer: str, amount: str | float, date: str | None = None, deposit_to: str | None = None, mode_of_payment: str | None = None, reference_no: str | None = None):
+def record_advance(
+	customer: str,
+	amount: str | float,
+	date: str | None = None,
+	deposit_to: str | None = None,
+	mode_of_payment: str | None = None,
+	reference_no: str | None = None,
+):
 	"""Receive money from a customer BEFORE (or without) an invoice — a submitted on-account
 	Payment Entry whose full amount stays unallocated until a later invoice draws it down."""
 	from erpnext.accounts.party import get_party_account
@@ -796,12 +813,7 @@ def advances_summary(company: str | None = None):
 def list_deposit_accounts(company: str | None = None):
 	"""Bank/Cash accounts a receipt can be deposited INTO — the active (default) company."""
 	company = company or default_company()
-	return frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_type"],
-		order_by="account_type, name",
-	)
+	return money_account_rows(company)
 
 
 @frappe.whitelist()
@@ -855,7 +867,8 @@ def _html_to_text(html):
 def get_terms(name: str):
 	"""The body of a Terms and Conditions template as plain text (imported into the invoice
 	terms box). ERPNext stores it as HTML, which is unfriendly to edit — so convert it."""
-	return {"terms": _html_to_text(frappe.db.get_value("Terms and Conditions", name, "terms"))}
+	terms = frappe.db.get_value("Terms and Conditions", name, "terms")
+	return {"terms": _html_to_text(terms), "display_terms": _html_to_text(buildsuite_print_terms(terms))}
 
 
 @frappe.whitelist()

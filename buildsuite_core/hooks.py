@@ -55,6 +55,7 @@ app_include_js = [
 	"/assets/buildsuite_core/js/desk_az_calendar.js",
 	"/assets/buildsuite_core/js/desk_az_record_labels.js",
 	"/assets/buildsuite_core/js/desk_az_form_buttons.js",
+	"/assets/buildsuite_core/js/desk_az_report_filters.js",
 ]
 
 # include js, css files in header of web template

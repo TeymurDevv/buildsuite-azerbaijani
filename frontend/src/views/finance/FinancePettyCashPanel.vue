@@ -223,7 +223,11 @@ async function openDirect() {
 	}
 }
 const accountOptions = computed(() =>
-	(direct.accounts || []).map((a) => ({ value: a.name, label: a.name, hint: a.account_type }))
+	(direct.accounts || []).map((a) => ({
+		value: a.name,
+		label: a.display_id || a.name,
+		hint: __(a.account_type),
+	}))
 );
 async function submitDirect() {
 	if (!direct.holder) return showToast(__("Pick who is receiving the float."), "error");
@@ -769,7 +773,7 @@ const breadcrumbs = [
 					<DeskSelect v-model="disb.paidFrom">
 						<option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 						<option v-for="a in disb.accounts" :key="a.name" :value="a.name">
-							{{ a.name }}
+							{{ a.display_id || a.name }}
 						</option>
 					</DeskSelect>
 				</DeskField>

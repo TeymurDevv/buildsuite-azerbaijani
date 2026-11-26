@@ -15,7 +15,7 @@ import { useFormErrors } from "@/composables/useFormErrors";
 import { usePermissions } from "@/composables/usePermissions";
 import { createDataAdapter } from "@/data/adapters";
 import { getProjectNaming } from "@/data/coreSettingsApi";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskForm from "@/components/desk/DeskForm.vue";
@@ -233,7 +233,7 @@ async function save() {
 	if (!validate()) return;
 	if (form.parentId) {
 		const b = await fetchProjectBounds(form.parentId);
-		const boundsErr = outOfParentBoundsError(
+		const boundsErr = outOfParentBoundsIssue(
 			form.startDate,
 			form.endDate,
 			b.start,
@@ -242,7 +242,9 @@ async function save() {
 		);
 		if (boundsErr) {
 			setErrors(
-				boundsErr.startsWith("Start") ? { startDate: boundsErr } : { endDate: boundsErr }
+				boundsErr.field === "start"
+					? { startDate: boundsErr.message }
+					: { endDate: boundsErr.message }
 			);
 			return;
 		}

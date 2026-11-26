@@ -18,6 +18,7 @@ import {
 import { useConfirm } from "@/composables/useConfirm";
 import { showToast } from "@/utils/appToast";
 import { __ } from "@/utils/translate";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 import StatusBadge from "@/components/StatusBadge.vue";
 import FrappeUserBadge from "@/components/FrappeUserBadge.vue";
 import DeskPage from "@/components/desk/DeskPage.vue";
@@ -65,7 +66,9 @@ const items = computed(() => {
 	const term = search.value.trim().toLowerCase();
 	if (!term) return users.value;
 	return users.value.filter((u) =>
-		`${u.full_name} ${u.email} ${u.persona}`.toLowerCase().includes(term)
+		`${u.full_name} ${u.email} ${u.persona} ${standardSettingsLabel("Persona", u.persona)}`
+			.toLowerCase()
+			.includes(term)
 	);
 });
 
@@ -205,7 +208,8 @@ async function deleteUser() {
 			class="mb-3 px-3 py-2 bg-success-50 border border-success-100 text-xs text-success-700 dark:bg-ink-800 dark:border-ink-700"
 			style="border-radius: 6px"
 		>
-			{{ __('User') }} <span class="font-medium">{{ createdBanner }}</span> {{ __('created.') }}
+			{{ __("User") }} <span class="font-medium">{{ createdBanner }}</span>
+			{{ __("created.") }}
 		</div>
 
 		<div
@@ -240,7 +244,7 @@ async function deleteUser() {
 					v-if="row.persona"
 					class="text-[10px] px-2 py-0.5 rounded-full font-medium"
 					:class="PERSONA_PILL"
-					>{{ row.persona }}</span
+					>{{ standardSettingsLabel("Persona", row.persona) }}</span
 				>
 				<span v-else class="text-[10px] text-ink-400">—</span>
 			</template>

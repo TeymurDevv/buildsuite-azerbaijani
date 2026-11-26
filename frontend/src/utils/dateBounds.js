@@ -22,14 +22,17 @@ export function endBeforeStartError(start, end) {
 	const s = toDate(start);
 	const e = toDate(end);
 	if (s && e && e < s) {
-		return __("End date ({0}) can't be earlier than the start date ({1}).", [fmt(end), fmt(start)]);
+		return __("End date ({0}) can't be earlier than the start date ({1}).", [
+			fmt(end),
+			fmt(start),
+		]);
 	}
 	return "";
 }
 
 // Dates must sit within the parent's [start, end] window. `parentLabel` names the
 // boundary in the message (e.g. "project" or "parent project").
-export function outOfParentBoundsError(
+export function outOfParentBoundsIssue(
 	start,
 	end,
 	parentStart,
@@ -41,16 +44,30 @@ export function outOfParentBoundsError(
 	const ps = toDate(parentStart);
 	const pe = toDate(parentEnd);
 	if (s && ps && s < ps) {
-		return __("Start date ({0}) can't be before the {1} start date ({2}).", [
-			fmt(start), __(parentLabel), fmt(parentStart),
-		]);
+		return {
+			field: "start",
+			message: __("Start date ({0}) can't be before the {1} start date ({2}).", [
+				fmt(start),
+				__(parentLabel),
+				fmt(parentStart),
+			]),
+		};
 	}
 	if (e && pe && e > pe) {
-		return __("End date ({0}) can't be after the {1} end date ({2}).", [
-			fmt(end), __(parentLabel), fmt(parentEnd),
-		]);
+		return {
+			field: "end",
+			message: __("End date ({0}) can't be after the {1} end date ({2}).", [
+				fmt(end),
+				__(parentLabel),
+				fmt(parentEnd),
+			]),
+		};
 	}
-	return "";
+	return null;
+}
+
+export function outOfParentBoundsError(start, end, parentStart, parentEnd, parentLabel) {
+	return outOfParentBoundsIssue(start, end, parentStart, parentEnd, parentLabel)?.message || "";
 }
 
 // One-shot check: end>=start, then within-parent. Returns the first error or "".

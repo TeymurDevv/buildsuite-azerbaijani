@@ -14,6 +14,7 @@ import frappe
 from frappe import _
 from frappe.utils import flt
 
+from buildsuite_core.utils.finance_labels import money_account_rows
 from buildsuite_core.utils.petty_cash import get_petty_cash_account
 from buildsuite_core.utils.project import default_company
 
@@ -67,17 +68,14 @@ def list_finance_accounts(company: str | None = None):
 	if not company:
 		return []
 	petty = get_petty_cash_account(company)
-	accounts = frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_name", "account_type", "account_number", "bs_opening_balance"],
-		order_by="account_type, account_name",
-	)
-	return [_serialize(a, petty, company) for a in accounts]
+	accounts = money_account_rows(company, balances=True, sort_by_title=True)
+	return [{**_serialize(a, petty, company), "display_name": a.display_name} for a in accounts]
 
 
 @frappe.whitelist()
-def save_finance_account(name: str, type: str, account_no: str | None = None, opening_balance: int = 0, account: str | None = None):
+def save_finance_account(
+	name: str, type: str, account_no: str | None = None, opening_balance: int = 0, account: str | None = None
+):
 	"""Create or edit a finance account. `account` is the Account id when editing."""
 	_guard()
 	company = default_company()

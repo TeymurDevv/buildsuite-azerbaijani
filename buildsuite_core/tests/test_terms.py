@@ -141,3 +141,21 @@ class TestTerms(BuildSuiteTestCase):
 		seed_rfq_terms()
 		self.assertEqual(default_terms("Request for Quotation")["name"], mine)
 		self.assertEqual(frappe.db.get_value(DOCTYPE, RFQ_TERMS_TITLE, "custom_is_default"), 0)
+
+	def test_rfq_clause_display_keeps_source_and_site_edits(self):
+		from frappe.translate import print_language
+
+		from buildsuite_core.api.terms import rfq_template, rfq_terms_for_display
+		from buildsuite_core.install import RFQ_TERMS, RFQ_TERMS_TITLE
+
+		with print_language("az"):
+			standard = rfq_template(RFQ_TERMS_TITLE)
+			self.assertEqual(standard["terms"], RFQ_TERMS)
+			self.assertEqual(standard["display_terms"].count("<li>"), 8)
+			self.assertIn("Sorğunun nömrəsi və son tarix.", standard["display_terms"])
+			edited = RFQ_TERMS.replace("30 days", "45 days")
+			self.assertEqual(rfq_terms_for_display(RFQ_TERMS_TITLE, edited), edited)
+			self.assertEqual(rfq_terms_for_display("Our tender template", RFQ_TERMS), RFQ_TERMS)
+			self.assertEqual(rfq_terms_for_display(None, RFQ_TERMS), RFQ_TERMS)
+		with print_language("en"):
+			self.assertEqual(rfq_template(RFQ_TERMS_TITLE)["display_terms"], RFQ_TERMS)

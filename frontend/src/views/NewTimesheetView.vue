@@ -345,7 +345,7 @@ onMounted(async () => {
 								<th class="text-left px-2 py-2 w-56">{{ __("Project") }}</th>
 								<th class="text-left px-2 py-2 w-64">{{ __("Cost code") }}</th>
 								<th class="text-right px-2 py-2 w-20">{{ __("Hours") }}</th>
-								<th class="text-center px-2 py-2 w-12">{{ __("OT") }}</th>
+								<th class="text-center px-2 py-2 w-12">{{ __("Overtime") }}</th>
 								<th class="text-left px-2 py-2" style="min-width: 200px">
 									{{ __("Description") }}
 								</th>
@@ -451,7 +451,7 @@ onMounted(async () => {
 								<td
 									class="px-2 py-2 text-center text-[11px] text-ink-500 tabular-nums"
 								>
-									{{ totals.ot ? totals.ot + " OT" : "" }}
+									{{ totals.ot ? __("{0} overtime hours", [totals.ot]) : "" }}
 								</td>
 								<td colspan="2" class="px-2 py-2 text-right text-ink-500">
 									{{ __("Labour cost") }}

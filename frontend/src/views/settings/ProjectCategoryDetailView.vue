@@ -9,6 +9,7 @@ import { createDataAdapter } from "@/data/adapters";
 import { showToast } from "@/utils/appToast";
 import { parseFrappeError } from "@/utils/frappeError";
 import { __ } from "@/utils/translate";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskForm from "@/components/desk/DeskForm.vue";
 import DeskActionBar from "@/components/desk/DeskActionBar.vue";
@@ -41,6 +42,11 @@ const resource = adapter.read("Project Category", props.id, {
 	],
 	transform: (rows) => rows,
 });
+
+function workPackageLabel(value, defaultValue) {
+	const standards = window.standard_link_labels?.["Project Category"] || {};
+	return Object.hasOwn(standards, props.id) && value === defaultValue ? __(value) : value;
+}
 
 function firstRow(res) {
 	if (res?.doc) return res.doc;
@@ -90,7 +96,7 @@ const breadcrumbs = computed(() => [
 	{ label: __("BuildSuite Core"), to: "/" },
 	{ label: __("Settings"), to: "/settings" },
 	{ label: __("Project Categories"), to: "/settings/project-categories" },
-	{ label: props.id },
+	{ label: standardSettingsLabel("Project Category", props.id) },
 ]);
 
 onMounted(() => {
@@ -99,7 +105,11 @@ onMounted(() => {
 </script>
 
 <template>
-	<DeskPage :title="props.id" :subtitle="__('Project category')" :breadcrumbs="breadcrumbs">
+	<DeskPage
+		:title="standardSettingsLabel('Project Category', props.id)"
+		:subtitle="__('Project category')"
+		:breadcrumbs="breadcrumbs"
+	>
 		<DeskForm>
 			<template #action-bar>
 				<DeskActionBar
@@ -116,7 +126,11 @@ onMounted(() => {
 						:label="__('Category name')"
 						:hint="__('The name is the key and can\'t be changed.')"
 					>
-						<DeskInput :model-value="props.id" disabled />
+						<DeskInput
+							:model-value="standardSettingsLabel('Project Category', props.id)"
+							:title="props.id"
+							disabled
+						/>
 					</DeskField>
 					<DeskField :label="__('Sort order')">
 						<DeskInput v-model="form.sortOrder" type="number" />
@@ -136,13 +150,17 @@ onMounted(() => {
 				<DeskSection id="work-package-label" :title="__('Work Package label')">
 					<DeskField :label="__('Singular')">
 						<DeskInput
-							v-model="form.workPackageLabel"
+							:model-value="workPackageLabel(form.workPackageLabel, 'Work Package')"
+							@update:model-value="form.workPackageLabel = $event"
 							:placeholder="__('Work Package')"
 						/>
 					</DeskField>
 					<DeskField :label="__('Plural')">
 						<DeskInput
-							v-model="form.workPackageLabelPlural"
+							:model-value="
+								workPackageLabel(form.workPackageLabelPlural, 'Work Packages')
+							"
+							@update:model-value="form.workPackageLabelPlural = $event"
 							:placeholder="__('Work Packages')"
 						/>
 					</DeskField>

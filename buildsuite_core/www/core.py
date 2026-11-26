@@ -56,7 +56,20 @@ def get_boot():
 	defaults = frappe.defaults.get_defaults()
 	lang = get_user_lang()
 	standard_labels = (
-		{doctype: standard_display_labels(doctype) for doctype in ("UOM", "Report")}
+		{
+			doctype: standard_display_labels(doctype)
+			for doctype in (
+				"UOM",
+				"Report",
+				"Role",
+				"Persona",
+				"Project Category",
+				"Construction Trade",
+				"Task Type",
+				"Gender",
+				"Terms and Conditions",
+			)
+		}
 		if (lang or "").lower().replace("_", "-").split("-")[0] == "az"
 		else {}
 	)

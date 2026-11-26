@@ -1,3 +1,5 @@
+import { __ } from "@/utils/translate";
+
 // Client-side validation for the Workforce forms, shared by each entity's New
 // and Detail screens. A courtesy only — the server owns the real rules. Each
 // returns a { fieldname: message } map for useFormErrors().
@@ -36,18 +38,18 @@ export function validateCrew(form) {
 
 export function validateFieldEmployee(form) {
 	const errors = {};
-	if (!form.first_name?.trim()) errors.first_name = "First name is required.";
-	if (!form.gender) errors.gender = "Gender is required.";
-	if (!form.date_of_birth) errors.date_of_birth = "Date of birth is required.";
-	if (!form.date_of_joining) errors.date_of_joining = "Date of joining is required.";
-	if (!form.company) errors.company = "Company is required.";
+	if (!form.first_name?.trim()) errors.first_name = __("First name is required.");
+	if (!form.gender) errors.gender = __("Gender is required.");
+	if (!form.date_of_birth) errors.date_of_birth = __("Date of birth is required.");
+	if (!form.date_of_joining) errors.date_of_joining = __("Date of joining is required.");
+	if (!form.company) errors.company = __("Company is required.");
 	// `custom_wage` is mandatory while `is_labour` is set, which it always is here.
-	if (!form.custom_wage) errors.custom_wage = "Daily wage is required.";
+	if (!form.custom_wage) errors.custom_wage = __("Daily wage is required.");
 
 	// Checked on its own, not chained to the wage rule — a blank wage used to
 	// hide this error entirely.
 	if (form.date_of_birth && form.date_of_joining && form.date_of_birth > form.date_of_joining) {
-		errors.date_of_birth = "Date of birth must be on or before the joining date.";
+		errors.date_of_birth = __("Date of birth must be on or before the joining date.");
 	}
 
 	return errors;

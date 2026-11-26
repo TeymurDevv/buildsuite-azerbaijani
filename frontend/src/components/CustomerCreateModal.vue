@@ -1,4 +1,5 @@
 <script setup>
+import { __ } from "@/utils/translate";
 import { ref, watch } from "vue";
 import DeskField from "@/components/desk/DeskField.vue";
 import DeskInput from "@/components/desk/DeskInput.vue";
@@ -27,7 +28,7 @@ watch(
 
 async function save() {
 	if (!name.value.trim()) {
-		error.value = "Customer name is required";
+		error.value = __("Customer name is required");
 		return;
 	}
 	saving.value = true;
@@ -37,7 +38,7 @@ async function save() {
 		emit("created", c.name);
 		emit("close");
 	} catch (e) {
-		error.value = e?.message || "Failed to create customer";
+		error.value = e?.message || __("Failed to create customer");
 	} finally {
 		saving.value = false;
 	}
@@ -60,7 +61,7 @@ async function save() {
 					class="px-5 py-3 border-b border-ink-200 flex items-center justify-between bg-white"
 					style="border-radius: 12px 12px 0 0"
 				>
-					<h2 class="text-sm font-semibold text-ink-900">{{ __('New customer') }}</h2>
+					<h2 class="text-sm font-semibold text-ink-900">{{ __("New customer") }}</h2>
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none"
@@ -71,18 +72,18 @@ async function save() {
 					</button>
 				</header>
 				<div class="p-5 space-y-3">
-					<DeskField label="Customer name" required :error="error">
+					<DeskField :label="__('Customer name')" required :error="error">
 						<DeskInput
 							v-model="name"
 							:placeholder="__('e.g. Prestige Group')"
 							@keyup.enter="save"
 						/>
 					</DeskField>
-					<DeskField label="Customer type">
+					<DeskField :label="__('Customer type')">
 						<DeskSelect v-model="type">
-							<option value="Company">{{ __('Company') }}</option>
-							<option value="Individual">{{ __('Individual') }}</option>
-							<option value="Partnership">{{ __('Partnership') }}</option>
+							<option value="Company">{{ __("Company") }}</option>
+							<option value="Individual">{{ __("Individual") }}</option>
+							<option value="Partnership">{{ __("Partnership") }}</option>
 						</DeskSelect>
 					</DeskField>
 				</div>
@@ -96,7 +97,7 @@ async function save() {
 						style="border-radius: 6px"
 						@click="emit('close')"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button
 						type="button"
@@ -104,7 +105,7 @@ async function save() {
 						:disabled="!name.trim() || saving"
 						@click="save"
 					>
-						{{ saving ? "Creating…" : "Create customer" }}
+						{{ saving ? __("Creating…") : __("Create customer") }}
 					</button>
 				</footer>
 			</div>

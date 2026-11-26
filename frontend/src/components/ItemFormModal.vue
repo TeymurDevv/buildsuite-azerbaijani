@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // New / Edit Item. One modal, two modes — a null `item` means create.
 
 import { computed, ref, watch } from "vue";
@@ -69,8 +70,8 @@ const rateMasterOptions = computed(() =>
 	(rateMastersRes.data || []).map((r) => ({
 		value: r.name,
 		label: `${r.name} · ${r.rate_name}`,
-		group: r.category,
-		hint: `${fmtINR(r.current_rate)} per ${r.uom}`,
+		group: __(r.category),
+		hint: __("{0} per {1}", [fmtINR(r.current_rate), standardLinkLabel("UOM", r.uom)]),
 	}))
 );
 
@@ -104,7 +105,11 @@ watch(
 					is_stock_item: row.is_stock_item != null ? !!row.is_stock_item : true,
 					disabled: !!row.disabled,
 			  }
-			: { ...blank(), item_code: props.initialCode || "", item_name: props.initialCode || "" };
+			: {
+					...blank(),
+					item_code: props.initialCode || "",
+					item_name: props.initialCode || "",
+			  };
 	},
 	{ immediate: true }
 );
@@ -114,10 +119,10 @@ watch(
 function validate() {
 	const f = form.value;
 	const e = {};
-	if (!f.item_code.trim()) e.item_code = "Item code is required.";
-	if (!f.item_group) e.item_group = "Item group is required.";
-	if (!f.stock_uom) e.stock_uom = "UOM is required.";
-	if (Number(f.standard_rate) < 0) e.standard_rate = "Standard rate cannot be negative.";
+	if (!f.item_code.trim()) e.item_code = __("Item code is required.");
+	if (!f.item_group) e.item_group = __("Item group is required.");
+	if (!f.stock_uom) e.stock_uom = __("UOM is required.");
+	if (Number(f.standard_rate) < 0) e.standard_rate = __("Standard rate cannot be negative.");
 	setErrors(e);
 	return Object.keys(e).length === 0;
 }
@@ -145,11 +150,11 @@ async function save() {
 			// A duplicate code fails server-side; no point pre-checking and racing.
 			await adapter.create("Item", { item_code: form.value.item_code.trim(), ...payload() });
 		}
-		showToast(editing.value ? "Item updated" : "Item created");
+		showToast(editing.value ? __("Item updated") : __("Item created"));
 		emit("saved", editing.value ? props.item.name : form.value.item_code.trim());
 		emit("close");
 	} catch (err) {
-		showToast(applyServerErrors(err) ?? "Failed to save the item", "error");
+		showToast(applyServerErrors(err) ?? __("Failed to save the item"), "error");
 	} finally {
 		saving.value = false;
 	}
@@ -157,23 +162,24 @@ async function save() {
 
 async function onDelete() {
 	const ok = await confirmDialog({
-		title: "Delete item?",
+		title: __("Delete item?"),
 		// Not the demo's wording: there an item is a plain string on each line, here
 		// item_code is a Link, so Frappe raises LinkExistsError instead of deleting.
-		message: `Delete "${
-			props.item.item_name || props.item.name
-		}" from the item master? An item already used on an MR, PO or receipt cannot be deleted — disable it instead.`,
-		confirmLabel: "Delete",
+		message: __(
+			'Delete "{0}" from the item master? An item already used on an MR, PO or receipt cannot be deleted — disable it instead.',
+			[props.item.item_name || props.item.name]
+		),
+		confirmLabel: __("Delete"),
 		destructive: true,
 	});
 	if (!ok) return;
 	try {
 		await adapter.remove("Item", props.item.name);
-		showToast("Item deleted");
+		showToast(__("Item deleted"));
 		emit("saved");
 		emit("close");
 	} catch (err) {
-		showToast(applyServerErrors(err) ?? "Failed to delete the item", "error");
+		showToast(applyServerErrors(err) ?? __("Failed to delete the item"), "error");
 	}
 }
 </script>
@@ -194,7 +200,7 @@ async function onDelete() {
 					class="px-5 py-3 border-b border-ink-200 flex items-center justify-between"
 				>
 					<h2 class="text-sm font-semibold text-ink-900">
-						{{ editing ? "Edit Item" : "New Item" }}
+						{{ editing ? __("Edit Item") : __("New Item") }}
 					</h2>
 					<button
 						type="button"
@@ -209,11 +215,13 @@ async function onDelete() {
 				<div class="p-5 space-y-3 overflow-y-auto min-h-0">
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 						<DeskField
-							label="Item code"
+							:label="__('Item code')"
 							required
 							:error="errors.item_code"
 							:hint="
-								editing ? 'The code is the item id — it cannot be changed.' : ''
+								editing
+									? __('The code is the item id — it cannot be changed.')
+									: ''
 							"
 						>
 							<DeskInput
@@ -224,7 +232,7 @@ async function onDelete() {
 								@input="clearError('item_code')"
 							/>
 						</DeskField>
-						<DeskField label="Item name">
+						<DeskField :label="__('Item name')">
 							<DeskInput
 								v-model="form.item_name"
 								:placeholder="__('Cement — OPC 53 Grade')"
@@ -233,7 +241,7 @@ async function onDelete() {
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-						<DeskField label="Item group" required :error="errors.item_group">
+						<DeskField :label="__('Item group')" required :error="errors.item_group">
 							<DeskLinkPicker
 								v-model="form.item_group"
 								doctype="Item Group"
@@ -243,7 +251,7 @@ async function onDelete() {
 								@change="clearError('item_group')"
 							/>
 						</DeskField>
-						<DeskField label="UOM" required :error="errors.stock_uom">
+						<DeskField :label="__('UOM')" required :error="errors.stock_uom">
 							<DeskLinkPicker
 								v-model="form.stock_uom"
 								doctype="UOM"
@@ -256,9 +264,11 @@ async function onDelete() {
 					</div>
 
 					<DeskField
-						:label="`Standard rate (${currencySymbol()})`"
+						:label="__('Standard rate ({0})', [currencySymbol()])"
 						:error="errors.standard_rate"
-						hint="Default rate pre-filled on MR / PO lines — editable per document."
+						:hint="
+							__('Default rate pre-filled on MR / PO lines — editable per document.')
+						"
 					>
 						<DeskInput
 							v-model="form.standard_rate"
@@ -269,14 +279,18 @@ async function onDelete() {
 					</DeskField>
 
 					<DeskField
-						label="Rate Master"
-						hint="Links this item to the QS price book, so purchase lines can check their rate against it."
+						:label="__('Rate Master')"
+						:hint="
+							__(
+								'Links this item to the QS price book, so purchase lines can check their rate against it.'
+							)
+						"
 					>
 						<DeskSearchableSelect
 							v-model="form.custom_rate_master"
 							:options="rateMasterOptions"
 							:placeholder="__('Not linked')"
-							search-placeholder="Search rate codes, descriptions…"
+							:search-placeholder="__('Search rate codes, descriptions…')"
 							allow-clear
 						/>
 					</DeskField>
@@ -286,26 +300,37 @@ async function onDelete() {
 						class="text-[11px] text-warning-700 bg-warning-50 border border-warning-200 px-2.5 py-2 -mt-1"
 						style="border-radius: 6px"
 					>
-						{{ __('Unit mismatch — this item is') }} <strong>{{ form.stock_uom }}</strong> {{ __('but the rate is per') }} <strong>{{ linkedRate.uom }}</strong
-						>{{ __('. The rate check compares the two figures directly, so the link does nothing until the units match.') }}
+						{{ __("Unit mismatch — this item is") }}
+						<strong>{{ standardLinkLabel("UOM", form.stock_uom) }}</strong>
+						{{ __("but the rate is per") }}
+						<strong>{{ standardLinkLabel("UOM", linkedRate.uom) }}</strong
+						>{{
+							__(
+								". The rate check compares the two figures directly, so the link does nothing until the units match."
+							)
+						}}
 					</p>
 
 					<div class="pt-1">
 						<label class="flex items-center gap-2 text-sm text-ink-700">
 							<input v-model="form.is_stock_item" type="checkbox" />
-							{{ __('Maintain stock (physical inventory)') }}
+							{{ __("Maintain stock (physical inventory)") }}
 						</label>
 						<p class="text-[11px] text-ink-500 mt-1 ml-6">
-							{{ __('On: a Purchase Receipt of this item adds to the project store, so it appears in Material Consumption. Off: a service item (labour, subcontractor work, charges) — no stock is tracked.') }}
-							<span v-if="editing" class="text-warning-700"
-								>{{ __('Can\'t be changed once the item has stock transactions.') }}</span
-							>
+							{{
+								__(
+									"On: a Purchase Receipt of this item adds to the project store, so it appears in Material Consumption. Off: a service item (labour, subcontractor work, charges) — no stock is tracked."
+								)
+							}}
+							<span v-if="editing" class="text-warning-700">{{
+								__("Can't be changed once the item has stock transactions.")
+							}}</span>
 						</p>
 					</div>
 
 					<label class="flex items-center gap-2 text-sm text-ink-700">
 						<input v-model="form.disabled" type="checkbox" />
-						{{ __('Disabled (hidden from pickers)') }}
+						{{ __("Disabled (hidden from pickers)") }}
 					</label>
 				</div>
 
@@ -319,7 +344,7 @@ async function onDelete() {
 						style="border-radius: 6px"
 						@click="onDelete"
 					>
-						{{ __('Delete') }}
+						{{ __("Delete") }}
 					</button>
 					<span v-else></span>
 
@@ -330,7 +355,7 @@ async function onDelete() {
 							style="border-radius: 6px"
 							@click="emit('close')"
 						>
-							{{ __('Cancel') }}
+							{{ __("Cancel") }}
 						</button>
 						<button
 							type="button"
@@ -338,7 +363,13 @@ async function onDelete() {
 							:disabled="saving || !canSaveForm"
 							@click="save"
 						>
-							{{ saving ? "Saving…" : editing ? "Save changes" : "Create item" }}
+							{{
+								saving
+									? __("Saving…")
+									: editing
+									? __("Save changes")
+									: __("Create item")
+							}}
 						</button>
 					</div>
 				</footer>

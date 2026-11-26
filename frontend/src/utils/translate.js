@@ -39,6 +39,12 @@ export function __(text, replace = null, context = null) {
 	return format(translated, replace);
 }
 
+/** Look up only package-owned Link records; user-created names keep their spelling. */
+export function standardLinkLabel(doctype, value, fallback = value) {
+	const source = globalThis.window?.standard_link_labels?.[doctype]?.[value];
+	return typeof source === "string" ? __(source) : fallback;
+}
+
 /** A list can know its visible range before the server returns the total. */
 export function recordCountLabel(start, end, total) {
 	if (!end) return __("{0} records", [0]);

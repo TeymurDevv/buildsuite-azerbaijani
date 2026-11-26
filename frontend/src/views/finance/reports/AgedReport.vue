@@ -91,34 +91,40 @@ const shownCount = computed(
 
 <template>
 	<DeskPage :title="__('Receivables & Payables')" :breadcrumbs="breadcrumbs" printable>
-		<div v-if="loading" class="text-sm text-ink-500 italic py-10 text-center">{{ __("Loading…") }}</div>
+		<div v-if="loading" class="text-sm text-ink-500 italic py-10 text-center">
+			{{ __("Loading…") }}
+		</div>
 		<div v-else-if="error" class="text-sm text-danger-600 py-10 text-center">{{ error }}</div>
 		<div v-else class="space-y-6">
 			<ReportFilters
 				:active="anyFilter"
 				:shown="shownCount"
-				:noun="__('rows')"
+				noun="rows"
 				@clear="clearFilters"
 			>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Find") }}</span
-					>
-					<DeskInput v-model="f.q" :placeholder="__('Party or document…')" class="!w-52" />
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Find")
+					}}</span>
+					<DeskInput
+						v-model="f.q"
+						:placeholder="__('Party or document…')"
+						class="!w-52"
+					/>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Bucket") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Bucket")
+					}}</span>
 					<DeskSelect v-model="f.bucket" class="!w-32">
 						<option value="">{{ __("All") }}</option>
-						<option v-for="b in BUCKETS" :key="b" :value="b">{{ b }}</option>
+						<option v-for="b in BUCKETS" :key="b" :value="b">{{ __(b) }}</option>
 					</DeskSelect>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Show") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Show")
+					}}</span>
 					<DeskSelect v-model="f.side" class="!w-40">
 						<option value="">{{ __("Both") }}</option>
 						<option value="receivables">{{ __("Receivables only") }}</option>
@@ -146,7 +152,9 @@ const shownCount = computed(
 						:key="b"
 						class="bg-white border border-ink-200 rounded-md px-2 py-1.5 text-center"
 					>
-						<div class="text-[9px] uppercase tracking-wider text-ink-500">{{ b }}</div>
+						<div class="text-[9px] uppercase tracking-wider text-ink-500">
+							{{ __(b) }}
+						</div>
 						<div class="text-xs font-semibold text-ink-900 tabular-nums">
 							{{ fmtINR(recvTotals[b]) }}
 						</div>
@@ -176,7 +184,7 @@ const shownCount = computed(
 									<span
 										class="text-[10px] px-1.5 py-0.5 rounded-full"
 										:class="bucketCls(r.bucket)"
-										>{{ r.bucket }}</span
+										>{{ __(r.bucket) }}</span
 									>
 								</td>
 								<td
@@ -212,7 +220,9 @@ const shownCount = computed(
 						:key="b"
 						class="bg-white border border-ink-200 rounded-md px-2 py-1.5 text-center"
 					>
-						<div class="text-[9px] uppercase tracking-wider text-ink-500">{{ b }}</div>
+						<div class="text-[9px] uppercase tracking-wider text-ink-500">
+							{{ __(b) }}
+						</div>
 						<div class="text-xs font-semibold text-ink-900 tabular-nums">
 							{{ fmtINR(payTotals[b]) }}
 						</div>
@@ -252,7 +262,7 @@ const shownCount = computed(
 									<span
 										class="text-[10px] px-1.5 py-0.5 rounded-full"
 										:class="bucketCls(r.bucket)"
-										>{{ r.bucket }}</span
+										>{{ __(r.bucket) }}</span
 									>
 								</td>
 								<td class="px-4 py-2 text-right tabular-nums text-ink-500">

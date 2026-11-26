@@ -28,8 +28,12 @@ import { usePermissions } from "@/composables/usePermissions";
 import { useActiveCompany } from "@/composables/useActiveCompany";
 import { fmtDate, fmtINR, fmtCurrency } from "@/utils/format";
 import { __ } from "@/utils/translate";
+import { paymentModeLabel } from "@/utils/financeLabels";
 
-const breadcrumbs = [{ label: __("Project Finance"), to: "/project-finance" }, { label: __("Bills") }];
+const breadcrumbs = [
+	{ label: __("Project Finance"), to: "/project-finance" },
+	{ label: __("Bills") },
+];
 const router = useRouter();
 const { canCreate } = usePermissions();
 // "+ New bill" opens a chooser for a Supplier bill (Purchase Invoice) or a Subcontractor
@@ -192,7 +196,12 @@ async function savePay() {
 	const amt = Number(pay.amount) || 0;
 	if (amt <= 0) return showToast(__("Enter an amount greater than zero."), "error");
 	if (amt > Number(pay.row.outstanding) + 0.01)
-		return showToast(__("Can't exceed the outstanding {0}.", [fmtCurrency(pay.row.outstanding, pay.row.currency)]), "error");
+		return showToast(
+			__("Can't exceed the outstanding {0}.", [
+				fmtCurrency(pay.row.outstanding, pay.row.currency),
+			]),
+			"error"
+		);
 	if (!pay.pay_from) return showToast(__("Pick the account to pay from."), "error");
 	pay.saving = true;
 	try {
@@ -232,7 +241,8 @@ const advancePartyOptions = computed(() => {
 	const subs = [];
 	for (const s of parties.value) {
 		const opt = { value: s.name, label: s.supplier_name || s.name };
-		if (s.supplier_type === "Subcontractor") subs.push({ ...opt, group: __("Subcontractors") });
+		if (s.supplier_type === "Subcontractor")
+			subs.push({ ...opt, group: __("Subcontractors") });
 		else suppliers.push({ ...opt, group: __("Suppliers") });
 	}
 	return [...suppliers, ...subs];
@@ -266,7 +276,8 @@ async function openAdvance() {
 }
 async function saveAdvance() {
 	if (!adv.supplier) return showToast(__("Pick a party."), "error");
-	if (!(Number(adv.amount) > 0)) return showToast(__("Enter an amount greater than zero."), "error");
+	if (!(Number(adv.amount) > 0))
+		return showToast(__("Enter an amount greater than zero."), "error");
 	if (!adv.pay_from) return showToast(__("Pick the account to pay from."), "error");
 	adv.saving = true;
 	try {
@@ -301,7 +312,12 @@ async function saveAdvance() {
 				>
 					{{ __("Record advance") }}
 				</button>
-				<button v-if="canNewBill" type="button" class="desk-save-btn" @click="newOpen = true">
+				<button
+					v-if="canNewBill"
+					type="button"
+					class="desk-save-btn"
+					@click="newOpen = true"
+				>
 					{{ __("+ New bill") }}
 				</button>
 			</div>
@@ -383,7 +399,9 @@ async function saveAdvance() {
 					{{ __("Clear filters") }}
 				</button>
 				<span class="text-[11px] text-ink-400 ml-auto">{{
-					rows.length === 1 ? __("{0} bill", [rows.length]) : __("{0} bills", [rows.length])
+					rows.length === 1
+						? __("{0} bill", [rows.length])
+						: __("{0} bills", [rows.length])
 				}}</span>
 			</div>
 
@@ -544,10 +562,14 @@ async function saveAdvance() {
 						class="w-full text-left border border-ink-200 hover:border-brand-400 hover:bg-brand-50/40 rounded-lg px-4 py-3 transition-colors"
 						@click="newSupplierBill"
 					>
-						<div class="text-sm font-medium text-ink-900">{{ __("Supplier bill") }}</div>
+						<div class="text-sm font-medium text-ink-900">
+							{{ __("Supplier bill") }}
+						</div>
 						<div class="text-[11px] text-ink-500 mt-0.5">
 							{{
-								__("A direct purchase from a supplier (materials, services) — an ERPNext Purchase Invoice.")
+								__(
+									"A direct purchase from a supplier (materials, services) — an ERPNext Purchase Invoice."
+								)
 							}}
 						</div>
 					</button>
@@ -557,10 +579,14 @@ async function saveAdvance() {
 						class="w-full text-left border border-ink-200 hover:border-brand-400 hover:bg-brand-50/40 rounded-lg px-4 py-3 transition-colors"
 						@click="newSubcontractorBill"
 					>
-						<div class="text-sm font-medium text-ink-900">{{ __("Subcontractor bill") }}</div>
+						<div class="text-sm font-medium text-ink-900">
+							{{ __("Subcontractor bill") }}
+						</div>
 						<div class="text-[11px] text-ink-500 mt-0.5">
 							{{
-								__("An RA / work-done bill against a Subcontractor Work Order (with retention).")
+								__(
+									"An RA / work-done bill against a Subcontractor Work Order (with retention)."
+								)
 							}}
 						</div>
 					</button>
@@ -592,9 +618,10 @@ async function saveAdvance() {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						{{ __('Pay') }} <span class="font-medium">{{ pay.row?.party }}</span> {{ __('against') }}
+						{{ __("Pay") }} <span class="font-medium">{{ pay.row?.party }}</span>
+						{{ __("against") }}
 						<span class="font-mono text-xs">{{ pay.row?.name }}</span
-						>{{ __('. Outstanding') }}
+						>{{ __(". Outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtCurrency(pay.row?.outstanding, pay.row?.currency)
 						}}</span
@@ -612,7 +639,7 @@ async function saveAdvance() {
 						<DeskSelect v-model="pay.pay_from"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in payAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -621,12 +648,14 @@ async function saveAdvance() {
 							><DeskSelect v-model="pay.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>
 						<DeskField :label="__('Reference no.')"
-							><DeskInput v-model="pay.reference_no" :placeholder="__('UTR / cheque no.')"
+							><DeskInput
+								v-model="pay.reference_no"
+								:placeholder="__('UTR / cheque no.')"
 						/></DeskField>
 					</div>
 				</div>
@@ -638,7 +667,7 @@ async function saveAdvance() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="pay.open = false"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button
 						type="button"
@@ -677,7 +706,9 @@ async function saveAdvance() {
 				<div class="px-4 py-4 space-y-3">
 					<p class="text-[11px] text-ink-500">
 						{{
-							__("Money paid to a supplier or subcontractor before (or without) a bill — it stays on the party's account until a later bill draws it down.")
+							__(
+								"Money paid to a supplier or subcontractor before (or without) a bill — it stays on the party's account until a later bill draws it down."
+							)
 						}}
 					</p>
 					<DeskField :label="__('Party')" required>
@@ -704,7 +735,7 @@ async function saveAdvance() {
 						<DeskSelect v-model="adv.pay_from"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in payAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -713,12 +744,14 @@ async function saveAdvance() {
 							><DeskSelect v-model="adv.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>
 						<DeskField :label="__('Reference no.')"
-							><DeskInput v-model="adv.reference_no" :placeholder="__('UTR / cheque no.')"
+							><DeskInput
+								v-model="adv.reference_no"
+								:placeholder="__('UTR / cheque no.')"
 						/></DeskField>
 					</div>
 				</div>
@@ -730,7 +763,7 @@ async function saveAdvance() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="adv.open = false"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button
 						type="button"

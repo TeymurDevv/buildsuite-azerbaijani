@@ -63,6 +63,12 @@ const form = reactive({
 const termsOpen = ref(false);
 // Remount the editor when a template is pulled in, so it initialises with that body.
 const editorKey = ref(0);
+// Keep the stored clause in the outgoing draft until someone actually edits the displayed wording.
+const termsDisplay = ref("");
+function editTerms(value) {
+	termsDisplay.value = "";
+	form.terms = value;
+}
 const errors = reactive({ customer: "", lines: "" });
 const saving = ref(false);
 const loading = ref(isEdit.value);
@@ -104,6 +110,7 @@ if (isEdit.value) {
 				terms: inv.terms || "",
 			});
 			if (!form.lines.length) form.lines = [blankLine()];
+			termsDisplay.value = inv.display_terms || "";
 			termsOpen.value = !!inv.terms;
 			// Arm auto-save after the watcher has flushed the load-population.
 			nextTick(() => {
@@ -160,7 +167,9 @@ async function onPickTerms(name) {
 	form.tc_name = name || "";
 	if (!name) return;
 	try {
-		form.terms = (await getInvoiceTerms(name)).terms || "";
+		const selected = await getInvoiceTerms(name);
+		form.terms = selected.terms || "";
+		termsDisplay.value = selected.display_terms || "";
 		editorKey.value += 1;
 		termsOpen.value = true;
 	} catch {
@@ -544,7 +553,8 @@ const { status: autosaveStatus } = useAutosave(form, quietSave, {
 								</div>
 								<RichTextEditor
 									:key="editorKey"
-									v-model="form.terms"
+									:model-value="termsDisplay || form.terms"
+									@update:model-value="editTerms"
 									min-height="8rem"
 								/>
 							</div>

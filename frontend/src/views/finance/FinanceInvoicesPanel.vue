@@ -26,6 +26,7 @@ import { useActiveCompany, activeCompanyFilter } from "@/composables/useActiveCo
 import { usePermissions } from "@/composables/usePermissions";
 import { fmtDate, fmtINR } from "@/utils/format";
 import { __ } from "@/utils/translate";
+import { paymentModeLabel } from "@/utils/financeLabels";
 
 const breadcrumbs = [
 	{ label: __("Project Finance"), to: "/project-finance" },
@@ -463,9 +464,11 @@ async function saveAdvance() {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						{{ __('From') }} <span class="font-medium">{{ rec.inv?.customer_name }}</span> {{ __('against') }}
+						{{ __("From") }}
+						<span class="font-medium">{{ rec.inv?.customer_name }}</span>
+						{{ __("against") }}
 						<span class="font-mono text-xs">{{ rec.inv?.name }}</span
-						>{{ __('. Outstanding') }}
+						>{{ __(". Outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(rec.inv?.outstanding)
 						}}</span
@@ -483,7 +486,7 @@ async function saveAdvance() {
 						<DeskSelect v-model="rec.deposit_to"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in depositAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -492,7 +495,7 @@ async function saveAdvance() {
 							><DeskSelect v-model="rec.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>
@@ -581,7 +584,7 @@ async function saveAdvance() {
 						<DeskSelect v-model="adv.deposit_to"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in depositAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -590,7 +593,7 @@ async function saveAdvance() {
 							><DeskSelect v-model="adv.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>

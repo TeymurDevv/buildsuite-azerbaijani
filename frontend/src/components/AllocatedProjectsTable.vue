@@ -39,7 +39,7 @@ function rowKey(row, i) {
 	<section class="mt-6">
 		<div class="flex items-center justify-between mb-2 gap-3">
 			<h3 class="text-xs uppercase tracking-wider font-semibold text-ink-700">
-				{{ __('Allocated projects') }}
+				{{ __("Allocated projects") }}
 				<span v-if="!editable && rows.length" class="text-ink-400 font-normal normal-case">
 					({{ rows.length }})
 				</span>
@@ -50,7 +50,7 @@ function rowKey(row, i) {
 				class="text-xs text-brand-700 hover:underline"
 				@click="emit('add')"
 			>
-				{{ __('+ Add project') }}
+				{{ __("+ Add project") }}
 			</button>
 		</div>
 
@@ -59,7 +59,7 @@ function rowKey(row, i) {
 				<thead class="bg-ink-50 text-ink-500 uppercase tracking-wider text-[10px]">
 					<tr>
 						<th class="text-left px-3 py-2 w-8">#</th>
-						<th class="text-left px-3 py-2">{{ __('Project') }}</th>
+						<th class="text-left px-3 py-2">{{ __("Project") }}</th>
 						<th v-if="editable" class="w-8"></th>
 					</tr>
 				</thead>
@@ -78,7 +78,7 @@ function rowKey(row, i) {
 									v-model="row.project"
 									:options="availableProjects(row)"
 									:placeholder="__('Pick a project…')"
-									search-placeholder="Search projects…"
+									:search-placeholder="__('Search projects…')"
 								/>
 							</div>
 							<DeskLink v-else :to="`/projects/${row.project}`">
@@ -103,8 +103,8 @@ function rowKey(row, i) {
 						>
 							{{
 								editable
-									? "Not allocated to any project yet."
-									: "Not allocated to any project."
+									? __("Not allocated to any project yet.")
+									: __("Not allocated to any project.")
 							}}
 						</td>
 					</tr>
@@ -113,7 +113,9 @@ function rowKey(row, i) {
 		</div>
 
 		<p v-if="editable" class="text-[11px] text-ink-400 mt-1.5">
-			{{ __('Field Attendance can import every worker allocated to a project in one click.') }}
+			{{
+				__("Field Attendance can import every worker allocated to a project in one click.")
+			}}
 		</p>
 	</section>
 </template>

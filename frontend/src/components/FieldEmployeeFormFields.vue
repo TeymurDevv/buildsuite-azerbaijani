@@ -21,16 +21,24 @@ const { contractorOptions } = useContractorOptions();
 
 <template>
 	<DeskSection id="worker" :title="__('Worker')" :cols="3">
-		<DeskField name="employee" label="Employee code" hint="Auto (HR-EMP-#####) if blank.">
-			<DeskInput v-model="form.employee" :placeholder="__('HR-EMP-00015')" :disabled="isExisting" />
+		<DeskField
+			name="employee"
+			:label="__('Employee code')"
+			:hint="__('Auto (HR-EMP-#####) if blank.')"
+		>
+			<DeskInput
+				v-model="form.employee"
+				:placeholder="__('HR-EMP-00015')"
+				:disabled="isExisting"
+			/>
 		</DeskField>
-		<DeskField name="first_name" label="First name" required :error="errors.first_name">
+		<DeskField name="first_name" :label="__('First name')" required :error="errors.first_name">
 			<DeskInput v-model="form.first_name" />
 		</DeskField>
-		<DeskField name="last_name" label="Last name">
+		<DeskField name="last_name" :label="__('Last name')">
 			<DeskInput v-model="form.last_name" />
 		</DeskField>
-		<DeskField name="gender" label="Gender" required :error="errors.gender">
+		<DeskField name="gender" :label="__('Gender')" required :error="errors.gender">
 			<DeskLinkPicker
 				v-model="form.gender"
 				doctype="Gender"
@@ -41,7 +49,7 @@ const { contractorOptions } = useContractorOptions();
 
 		<DeskField
 			name="date_of_birth"
-			label="Date of birth"
+			:label="__('Date of birth')"
 			required
 			:error="errors.date_of_birth"
 		>
@@ -49,22 +57,22 @@ const { contractorOptions } = useContractorOptions();
 		</DeskField>
 		<DeskField
 			name="date_of_joining"
-			label="Date of joining"
+			:label="__('Date of joining')"
 			required
 			:error="errors.date_of_joining"
 		>
 			<DeskInput v-model="form.date_of_joining" type="date" />
 		</DeskField>
-		<DeskField name="status" label="Status">
+		<DeskField name="status" :label="__('Status')">
 			<!-- ERPNext also has Suspended and Left, but Left demands a
 			     relieving date this form doesn't collect, so it can never save. -->
 			<DeskSelect v-model="form.status">
-				<option value="Active">{{ __('Active') }}</option>
-				<option value="Inactive">{{ __('Inactive') }}</option>
+				<option value="Active">{{ __("Active") }}</option>
+				<option value="Inactive">{{ __("Inactive") }}</option>
 			</DeskSelect>
 		</DeskField>
 
-		<DeskField name="custom_trade" label="Trade">
+		<DeskField name="custom_trade" :label="__('Trade')">
 			<DeskLinkPicker
 				v-model="form.custom_trade"
 				doctype="Labour Trade"
@@ -75,8 +83,10 @@ const { contractorOptions } = useContractorOptions();
 		</DeskField>
 		<DeskField
 			name="custom_contractor"
-			label="Contractor"
-			hint="Labour contractor, if engaged through one. Leave blank if engaged directly."
+			:label="__('Contractor')"
+			:hint="
+				__('Labour contractor, if engaged through one. Leave blank if engaged directly.')
+			"
 		>
 			<!-- Clearable on purpose: blank is a meaningful value here (engaged
 			     directly), and DeskLinkPicker has no way to get back to blank. -->
@@ -84,14 +94,14 @@ const { contractorOptions } = useContractorOptions();
 				v-model="form.custom_contractor"
 				:options="contractorOptions"
 				:placeholder="__('— Engaged directly —')"
-				search-placeholder="Search suppliers…"
+				:search-placeholder="__('Search suppliers…')"
 				allow-clear
 			/>
 		</DeskField>
-		<DeskField name="cell_number" label="Phone">
+		<DeskField name="cell_number" :label="__('Phone')">
 			<DeskInput v-model="form.cell_number" />
 		</DeskField>
-		<DeskField name="company" label="Company" required :error="errors.company">
+		<DeskField name="company" :label="__('Company')" required :error="errors.company">
 			<DeskLinkPicker
 				v-model="form.company"
 				doctype="Company"
@@ -104,17 +114,17 @@ const { contractorOptions } = useContractorOptions();
 	<DeskSection id="wages" :title="__('Wages')" :cols="2">
 		<DeskField
 			name="custom_wage"
-			label="Daily wage"
+			:label="__('Daily wage')"
 			required
-			hint="Daily wage — read at attendance posting."
+			:hint="__('Daily wage — read at attendance posting.')"
 			:error="errors.custom_wage"
 		>
 			<DeskInput v-model.number="form.custom_wage" type="number" min="0" />
 		</DeskField>
 		<DeskField
 			name="custom_wage_for_overtime"
-			label="Overtime wage"
-			hint="Overtime wage per hour."
+			:label="__('Overtime wage')"
+			:hint="__('Overtime wage per hour.')"
 		>
 			<DeskInput v-model.number="form.custom_wage_for_overtime" type="number" min="0" />
 		</DeskField>

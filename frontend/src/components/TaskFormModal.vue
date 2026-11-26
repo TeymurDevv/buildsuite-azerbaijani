@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // Reusable "+ Add Task" modal. Opens with v-model:open and a pre-filled
 // project (+ optional work package). On save calls store.addTask and emits
 // `created` with the new record so the parent can react (refresh list,
@@ -7,7 +8,7 @@
 import { reactive, ref, computed, watch } from "vue";
 import { useDataStore } from "@/stores";
 import { showToast } from "@/utils/appToast";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { useFormErrors } from "@/composables/useFormErrors";
 import { useTaskTypes } from "@/composables/useTaskTypes";
 import DeskSection from "@/components/desk/DeskSection.vue";
@@ -119,11 +120,11 @@ function close() {
 
 function validate() {
 	const e = {};
-	if (!form.name.trim()) e.name = "Task name is required";
-	if (!form.projectId) e.projectId = "Project is required";
+	if (!form.name.trim()) e.name = __("Task name is required");
+	if (!form.projectId) e.projectId = __("Project is required");
 	const endErr = endBeforeStartError(form.startDate, form.endDate);
 	if (endErr) e.endDate = endErr;
-	const boundsErr = outOfParentBoundsError(
+	const boundsErr = outOfParentBoundsIssue(
 		form.startDate,
 		form.endDate,
 		selectedProject.value?.expected_start_date,
@@ -131,8 +132,8 @@ function validate() {
 		"project"
 	);
 	if (boundsErr) {
-		if (boundsErr.startsWith("Start")) e.startDate = boundsErr;
-		else e.endDate = boundsErr;
+		if (boundsErr.field === "start") e.startDate = boundsErr.message;
+		else e.endDate = boundsErr.message;
 	}
 	setErrors(e);
 	return Object.keys(e).length === 0;
@@ -168,7 +169,7 @@ async function save() {
 		close();
 	} catch (err) {
 		const summary = applyServerErrors(err);
-		showToast(summary ?? "Failed to create task", "error");
+		showToast(summary ?? __("Failed to create task"), "error");
 	} finally {
 		saving.value = false;
 	}
@@ -192,7 +193,7 @@ async function save() {
 					style="border-radius: 12px 12px 0 0"
 				>
 					<div class="min-w-0 flex-1">
-						<h2 class="text-sm font-semibold text-ink-900">{{ __('New task') }}</h2>
+						<h2 class="text-sm font-semibold text-ink-900">{{ __("New task") }}</h2>
 						<p v-if="selectedProject" class="text-[11px] text-ink-500 mt-0.5 truncate">
 							{{ selectedProject.project_name
 							}}<template v-if="selectedWP">
@@ -212,7 +213,7 @@ async function save() {
 
 				<div class="p-5 overflow-y-auto flex-1">
 					<DeskSection id="task-details" :title="__('Task details')">
-						<DeskField label="Task name" required :error="errors.name">
+						<DeskField :label="__('Task name')" required :error="errors.name">
 							<DeskInput
 								v-model="form.name"
 								:placeholder="__('e.g. Level 5 column casting')"
@@ -220,17 +221,21 @@ async function save() {
 							/>
 						</DeskField>
 						<DeskField
-							label="Task Type"
+							:label="__('Task Type')"
 							required
-							hint="Activity = standard work with progress entries; Milestone = checkpoint; Inspection = pass/fail gate."
+							:hint="
+								__(
+									'Activity = standard work with progress entries; Milestone = checkpoint; Inspection = pass/fail gate.'
+								)
+							"
 						>
 							<DeskSelect v-model="form.task_type">
 								<option v-for="tt in taskTypes" :key="tt" :value="tt">
-									{{ tt }}
+									{{ standardLinkLabel("Task Type", tt) }}
 								</option>
 							</DeskSelect>
 						</DeskField>
-						<DeskField label="Description">
+						<DeskField :label="__('Description')">
 							<DeskTextarea
 								v-model="form.description"
 								:rows="3"
@@ -241,12 +246,12 @@ async function save() {
 
 					<DeskSection id="hierarchy" :title="__('Hierarchy')">
 						<DeskField
-							label="Project"
+							:label="__('Project')"
 							required
 							:error="errors.projectId"
 							:hint="
 								projectLocked
-									? 'Pre-selected from where you came in — locked.'
+									? __('Pre-selected from where you came in — locked.')
 									: ''
 							"
 						>
@@ -255,7 +260,7 @@ async function save() {
 								:disabled="projectLocked"
 								@change="clearError('projectId')"
 							>
-								<option value="">{{ __('— Select project —') }}</option>
+								<option value="">{{ __("— Select project —") }}</option>
 								<option
 									v-for="p in projectsResource.data"
 									:key="p.name"
@@ -266,15 +271,17 @@ async function save() {
 							</DeskSelect>
 						</DeskField>
 						<DeskField
-							label="Work Package"
+							:label="__('Work Package')"
 							:hint="
 								wpLocked
-									? 'Pre-selected — locked.'
-									: 'Optional — leave blank to attach directly to the project.'
+									? __('Pre-selected — locked.')
+									: __(
+											'Optional — leave blank to attach directly to the project.'
+									  )
 							"
 						>
 							<DeskSelect v-model="form.workPackageId" :disabled="wpLocked">
-								<option :value="null">{{ __('— None —') }}</option>
+								<option :value="null">{{ __("— None —") }}</option>
 								<option v-for="wp in availableWPs" :key="wp.name" :value="wp.name">
 									{{ wp.work_package_name }}
 								</option>
@@ -286,7 +293,7 @@ async function save() {
 						<!-- Milestone = a point in time: only a Due date, no start. -->
 						<DeskField
 							v-if="form.task_type !== 'Milestone'"
-							label="Start date"
+							:label="__('Start date')"
 							:error="errors.startDate"
 						>
 							<DeskInput
@@ -296,7 +303,9 @@ async function save() {
 							/>
 						</DeskField>
 						<DeskField
-							:label="form.task_type === 'Milestone' ? 'Due date' : 'End date'"
+							:label="
+								form.task_type === 'Milestone' ? __('Due date') : __('End date')
+							"
 							:error="errors.endDate"
 						>
 							<DeskInput
@@ -308,7 +317,7 @@ async function save() {
 					</DeskSection>
 
 					<DeskSection id="assignment-status" :title="__('Assignment \u0026 status')">
-						<DeskField label="Assignee">
+						<DeskField :label="__('Assignee')">
 							<DeskLinkPicker
 								v-model="form.assignee"
 								doctype="User"
@@ -321,20 +330,20 @@ async function save() {
 								:page-length="20"
 							/>
 						</DeskField>
-						<DeskField label="Status">
+						<DeskField :label="__('Status')">
 							<DeskSelect v-model="form.status">
-								<option value="Yet To Start">{{ __('Yet To Start') }}</option>
-								<option value="In Progress">{{ __('In Progress') }}</option>
-								<option value="In Delay">{{ __('In Delay') }}</option>
-								<option value="Completed">{{ __('Completed') }}</option>
-								<option value="Blocked">{{ __('Blocked') }}</option>
+								<option value="Yet To Start">{{ __("Yet To Start") }}</option>
+								<option value="In Progress">{{ __("In Progress") }}</option>
+								<option value="In Delay">{{ __("In Delay") }}</option>
+								<option value="Completed">{{ __("Completed") }}</option>
+								<option value="Blocked">{{ __("Blocked") }}</option>
 							</DeskSelect>
 						</DeskField>
-						<DeskField label="Priority">
+						<DeskField :label="__('Priority')">
 							<DeskSelect v-model="form.priority">
-								<option value="Low">{{ __('Low') }}</option>
-								<option value="Medium">{{ __('Medium') }}</option>
-								<option value="High">{{ __('High') }}</option>
+								<option value="Low">{{ __("Low") }}</option>
+								<option value="Medium">{{ __("Medium") }}</option>
+								<option value="High">{{ __("High") }}</option>
 							</DeskSelect>
 						</DeskField>
 					</DeskSection>
@@ -350,10 +359,10 @@ async function save() {
 						style="border-radius: 6px"
 						@click="close"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button type="button" class="desk-save-btn" :disabled="saving" @click="save">
-						{{ saving ? "Creating…" : "Create task" }}
+						{{ saving ? __("Creating…") : __("Create task") }}
 					</button>
 				</footer>
 			</div>

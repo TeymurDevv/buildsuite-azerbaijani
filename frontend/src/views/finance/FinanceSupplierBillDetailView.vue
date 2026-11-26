@@ -36,6 +36,7 @@ import { useWorkflow } from "@/composables/useWorkflow";
 import { usePermissions } from "@/composables/usePermissions";
 import { fmtDate, fmtCurrency } from "@/utils/format";
 import { __ } from "@/utils/translate";
+import { paymentModeLabel } from "@/utils/financeLabels";
 
 const props = defineProps({ id: { type: String, required: true } });
 const router = useRouter();
@@ -727,7 +728,7 @@ function formatFileSize(bytes) {
 							<span class="text-ink-600 min-w-0 truncate"
 								>{{ fmtDate(p.date)
 								}}<span v-if="p.mode_of_payment">
-									· {{ p.mode_of_payment }}</span
+									· {{ paymentModeLabel(p.mode_of_payment) }}</span
 								></span
 							>
 							<span class="flex items-center gap-2 flex-shrink-0">
@@ -1122,9 +1123,9 @@ function formatFileSize(bytes) {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						{{ __('Pay') }} <span class="font-medium">{{ bill.supplier_name }}</span> {{ __('against') }}
-						<span class="font-mono text-xs">{{ bill.name }}</span
-						>{{ __('. Outstanding') }}
+						{{ __("Pay") }} <span class="font-medium">{{ bill.supplier_name }}</span>
+						{{ __("against") }} <span class="font-mono text-xs">{{ bill.name }}</span
+						>{{ __(". Outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtDoc(payment.outstanding)
 						}}</span
@@ -1142,7 +1143,7 @@ function formatFileSize(bytes) {
 						<DeskSelect v-model="pay.pay_from"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in payAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -1151,7 +1152,7 @@ function formatFileSize(bytes) {
 							><DeskSelect v-model="pay.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>
@@ -1170,7 +1171,7 @@ function formatFileSize(bytes) {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="pay.open = false"
 					>
-						{{ __('Cancel') }}
+						{{ __("Cancel") }}
 					</button>
 					<button
 						type="button"
@@ -1210,13 +1211,17 @@ function formatFileSize(bytes) {
 				</header>
 				<div class="px-4 py-4 overflow-y-auto flex-1 space-y-3">
 					<div class="text-xs text-ink-600">
-						{{ __('Unlinked advances paid to') }}
+						{{ __("Unlinked advances paid to") }}
 						<span class="font-medium text-ink-900">{{ bill.supplier_name }}</span
-						>{{ __('. Current outstanding') }}
+						>{{ __(". Current outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtDoc(remainingOutstanding)
 						}}</span>
-						{{ __('— the suggested allocation settles as much of it as each advance allows.') }}
+						{{
+							__(
+								"— the suggested allocation settles as much of it as each advance allows."
+							)
+						}}
 					</div>
 					<div v-if="availableAdvances.length" class="space-y-2">
 						<div
@@ -1232,7 +1237,7 @@ function formatFileSize(bytes) {
 									<div class="text-[11px] text-ink-500">
 										{{ fmtDate(a.date)
 										}}<span v-if="a.mode_of_payment">
-											· {{ a.mode_of_payment }}</span
+											· {{ paymentModeLabel(a.mode_of_payment) }}</span
 										>
 									</div>
 								</div>

@@ -73,30 +73,30 @@ const closing = computed(() => statement.value?.closing || 0);
 			<ReportFilters
 				:active="anyFilter"
 				:shown="rows.length"
-				:noun="__('movements')"
+				noun="movements"
 				@clear="clearFilters"
 			>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Account") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Account")
+					}}</span>
 					<DeskSelect v-model="accountId" class="!w-64">
 						<option v-for="a in accounts" :key="a.name" :value="a.name">
-							{{ a.account_name }} ({{ a.account_type }})
+							{{ a.display_name || a.account_name }} ({{ __(a.account_type) }})
 						</option>
 					</DeskSelect>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Period") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Period")
+					}}</span>
 					<DeskInput v-model="from" type="date" class="!w-36" />
 					<span class="text-[11px] text-ink-400">{{ __("to") }}</span>
 					<DeskInput v-model="to" type="date" class="!w-36" />
 				</label>
-				<span v-if="from" class="text-[11px] text-ink-500"
-					>{{ __("Opening carries everything before this date.") }}</span
-				>
+				<span v-if="from" class="text-[11px] text-ink-500">{{
+					__("Opening carries everything before this date.")
+				}}</span>
 			</ReportFilters>
 
 			<div class="flex items-center gap-4 flex-wrap text-xs justify-end">
@@ -153,7 +153,12 @@ const closing = computed(() => statement.value?.closing || 0);
 							class="border-b border-ink-100 last:border-0"
 						>
 							<td class="px-4 py-2 text-ink-500">{{ fmtDate(m.date) }}</td>
-							<td class="px-4 py-2 text-ink-800">{{ m.label }}</td>
+							<td class="px-4 py-2 text-ink-800">
+								{{ __(m.voucher_type)
+								}}<template v-if="m.counterparty">
+									· {{ m.counterparty }}</template
+								>
+							</td>
 							<td class="px-4 py-2 font-mono text-ink-400 text-[10px]">
 								{{ m.ref }}
 							</td>

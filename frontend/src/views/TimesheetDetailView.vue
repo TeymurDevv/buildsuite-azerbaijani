@@ -153,7 +153,7 @@ const cards = computed(() => {
 						<th class="text-left px-3 py-2">{{ __("Project") }}</th>
 						<th class="text-left px-3 py-2">{{ __("Cost code") }}</th>
 						<th class="text-right px-3 py-2">{{ __("Hours") }}</th>
-						<th class="text-center px-3 py-2">{{ __("OT") }}</th>
+						<th class="text-center px-3 py-2">{{ __("Overtime") }}</th>
 						<th class="text-left px-3 py-2">{{ __("Description") }}</th>
 						<th class="text-right px-3 py-2">{{ __("Full day") }}</th>
 						<th class="text-right px-3 py-2">{{ __("Rate / hr") }}</th>
@@ -173,7 +173,9 @@ const cards = computed(() => {
 							<span v-else class="text-ink-400 italic">{{ __("Not coded") }}</span>
 						</td>
 						<td class="px-3 py-2 text-right tabular-nums">{{ r.hours }}</td>
-						<td class="px-3 py-2 text-center">{{ r.is_overtime ? "OT" : "" }}</td>
+						<td class="px-3 py-2 text-center">
+							{{ r.is_overtime ? __("Overtime") : "" }}
+						</td>
 						<td class="px-3 py-2 text-ink-600">{{ r.description || "—" }}</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-600">
 							{{ r.full_day_hours }} h

@@ -4328,7 +4328,7 @@ Not quoted,Qiymət təklif edilməyib
 Not every item quoted,Bütün mövqelər üzrə qiymət verilməyib
 Taxes,Vergilər
 Lowest on,Ən aşağı qiymət verilən mallar
-{0} of {1} items,{1} mövqedən {0}
+{0} of {1} items,{1} mövqedən {0} göstərilir
 Payment terms,Ödəniş şərtləri
 Create purchase order →,Satınalma sifarişi yarat →
 All requesters,Bütün sorğu müəllifləri
@@ -27077,7 +27077,7 @@ order is placed only by our purchase order.</li>
 <li><strong>Qiymətlər.</strong> Hər malın vahid qiymətini bu sorğunun valyutası ilə göstərin. Qiymətə qablaşdırma, yükləmə, tikinti sahəsinə daşınma və orada boşaltma xərclərini daxil edin. Tətbiq olunan vergiləri ayrıca göstərin.</li>
 <li><strong>Texniki tələblər.</strong> Hər bir mal üçün göstərilmiş təsvirə və standartlara uyğun material təklif edin, istehsalçının və ya markanın adını göstərin. Tələb olunduqda, sınaq sertifikatları materialla birlikdə təqdim edilməlidir.</li>
 <li><strong>Çatdırılma.</strong> Sifariş tarixindən etibarən çatdırılma müddətini göstərin. Mallar iş saatlarında tikinti sahəsinə çatdırılmalıdır. Sifarişdə başqa hal nəzərdə tutulmadıqda hissə-hissə çatdırılmaya icazə verilir.</li>
-<li><strong>Qismən təkliflər.</strong> Yalnız təmin edə bildiyiniz mallar üzrə təklif verə bilərsiniz. Malların hamısını, bir hissəsini və ya heç birini sifariş etməmək, həmçinin onları müxtəlif təchizatçılardan almaq hüququmuzu saxlayırıq.</li>
+<li><strong>Qismən təkliflər.</strong> Yalnız təmin edə bildiyiniz mallar üzrə təklif verə bilərsiniz. Malların hamısını və ya bir hissəsini sifariş etmək, yaxud heç birini sifariş etməmək hüququmuzu saxlayırıq. Ayrı-ayrı malları müxtəlif təchizatçılardan ala bilərik.</li>
 <li><strong>Ödəniş.</strong> Ödəniş şərtlərinizi göstərin. Ödəniş təqdim etdiyiniz hesab-faktura və tikinti sahəsində faktiki qəbul edilmiş material əsasında həyata keçirilir.</li>
 <li><strong>Öhdəliyin yaranmaması.</strong> Bu sorğu və təqdim etdiyiniz qiymət təklifi tərəflərin heç biri üçün öhdəlik yaratmır. Sifariş yalnız satınalma sifarişimizi təqdim etdikdə rəsmiləşir.</li>
 </ol>"
@@ -27122,3 +27122,250 @@ Delivery type,Təhvil növü,BuildSuite Print
 bills,hesab,Record count
 Billed To,Ödəyici
 Sub Total,Aralıq cəm
+Invoice receipt,Hesab-faktura üzrə daxilolma
+Customer advance,Müştəridən alınmış avans
+Bill payment,Hesab üzrə ödəniş
+Supplier advance,Təchizatçıya verilmiş avans
+Subcontractor advance,Subpodratçıya verilmiş avans
+Subcontractor payment,Subpodratçıya ödəniş
+Ledger accounts,Mühasibat hesabları
+{0} movement,{0} əməliyyat
+{0} movements,{0} əməliyyat
+{0} expense,{0} xərc
+{0} expenses,{0} xərc
+{0} of {1} rows,{1} sətirdən {0} göstərilir
+{0} of {1} accounts,{1} hesabdan {0} göstərilir
+{0} of {1} movements,{1} əməliyyatdan {0} göstərilir
+{0} of {1} expenses,{1} xərcdən {0} göstərilir
+Add Column After,Sağa sütun əlavə et
+Add Column Before,Sola sütun əlavə et
+Add Row After,Aşağıya sətir əlavə et
+Add Row Before,Yuxarıya sətir əlavə et
+Add caption...,Şəkilaltı mətn əlavə edin…
+Add images,Şəkillər əlavə et
+Align Center,Mərkəzə düzləndir
+Align Left,Sola düzləndir
+Auto (HR-EMP-#####) if blank.,"Boş saxlasanız, kod HR-EMP-##### formatında avtomatik veriləcək."
+Bullet List,Markerlənmiş siyahı
+Cancel entry,Qeydi ləğv et
+Click to add caption,Şəkilaltı mətn əlavə etmək üçün klikləyin
+Consumption cancelled,Material sərfiyyatı qeydi ləğv edildi
+Consumption deleted,Material sərfiyyatı qeydi silindi
+Consumption recorded,Material sərfiyyatı qeydə alındı
+Consumption submitted,Material sərfiyyatı təsdiqləndi
+Consumption updated,Material sərfiyyatı qeydi yeniləndi
+Could not load site stock,Sahə anbarının qalıqlarını yükləmək mümkün olmadı
+Could not load this entry,Bu qeydi yükləmək mümkün olmadı
+Daily wage is required.,Gündəlik əməkhaqqını daxil edin.
+Daily wage — read at attendance posting.,Davamiyyət tabeli təsdiqlənəndə bu gündəlik əməkhaqqı əsas götürülür.
+Date of birth is required.,Doğum tarixini daxil edin.
+Date of birth must be on or before the joining date.,Doğum tarixi işə başlama tarixindən sonra ola bilməz.
+Date of joining is required.,İşə başlama tarixini daxil edin.
+Dedent List,Siyahının girintisini azalt
+Delete consumption?,Material sərfiyyatı qeydi silinsin?
+Drag & drop images here or click to select,Şəkilləri bura sürükləyin və ya seçmək üçün klikləyin
+Drop images anywhere,Şəkilləri pəncərənin istənilən yerinə buraxın
+Drop more images here to upload them. Drag to reorder. Hover over an image to edit its caption.,Başqa şəkillər yükləmək üçün onları bura sürükləyin. Sıralarını dəyişmək üçün şəkilləri sürüşdürün. Şəkilaltı mətni dəyişmək üçün göstəricini şəklin üzərinə gətirin.
+Edit Images,Şəkilləri redaktə et
+Embed,Məzmun yerləşdir
+Failed to delete,Silmək mümkün olmadı
+Failed to insert embed. Please check the URL and try again.,Məzmunu yerləşdirmək mümkün olmadı. Ünvanı yoxlayıb yenidən cəhd edin.
+Failed to save the consumption,Material sərfiyyatı qeydini saxlamaq mümkün olmadı
+Font Color,Şrift rəngi
+Gender is required.,Cinsi seçin.
+Horizontal Rule,Üfüqi xətt
+Indent List,Siyahının girintisini artır
+Insert Embed,Xarici məzmun yerləşdir
+Issues site material out of stock. Cost-code it against the BOQ if you want it costed.,Material sahə anbarından silinir. Xərci iş həcmləri cədvəlinə aid etmək üçün xərc kodunu seçin.
+"Labour contractor, if engaged through one. Leave blank if engaged directly.","İşçi podratçı vasitəsilə cəlb olunubsa, həmin podratçını seçin. Birbaşa işə götürülübsə, sahəni boş saxlayın."
+Locked while editing — the record stays on its project.,Bu qeyd yaradıldığı layihəyə aiddir. Redaktə zamanı layihəni dəyişmək olmur.
+Merge Cells,Xanaları birləşdir
+Not allocated to any project yet.,İşçi hələ heç bir layihəyə təyin edilməyib.
+Not allocated to any project.,İşçi heç bir layihəyə təyin edilməyib.
+Numbered List,Nömrələnmiş siyahı
+Optional. Set it to book this material against a BOQ group or line; leave it blank to record the issue without cost-coding it.,Material xərcini iş həcmləri cədvəlindəki qrupa və ya sətrə aid etmək üçün xərc kodunu seçin. Sərfiyyatı kodsuz qeydə almaq üçün sahəni boş saxlayın.
+Overtime wage per hour.,İş vaxtından artıq hər saata görə ödənilən məbləğ.
+Please enter a supported URL or iframe embed code,Dəstəklənən URL ünvanı və ya iframe kodu daxil edin
+Record consumption,Sərfiyyatı qeydə al
+Recorded {0} · {1},Qeyd tarixi: {0} · {1}
+Remove image,Şəkli sil
+Request for Quotation: standard terms,Qiymət təklifi sorğusu: standart şərtlər
+Search site stock…,Sahə anbarındakı materialları axtarın…
+Some files failed to upload.,Bəzi faylları yükləmək mümkün olmadı.
+Split Cell,Xananı böl
+Table of Contents,Mündəricat
+"This posts the issue — the quantities leave site stock. A posted entry is cancelled, not edited.",Təsdiqdən sonra göstərilən miqdarlar sahə anbarının qalığından çıxılacaq. Təsdiqlənmiş qeydi dəyişmək üçün əvvəlcə onu ləğv edin.
+This record was cancelled and the quantities were returned to site stock. Select Amend to create a corrected draft.,Qeyd ləğv edilib və materiallar sahə anbarının qalığına qaytarılıb. Düzəliş edilmiş qaralama yaratmaq üçün «Düzəliş et» seçin.
+This reverses the issue — the quantities go back to site stock. Amend afterwards to raise a corrected copy.,Ləğv etdikdə göstərilən miqdarlar sahə anbarının qalığına qaytarılacaq. Sonra düzəliş edilmiş surət yarada bilərsiniz.
+Toggle Header Cell,Xananın başlıq rejimini dəyiş
+Toggle Header Column,Sütunun başlıq rejimini dəyiş
+Toggle Header Row,Sətrin başlıq rejimini dəyiş
+URL or Embed Code,URL ünvanı və ya yerləşdirmə kodu
+Upload Images,Şəkillər yüklə
+Uploading {0} of {1},Yüklənir: {0}/{1}
+Valid {0} URL,{0} üçün ünvan düzgündür
+Video URL or iframe embed code,Videonun URL ünvanı və ya iframe kodu
+You don't have permission to edit this consumption.,Bu material sərfiyyatı qeydini redaktə etmək səlahiyyətiniz yoxdur.
+You don't have permission to record a consumption.,Material sərfiyyatını qeydə almaq səlahiyyətiniz yoxdur.
+{0} will be removed permanently.,{0} birdəfəlik silinəcək.
+{0} {1} available · {2},Mövcud qalıq: {0} {1} · {2}
+Heading 1,1-ci səviyyəli başlıq
+Heading 2,2-ci səviyyəli başlıq
+Heading 3,3-cü səviyyəli başlıq
+Heading 4,4-cü səviyyəli başlıq
+Heading 5,5-ci səviyyəli başlıq
+Heading 6,6-cı səviyyəli başlıq
+A line needs a description.,Sətrin təsvirini daxil edin.
+Activity = standard work with progress entries; Milestone = checkpoint; Inspection = pass/fail gate.,Fəaliyyət üzrə işin gedişi qeydə alınır. Mərhələ nişanı nəzarət nöqtəsidir. Yoxlamada işin tələblərə uyğunluğu qiymətləndirilir.
+Add delay reason,Gecikmə səbəbi əlavə et
+Additional notes,Əlavə qeydlər
+All {0},Hamısı ({0})
+Also in: {0},Digər mərhələlər: {0}
+Also in: {0} …+{1} more,Digər mərhələlər: {0} və daha {1} mərhələ
+Amend failed.,Düzəliş nüsxəsi yaradıla bilmədi.
+Amend {0}?,{0} üçün düzəliş nüsxəsi yaradılsın?
+Amended — a draft was created.,Düzəliş üçün qaralama yaradıldı.
+Cancel document,Sənədi ləğv et
+Cancel failed.,Sənəd ləğv edilə bilmədi.
+Could not create the trade.,Peşə yaradıla bilmədi.
+Could not save the delay reason.,Gecikmə səbəbi saxlanılmadı.
+Create customer,Müştəri yarat
+Create trade,Peşə yarat
+Creates a fresh editable draft copy; the original stays cancelled.,Düzəliş üçün yeni qaralama yaradılır. İlkin sənəd ləğv edilmiş vəziyyətdə qalır.
+Customer name,Müştərinin adı
+Customer name is required,Müştərinin adını daxil edin
+Default rate pre-filled on MR / PO lines — editable per document.,Material tələbinin və satınalma sifarişinin sətirlərində bu qiymət ilkin olaraq göstərilir. Qiyməti hər sənəddə ayrıca dəyişə bilərsiniz.
+"Delete ""{0}"" from the item master? An item already used on an MR, PO or receipt cannot be deleted — disable it instead.","«{0}» mal siyahısından silinsin? Material tələbində, satınalma sifarişində və ya qəbul sənədində istifadə edilmiş malı yalnız qeyri-aktiv edə bilərsiniz."
+Delete failed.,Silmək mümkün olmadı.
+Delete item?,Mal silinsin?
+Edit Item,Malı redaktə et
+"Enter a non-negative number, or leave blank.","Sıfır və ya müsbət ədəd daxil edin, yaxud sahəni boş saxlayın."
+Enter the custom reason.,Gecikmənin səbəbini yazın.
+Failed to create customer,Müştəri yaradıla bilmədi
+Failed to delete the item,Mal silinə bilmədi
+Failed to load Cost vs Budget,Faktiki xərclərin büdcə ilə müqayisəsi yüklənə bilmədi
+Failed to load record.,Qeyd yüklənə bilmədi.
+Failed to run report.,Hesabat hazırlana bilmədi.
+Failed to save the item,Mal saxlanıla bilmədi
+Item code is required.,Malın kodunu daxil edin.
+Item created,Mal yaradıldı
+Item deleted,Mal silindi
+Item group is required.,Mal qrupunu seçin.
+Item updated,Mal yeniləndi
+"Links this item to the QS price book, so purchase lines can check their rate against it.",Malı smetaçının qiymət kataloqu ilə əlaqələndirir. Satınalma sətirlərindəki qiymətlər həmin kataloqla müqayisə edilir.
+No rows match the search.,Axtarışa uyğun sətir tapılmadı.
+No rows.,Sətir yoxdur.
+No tasks overlap with the stage window.,Tarixləri bu mərhələ ilə üst-üstə düşən tapşırıq yoxdur.
+No. of days delayed,Gecikmə müddəti (gün)
+"Optional context — what happened, what's the plan, by when.","İstəyə görə nə baş verdiyini, nəzərdə tutulan tədbirləri və icra müddətini qeyd edin."
+Optional — leave blank for ongoing delays where duration is not yet known.,"Davam edən gecikmənin müddəti hələ məlum deyilsə, sahəni boş saxlayın."
+Optional — leave blank to attach directly to the project.,Tapşırığı birbaşa layihəyə bağlamaq üçün sahəni boş saxlayın.
+Photos shown: {0} of {1}. Activities represented this period: {2}.,{1} fotoşəkildən {0} göstərilir. Bu dövrdə şəkli çəkilmiş fəaliyyətlərin sayı: {2}.
+Pick a common reason or choose Custom to enter your own.,Siyahıdan səbəb seçin və ya öz səbəbinizi yazmaq üçün «Fərdi…» seçin.
+"Pick a reason or choose ""Custom…"".",Səbəb seçin və ya «Fərdi…» bəndini seçin.
+Pick an assembly first.,Əvvəlcə kompleks iş seçin.
+Pick something from the assembly list.,Siyahıdan kompleks iş seçin.
+Pick type first,Əvvəlcə növü seçin
+Please fill: {0}.,Bu sahələri doldurun: {0}.
+Progress entries for this stage: {0}. Totals are worker-days across those entries.,Bu mərhələ üzrə gedişat qeydlərinin sayı: {0}. Yekunlar bu qeydlər üzrə adam-günlə hesablanıb.
+"Pulling in ""{0}"" overwrites what is in this section now.","«{0}» seçilərsə, bu bölmənin hazırkı mətni əvəz ediləcək."
+Quantity has to be more than nothing.,Miqdar sıfırdan böyük olmalıdır.
+Rate ({0}),Vahid qiyməti ({0})
+Record delay reason,Gecikmə səbəbini qeydə al
+Replace this section's text,Bu bölmənin mətnini əvəz et
+Request failed.,Sorğunu yerinə yetirmək mümkün olmadı.
+Required: {0},Doldurulmalı sahələr: {0}
+Responsible party,Məsul tərəf
+Row {0} · {1},Sətir {0} · {1}
+Save reason,Səbəbi saxla
+Say what the line is for.,Sətrin nə üçün əlavə edildiyini yazın.
+Search assemblies…,Kompleks işlərdə axtar…
+Search fields…,Sahələrdə axtar…
+"Search rate codes, descriptions…",Qiymət kodu və ya təsvir üzrə axtar…
+Search subject / reference,Mövzu və ya istinad üzrə axtar
+Select the responsible party.,Məsul tərəfi seçin.
+Set stage dates to use suggestion.,Təklif almaq üçün mərhələnin tarixlərini təyin edin.
+Some required fields are missing,Bəzi məcburi sahələr doldurulmayıb
+Standard rate ({0}),Standart qiymət ({0})
+Standard rate cannot be negative.,Standart qiymət mənfi ola bilməz.
+Submit failed.,Sənəd təsdiqlənə bilmədi.
+Suggest tasks whose dates overlap the stage window.,Tarixləri mərhələnin müddəti ilə üst-üstə düşən tapşırıqları təklif et.
+The code is the item id — it cannot be changed.,Kod malın identifikatorudur və dəyişdirilə bilməz.
+This cancels the submitted document.,Təsdiqlənmiş sənəd ləğv ediləcək.
+This permanently removes the record.,Qeyd həmişəlik silinəcək.
+"Trade ""{0}"" created.",«{0}» peşəsi yaradıldı.
+"Who is accountable for this delay — own team, subcontractor, client, etc.","Gecikməyə görə məsul tərəfi göstərin: öz briqadanız, subpodratçı, sifarişçi və ya digər tərəf."
+e.g. 3,"məsələn, 3"
+{0} days overdue,{0} gün gecikib
+{0} day remaining,{0} gün qalıb
+{0} days remaining,{0} gün qalıb
+{0} day in total,Cəmi {0} gün
+{0} days in total,Cəmi {0} gün
+{0} pending,{0} qeyddə müddət hələ məlum deyil
+{0} entry in total,Cəmi {0} qeyd
+{0} entries in total,Cəmi {0} qeyd
+{0} purchase order,{0} satınalma sifarişi
+{0} purchase orders,{0} satınalma sifarişi
+Current stages,Cari mərhələlər
+{0} has {1} in unlinked advances. Link the advances to this bill to settle the amount payable.,{0} üzrə hesabla əlaqələndirilməmiş avansların məbləği {1} təşkil edir. Borcu ödəmək üçün avansları bu hesabla əlaqələndirin.
+{0} overtime hours,{0} əlavə iş saatı
+{0} of {1} activity complete,{1} fəaliyyətdən {0} tamamlanıb
+{0} of {1} activities complete,{1} fəaliyyətdən {0} tamamlanıb
+{0} photograph recorded in this period.,Bu dövrdə {0} fotoşəkil qeydə alınıb.
+{0} photographs recorded in this period.,Bu dövrdə {0} fotoşəkil qeydə alınıb.
+{0} task suggested based on date overlap. Review and adjust.,Tarixlərə uyğun {0} tapşırıq təklif edildi. Siyahını nəzərdən keçirin və lazım gələrsə dəyişdirin.
+{0} tasks suggested based on date overlap. Review and adjust.,Tarixlərə uyğun {0} tapşırıq təklif edildi. Siyahını nəzərdən keçirin və lazım gələrsə dəyişdirin.
+Set the required filter: {0}.,Məcburi filtri seçin: {0}.
+Set the required filters: {0}.,Məcburi filtrləri seçin: {0}.
+Payment delay,Ödənişin gecikməsi
+Material shortage,Material çatışmazlığı
+Equipment unavailability,Avadanlığın mövcud olmaması
+Subcontractor underperformance,Subpodratçının işləri nəzərdə tutulan səviyyədə yerinə yetirməməsi
+Design / drawing not ready,Layihə və ya çertyoj hazır deyil
+Inspection / approval pending,Yoxlama və ya təsdiq gözlənilir
+Site access issue,Tikinti sahəsinə girişdə çətinlik
+Weather (rain / storm / heat),"Hava şəraiti (yağış, fırtına və ya isti)"
+Pressure test not finished,Təzyiq sınağı başa çatmayıb
+Waiting for water leakage test,Su sızması sınağı gözlənilir
+Sort field,Sıralama sahəsi
+Filter based on {0},{0} üzrə süz
+Interior,İnteryer
+Edit Persona,İstifadəçi profilini redaktə et
+HVAC,"İsitmə, havalandırma və kondisionerləşdirmə (HVAC)"
+Electrical works,Elektrik işləri
+Amenities,Abadlıq və xidmət obyektləri
+Civil Structure,İnşaat konstruksiyası
+Commissioning,İstismara vermə
+Finishing,Tamamlama işləri
+Finishing & Commissioning,Tamamlama və istismara vermə
+Foundation,Bünövrə
+Foundation Works,Bünövrə işləri
+Handover,Təhvilvermə
+MEP Rough-in,Mühəndis sistemlərinin ilkin quraşdırılması
+MEP rough-in,Mühəndis sistemlərinin ilkin quraşdırılması
+Piling & Foundations,Svay və bünövrə işləri
+Site Prep,Tikinti sahəsinin hazırlanması
+Site Preparation,Tikinti sahəsinin hazırlanması
+Structure,Konstruksiya
+Substructure,Yeraltı konstruksiyalar
+Superstructure,Yerüstü konstruksiyalar
+Tower Superstructure,Qüllənin yerüstü konstruksiyaları
+Unit Fit-out,Mənzillərin daxili tamamlama işləri
+Remove work package,İş paketini çıxar
+Remove stage,Mərhələni çıxar
+Remove task,Tapşırığı çıxar
+Gender non-conforming,Gender normalarına uyğunlaşmayan
+Standard Sales Invoice,Standart satış hesab-fakturası
+RA / Milestone Billing,Aralıq akt və ya mərhələ üzrə hesablaşma
+Advance-adjusted Invoice,Avans nəzərə alınmaqla hesab-faktura
+{0} task,{0} tapşırıq
+{0} task selected,{0} tapşırıq seçilib
+{0} tasks selected,{0} tapşırıq seçilib
+{0} section,{0} bölmə
+{0} sections,{0} bölmə
+{0} request,{0} sorğu
+{0} requests,{0} sorğu
+{0} of {1} requests,{1} sorğudan {0} göstərilir
+{0} order,{0} sifariş
+{0} of {1} orders,{1} sifarişdən {0} göstərilir
+{0} of {1} lines,{1} sətirdən {0} göstərilir

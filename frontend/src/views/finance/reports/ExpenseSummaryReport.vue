@@ -70,7 +70,7 @@ function holderName(e) {
 function keyLabel(e) {
 	if (groupBy.value === "project") return projectName(e);
 	if (groupBy.value === "holder") return holderName(e);
-	if (groupBy.value === "source") return e.source || "—";
+	if (groupBy.value === "source") return __(e.source) || "—";
 	return e[groupBy.value] || "—";
 }
 
@@ -90,7 +90,10 @@ const projectOptions = computed(() => {
 		.sort((a, b) => a.label.localeCompare(b.label));
 });
 const accountOptions = distinct((e) => e.expense_account);
-const sourceOptions = distinct((e) => e.source);
+const sourceOptions = distinct(
+	(e) => e.source,
+	(source) => __(source)
+);
 const holderOptions = computed(() => {
 	const m = new Map();
 	for (const e of all.value) if (e.employee) m.set(e.employee, e.employee_name || e.employee);
@@ -135,26 +138,32 @@ function toggle(k) {
 
 <template>
 	<DeskPage :title="__('Expense Summary')" :breadcrumbs="breadcrumbs" printable>
-		<div v-if="loading" class="text-sm text-ink-500 italic py-10 text-center">{{ __("Loading…") }}</div>
+		<div v-if="loading" class="text-sm text-ink-500 italic py-10 text-center">
+			{{ __("Loading…") }}
+		</div>
 		<div v-else-if="error" class="text-sm text-danger-600 py-10 text-center">{{ error }}</div>
 		<div v-else class="space-y-4">
 			<ReportFilters
 				:active="anyFilter"
 				:shown="filtered.length"
 				:total="all.length"
-				:noun="__('expenses')"
+				noun="expenses"
 				@clear="clearFilters"
 			>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Find") }}</span
-					>
-					<DeskInput v-model="f.q" :placeholder="__('Description or id…')" class="!w-48" />
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Find")
+					}}</span>
+					<DeskInput
+						v-model="f.q"
+						:placeholder="__('Description or id…')"
+						class="!w-48"
+					/>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Project") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Project")
+					}}</span>
 					<span class="w-48 inline-block">
 						<DeskSearchableSelect
 							v-model="f.project"
@@ -166,9 +175,9 @@ function toggle(k) {
 					</span>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Account") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Account")
+					}}</span>
 					<span class="w-52 inline-block">
 						<DeskSearchableSelect
 							v-model="f.account"
@@ -180,9 +189,9 @@ function toggle(k) {
 					</span>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Paid from") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Paid from")
+					}}</span>
 					<span class="w-44 inline-block">
 						<DeskSearchableSelect
 							v-model="f.source"
@@ -194,9 +203,9 @@ function toggle(k) {
 					</span>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Person") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Person")
+					}}</span>
 					<span class="w-44 inline-block">
 						<DeskSearchableSelect
 							v-model="f.holder"
@@ -212,9 +221,9 @@ function toggle(k) {
 			<!-- Controls -->
 			<div class="flex items-center gap-3 flex-wrap">
 				<div class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("Group by") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Group by")
+					}}</span>
 					<select
 						v-model="groupBy"
 						class="text-xs px-2 py-1 border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-200"
@@ -225,13 +234,13 @@ function toggle(k) {
 					</select>
 				</div>
 				<div class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("From") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("From")
+					}}</span>
 					<DeskInput v-model="from" type="date" class="!w-36" />
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __("To") }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("To")
+					}}</span>
 					<DeskInput v-model="to" type="date" class="!w-36" />
 				</div>
 				<div class="ml-auto text-sm pr-4">
@@ -302,7 +311,8 @@ function toggle(k) {
 											<div class="min-w-0">
 												<div class="text-ink-800">{{ e.description }}</div>
 												<div class="text-ink-400">
-													{{ fmtDate(e.date) }} · {{ e.source || "—" }} ·
+													{{ fmtDate(e.date) }} ·
+													{{ __(e.source) || "—" }} ·
 													{{ projectName(e) }}
 												</div>
 											</div>

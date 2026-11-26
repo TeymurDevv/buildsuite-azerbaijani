@@ -9,7 +9,7 @@ import { usePageTitle } from "@/composables/usePageTitle";
 import { showToast } from "@/utils/appToast";
 import { fmtCurrency, fmtDate, daysBetween } from "@/utils/format";
 import { useUserNames } from "@/composables/useUserNames";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import StatusBadge from "@/components/StatusBadge.vue";
 import OfferPaymentTerms from "@/components/OfferPaymentTerms.vue";
@@ -494,7 +494,9 @@ const breadcrumbs = computed(() => [
 									{{ [l.code, l.source_ref].filter(Boolean).join(" · ") }}
 								</div>
 							</td>
-							<td class="px-3 py-2 text-ink-700">{{ l.uom }}</td>
+							<td class="px-3 py-2 text-ink-700">
+								{{ standardLinkLabel("UOM", l.uom) }}
+							</td>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-900">
 								{{ l.qty }}
 							</td>

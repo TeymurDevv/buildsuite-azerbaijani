@@ -15,6 +15,8 @@ import frappe
 from frappe import _
 from frappe.utils import cint
 
+from buildsuite_core.install import RFQ_TERMS, RFQ_TERMS_TITLE
+
 DOCTYPE = "Terms and Conditions"
 
 # The documents a clause can apply to — the segregation categories on the settings screen. Keep in
@@ -132,7 +134,34 @@ def default_terms(applicable_for: str):
 		fields=["name", "terms"],
 		limit_page_length=1,
 	)
-	return rows[0] if rows else None
+	if not rows:
+		return None
+	row = rows[0]
+	if applicable_for == "Request for Quotation":
+		display_terms = rfq_terms_for_display(row["name"], row["terms"])
+		if display_terms != row["terms"]:
+			row["display_terms"] = display_terms
+	return row
+
+
+def rfq_terms_for_display(name, terms):
+	"""A site edit, copied template or manual clause keeps its author's wording."""
+	return _(RFQ_TERMS) if name == RFQ_TERMS_TITLE and terms == RFQ_TERMS else terms
+
+
+@frappe.whitelist()
+def rfq_template(name: str):
+	rows = frappe.get_list(
+		DOCTYPE,
+		filters={"name": name, "custom_applicable_for": "Request for Quotation", "disabled": 0},
+		fields=["name", "terms"],
+		limit_page_length=1,
+	)
+	if not rows:
+		frappe.throw(_("Could not read that terms template."))
+	row = rows[0]
+	row["display_terms"] = rfq_terms_for_display(row["name"], row["terms"])
+	return row
 
 
 @frappe.whitelist()

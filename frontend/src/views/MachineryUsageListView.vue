@@ -17,7 +17,7 @@ import ReportFilters from "@/components/reports/ReportFilters.vue";
 import { usePermissions } from "@/composables/usePermissions";
 import { getMachineryUsageReport } from "@/data/equipmentApi";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const route = useRoute();
 const store = useDataStore();
@@ -199,7 +199,9 @@ const unitLabel = (unit) => (unit || "").replace(/s$/, "");
 					<span v-else class="italic text-ink-500">{{ __("Not coded") }}</span>
 				</template>
 				<template #cell-quantity="{ row }">
-					<span class="tabular-nums">{{ row.quantity }} {{ row.unit }}</span>
+					<span class="tabular-nums"
+						>{{ row.quantity }} {{ standardLinkLabel("UOM", row.unit) }}</span
+					>
 				</template>
 				<template #cell-status="{ row }">
 					<span class="text-ink-700">{{ statusLabel(row.docstatus) }}</span>
@@ -329,7 +331,8 @@ const unitLabel = (unit) => (unit || "").replace(/s$/, "");
 									{{ __("Quantity") }}
 								</div>
 								<div class="text-ink-900 mt-0.5 tabular-nums">
-									{{ detail.quantity }} {{ detail.unit }}
+									{{ detail.quantity }}
+									{{ standardLinkLabel("UOM", detail.unit) }}
 								</div>
 							</div>
 							<div>
@@ -347,7 +350,8 @@ const unitLabel = (unit) => (unit || "").replace(/s$/, "");
 						<div class="bg-ink-50 rounded-lg px-4 py-3 text-sm space-y-1">
 							<div class="flex justify-between text-ink-600">
 								<span
-									>{{ __("Usage") }} ({{ detail.quantity }} {{ detail.unit }} ×
+									>{{ __("Usage") }} ({{ detail.quantity }}
+									{{ standardLinkLabel("UOM", detail.unit) }} ×
 									{{ fmtINR(detail.rate) }})</span
 								>
 								<span class="tabular-nums">{{

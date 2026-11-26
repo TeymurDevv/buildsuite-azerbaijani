@@ -25,3 +25,4 @@ export const deleteTerms = (name) => call("delete_terms", { name });
 // The clause a new document of this kind starts with ("Offer this one first"), or null.
 export const getDefaultTerms = (applicableFor) =>
 	call("default_terms", { applicable_for: applicableFor });
+export const getRfqTemplate = (name) => call("rfq_template", { name });

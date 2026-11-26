@@ -41,6 +41,7 @@ from buildsuite_core.api.procurement_docs import (
 	_project_name,
 	_state,
 )
+from buildsuite_core.api.terms import rfq_terms_for_display
 from buildsuite_core.dispatch import recipient_language
 from buildsuite_core.print_text import buildsuite_rfq_message
 from buildsuite_core.utils.party import primary_contact, upsert_primary_contact
@@ -198,6 +199,7 @@ def _serialize_rfq(doc):
 		"subject": doc.subject or "",
 		"message_for_supplier": _text(doc.message_for_supplier),
 		"terms": doc.terms or "",
+		"display_terms": rfq_terms_for_display(doc.tc_name, doc.terms) or "",
 		"tc_name": doc.tc_name or "",
 		"material_request": _rfq_material_request(doc),
 		"suppliers": suppliers,

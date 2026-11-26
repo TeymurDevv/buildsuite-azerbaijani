@@ -3,6 +3,7 @@
 // dropdown of the still-assignable roles. v-model is an array of role names.
 
 import { computed } from "vue";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 import DeskSelect from "@/components/desk/DeskSelect.vue";
 
 const props = defineProps({
@@ -21,7 +22,7 @@ function addRole(role) {
 function removeRole(role) {
 	emit(
 		"update:modelValue",
-		props.modelValue.filter((r) => r !== role),
+		props.modelValue.filter((r) => r !== role)
 	);
 }
 </script>
@@ -34,7 +35,7 @@ function removeRole(role) {
 				:key="role"
 				class="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-ink-100 text-ink-700"
 			>
-				{{ role }}
+				{{ standardSettingsLabel("Role", role) }}
 				<button
 					type="button"
 					class="text-ink-400 hover:text-danger-600 leading-none"
@@ -45,12 +46,16 @@ function removeRole(role) {
 				</button>
 			</span>
 		</div>
-		<p v-else class="text-xs text-ink-400 mb-2">{{ __('No roles yet — add at least one below.') }}</p>
+		<p v-else class="text-xs text-ink-400 mb-2">
+			{{ __("No roles yet — add at least one below.") }}
+		</p>
 
 		<DeskSelect v-if="addable.length" :model-value="''" @update:model-value="addRole">
-			<option value="">{{ __('+ Add role…') }}</option>
-			<option v-for="role in addable" :key="role" :value="role">{{ role }}</option>
+			<option value="">{{ __("+ Add role…") }}</option>
+			<option v-for="role in addable" :key="role" :value="role">
+				{{ standardSettingsLabel("Role", role) }}
+			</option>
 		</DeskSelect>
-		<p v-else class="text-xs text-ink-400">{{ __('All assignable roles added.') }}</p>
+		<p v-else class="text-xs text-ink-400">{{ __("All assignable roles added.") }}</p>
 	</div>
 </template>

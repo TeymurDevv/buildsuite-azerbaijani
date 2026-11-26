@@ -12,7 +12,7 @@ import { useProjectNames } from "@/composables/useProjectNames";
 import { showToast } from "@/utils/appToast";
 import { createDataAdapter } from "@/data/adapters";
 import { fmtINR, fmtDate, currencySymbol } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskSection from "@/components/desk/DeskSection.vue";
 import DeskField from "@/components/desk/DeskField.vue";
@@ -273,7 +273,7 @@ const breadcrumbs = computed(() => [
 								{{ u.cost_code_label || (u.task ? `${u.task}` : "—") }}
 							</td>
 							<td class="py-1.5 pr-3 text-right tabular-nums">
-								{{ u.quantity }} {{ u.unit }}
+								{{ u.quantity }} {{ standardLinkLabel("UOM", u.unit) }}
 							</td>
 							<td class="py-1.5 text-right tabular-nums text-ink-900 font-medium">
 								{{ fmtINR(usageTotal(u)) }}

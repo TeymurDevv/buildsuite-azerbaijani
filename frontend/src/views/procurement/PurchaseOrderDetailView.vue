@@ -19,7 +19,7 @@ import ProcurementStatusPill from "@/components/procurement/ProcurementStatusPil
 import { usePermissions } from "@/composables/usePermissions";
 import { useWorkflow } from "@/composables/useWorkflow";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const RichTextEditor = defineAsyncComponent(() => import("@/components/RichTextEditor.vue"));
 
@@ -412,7 +412,9 @@ const breadcrumbs = computed(() => [
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ it.qty }}
 						</td>
-						<td class="px-3 py-2 text-ink-500">{{ it.uom || "—" }}</td>
+						<td class="px-3 py-2 text-ink-500">
+							{{ standardLinkLabel("UOM", it.uom) || "—" }}
+						</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-700">
 							{{ fmtINR(it.rate) }}
 						</td>

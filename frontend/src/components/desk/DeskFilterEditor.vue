@@ -268,7 +268,7 @@ async function apply() {
 				v-model="fieldname"
 				:options="fieldOptions"
 				:placeholder="__('Field')"
-				search-placeholder="Search fields…"
+				:search-placeholder="__('Search fields…')"
 				class="w-44 flex-shrink-0"
 			/>
 

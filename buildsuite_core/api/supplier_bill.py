@@ -11,6 +11,8 @@ import frappe
 from frappe import _
 from frappe.utils import flt, nowdate
 
+from buildsuite_core.print_text import buildsuite_print_terms
+from buildsuite_core.utils.finance_labels import money_account_rows
 from buildsuite_core.utils.project import default_company
 from buildsuite_core.utils.session import as_administrator
 
@@ -258,6 +260,7 @@ def _serialize(doc):
 		"additional_discount_percentage": doc.additional_discount_percentage,
 		"discount_amount": doc.discount_amount,
 		"terms": doc.terms,
+		"display_terms": buildsuite_print_terms(doc.terms),
 		"tc_name": doc.tc_name,
 		"docstatus": doc.docstatus,
 		"net_total": doc.net_total,
@@ -1149,12 +1152,7 @@ def unlink_advance(name: str, payment_entry: str):
 def list_pay_accounts(company: str | None = None):
 	"""Bank/Cash accounts a bill can be paid FROM — the active (default) company."""
 	company = company or default_company()
-	return frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_type"],
-		order_by="account_type, name",
-	)
+	return money_account_rows(company)
 
 
 @frappe.whitelist()
@@ -1183,9 +1181,9 @@ def get_tax_template_rows(template: str):
 
 @frappe.whitelist()
 def get_terms(name: str):
-	from buildsuite_core.api.invoice import _html_to_text
+	from buildsuite_core.api.invoice import get_terms as invoice_terms
 
-	return {"terms": _html_to_text(frappe.db.get_value("Terms and Conditions", name, "terms"))}
+	return invoice_terms(name)
 
 
 @frappe.whitelist()

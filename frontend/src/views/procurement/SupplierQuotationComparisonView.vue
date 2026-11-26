@@ -15,7 +15,7 @@ import { usePermissions } from "@/composables/usePermissions";
 import { getComparisonRequests, getSupplierQuotationComparison } from "@/data/rfqApi";
 import { showToast } from "@/utils/appToast";
 import { fmtDate, fmtINR } from "@/utils/format";
-import { __ } from "@/utils/translate";
+import { __, standardLinkLabel } from "@/utils/translate";
 
 const route = useRoute();
 const router = useRouter();
@@ -254,7 +254,10 @@ const breadcrumbs = [
 							<td
 								class="px-3 py-2.5 text-right tabular-nums text-ink-700 whitespace-nowrap"
 							>
-								{{ r.qty }} <span class="text-ink-500">{{ r.uom }}</span>
+								{{ r.qty }}
+								<span class="text-ink-500">{{
+									standardLinkLabel("UOM", r.uom)
+								}}</span>
 							</td>
 							<td
 								v-for="(c, i) in r.cells"

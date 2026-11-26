@@ -29,6 +29,7 @@ import { useWorkflow } from "@/composables/useWorkflow";
 import { usePermissions } from "@/composables/usePermissions";
 import { fmtDate, fmtINR } from "@/utils/format";
 import { __ } from "@/utils/translate";
+import { paymentModeLabel } from "@/utils/financeLabels";
 
 const props = defineProps({ id: { type: String, required: true } });
 const router = useRouter();
@@ -332,7 +333,9 @@ async function unlinkAdvance(row) {
 <template>
 	<DeskPage
 		:title="inv ? inv.name : id"
-		:subtitle="inv ? __('Invoiced {0} · due {1}', [fmtDate(inv.date), fmtDate(inv.due_date)]) : ''"
+		:subtitle="
+			inv ? __('Invoiced {0} · due {1}', [fmtDate(inv.date), fmtDate(inv.due_date)]) : ''
+		"
 		:breadcrumbs="breadcrumbs"
 	>
 		<template v-if="inv" #actions>
@@ -461,23 +464,28 @@ async function unlinkAdvance(row) {
 			>
 				<span>
 					<span class="font-medium text-ink-900"
-						>{{ inv.customer_name }} {{ __('has') }} {{ fmtINR(unlinkedTotal) }} {{ __('in unadjusted advance payment') }}{{ availableAdvances.length === 1 ? "" : "s" }}</span
+						>{{ inv.customer_name }} {{ __("has") }} {{ fmtINR(unlinkedTotal) }}
+						{{ __("in unadjusted advance payment")
+						}}{{ availableAdvances.length === 1 ? "" : "s" }}</span
 					>
-					{{ __('— adjust') }} {{ availableAdvances.length === 1 ? "it" : "them" }} {{ __('against this invoice to reduce the outstanding.') }}
+					{{ __("— adjust") }} {{ availableAdvances.length === 1 ? "it" : "them" }}
+					{{ __("against this invoice to reduce the outstanding.") }}
 				</span>
 				<button
 					type="button"
 					class="text-xs px-2.5 py-1 border border-info-200 bg-white hover:bg-info-50 text-info-700 font-medium flex-shrink-0 rounded-md"
 					@click="openLinkAdvance"
 				>
-					{{ __('Link advance →') }}
+					{{ __("Link advance →") }}
 				</button>
 			</div>
 
 			<!-- summary strip -->
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 				<div class="border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Customer") }}</div>
+					<div class="text-[10px] uppercase tracking-wider text-ink-500">
+						{{ __("Customer") }}
+					</div>
 					<div class="text-sm font-medium text-ink-900 mt-0.5">
 						{{ inv.customer_name }}
 					</div>
@@ -489,7 +497,9 @@ async function unlinkAdvance(row) {
 					</div>
 				</div>
 				<div class="border border-ink-200 rounded-lg p-3">
-					<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("Project") }}</div>
+					<div class="text-[10px] uppercase tracking-wider text-ink-500">
+						{{ __("Project") }}
+					</div>
 					<DeskLink
 						v-if="inv.project"
 						:to="`/projects/${inv.project}`"
@@ -581,7 +591,7 @@ async function unlinkAdvance(row) {
 							<span class="text-ink-600 min-w-0 truncate"
 								>{{ fmtDate(p.date)
 								}}<span v-if="p.mode_of_payment">
-									· {{ p.mode_of_payment }}</span
+									· {{ paymentModeLabel(p.mode_of_payment) }}</span
 								></span
 							>
 							<span class="flex items-center gap-2 flex-shrink-0">
@@ -647,9 +657,9 @@ async function unlinkAdvance(row) {
 							<div
 								class="px-4 py-2 border-t border-ink-100 flex items-center justify-between text-[11px]"
 							>
-								<span class="uppercase tracking-wider text-ink-500 font-medium"
-									>{{ __("Total advance adjusted") }}</span
-								>
+								<span class="uppercase tracking-wider text-ink-500 font-medium">{{
+									__("Total advance adjusted")
+								}}</span>
 								<span class="tabular-nums font-semibold text-ink-900">{{
 									fmtINR(advanceAdjusted)
 								}}</span>
@@ -741,9 +751,9 @@ async function unlinkAdvance(row) {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						{{ __('From') }} <span class="font-medium">{{ inv.customer_name }}</span> {{ __('against') }}
-						<span class="font-mono text-xs">{{ inv.name }}</span
-						>{{ __('. Outstanding') }}
+						{{ __("From") }} <span class="font-medium">{{ inv.customer_name }}</span>
+						{{ __("against") }} <span class="font-mono text-xs">{{ inv.name }}</span
+						>{{ __(". Outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(payment.outstanding)
 						}}</span
@@ -761,7 +771,7 @@ async function unlinkAdvance(row) {
 						<DeskSelect v-model="rec.deposit_to"
 							><option value="" disabled>{{ __("Bank / Cash account…") }}</option>
 							<option v-for="a in depositAccounts" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ a.display_id || a.name }} ({{ __(a.account_type) }})
 							</option></DeskSelect
 						>
 					</DeskField>
@@ -770,12 +780,14 @@ async function unlinkAdvance(row) {
 							><DeskSelect v-model="rec.mode_of_payment"
 								><option value="">—</option>
 								<option v-for="m in payModes" :key="m" :value="m">
-									{{ m }}
+									{{ paymentModeLabel(m) }}
 								</option></DeskSelect
 							></DeskField
 						>
 						<DeskField :label="__('Reference no.')"
-							><DeskInput v-model="rec.reference_no" :placeholder="__('UTR / cheque no.')"
+							><DeskInput
+								v-model="rec.reference_no"
+								:placeholder="__('UTR / cheque no.')"
 						/></DeskField>
 					</div>
 				</div>
@@ -814,7 +826,9 @@ async function unlinkAdvance(row) {
 				<header
 					class="px-4 py-3 border-b border-ink-200 flex items-center justify-between flex-shrink-0"
 				>
-					<h2 class="text-sm font-semibold text-ink-900">{{ __("Link advance payment") }}</h2>
+					<h2 class="text-sm font-semibold text-ink-900">
+						{{ __("Link advance payment") }}
+					</h2>
 					<button
 						type="button"
 						class="text-ink-400 hover:text-ink-900"
@@ -825,13 +839,17 @@ async function unlinkAdvance(row) {
 				</header>
 				<div class="px-4 py-4 overflow-y-auto flex-1 space-y-3">
 					<div class="text-xs text-ink-600">
-						{{ __('Unadjusted advances received from') }}
+						{{ __("Unadjusted advances received from") }}
 						<span class="font-medium text-ink-900">{{ inv.customer_name }}</span
-						>{{ __('. Current outstanding') }}
+						>{{ __(". Current outstanding") }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(remainingOutstanding)
 						}}</span>
-						{{ __('— the suggested allocation settles as much of it as each advance allows.') }}
+						{{
+							__(
+								"— the suggested allocation settles as much of it as each advance allows."
+							)
+						}}
 					</div>
 					<div v-if="availableAdvances.length" class="space-y-2">
 						<div
@@ -847,7 +865,7 @@ async function unlinkAdvance(row) {
 									<div class="text-[11px] text-ink-500">
 										{{ fmtDate(a.date)
 										}}<span v-if="a.mode_of_payment">
-											· {{ a.mode_of_payment }}</span
+											· {{ paymentModeLabel(a.mode_of_payment) }}</span
 										>
 									</div>
 								</div>
@@ -877,7 +895,11 @@ async function unlinkAdvance(row) {
 									:disabled="adv.saving === a.payment_entry"
 									@click="doLink(a)"
 								>
-									{{ adv.saving === a.payment_entry ? __("Linking…") : __("Link") }}
+									{{
+										adv.saving === a.payment_entry
+											? __("Linking…")
+											: __("Link")
+									}}
 								</button>
 							</div>
 						</div>

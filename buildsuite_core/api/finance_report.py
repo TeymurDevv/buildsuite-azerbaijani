@@ -10,6 +10,7 @@ import frappe
 from frappe.query_builder.functions import Sum
 from frappe.utils import flt
 
+from buildsuite_core.utils.finance_labels import money_account_rows
 from buildsuite_core.utils.project import default_company
 
 BUCKETS = ["Current", "0-30", "31-60", "61-90", "90+"]
@@ -333,12 +334,7 @@ def _cash_bank_accounts(company):
 	account picker). Petty Cash accounts are Cash accounts with "Petty" in the name; the statement
 	runs off raw GL entries, so it handles them the same as any other cash/bank account. Ordered
 	Bank first, then by name."""
-	return frappe.get_all(
-		"Account",
-		filters={"company": company, "is_group": 0, "account_type": ["in", ["Bank", "Cash"]]},
-		fields=["name", "account_name", "account_type"],
-		order_by="account_type, account_name",
-	)
+	return money_account_rows(company, sort_by_title=True)
 
 
 @frappe.whitelist()
@@ -411,6 +407,7 @@ def cash_bank_statement(
 			{
 				"date": str(r.posting_date),
 				"label": f"{r.voucher_type} · {who}" if who else r.voucher_type,
+				"counterparty": who,
 				"ref": r.voucher_no,
 				"voucher_type": r.voucher_type,
 				"in": money_in,

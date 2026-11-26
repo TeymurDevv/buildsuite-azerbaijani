@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // Material Consumption detail — view / edit / delete, draft only.
 // A posted entry is read-only. Submit comes from a Frappe Workflow, if a site
 // configures one: useWorkflow renders its transitions as buttons.
@@ -81,7 +82,7 @@ async function run(fn, okMsg) {
 		await load();
 		showToast(okMsg);
 	} catch (err) {
-		showToast(err.message || "Action failed", "error");
+		showToast(err.message || __("Action failed"), "error");
 	} finally {
 		busy.value = false;
 	}
@@ -89,23 +90,25 @@ async function run(fn, okMsg) {
 
 async function onSubmit() {
 	const ok = await confirmDialog({
-		title: `Submit ${props.id}?`,
-		message:
-			"This posts the issue — the quantities leave site stock. A posted entry is cancelled, not edited.",
-		confirmLabel: "Submit",
+		title: __("Submit {0}?", [props.id]),
+		message: __(
+			"This posts the issue — the quantities leave site stock. A posted entry is cancelled, not edited."
+		),
+		confirmLabel: __("Submit"),
 	});
-	if (ok) await run(() => submitMaterialConsumption(props.id), "Consumption submitted");
+	if (ok) await run(() => submitMaterialConsumption(props.id), __("Consumption submitted"));
 }
 
 async function onCancelEntry() {
 	const ok = await confirmDialog({
-		title: `Cancel ${props.id}?`,
-		message:
-			"This reverses the issue — the quantities go back to site stock. Amend afterwards to raise a corrected copy.",
-		confirmLabel: "Cancel entry",
+		title: __("Cancel {0}?", [props.id]),
+		message: __(
+			"This reverses the issue — the quantities go back to site stock. Amend afterwards to raise a corrected copy."
+		),
+		confirmLabel: __("Cancel entry"),
 		destructive: true,
 	});
-	if (ok) await run(() => cancelMaterialConsumption(props.id), "Consumption cancelled");
+	if (ok) await run(() => cancelMaterialConsumption(props.id), __("Consumption cancelled"));
 }
 
 async function onAmend() {
@@ -114,7 +117,7 @@ async function onAmend() {
 		const copy = await amendMaterialConsumption(props.id);
 		router.push(`/material-consumption/${copy.name}/edit`);
 	} catch (err) {
-		showToast(err.message || "Could not amend", "error");
+		showToast(err.message || __("Could not amend"), "error");
 	} finally {
 		busy.value = false;
 	}
@@ -125,9 +128,9 @@ async function onWorkflowAction(action) {
 	try {
 		await applyWorkflowAction(props.id, action);
 		await load();
-		showToast(`${action} done.`);
+		showToast(__("{0} done.", [__(action)]));
 	} catch (err) {
-		showToast(err.message || "Action failed", "error");
+		showToast(err.message || __("Action failed"), "error");
 	} finally {
 		busy.value = false;
 	}
@@ -135,25 +138,25 @@ async function onWorkflowAction(action) {
 
 async function onDelete() {
 	const ok = await confirmDialog({
-		title: "Delete consumption?",
-		message: `${props.id} will be removed permanently.`,
-		confirmLabel: "Delete",
+		title: __("Delete consumption?"),
+		message: __("{0} will be removed permanently.", [props.id]),
+		confirmLabel: __("Delete"),
 		destructive: true,
 	});
 	if (!ok) return;
 	try {
 		await adapter.remove("Stock Entry", props.id);
-		showToast("Consumption deleted");
+		showToast(__("Consumption deleted"));
 		router.push("/material-consumption");
 	} catch (err) {
-		showToast(err.message || "Failed to delete", "error");
+		showToast(err.message || __("Failed to delete"), "error");
 	}
 }
 
 const breadcrumbs = computed(() => [
-	{ label: "BuildSuite Core", to: "/" },
-	{ label: "Procurement", to: "/procurement" },
-	{ label: "Material Consumption", to: "/material-consumption" },
+	{ label: __("BuildSuite Core"), to: "/" },
+	{ label: __("Procurement"), to: "/procurement" },
+	{ label: __("Material Consumption"), to: "/material-consumption" },
 	{ label: props.id },
 ]);
 </script>
@@ -162,7 +165,12 @@ const breadcrumbs = computed(() => [
 	<DeskPage
 		v-if="doc"
 		:title="doc.name"
-		:subtitle="`Recorded ${fmtDate(doc.posting_date)} · ${doc.purpose || 'Material Issue'}`"
+		:subtitle="
+			__('Recorded {0} · {1}', [
+				fmtDate(doc.posting_date),
+				__(doc.purpose || 'Material Issue'),
+			])
+		"
 		:status="stateLabel"
 		:breadcrumbs="breadcrumbs"
 	>
@@ -174,7 +182,7 @@ const breadcrumbs = computed(() => [
 				style="border-radius: 6px"
 				@click="router.push(`/material-consumption/${doc.name}/edit`)"
 			>
-				{{ __('Edit') }}
+				{{ __("Edit") }}
 			</button>
 			<button
 				v-if="(isDraft || isCancelled) && canDelete('materialConsumption')"
@@ -183,7 +191,7 @@ const breadcrumbs = computed(() => [
 				style="border-radius: 6px"
 				@click="onDelete"
 			>
-				{{ __('Delete') }}
+				{{ __("Delete") }}
 			</button>
 
 			<button
@@ -193,7 +201,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onSubmit"
 			>
-				{{ __('Submit') }}
+				{{ __("Submit") }}
 			</button>
 			<button
 				v-if="!wfActive && isSubmitted && canSubmit('materialConsumption')"
@@ -203,7 +211,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onCancelEntry"
 			>
-				{{ __('Cancel') }}
+				{{ __("Cancel") }}
 			</button>
 			<button
 				v-if="!wfActive && isCancelled && canCreate('materialConsumption')"
@@ -213,7 +221,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onAmend"
 			>
-				{{ __('Amend') }}
+				{{ __("Amend") }}
 			</button>
 
 			<!-- One button per allowed transition. -->
@@ -226,7 +234,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onWorkflowAction(t.action)"
 			>
-				{{ t.action }}
+				{{ __(t.action) }}
 			</button>
 		</template>
 
@@ -236,18 +244,24 @@ const breadcrumbs = computed(() => [
 			style="border-radius: 6px"
 		>
 			<template v-if="isDraft">
-				{{ __('Draft — nothing has been deducted from site stock yet. Submit to post it.') }}
+				{{
+					__("Draft — nothing has been deducted from site stock yet. Submit to post it.")
+				}}
 			</template>
 			<template v-else-if="isCancelled">
-				{{ __('This record is') }} <span class="font-semibold">{{ __('cancelled') }}</span> {{ __('— the quantities went back to site stock. Click') }} <span class="font-medium">{{ __('Amend') }}</span> {{ __('to create a corrected Draft.') }}
+				{{
+					__(
+						"This record was cancelled and the quantities were returned to site stock. Select Amend to create a corrected draft."
+					)
+				}}
 			</template>
 			<template v-else>
-				{{ __('Posted — the quantities have left site stock. Cancel to reverse it.') }}
+				{{ __("Posted — the quantities have left site stock. Cancel to reverse it.") }}
 			</template>
 		</div>
 
 		<div v-if="doc.amended_from" class="mb-4 text-xs text-ink-500">
-			{{ __('Amended from') }}
+			{{ __("Amended from") }}
 			<DeskLink :to="`/material-consumption/${doc.amended_from}`" class="font-mono">
 				{{ doc.amended_from }}
 			</DeskLink>
@@ -257,7 +271,7 @@ const breadcrumbs = computed(() => [
 		<div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					{{ __('Project') }}
+					{{ __("Project") }}
 				</div>
 				<DeskLink v-if="doc.project" :to="`/projects/${doc.project}`" class="text-sm">
 					{{ doc.project_name || projectLabel(doc.project) || doc.project }}
@@ -266,7 +280,7 @@ const breadcrumbs = computed(() => [
 			</div>
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					{{ __('Cost code') }}
+					{{ __("Cost code") }}
 				</div>
 				<span
 					v-if="doc.cost_code_label"
@@ -274,11 +288,11 @@ const breadcrumbs = computed(() => [
 					style="border-radius: 4px"
 					>{{ doc.cost_code_label }}</span
 				>
-				<div v-else class="text-sm text-ink-400 mt-0.5">{{ __('Not cost-coded') }}</div>
+				<div v-else class="text-sm text-ink-400 mt-0.5">{{ __("Not cost-coded") }}</div>
 			</div>
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					{{ __('Recorded by') }}
+					{{ __("Recorded by") }}
 				</div>
 				<div class="mt-0.5">
 					<FrappeUserBadge v-if="doc.owner" :user-id="doc.owner" size="xs" />
@@ -291,9 +305,9 @@ const breadcrumbs = computed(() => [
 			<div
 				class="grid grid-cols-[1fr_140px_120px] gap-2 bg-ink-50 border-b border-ink-200 px-3 py-2 text-[10px] uppercase tracking-wider text-ink-500 font-medium"
 			>
-				<span>{{ __('Item') }}</span>
-				<span class="text-right">{{ __('Qty consumed') }}</span>
-				<span>UOM</span>
+				<span>{{ __("Item") }}</span>
+				<span class="text-right">{{ __("Qty consumed") }}</span>
+				<span>{{ __("UOM") }}</span>
 			</div>
 			<div
 				v-for="row in doc.items"
@@ -302,13 +316,15 @@ const breadcrumbs = computed(() => [
 			>
 				<span class="text-ink-900">{{ row.item_name || row.item_code }}</span>
 				<span class="text-right tabular-nums font-medium text-ink-900">{{ row.qty }}</span>
-				<span class="text-ink-500 text-xs pt-0.5">{{ row.uom || "—" }}</span>
+				<span class="text-ink-500 text-xs pt-0.5">{{
+					standardLinkLabel("UOM", row.uom) || "—"
+				}}</span>
 			</div>
 			<div
 				v-if="!doc.items.length"
 				class="px-3 py-6 text-center text-xs text-ink-400 italic"
 			>
-				{{ __('No items on this entry.') }}
+				{{ __("No items on this entry.") }}
 			</div>
 		</div>
 	</DeskPage>
@@ -317,8 +333,8 @@ const breadcrumbs = computed(() => [
 
 	<div v-else-if="!loading" class="desk-page">
 		<p class="text-sm text-ink-500">
-			{{ __('Consumption record not found.') }}
-			<DeskLink to="/material-consumption">{{ __('Back to log →') }}</DeskLink>
+			{{ __("Consumption record not found.") }}
+			<DeskLink to="/material-consumption">{{ __("Back to log →") }}</DeskLink>
 		</p>
 	</div>
 </template>

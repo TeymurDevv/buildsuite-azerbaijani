@@ -17,6 +17,7 @@ import {
 	DEFAULT_PROJECT_VISIBILITY,
 } from "@/data/personaApi";
 import { __ } from "@/utils/translate";
+import { standardSettingsLabel } from "@/utils/standardSettingsLabel";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskForm from "@/components/desk/DeskForm.vue";
 import DeskActionBar from "@/components/desk/DeskActionBar.vue";
@@ -105,7 +106,9 @@ function cancel() {
 async function remove() {
 	const ok = await confirmDialog({
 		title: __("Delete persona"),
-		message: __('Delete "{0}"? Users must be reassigned first.', [props.id]),
+		message: __('Delete "{0}"? Users must be reassigned first.', [
+			standardSettingsLabel("Persona", props.id),
+		]),
 		confirmLabel: __("Delete persona"),
 		destructive: true,
 	});
@@ -123,7 +126,7 @@ const breadcrumbs = () => [
 	{ label: __("BuildSuite Core"), to: "/" },
 	{ label: __("Settings"), to: "/settings" },
 	{ label: __("Personas"), to: "/settings/personas" },
-	{ label: props.id },
+	{ label: standardSettingsLabel("Persona", props.id) },
 ];
 
 onMounted(() => {
@@ -136,7 +139,11 @@ onMounted(() => {
 </script>
 
 <template>
-	<DeskPage :title="props.id" :subtitle="__('Persona')" :breadcrumbs="breadcrumbs()">
+	<DeskPage
+		:title="standardSettingsLabel('Persona', props.id)"
+		:subtitle="__('Persona')"
+		:breadcrumbs="breadcrumbs()"
+	>
 		<DeskForm>
 			<template #action-bar>
 				<DeskActionBar
@@ -165,7 +172,11 @@ onMounted(() => {
 						:label="__('Persona name')"
 						:hint="__('The name is the key and can\'t be changed.')"
 					>
-						<DeskInput :model-value="props.id" disabled />
+						<DeskInput
+							:model-value="standardSettingsLabel('Persona', props.id)"
+							:title="props.id"
+							disabled
+						/>
 					</DeskField>
 					<DeskField :label="__('Slug')">
 						<DeskInput v-model="form.slug" :placeholder="__('e.g. planner')" />

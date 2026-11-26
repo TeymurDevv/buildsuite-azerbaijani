@@ -1,4 +1,5 @@
 <script setup>
+import { __, standardLinkLabel } from "@/utils/translate";
 // "Add a line" — the library route onto a tender's item grid. Pick a source that already knows
 // the description and the rate, then correct anything before it lands.
 //
@@ -51,15 +52,13 @@ const assembliesRes = useDocTypeList("Assembly", {
 	cache: "buildsuite-assembly-options",
 });
 const assemblies = computed(() => assembliesRes.data || []);
-const assemblyMap = computed(() =>
-	Object.fromEntries(assemblies.value.map((a) => [a.name, a]))
-);
+const assemblyMap = computed(() => Object.fromEntries(assemblies.value.map((a) => [a.name, a])));
 const assemblyOptions = computed(() =>
 	assemblies.value.map((a) => ({
 		value: a.name,
 		label: `${a.name} · ${a.assembly_name}`,
-		group: a.category,
-		hint: `${fmtCurrency(a.rate_per_unit)} per ${a.uom}`,
+		group: __(a.category),
+		hint: __("{0} per {1}", [fmtCurrency(a.rate_per_unit), standardLinkLabel("UOM", a.uom)]),
 	}))
 );
 
@@ -73,7 +72,10 @@ function reset() {
 	rate.value = 0;
 	error.value = "";
 }
-watch(() => props.open, (isOpen) => isOpen && reset());
+watch(
+	() => props.open,
+	(isOpen) => isOpen && reset()
+);
 
 // Prefill, do not lock — whatever the estimator has already typed in a field is theirs.
 function onAssemblyPicked(id) {
@@ -89,8 +91,8 @@ function onAssemblyPicked(id) {
 }
 
 function add() {
-	if (!assembly.value) return (error.value = "Pick an assembly first.");
-	if (!description.value.trim()) return (error.value = "A line needs a description.");
+	if (!assembly.value) return (error.value = __("Pick an assembly first."));
+	if (!description.value.trim()) return (error.value = __("A line needs a description."));
 
 	// sell_rate and amount are deliberately left out — calculate_items() derives them from the
 	// tender's margin on save, and anything set here would only be overwritten.
@@ -109,90 +111,141 @@ function add() {
 
 <template>
 	<Teleport to="body">
-		<div v-if="open" class="fixed inset-0 bg-ink-900/40 z-[60] flex items-center justify-center p-6"
-			@click.self="emit('close')">
-			<div class="bg-white border border-ink-200 w-full max-w-2xl shadow-fp-lg flex flex-col"
-				style="border-radius: 12px; max-height: calc(100vh - 3rem)" @click.stop>
-				<header class="px-5 py-3 border-b border-ink-200 flex items-start justify-between gap-4">
+		<div
+			v-if="open"
+			class="fixed inset-0 bg-ink-900/40 z-[60] flex items-center justify-center p-6"
+			@click.self="emit('close')"
+		>
+			<div
+				class="bg-white border border-ink-200 w-full max-w-2xl shadow-fp-lg flex flex-col"
+				style="border-radius: 12px; max-height: calc(100vh - 3rem)"
+				@click.stop
+			>
+				<header
+					class="px-5 py-3 border-b border-ink-200 flex items-start justify-between gap-4"
+				>
 					<div>
-						<h2 class="text-sm font-semibold text-ink-900">{{ __('Add a line') }}</h2>
+						<h2 class="text-sm font-semibold text-ink-900">{{ __("Add a line") }}</h2>
 						<p class="text-xs text-ink-500 mt-0.5">
-							{{ __('Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use') }} <span class="font-medium text-ink-700">{{ __('+ Add Row') }}</span> {{ __('on the grid.') }}
+							{{
+								__(
+									"Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use"
+								)
+							}}
+							<span class="font-medium text-ink-700">{{ __("+ Add Row") }}</span>
+							{{ __("on the grid.") }}
 						</p>
 					</div>
-					<button type="button" class="text-ink-500 hover:text-ink-900 text-lg leading-none shrink-0"
-						:aria-label="__('Close')" @click="emit('close')">
+					<button
+						type="button"
+						class="text-ink-500 hover:text-ink-900 text-lg leading-none shrink-0"
+						:aria-label="__('Close')"
+						@click="emit('close')"
+					>
 						×
 					</button>
 				</header>
 
 				<div class="px-5 pt-3 pb-5 space-y-3 overflow-y-auto min-h-0">
 					<div class="flex items-center gap-4 border-b border-ink-200">
-						<button v-for="s in available" :key="s" type="button"
+						<button
+							v-for="s in available"
+							:key="s"
+							type="button"
 							class="text-xs pb-2 -mb-px border-b-2"
-							:class="source === s
-								? 'border-brand-600 text-brand-700 font-medium'
-								: 'border-transparent text-ink-500 hover:text-ink-700'"
-							@click="source = s">
-							{{ s }}
+							:class="
+								source === s
+									? 'border-brand-600 text-brand-700 font-medium'
+									: 'border-transparent text-ink-500 hover:text-ink-700'
+							"
+							@click="source = s"
+						>
+							{{ __(s) }}
 						</button>
 					</div>
 
 					<p v-if="!sourceBoq" class="text-xs text-ink-500">
-						{{ __('BOQ lines appear once this tender is priced off an estimate.') }}
+						{{ __("BOQ lines appear once this tender is priced off an estimate.") }}
 					</p>
 
 					<template v-if="source === 'Assembly'">
-						<DeskField label="Assembly" required>
-							<DeskSearchableSelect :model-value="assembly" :options="assemblyOptions"
-								:placeholder="__('Pick an assembly…')" search-placeholder="Search by code or name…"
-								allow-clear @update:model-value="onAssemblyPicked" />
+						<DeskField :label="__('Assembly')" required>
+							<DeskSearchableSelect
+								:model-value="assembly"
+								:options="assemblyOptions"
+								:placeholder="__('Pick an assembly…')"
+								:search-placeholder="__('Search by code or name…')"
+								allow-clear
+								@update:model-value="onAssemblyPicked"
+							/>
 						</DeskField>
 
-						<DeskField label="Description" required>
-							<DeskTextarea v-model="description" :rows="2" :placeholder="__('What the line is for')" />
+						<DeskField :label="__('Description')" required>
+							<DeskTextarea
+								v-model="description"
+								:rows="2"
+								:placeholder="__('What the line is for')"
+							/>
 						</DeskField>
 
 						<div class="grid grid-cols-4 gap-3">
-							<DeskField label="Code">
+							<DeskField :label="__('Code')">
 								<DeskInput v-model="code" :placeholder="__('optional')" />
 							</DeskField>
-							<DeskField label="Unit">
-								<DeskLinkPicker v-model="unit" doctype="UOM" :placeholder="__('nos')" />
+							<DeskField :label="__('Unit')">
+								<DeskLinkPicker
+									v-model="unit"
+									doctype="UOM"
+									:placeholder="__('nos')"
+								/>
 							</DeskField>
-							<DeskField label="Quantity" required>
+							<DeskField :label="__('Quantity')" required>
 								<DeskInput v-model="qty" type="number" min="0" step="any" />
 							</DeskField>
-							<DeskField :label="`Rate (${currencySymbol()})`" required>
+							<DeskField :label="__('Rate ({0})', [currencySymbol()])" required>
 								<DeskInput v-model="rate" type="number" min="0" step="any" />
 							</DeskField>
 						</div>
 
 						<div
 							class="bg-ink-50 border border-ink-200 px-3 py-2 flex items-center justify-between"
-							style="border-radius: 6px">
-							<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-								{{ __('Line amount') }}
+							style="border-radius: 6px"
+						>
+							<span
+								class="text-[10px] uppercase tracking-wider text-ink-500 font-medium"
+							>
+								{{ __("Line amount") }}
 							</span>
 							<span class="text-sm font-semibold text-ink-900 tabular-nums">
 								{{ fmtCurrency(lineAmount) }}
 							</span>
 						</div>
 						<p class="text-[11px] text-ink-400">
-							{{ __('Cost before margin — the tender\'s margin is added to the rate on save.') }}
+							{{
+								__(
+									"Cost before margin — the tender's margin is added to the rate on save."
+								)
+							}}
 						</p>
 					</template>
 
 					<p v-if="error" class="text-xs text-danger-700">{{ error }}</p>
 				</div>
 
-				<footer class="px-5 py-3 border-t border-ink-200 flex items-center justify-end gap-2">
-					<button type="button"
+				<footer
+					class="px-5 py-3 border-t border-ink-200 flex items-center justify-end gap-2"
+				>
+					<button
+						type="button"
 						class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700"
-						style="border-radius: 6px" @click="emit('close')">
-						{{ __('Cancel') }}
+						style="border-radius: 6px"
+						@click="emit('close')"
+					>
+						{{ __("Cancel") }}
 					</button>
-					<button type="button" class="desk-save-btn !text-xs" @click="add">{{ __('Add line') }}</button>
+					<button type="button" class="desk-save-btn !text-xs" @click="add">
+						{{ __("Add line") }}
+					</button>
 				</footer>
 			</div>
 		</div>

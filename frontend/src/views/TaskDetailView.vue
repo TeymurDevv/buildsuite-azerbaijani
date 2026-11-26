@@ -2,7 +2,7 @@
 import { templateTaskSubject } from "@/utils/translate";
 import { fixedNumber } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 // Task Detail. Edit + Delete + quick-status actions live on the title row
 // (DeskPage #actions slot). Editing opens a modal so the inline content
@@ -681,20 +681,22 @@ async function startEdit() {
 async function saveEdit() {
 	const endErr = endBeforeStartError(form.value.startDate, form.value.endDate);
 	const b = await fetchProjectBounds(task.value?.projectId);
-	const boundsErr =
-		endErr ||
-		outOfParentBoundsError(
-			form.value.startDate,
-			form.value.endDate,
-			b.start,
-			b.end,
-			"project"
-		);
+	const boundsErr = endErr
+		? { field: "end", message: endErr }
+		: outOfParentBoundsIssue(
+				form.value.startDate,
+				form.value.endDate,
+				b.start,
+				b.end,
+				"project"
+		  );
 	if (boundsErr) {
 		setEditErrors(
-			boundsErr.startsWith("Start") ? { startDate: boundsErr } : { endDate: boundsErr }
+			boundsErr.field === "start"
+				? { startDate: boundsErr.message }
+				: { endDate: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	try {
@@ -913,8 +915,14 @@ usePageTitle(() => taskTitle.value);
 								>
 								{{ __("by") }}
 								<UserAvatar :user-id="latestEntry.enteredBy" size="xs" /> ·
-								{{ entryCount }} {{ entryCount === 1 ? "entry" : "entries" }}
-								{{ __("total") }}
+								{{
+									__(
+										entryCount === 1
+											? "{0} entry in total"
+											: "{0} entries in total",
+										[entryCount]
+									)
+								}}
 							</template>
 							<template v-else>
 								{{

@@ -16,7 +16,7 @@ import { useExtensionFields } from "@/sdk/useExtensionFields";
 import { useFormErrors } from "@/composables/useFormErrors";
 import { usePermissions } from "@/composables/usePermissions";
 import { createDataAdapter } from "@/data/adapters";
-import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
+import { endBeforeStartError, outOfParentBoundsIssue } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
 import DeskPage from "@/components/desk/DeskPage.vue";
 import DeskForm from "@/components/desk/DeskForm.vue";
@@ -124,7 +124,7 @@ function validate() {
 async function goToStep2() {
 	if (!validate()) return;
 	const b = await fetchProjectBounds(form.project);
-	const boundsErr = outOfParentBoundsError(
+	const boundsErr = outOfParentBoundsIssue(
 		form.plannedStart,
 		form.plannedEnd,
 		b.start,
@@ -133,9 +133,11 @@ async function goToStep2() {
 	);
 	if (boundsErr) {
 		setErrors(
-			boundsErr.startsWith("Start") ? { plannedStart: boundsErr } : { plannedEnd: boundsErr }
+			boundsErr.field === "start"
+				? { plannedStart: boundsErr.message }
+				: { plannedEnd: boundsErr.message }
 		);
-		showToast(boundsErr, "error");
+		showToast(boundsErr.message, "error");
 		return;
 	}
 	step.value = 2;
