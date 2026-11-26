@@ -50,7 +50,10 @@ update_website_context = ["buildsuite_core.utils.website.localize_login_title"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/buildsuite_core/css/buildsuite_core.css"
-# app_include_js = "/assets/buildsuite_core/js/buildsuite_core.js"
+app_include_js = [
+    "/assets/buildsuite_core/js/desk_az_calendar.js",
+    "/assets/buildsuite_core/js/desk_az_form_buttons.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/buildsuite_core/css/buildsuite_core.css"
@@ -64,12 +67,12 @@ update_website_context = ["buildsuite_core.utils.website.localize_login_title"]
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
-# page_js = {"page" : "public/js/file.js"}
+page_js = {"desktop": "public/js/desktop_language.js"}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
+doctype_tree_js = {"Account": "public/js/desk_az_accounts.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
 # Svg Icons

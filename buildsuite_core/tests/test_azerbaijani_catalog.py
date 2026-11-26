@@ -22,16 +22,25 @@ class AzerbaijaniCatalogTest(unittest.TestCase):
 		for record in messages:
 			self.assertIn(len(record), (2, 3), record)
 			source, translated, *context = record
-			key = (source, tuple(context))
+			key = (source.replace(r"\n", "\n"), tuple(context))
 			self.assertNotIn(key, seen)
 			seen.add(key)
 			self.assertTrue(source.strip() and translated.strip(), key)
 			self.assertEqual(Counter(TOKENS.findall(source)), Counter(TOKENS.findall(translated)), key)
 
 	def test_catalog_includes_upstream_ui_keys_and_localized_login(self):
-		messages = {row[0]: row[1] for row in rows("az")}
+		messages = {source: target for source, target, *context in rows("az") if not context}
 		self.assertFalse({row[0] for row in rows("fr")} - messages.keys())
 		for source in ("Sign In", "Purchase orders", "Work packages", "Measurement book", "Save"):
 			self.assertNotEqual(messages[source], source)
 		self.assertEqual(messages["Home"], "Ana səhifə")
 		self.assertEqual(messages["Language"], "Dil")
+
+	def test_native_desk_uses_the_context_for_actions_and_amounts(self):
+		messages = {(row[0], *row[2:]): row[1] for row in rows("az")}
+		self.assertEqual(messages[("Pay",)], "Ödə")
+		self.assertEqual(messages["Pay", "Amount"], "Ödəniləcək məbləğ")
+		self.assertEqual(messages[("Open",)], "Açıq")
+		self.assertEqual(messages["Open", "Access"], "Aç")
+		self.assertEqual(messages[("Chart of Accounts",)], "Hesablar planı")
+		self.assertEqual(messages[("Purchase Order",)], "Satınalma sifarişi")
