@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Live Petty Cash Request endpoints (buildsuite_core.api.petty_cash.*). Request → Disburse
 // (posts a Journal Entry) → reverse. The rest of the Project Finance workspace is mock data.
@@ -10,7 +10,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

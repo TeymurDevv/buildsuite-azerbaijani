@@ -1,4 +1,4 @@
-import { __ } from "@/utils/translate";
+import { __ } from "./translate.js";
 
 // Client-side validation for the Workforce forms, shared by each entity's New
 // and Detail screens. A courtesy only — the server owns the real rules. Each
@@ -14,24 +14,24 @@ export const ATTENDANCE_STATUSES = ["Present", "Half Day", "Absent", "Overtime O
 
 export function validateFieldAttendance(form) {
 	const errors = {};
-	if (!form.project) errors.project = "Project is required.";
-	if (!form.date) errors.date = "Date is required.";
+	if (!form.project) errors.project = __("Project is required.");
+	if (!form.date) errors.date = __("Date is required.");
 	if (!form.employee_list?.length) {
-		errors.employee_list = "Add at least one employee (use Bulk select).";
+		errors.employee_list = __("Add at least one employee (use Bulk select).");
 	} else if (form.employee_list.some((r) => !r.employee)) {
-		errors.employee_list = "Every row needs a worker.";
+		errors.employee_list = __("Every row needs a worker.");
 	}
 	return errors;
 }
 
 export function validateCrew(form) {
 	const errors = {};
-	if (!form.crew_name?.trim()) errors.crew_name = "Crew name is required.";
-	if (!form.company) errors.company = "Company is required.";
+	if (!form.crew_name?.trim()) errors.crew_name = __("Crew name is required.");
+	if (!form.company) errors.company = __("Company is required.");
 	// "+ Add member" pushes a blank row, and the server appends it verbatim — the
 	// save would fail with a raw mandatory error and no field highlighted.
 	if (form.members?.some((r) => !r.field_employee)) {
-		errors.members = "Every member row needs a worker.";
+		errors.members = __("Every member row needs a worker.");
 	}
 	return errors;
 }

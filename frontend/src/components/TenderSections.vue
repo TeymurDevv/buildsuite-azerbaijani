@@ -16,7 +16,7 @@ const props = defineProps({
 	sections: { type: Array, default: () => [] },
 	editable: { type: Boolean, default: false },
 	title: { type: String, default: "Sections" },
-	addLabel: { type: String, default: "+ Add section" },
+	addLabel: { type: String, default: "+ " + __("Add section") },
 	emptyHint: { type: String, default: "No sections yet." },
 	purposeHint: { type: String, default: "" },
 	// Which document these sections belong to. One clause library serves every document that

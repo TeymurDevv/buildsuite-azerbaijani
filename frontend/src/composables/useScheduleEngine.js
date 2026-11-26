@@ -8,6 +8,8 @@
 // task: { name, type, start, end, status }  (start/end = "YYYY-MM-DD" or Date or null)
 // edge: { predecessor, successor, type, lag }
 
+import { __ } from "../utils/translate.js";
+
 const DAY_MS = 86400000;
 
 function parseDate(d) {
@@ -73,6 +75,10 @@ function earliestStartForEdge(pred, succ, dep, succDurationOverride = null) {
 	return null;
 }
 
+function dependencyReason(dep) {
+	return __("{0}, lag {1} from {2}", [dep.type, dep.lag || 0, dep.predecessor]);
+}
+
 export function computeEarliestStart(taskId, tasksById, edges) {
 	const succ = tasksById[taskId];
 	if (!succ) return { date: null, reason: null };
@@ -86,7 +92,7 @@ export function computeEarliestStart(taskId, tasksById, edges) {
 		if (!earliest) continue;
 		if (!bestDate || diffDays(bestDate, earliest) > 0) {
 			bestDate = earliest;
-			bestReason = `${dep.type}, lag ${dep.lag || 0} from ${dep.predecessor}`;
+			bestReason = dependencyReason(dep);
 		}
 	}
 	return { date: bestDate, reason: bestReason };
@@ -105,17 +111,23 @@ function taskConflict(tid, tasksById, edges) {
 	if (earliest && anchor && diffDays(anchor, earliest) > 0) {
 		conflict = true;
 		const days = diffDays(anchor, earliest);
-		const which = isMs ? "Due" : "Starts";
-		conflictReason = `${which} ${days} day${
-			days === 1 ? "" : "s"
-		} earlier than allowed (${reason}).`;
+		const args = [days, reason];
+		if (isMs) {
+			conflictReason = days === 1
+				? __("Due {0} day earlier than allowed ({1}).", args)
+				: __("Due {0} days earlier than allowed ({1}).", args);
+		} else {
+			conflictReason = days === 1
+				? __("Starts {0} day earlier than allowed ({1}).", args)
+				: __("Starts {0} days earlier than allowed ({1}).", args);
+		}
 	}
 	for (const d of edges) {
 		if (d.successor !== tid) continue;
 		const pred = tasksById[d.predecessor];
 		if (pred && pred.type === "Inspection" && pred.status !== "Completed") {
 			conflict = true;
-			const ins = `Waiting on inspection ${pred.name} (${pred.status}).`;
+			const ins = __("Waiting on inspection {0} ({1}).", [pred.name, __(pred.status)]);
 			conflictReason = conflictReason ? `${ins} ${conflictReason}` : ins;
 			break;
 		}
@@ -248,7 +260,7 @@ export function computeCascade(rootId, tasksById, edges, rootOverride = null) {
 			if (!earliest) continue;
 			if (!binding || diffDays(binding, earliest) > 0) {
 				binding = earliest;
-				bindingReason = `${dep.type}, lag ${dep.lag || 0} from ${dep.predecessor}`;
+				bindingReason = dependencyReason(dep);
 			}
 		}
 		if (!binding) continue;

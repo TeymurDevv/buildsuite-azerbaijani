@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Project Progress Report (S167) — one windowed aggregate read
 // (buildsuite_core.api.progress_report.get_progress_report). period = daily|weekly|monthly,
@@ -11,6 +11,6 @@ export async function getProgressReport(project, period = "weekly", date) {
 			params: { project, period, ...(date ? { date } : {}) },
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Failed to load the progress report.");
+		throw new Error(frappeErrorMessage(err, "Failed to load the progress report."));
 	}
 }

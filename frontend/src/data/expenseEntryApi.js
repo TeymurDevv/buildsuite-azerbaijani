@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Live Expense Entry endpoints (buildsuite_core.api.expense_entry.*). The signed-in
 // holder spends against their petty-cash float; a finance approver submits to post
@@ -11,7 +11,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

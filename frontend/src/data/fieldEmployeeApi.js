@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Thin wrapper over buildsuite_core.api.field_employee.save_field_employee — a
 // Field Employee is an ERPNext Employee with `is_labour` set. The save goes
@@ -13,7 +13,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

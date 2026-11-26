@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Home / Desk overview — one aggregate read backing AppHomeView (/home) and DashboardView
 // (/dashboard): app-wide KPIs, active projects, pending SCOs and in-progress tasks
@@ -10,6 +10,6 @@ export async function getHomeDashboard() {
 			url: "buildsuite_core.api.home.get_home_dashboard",
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Failed to load the dashboard.");
+		throw new Error(frappeErrorMessage(err, "Failed to load the dashboard."));
 	}
 }

@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Generic single-record CRUD over Frappe's standard `frappe.client.*` endpoints,
 // used by the generic /records form (DocTypeForm). Permissions are enforced
@@ -9,7 +9,7 @@ async function call(method, params) {
 	try {
 		return await frappeRequest({ url: method, params: params || {} });
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

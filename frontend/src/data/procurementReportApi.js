@@ -1,6 +1,6 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
 
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Real-data backends for the six bespoke Procurement report views
 // (buildsuite_core.api.procurement_report.*). Each takes an optional `project` that narrows the
@@ -12,7 +12,7 @@ async function call(method, project) {
 			params: project ? { project } : {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

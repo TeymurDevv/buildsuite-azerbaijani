@@ -463,13 +463,11 @@ async function unlinkAdvance(row) {
 				class="px-4 py-2.5 bg-info-50 border border-info-200 rounded-md text-xs text-ink-700 flex items-center justify-between gap-3 flex-wrap"
 			>
 				<span>
-					<span class="font-medium text-ink-900"
-						>{{ inv.customer_name }} {{ __("has") }} {{ fmtINR(unlinkedTotal) }}
-						{{ __("in unadjusted advance payment")
-						}}{{ availableAdvances.length === 1 ? "" : "s" }}</span
-					>
-					{{ __("— adjust") }} {{ availableAdvances.length === 1 ? "it" : "them" }}
-					{{ __("against this invoice to reduce the outstanding.") }}
+					<span class="font-medium text-ink-900">{{
+						availableAdvances.length === 1
+							? __("{0} has {1} in unadjusted advance payment. Adjust it against this invoice to reduce the outstanding.", [inv.customer_name, fmtINR(unlinkedTotal)])
+							: __("{0} has {1} in unadjusted advance payments. Adjust them against this invoice to reduce the outstanding.", [inv.customer_name, fmtINR(unlinkedTotal)])
+					}}</span>
 				</span>
 				<button
 					type="button"

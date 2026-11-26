@@ -5,6 +5,7 @@ import { compactNumber, displayLocale } from "@/utils/locale";
 // datasets, and negative values (bars grow from a zero baseline). No external chart lib —
 // keeps the SPA bundle lean. Theme-aware via currentColor for axes/labels.
 import { computed } from "vue";
+import { __ } from "@/utils/translate";
 
 const props = defineProps({
 	chart: { type: Object, required: true },
@@ -20,7 +21,7 @@ const PAD = { top: 12, right: 12, bottom: 26, left: 12 };
 const labels = computed(() => props.chart?.data?.labels || []);
 const datasets = computed(() =>
 	(props.chart?.data?.datasets || []).map((d, i) => ({
-		name: d.name || `Series ${i + 1}`,
+		name: d.name || __("Series {0}", [i + 1]),
 		values: (d.values || []).map((v) => Number(v) || 0),
 		color: PALETTE[i % PALETTE.length],
 	}))

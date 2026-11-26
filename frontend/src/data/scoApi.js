@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Thin wrappers over buildsuite_core.api.sco.* — the Scope Change Order approval
 // transitions (approve / reject / revise) and the BOQ-revision tie-in. Plain CRUD
@@ -12,7 +12,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

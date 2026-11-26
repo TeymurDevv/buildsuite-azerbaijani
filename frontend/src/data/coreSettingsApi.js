@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Thin wrappers over buildsuite_core.api.core_settings.* — the server-persisted
 // BuildSuite Core Settings (Single doctype). Admin only.
@@ -11,7 +11,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

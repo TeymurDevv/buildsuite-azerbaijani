@@ -18,6 +18,8 @@
  * ctx.units — the parser never imports a store.
  */
 
+import { __ } from "./translate.js";
+
 // ---------------------------------------------------------------- reading
 
 async function inflateRaw(bytes) {
@@ -36,7 +38,7 @@ async function unzip(buffer) {
 			break;
 		}
 	}
-	if (eocd < 0) throw new Error("This file is not a spreadsheet Excel can save (.xlsx).");
+	if (eocd < 0) throw new Error(__("This file is not a spreadsheet Excel can save (.xlsx)."));
 	const count = dv.getUint16(eocd + 10, true);
 	let p = dv.getUint32(eocd + 16, true);
 	const td = new TextDecoder();
@@ -62,9 +64,7 @@ async function unzip(buffer) {
 			const data = u8.subarray(start, start + f.size);
 			if (f.method === 0) return td.decode(data);
 			if (f.method === 8) return td.decode(await inflateRaw(data));
-			throw new Error(
-				"This spreadsheet uses a compression this screen cannot read. Save it again as .xlsx or .csv."
-			);
+			throw new Error(__("This spreadsheet uses a compression this screen cannot read. Save it again as .xlsx or .csv."));
 		},
 	};
 }
@@ -162,9 +162,9 @@ export async function readXlsx(buffer) {
 		let target = relTarget[a["r:id"]] || "";
 		target = target.startsWith("/") ? target.slice(1) : "xl/" + target.replace(/^\.\//, "");
 		const xml = await zip.text(target);
-		if (xml != null) sheets.push({ name: a.name || "Sheet", rows: sheetRows(xml, shared) });
+		if (xml != null) sheets.push({ name: a.name || __("Sheet"), rows: sheetRows(xml, shared) });
 	}
-	if (!sheets.length) throw new Error("No worksheets were found in this file.");
+	if (!sheets.length) throw new Error(__("No worksheets were found in this file."));
 	return { sheets };
 }
 
@@ -214,14 +214,12 @@ export function parseDelimited(text) {
 export async function readSpreadsheet(buffer, fileName = "") {
 	const name = fileName.toLowerCase();
 	if (name.endsWith(".xls"))
-		throw new Error(
-			"Old .xls files cannot be read here. Open it in Excel and save it as .xlsx or .csv."
-		);
+		throw new Error(__("Old .xls files cannot be read here. Open it in Excel and save it as .xlsx or .csv."));
 	if (name.endsWith(".xlsx") || name.endsWith(".xlsm")) return readXlsx(buffer);
 	const text = new TextDecoder().decode(
 		buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer)
 	);
-	return { sheets: [{ name: fileName || "Rows", rows: parseDelimited(text) }] };
+	return { sheets: [{ name: fileName || __("Rows"), rows: parseDelimited(text) }] };
 }
 
 // ---------------------------------------------------------------- columns
@@ -516,7 +514,7 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 			continue;
 
 		if (TOTAL_ROW.test(description) && empty(qty) && empty(rate)) {
-			skipped.push({ rowNo, reason: "A total row, not a line of work" });
+			skipped.push({ rowNo, reason: __("A total row, not a line of work") });
 			continue;
 		}
 
@@ -528,7 +526,7 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 			continue;
 		}
 		if (!description) {
-			skipped.push({ rowNo, reason: "No description" });
+			skipped.push({ rowNo, reason: __("No description") });
 			continue;
 		}
 		if (!current) current = groupFor("", "");
@@ -540,22 +538,22 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 		if (amountOnly) {
 			q = 1;
 			rt = amount;
-			notes.push("Amount only: imported as 1 × the amount");
+			notes.push(__("Amount only: imported as 1 × the amount"));
 		}
 		if (Number.isNaN(q)) {
-			notes.push(`Quantity "${str(cell(r, "qty"))}" is not a number: imported as 0`);
+			notes.push(__('Quantity "{0}" is not a number: imported as 0', [str(cell(r, "qty"))]));
 			q = 0;
 		}
 		if (Number.isNaN(rt)) {
-			notes.push(`Rate "${str(cell(r, "rate"))}" is not a number: imported as 0`);
+			notes.push(__('Rate "{0}" is not a number: imported as 0', [str(cell(r, "rate"))]));
 			rt = 0;
 		}
 		if (q === null) {
-			notes.push("No quantity: imported as 0");
+			notes.push(__("No quantity: imported as 0"));
 			q = 0;
 		}
 		if (rt === null) {
-			notes.push("No rate: imported as 0");
+			notes.push(__("No rate: imported as 0"));
 			rt = 0;
 		}
 		if (
@@ -566,7 +564,7 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 			rt &&
 			Math.abs(q * rt - amount) > Math.max(1, Math.abs(amount) * 0.005)
 		) {
-			notes.push("The amount in the file is not quantity × rate; quantity × rate is used");
+			notes.push(__("The amount in the file is not quantity × rate; quantity × rate is used"));
 		}
 
 		let itemCode = code;
@@ -574,7 +572,7 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 			itemCode &&
 			(takenCodes.has(itemCode.toLowerCase()) || seenCodes.has(itemCode.toLowerCase()))
 		) {
-			notes.push(`Code ${itemCode} is already used: a new one is given`);
+			notes.push(__("Code {0} is already used: a new one is given", [itemCode]));
 			itemCode = "";
 		}
 		if (itemCode) seenCodes.add(itemCode.toLowerCase());
@@ -583,8 +581,10 @@ export function planImport(rows, { headerRow = -1, mapping = {} } = {}, ctx = {}
 		const ch = str(cell(r, "costHead"));
 		if (ch) {
 			costHead = COST_HEADS.find((h) => h.toLowerCase() === ch.toLowerCase()) || "";
-			if (!costHead)
-				notes.push(`Cost head "${ch}" is not one of ${COST_HEADS.join(", ")}: left blank`);
+			if (!costHead) {
+				const choices = COST_HEADS.map((heading) => __(heading)).join(", ");
+				notes.push(__('Cost head "{0}" is not one of {1}: left blank', [ch, choices]));
+			}
 		}
 
 		items.push({

@@ -40,6 +40,29 @@ export function localizeRichEditor() {
 					.replace(/>(Text Color|Background Color)</g, `>{{ __('$1') }}<`)
 					.replace(/:(text|aria-label)="color.name"/g, ':$1="__(color.name)"');
 			}
+			if (file === "extensions/toc-node/TocNodeView.vue") {
+				return source
+					.replace("There are no headings in this document.", "{{ __('There are no headings in this document.') }}")
+					.replace('title="Remove table of contents"', `:title="__('Remove table of contents')"`);
+			}
+			if (file === "components/MediaNodeView.vue") {
+				return source
+					.replace(/(text|label|placeholder)="(Align left|Align center|Align right|Float left|Float right|Remove float|Try again|Add caption)"/g, `:$1="__('$2')"`)
+					.replace("Uploading {{ isVideo ? 'video' : 'image' }}...", "{{ isVideo ? __('Uploading video…') : __('Uploading image…') }}")
+					.replace("This {{ isVideo ? 'video' : 'image' }} hasn't yet been uploaded.", "{{ isVideo ? __('This video has not been uploaded yet.') : __('This image has not been uploaded yet.') }}")
+					.replace("Upload failed: {{ node.attrs.error }}", "{{ __('Upload failed: {0}', [node.attrs.error]) }}");
+			}
+			if (file === "extensions/iframe/IframeNodeView.vue") {
+				return source
+					.replace(/(title|placeholder)="(Align Left|Align Center|Align Right|Resize|Add caption)"/g, `:$1="__('$2')"`)
+					.replace("Loading embed...", "{{ __('Loading embed…') }}");
+			}
+			if (file === "extensions/image-group/ImageGroupNodeView.vue") {
+				return source.replace('aria-label="Remove image"', `:aria-label="__('Remove image')"`);
+			}
+			if (file === "extensions/suggestion/SuggestionList.vue") {
+				return source.replace(/>\s*No results\s*</, `>{{ __('No results') }}<`);
+			}
 			if (file === "extensions/iframe/InsertIframe.vue") {
 				return source
 					.replace("title: 'Insert Embed'", "title: __('Insert Embed')")

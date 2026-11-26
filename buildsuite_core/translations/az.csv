@@ -27369,3 +27369,328 @@ Advance-adjusted Invoice,Avans nəzərə alınmaqla hesab-faktura
 {0} order,{0} sifariş
 {0} of {1} orders,{1} sifarişdən {0} göstərilir
 {0} of {1} lines,{1} sətirdən {0} göstərilir
+Search consumption…,İstehlakı axtarın…
+last 6 months,son 6 ay
+last month,ötən ay
+last quarter,ötən rüb
+last week,ötən həftə
+last year,ötən il
+next 6 months,növbəti 6 ay
+next month,gələn ay
+next quarter,növbəti rüb
+next week,gələn həftə
+next year,gələn il
+this month,bu ay
+this quarter,bu rüb
+this week,bu həftə
+this year,bu il
+between,arasında
+in,daxilində
+is,bərabərdir
+like,oxşardır
+not in,daxil deyil
+not like,oxşamır
+Every active task has reported in the last 3 days.,Bütün aktiv tapşırıqlar üzrə son 3 gündə hesabat təqdim edilib.
+No stages match the filters.,Filtrlərə uyğun mərhələ yoxdur.
+No stages planned on this project.,Bu layihə üçün mərhələ planlaşdırılmayıb.
+No tasks match the filters.,Filtrlərə uyğun tapşırıq yoxdur.
+{0} component,{0} komponent
+Get Unpaid Invoices,Ödənilməmiş hesab-fakturaları əldə et
+Select Invoices,Hesab-fakturaları seç
+Calculating Arrival Times,Gəliş vaxtları hesablanır
+Optimizing Route,Marşrut optimallaşdırılır
+Account Filter Guide,Hesab filtri üzrə təlimat
+Specify which accounts to include in this line.,Bu sətirə daxil ediləcək hesabları göstərin.
+Formula Guide,Düstur üzrə təlimat
+Create calculations using reference codes from other lines.,Digər sətirlərin istinad kodlarından istifadə edərək hesablamalar yaradın.
+Flow could not start,Flow başlada bilmədi
+Open the Desk,Desk-i aç
+No agents found,Agent tapılmadı
+To Produce,İstehsal ediləcək miqdar
+Qty to Transfer,Köçürüləcək miqdar
+Are you sure you want to delete this report?,Bu hesabatı silmək istədiyinizə əminsiniz?
+Account Breakdown,Hesablar üzrə bölgü
+Creation Date,Yaradılma tarixi
+Planned Date,Planlaşdırılan tarix
+Enabled Items only,Yalnız aktiv mallar
+Disabled Items only,Yalnız deaktiv mallar
+Where Used,İstifadə yeri
+Backward,Geriyə
+Please select Items from the Table,Cədvəldən malları seçin.
+Are you sure you want to create Reposting Entries?,Yenidən uçot qeydləri yaratmaq istədiyinizə əminsiniz?
+Are you sure you want to create a Reposting Entry?,Yenidən uçot qeydi yaratmaq istədiyinizə əminsiniz?
+Assigned to:,Təyin edilib:
+Missing Filters,Filtrlər çatışmır
+{0} cannot be more than {1} seconds (1 hour),{0} {1} saniyədən çox ola bilməz (1 saat)
+Invalid Submission Queue Timeout,Göndərmə növbəsinin gözləmə müddəti yanlışdır
+Set your first password from a signed-in browser.,İlk parolunuzu sistemə daxil olduğunuz brauzerdə təyin edin.
+Enter a password.,Parol daxil edin.
+Invalid Password,Parol yanlışdır
+{0} size exceeded the maximum allowed size.,{0} ölçüsü icazə verilən maksimum həddi aşdı.
+You already have a password. Change it from your settings.,Artıq parolunuz var. Onu tənzimləmələrdən dəyişin.
+This site's setup must run through the built-in wizard.,Bu saytın quraşdırılması daxili quraşdırma ustası vasitəsilə aparılmalıdır.
+Setup is already in progress. Please try again in a moment.,Quraşdırma artıq davam edir. Bir az sonra yenidən cəhd edin.
+Invalid preference: {0},Yanlış seçim: {0}
+Invalid Preference,Yanlış seçim
+A run belongs to its chat. Delete the chat to remove it.,İcra söhbətə aiddir. Onu silmək üçün söhbəti silin.
+Cannot Delete,Silmək mümkün deyil
+This chat's model was deleted. Pick another model.,Bu söhbətin modeli silinib. Başqa model seçin.
+Model Deleted,Model silinib
+"Grove is turned off. Turn it on, or pick another model, in Settings → Models.",Grove söndürülüb. Parametrlər → Modellər bölməsində onu aktivləşdirin və ya başqa model seçin.
+Grove Turned Off,Grove söndürülüb
+This site no longer has a Grove key. Connect another provider in Settings → Models.,Bu saytda artıq Grove açarı yoxdur. Parametrlər → Modellər bölməsində başqa xidmət təminatçısı qoşun.
+No Grove Key,Grove açarı yoxdur
+docs.frappe.io answered HTTP {0},docs.frappe.io HTTP {0} cavabını qaytardı
+Component {0} not found,{0} komponenti tapılmadı
+"Studio has no prop definition for {0}. Component names are case sensitive. Some components that work only inside another one, such as SidebarItem, have no definition.",Studio-da {0} üçün prop tərifi yoxdur. Komponent adlarında böyük və kiçik hərflər fərqlənir. SidebarItem kimi yalnız başqa komponentin daxilində işləyən bəzi komponentlərin tərifi yoxdur.
+No definition,Tərif yoxdur
+You cannot add or edit input rows. Define props in the component’s script instead.,Daxiletmə sətirlərini əlavə və ya redaktə edə bilməzsiniz. Bunun əvəzinə prop-ları komponentin skriptində təyin edin.
+Input rows are deprecated,Daxiletmə sətirləri artıq dəstəklənmir
+"A global component cannot import a file of one app: {0}. Import only libraries such as ""vue"", or edit the component and uncheck ""Global Component"".","Qlobal komponent bir tətbiqin faylını idxal edə bilməz: {0}. Yalnız ""vue"" kimi kitabxanaları idxal edin və ya komponenti redaktə edib ""Qlobal komponent"" seçimini söndürün."
+Script not saved,Skript yadda saxlanılmadı
+"This global component will not work in other apps. It uses {0} from this app. To keep it local to this app, edit the component and uncheck ""Global Component"".","Bu qlobal komponent digər tətbiqlərdə işləməyəcək. O, bu tətbiqdən {0} istifadə edir. Onu yalnız bu tətbiqdə saxlamaq üçün komponenti redaktə edib ""Qlobal komponent"" seçimini söndürün."
+Global component uses an app's Vue component,Qlobal komponent tətbiqin Vue komponentindən istifadə edir
+A global component with the ID {0} already exists.,{0} identifikatorlu qlobal komponent artıq mövcuddur.
+{0} (component),{0} (komponent)
+{0} (page),{0} (səhifə)
+and {0} more that you cannot access,və daxil ola bilmədiyiniz daha {0}
+{0} place that you cannot access,daxil ola bilmədiyiniz {0} məkan
+{0} places that you cannot access,daxil ola bilmədiyiniz {0} məkan
+{0} is used in: {1}. Remove it from there first.,{0} burada istifadə olunur: {1}. Əvvəlcə onu oradan silin.
+Component not deleted,Komponent silinmədi
+Components cannot be merged.,Komponentləri birləşdirmək mümkün deyil.
+A component cannot move to another app.,Komponenti başqa tətbiqə köçürmək mümkün deyil.
+Invalid component script in copied content.,Kopyalanmış məzmunda komponent skripti yanlışdır.
+A component script is named after its component.,Komponent skriptinin adı həmin komponentin adına uyğun olmalıdır.
+Flow could not start. Reload the page to try again.,Flow başlatmaq mümkün olmadı. Yenidən cəhd etmək üçün səhifəni yeniləyin.
+Requesting payment against {0} {1} for amount {2},{0} {1} üzrə {2} məbləğində ödəniş tələb edilir
+"If you have any questions, please get back to us.","Suallarınız varsa, bizimlə əlaqə saxlayın."
+Thank you for your business!,Bizimlə əməkdaşlıq etdiyiniz üçün təşəkkür edirik!
+Cannot create Intercompany Sales Invoice. Purchase Invoice {0} already has Sales Invoice {1}.,Şirkətlərarası satış hesab-fakturası yaratmaq mümkün deyil. {0} alış hesab-fakturası artıq {1} satış hesab-fakturasına malikdir.
+Cannot create Intercompany {0}. {1} {2} was created from {0} {3}.,"Şirkətlərarası {0} yaratmaq mümkün deyil. {1} {2}, {0} {3} əsasında yaradılıb."
+{0} for {1},{1} üçün {0}
+Row #{0}: Cannot delete item {1} which is already ordered on {2} {3}.,Sətir №{0}: Artıq {2} {3} sənədində sifariş edilmiş {1} malını silmək mümkün deyil.
+Invalid Item Code or Item Group,Malın kodu və ya mal qrupu yanlışdır
+Company must be text,Şirkət mətn olmalıdır
+Invalid Item Code,Malın kodu yanlışdır
+Modified By,Dəyişdirən
+Payment Advice,Ödəniş bildirişi
+Voucher Date,Çek tarixi
+Reference / Cheque No.,İstinad / çek №
+Reference / Cheque Date,İstinad / çek tarixi
+This amount is in full / part settlement of the listed bills,Bu məbləğ aşağıdakı hesab-fakturaların tam və ya qismən ödənişidir
+Balance Confirmation,Qalıq məbləğin təsdiqi
+Subject: Confirmation of balance as on {0},Mövzu: {0} tarixinə olan qalığın təsdiqi
+"Dear Sir/Madam,","Hörmətli xanım/cənab,"
+"As per our books of account, the balance in your account as on {0} is {1} {2} ({3}).","Uçot qeydlərimizə əsasən, hesabınızdakı {0} tarixinə qalıq {1} {2} ({3}) təşkil edir."
+This amount is payable by us to you.,Bu məbləğ tərəfimizdən sizə ödənilməlidir.
+This amount is receivable by us from you.,Bu məbləğ bizə sizin tərəfinizdən ödənilməlidir.
+"Please confirm this balance by {0}. If it does not agree with your books, please send us your statement of account for the period so that we can reconcile the difference.","Bu qalığı {0} tarixinədək təsdiqləyin. Qalıq uçot məlumatlarınızla uyğun gəlmirsə, fərqi tutuşdurmağımız üçün həmin dövrün hesab çıxarışını göndərin."
+The list of pending bills is given below.,Ödənilməmiş hesab-fakturaların siyahısı aşağıdadır.
+Your confirmation,Təsdiqiniz
+We confirm the above balance.,Yuxarıdakı qalığı təsdiq edirik.
+Our books show {0} ________________ Dr / Cr.,Uçot qeydlərimizdə {0} ________________ debet / kredit göstərilir.
+"Signature, name and stamp","İmza, ad və möhür"
+Authorised Signatory,Səlahiyyətli imza sahibi
+Pending bills as on {0},{0} tarixinə ödənilməmiş hesab-fakturalar
+Due On,Ödəniş tarixi
+No pending balance to confirm,Təsdiqlənəcək ödənilməmiş qalıq yoxdur
+Not Due,Vaxtı çatmayıb
+{0} and above,{0} və yuxarı
+Bill-wise Pending,Hesab-fakturalar üzrə borc
+As on {0},{0} tarixinə
+Bill Amount,Hesab-fakturanın məbləği
+No pending bills,Ödənilməmiş hesab-faktura yoxdur
+Balance payable to you as on {0},"Sizə ödənilməli qalıq, {0} tarixinə"
+Balance due from you as on {0},"Sizdən alınmalı qalıq, {0} tarixinə"
+Voucher No.,Çek №
+No vouchers in this period,Bu dövrdə çek yoxdur
+{0} voucher,{0} çek
+{0} vouchers,{0} çek
+Receipt No,Qəbz №
+SR.No,Sıra №
+Total Excl. Tax,Vergisiz cəmi
+"Thank you, please visit again.","Təşəkkür edirik, yenidən gözləyirik!"
+PROFORMA INVOICE,İLKİN HESAB-FAKTURA
+Bill To,Alıcı
+Pending Value,Gözləyən məbləğ
+No pending orders,Gözləyən sifariş yoxdur
+No transactions in this period,Bu dövrdə əməliyyat yoxdur
+Supplier Invoice No.,Təchizatçının hesab-faktura №
+Invoice Total,Hesab-fakturanın cəmi
+No purchase invoices in this period,Bu dövrdə alış hesab-fakturası yoxdur
+{0} invoice,{0} hesab-faktura
+Return Invoice,Qaytarma hesab-fakturası
+Original Invoice,Əsas hesab-faktura
+Deliver By,Çatdırılma tarixi
+Invoice No.,Hesab-faktura №
+Bank Book,Bank kitabı
+Cash Book,Kassa kitabı
+Against Bill,Hesab-fakturaya əsasən
+Pick one party or one account in the report filters to print a ledger statement with running balance.,Qalıq məbləğin gedişatını göstərən hesab çıxarışını çap etmək üçün hesabat filtrlərində bir tərəf və ya hesab seçin.
+Nil,Sıfır
+No stock in hand,Əldə qalıq yoxdur
+Request for Quotations,Qiymət təklifi sorğuları
+Received Payment as Above,Yuxarıda göstərilən ödəniş alındı
+Bill From:,Göndərən:
+Bill To:,Alıcı:
+TAX Invoice,VERGİ HESAB-FAKTURASI
+Item Code:,Malın kodu:
+Company:,Şirkət:
+Supplier:,Təchizatçı:
+Batch Nos (Qty),Partiya № (miqdar)
+Toggle navigation,Naviqasiyanı dəyiş
+On this page,Bu səhifədə
+Results filtered by,Nəticələrə tətbiq olunan filtrlər
+attachments,qoşmalar
+Quick Search,Sürətli axtarış
+Clear Search,Axtarışı təmizlə
+Search the docs (Press ? to focus),Sənədlərdə axtar (fokuslamaq üçün ? basın)
+Only a submitted Production Plan can be closed or re-opened,Yalnız təqdim edilmiş İstehsal planını bağlamaq və ya yenidən açmaq olar
+The STEP file has more than {0} parts.,STEP faylında {0}-dən çox hissə var.
+Returns of {0} would take back more of raw material {1} than it consumed. Use Reset Raw Materials Table to pick the raw materials again.,{0} qaytarışı {1} xammalından sərf ediləndən artıq hissəni geri qaytaracaq. Xammalı yenidən seçmək üçün xammal cədvəlini sıfırlayın.
+Company {0} does not match the company of Maintenance Schedule {1},{0} şirkəti {1} texniki xidmət cədvəlinin şirkəti ilə uyğun gəlmir.
+Warranty Claims {0} do not belong to Customer {1} and Company {2},{0} zəmanət tələbləri {1} müştərisinə və {2} şirkətinə aid deyil.
+Row #{0}: Serial and Batch Bundle {1} belongs to {2} {3}. Select or create another bundle.,Sətir №{0}: {1} seriya və partiya paketi {2} {3} sənədinə aiddir. Başqa paket seçin və ya yaradın.
+{0} {1} does not belong to Company {2},{0} {1} {2} şirkətinə aid deyil.
+{0} {1} does not belong to {2} {3},"{0} {1}, {2} {3} sənədinə aid deyil."
+Stock Reservation Entry {0} is already used by {1} {2}. Close the {1} to release the unused stock.,{0} ehtiyat bronu artıq {1} {2} sənədində istifadə olunub. İstifadə edilməyən ehtiyatı azad etmək üçün {1} sənədini bağlayın.
+No project.,Layihə göstərilməyib.
+"Project ""{0}"" was not found.","""{0}"" layihəsi tapılmadı."
+"The date ""{0}"" could not be read.","""{0}"" tarixi oxunmadı."
+"Cost code ""{0}"" is not on the estimate of {1}.","""{0}"" xərc kodu {1} smetasında yoxdur."
+"Hours ""{0}"" must be a number above 0 and up to 24.","""{0}"" saatı 0-dan böyük və 24-dən çox olmayan rəqəm olmalıdır."
+Only a draft timesheet can be changed.,Yalnız qaralama vaxt cədvəlini dəyişmək olar.
+Choose a file to upload.,Yükləmək üçün fayl seçin.
+"""{0}"" is not in the employee list.","""{0}"" işçi siyahısında yoxdur."
+{0} already has a timesheet for {1}.,{0} üçün {1} tarixinə vaxt cədvəli artıq mövcuddur.
+{0} already has a timesheet for {1}: {2}.,{0} üçün {1} tarixinə vaxt cədvəli artıq mövcuddur: {2}.
+The works are {0}% complete against a programme position of {1}% as at {2}.,İşlərin {0}%-i tamamlanıb. Proqram üzrə {2} tarixinə gözlənilən göstərici {1}%-dir.
+This represents a slippage of approximately {0} days against programme.,"Bu, proqramdan təxminən {0} günlük geriləmə deməkdir."
+The works are on or ahead of programme.,İşlər proqram qrafikinə uyğundur və ya onu qabaqlayır.
+{0} ({1}% complete),{0} ({1}% tamamlanıb)
+Work is currently in stage {0}.,Hazırda {0} mərhələsi icra olunur.
+Work is currently in these stages: {0}.,Hazırda bu mərhələlər icra olunur: {0}.
+{0} activities advanced during the period.,Bu dövrdə {0} fəaliyyət üzrə irəliləyiş olub.
+{0} labour-days were deployed on site.,Sahədə {0} nəfər-gün işçi qüvvəsi çalışıb.
+{0} constraints affecting progress are listed under Delays & constraints.,İrəliləyişə təsir edən {0} məhdudiyyət “Gecikmələr və məhdudiyyətlər” bölməsində göstərilib.
+{0} chargeable variations were raised during the period.,Bu dövrdə müqavilə üzrə hesablanacaq {0} dəyişiklik qeydə alınıb.
+"Project is {0}% complete against {1}% expected by {2}, {3} days behind programme.",Layihənin {0}%-i tamamlanıb. {2} tarixinə gözlənilən göstərici {1}%-dir. Layihə proqramdan {3} gün geri qalır.
+"Project is {0}% complete against {1}% expected by {2}, on or ahead of programme.",Layihənin {0}%-i tamamlanıb. {2} tarixinə gözlənilən göstərici {1}%-dir. Layihə qrafikə uyğundur və ya qrafiki qabaqlayır.
+"Of {0} tasks, {1} are complete, {2} are in progress, {3} have not started, {4} are delayed and {5} are blocked.","{0} tapşırıqdan {1}-i tamamlanıb, {2}-si icra olunur, {3}-ün icrasına başlanmayıb, {4}-ü gecikir, {5}-i bloklanıb."
+{0} tasks were completed during this period.,Bu dövrdə {0} tapşırıq tamamlanıb.
+{0} progress entries were filed; {1} labour-days were deployed ({2} skilled and {3} unskilled).,"{0} irəliləyiş qeydi təqdim edilib; sahədə {1} nəfər-gün işçi qüvvəsi çalışıb ({2} ixtisaslı, {3} ixtisassız)."
+{0} deliveries were received.,{0} çatdırılma qəbul edilib.
+{0} blockers were raised. See Delays & constraints.,{0} maneə qeydə alınıb. “Gecikmələr və məhdudiyyətlər” bölməsinə baxın.
+{0} scope changes were raised.,{0} iş həcmi dəyişikliyi qeydə alınıb.
+{0} tasks are currently overdue.,Hazırda {0} tapşırığın icra müddəti keçib.
+You cannot add or edit input rows. Define props in the component's script instead.,Daxiletmə sətirlərini əlavə və ya redaktə edə bilməzsiniz. Prop-ları komponentin skriptində təyin edin.
+[Error],[Xəta]
+Error ID,Xəta identifikatoru
+Logged At,Qeyd vaxtı
+Error Details,Xəta təfərrüatları
+View Error Log,Xəta jurnalına bax
+This is an automated notification from,"Bu, avtomatik bildirişdir. Mənbə:"
+Endpoint URL,Son nöqtənin URL-i
+Response Output,Cavab nəticəsi
+View Integration Request,İnteqrasiya sorğusuna bax
+has been received,qəbul edildi
+New Fiscal Year,Yeni maliyyə ili
+- Review Required,— Yoxlama tələb olunur
+"Request a file containing your personally identifiable information (PII) that is saved on our system. The file will be in JSON format and is sent to you by email. If you would like to have your PII deleted instead, please submit a request to delete data.","Sistemimizdə saxlanılan şəxsiyyəti müəyyən edən məlumatlarınızın (PII) faylını istəyin. Fayl JSON formatında hazırlanaraq sizə e-poçtla göndəriləcək. PII məlumatlarınızın silinməsini istəyirsinizsə, məlumatların silinməsi üçün sorğu göndərin."
+request to delete data,məlumatların silinməsi üçün sorğu
+Send a request to delete your account and personally identifiable information (PII) that is stored on our system. You will receive an email to verify your request. Once the request is verified we will delete your account and PII.,Sistemimizdə saxlanılan hesabınızın və şəxsiyyəti müəyyən edən məlumatlarınızın (PII) silinməsi üçün sorğu göndərin. Sorğunu təsdiqləmək üçün sizə e-poçt göndəriləcək. Təsdiqdən sonra hesabınız və PII məlumatlarınız silinəcək.
+request your data,məlumatlarınızı əldə etmək üçün sorğu
+Row Added to Table Field,Cədvəl sahəsinə sətir əlavə edildi
+By:,Müəllif:
+Field:,Sahə:
+changed from,"dəyişdirildi, əvvəlki dəyər"
+Table Field:,Cədvəl sahəsi:
+Row#,Sətir №
+A/C Payee,Çekin alıcısı
+Address:,Ünvan:
+Basic Rate,Əsas tarif
+Date:,Tarix:
+Due Date:,Ödəniş vaxtı:
+Mobile no:,Mobil nömrə:
+Narration,Təyinat
+Narration:,Təyinat:
+Net Payable:,Ödəniləcək xalis məbləğ:
+Net Weight:,Xalis çəki:
+Received Qty.,Qəbul edilmiş miqdar
+Supplier Name:,Təchizatçının adı:
+Tax and Charges:,Vergi və xərclər:
+Taxes and Charges Added:,Əlavə edilmiş vergi və xərclər:
+Taxes and Charges Deducted:,Çıxılmış vergi və xərclər:
+Total (credit),Cəmi (kredit)
+Total (debit),Cəmi (debet)
+Total Quantity:,Ümumi miqdar:
+Total Taxes and Charges:,Vergi və xərclərin cəmi:
+Total:,Cəmi:
+(no description),(təsvir yoxdur)
+{0} workers allocated to this project,Bu layihəyə {0} işçi ayrılıb.
+Series {0},Seriya {0}
+There are no headings in this document.,Bu sənəddə başlıq yoxdur.
+Remove table of contents,Mündəricat blokunu sil
+Voucher No:,Çek №:
+No workers allocated to this project yet,Bu layihəyə hələ heç bir işçi ayrılmayıb.
+{0} has {1} in unadjusted advance payment. Adjust it against this invoice to reduce the outstanding.,{0} müştərisinin bölüşdürülməmiş {1} avans ödənişi var. Qalıq borcu azaltmaq üçün həmin məbləği bu hesab-fakturaya yönəldin.
+{0} has {1} in unadjusted advance payments. Adjust them against this invoice to reduce the outstanding.,{0} müştərisinin bölüşdürülməmiş {1} avans ödənişi var. Qalıq borcu azaltmaq üçün həmin məbləği bu hesab-fakturaya yönəldin.
+"Income vs direct costs and overheads, from posted invoices, bills and verified expenses.","Göndərilmiş hesab-fakturalar, təchizatçı hesabları və təsdiqlənmiş xərclər üzrə gəlirlər, birbaşa məsrəflər və ümumi xərclər."
+"Stages slipping, by how much, and what sits downstream — plan vs actual, pending progress and the weekly completion trend.","Gecikən mərhələlər, gecikmə müddəti və sonrakı işlər — plan və faktiki göstəricilər, gözləyən irəliləyiş qeydləri və həftəlik tamamlanma dinamikası."
+"{0}, lag {1} from {2}",{2} tapşırığından sonra {1} günlük sürüşmə ({0})
+Due {0} day earlier than allowed ({1}).,Mərhələ üçün təyin edilmiş son tarix icazə verilən tarixdən {0} gün əvvəldir ({1}).
+Due {0} days earlier than allowed ({1}).,Mərhələ üçün təyin edilmiş son tarix icazə verilən tarixdən {0} gün əvvəldir ({1}).
+Starts {0} day earlier than allowed ({1}).,Tapşırıq icazə verilən tarixdən {0} gün əvvəl başlayır ({1}).
+Starts {0} days earlier than allowed ({1}).,Tapşırıq icazə verilən tarixdən {0} gün əvvəl başlayır ({1}).
+Waiting on inspection {0} ({1}).,{0} yoxlamasının başa çatması gözlənilir ({1}).
+This file is not a spreadsheet Excel can save (.xlsx).,Bu fayl düzgün .xlsx formatında deyil. Cədvəli Excel-də .xlsx formatında saxlayın.
+This spreadsheet uses a compression this screen cannot read. Save it again as .xlsx or .csv.,Bu cədvəlin sıxılma üsulu dəstəklənmir. Faylı yenidən .xlsx və ya .csv formatında saxlayın.
+No worksheets were found in this file.,Faylda iş vərəqi tapılmadı.
+Old .xls files cannot be read here. Open it in Excel and save it as .xlsx or .csv.,Köhnə .xls faylları burada oxunmur. Faylı Excel-də açıb .xlsx və ya .csv formatında saxlayın.
+"A total row, not a line of work","İş mövqeyi deyil, yekun sətridir"
+No description,Təsvir yoxdur
+Amount only: imported as 1 × the amount,"Yalnız məbləğ göstərilib. Miqdar 1, vahid qiymət isə həmin məbləğ kimi götürülür."
+"Quantity ""{0}"" is not a number: imported as 0",Miqdar üçün daxil edilmiş «{0}» ədəd deyil. Miqdar 0 kimi götürülür.
+"Rate ""{0}"" is not a number: imported as 0",Vahid qiymət üçün daxil edilmiş «{0}» ədəd deyil. Vahid qiymət 0 kimi götürülür.
+No quantity: imported as 0,Miqdar göstərilməyib. 0 kimi götürülür.
+No rate: imported as 0,Vahid qiymət göstərilməyib. 0 kimi götürülür.
+The amount in the file is not quantity × rate; quantity × rate is used,Fayldakı məbləğ miqdarla vahid qiymətin hasilinə uyğun gəlmir. Hesablanmış məbləğ götürülür.
+Code {0} is already used: a new one is given,{0} kodu artıq istifadə olunur. Yeni kod veriləcək.
+"Cost head ""{0}"" is not one of {1}: left blank",«{0}» xərc maddəsi tanınmadığı üçün bu xana boş saxlanılır. Seçimlər: {1}.
+row {0} ({1}),Sətir {0} ({1})
+Add at least one employee (use Bulk select).,Ən azı bir işçi əlavə edin. «Toplu seçim» düyməsindən istifadə edə bilərsiniz.
+Every row needs a worker.,Hər sətir üçün işçi seçin.
+Every member row needs a worker.,Briqada üzvləri siyahısının hər sətrində işçi seçin.
+{0} worker allocated to this project,Bu layihəyə {0} işçi təyin edilib
+Could not load the project roster.,Layihəyə təyin edilmiş işçilərin siyahısını yükləmək mümkün olmadı.
+Uploading video…,Video yüklənir…
+Uploading image…,Şəkil yüklənir…
+This video has not been uploaded yet.,Bu video hələ yüklənməyib.
+This image has not been uploaded yet.,Bu şəkil hələ yüklənməyib.
+Upload failed: {0},Yükləmə baş tutmadı: {0}
+Loading embed…,Yerləşdirilmiş məzmun yüklənir…
+Float left,"Sola yerləşdir, mətn sağdan keçsin"
+Float right,"Sağa yerləşdir, mətn soldan keçsin"
+Remove float,Mətnin ətrafdan axmasını söndür
+Add caption,Başlıq əlavə et
+Resize,Ölçünü dəyiş
+Failed to load print,Çap görünüşünü yükləmək mümkün olmadı
+An unexpected error occurred,Gözlənilməz xəta baş verdi
+Failed to load Cost vs Budget.,Faktiki xərclərlə büdcənin müqayisəsini yükləmək mümkün olmadı.
+Failed to load Delay Analysis.,Gecikmələrin təhlilini yükləmək mümkün olmadı.
+Failed to render print format.,Çap formasını hazırlamaq mümkün olmadı.
+Search failed.,Axtarış baş tutmadı.
+Daily / weekly / monthly document. Client issue by default; internal detail is an option inside.,"Gündəlik, həftəlik və ya aylıq hesabat. İlkin görünüş sifarişçi üçündür. Hesabat daxilində daxili görünüşü də seçə bilərsiniz."
+"Invoiced, received, overdue and retention held by the client.","Hesab-faktura üzrə məbləğ, alınmış ödəniş, gecikmiş borc və sifarişçinin saxladığı təminat məbləği."
+"Per subcontractor: WO value, measured to date, measured not billed, billed, paid, retention, outstanding.","Hər subpodratçı üzrə iş sifarişinin dəyəri, ölçülmüş işlər, hesab-fakturaya salınmamış ölçülər, hesablanmış və ödənilmiş məbləğlər, təminat tutulması və borc qalığı."
+"Ordered → received → consumed → at site by item, with overdue deliveries flagged.","Hər material üzrə sifariş edilmiş, qəbul edilmiş və sərf edilmiş miqdarlar, sahədəki qalıq və gecikən çatdırılmalar."
+Changed from {0} to {1},"{0} dəyərindən {1} dəyərinə dəyişdirildi"
+Cannot Mark {0} for Employee {1} as is Already Marked {2}.,{0} statusunu {1} işçisi üçün qeyd etmək mümkün deyil: {2} statusu artıq qeyd edilib.
+Cannot Mark {0} for Employee {1} as 2 Half Days are Marked Already!,{0} statusunu {1} işçisi üçün qeyd etmək mümkün deyil: artıq iki yarım gün qeyd edilib.
+No regular attendance record found for labour {0} for date {1}!,{1} tarixi üçün {0} işçisinin müntəzəm davamiyyət qeydi tapılmadı!
+Cannot mark overtime as labour {0} was not Present full day for date {1},{1} tarixində {0} işçisi tam gün işdə olmadığı üçün əlavə iş vaxtını qeyd etmək mümkün deyil.
+Module launcher,Modul mərkəzi
+Open BuildSuite and ERPNext workspaces directly from Desktop.,BuildSuite və ERPNext iş sahələrini birbaşa İş masasından açın.
+BuildSuite modules,BuildSuite modulları
+ERPNext modules,ERPNext modulları

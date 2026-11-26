@@ -350,7 +350,7 @@ const breadcrumbs = computed(() => [
 			class="bg-warning-50 border border-warning-200 px-4 py-3 text-sm text-ink-900"
 			style="border-radius: 6px"
 		>
-			{{ __("Only a Draft BOQ can take imported lines. This one is {0}.", [boq.status]) }}
+			{{ __("Only a Draft BOQ can take imported lines. This one is {0}.", [__(boq.status)]) }}
 			<DeskLink :to="`/boq/${boqId}`">{{ __("Back to the BOQ") }}</DeskLink
 			>{{ __(', and make a revision to change it.') }}
 		</div>
@@ -1031,10 +1031,7 @@ const breadcrumbs = computed(() => [
 								plan.skipped
 									.map(
 										(x) =>
-											__("row {0}", [x.rowNo]) +
-											" (" +
-											x.reason.toLowerCase() +
-											")"
+											__("row {0} ({1})", [x.rowNo, x.reason])
 									)
 									.join(", ")
 							}}.

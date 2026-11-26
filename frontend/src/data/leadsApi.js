@@ -1,6 +1,6 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
 
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Thin wrappers over buildsuite_core.api.leads.* — Sales › Leads on ERPNext's own Lead.
 
@@ -11,7 +11,7 @@ async function call(method, args) {
 			params: args || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

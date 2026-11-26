@@ -56,6 +56,7 @@ app_include_js = [
 	"/assets/buildsuite_core/js/desk_az_record_labels.js",
 	"/assets/buildsuite_core/js/desk_az_form_buttons.js",
 	"/assets/buildsuite_core/js/desk_az_report_filters.js",
+	"/assets/buildsuite_core/js/desk_module_launcher.js?v=4",
 ]
 
 # include js, css files in header of web template
@@ -533,3 +534,7 @@ doctype_list_js = {
 		"public/js/desk_az_master_lists.js",
 	),
 }
+
+get_print_format_template = [
+	"buildsuite_core.patches.localize_installed_standard_content.get_print_format_template"
+]

@@ -1,6 +1,6 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
 
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // The backend half of the command palette (buildsuite_core.api.search.command_palette): the same
 // permission-safe Frappe global-search index the Desk omnibar uses, plus name-matched doctypes.
@@ -14,6 +14,6 @@ export async function commandPalette(text, limit = 12) {
 		});
 		return { doctypes: r?.doctypes || [], records: r?.records || [] };
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Search failed.");
+		throw new Error(frappeErrorMessage(err, "Search failed."));
 	}
 }

@@ -12,12 +12,12 @@ const props = defineProps({ doctype: { type: String, required: true } });
 const breadcrumbs = computed(() => [
 	{ label: __("BuildSuite Core"), to: "/" },
 	{ label: __("Settings"), to: "/settings" },
-	{ label: props.doctype },
+	{ label: __(props.doctype) },
 ]);
 </script>
 
 <template>
-	<DeskPage :title="doctype" :breadcrumbs="breadcrumbs">
+	<DeskPage :title="__(doctype)" :breadcrumbs="breadcrumbs">
 		<DocTypeForm :key="doctype" :doctype="doctype" :name="doctype" />
 	</DeskPage>
 </template>

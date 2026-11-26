@@ -11,6 +11,7 @@
 import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { getPrintHtml } from "@/data/printApi";
+import { __ } from "@/utils/translate";
 import { showToast } from "@/utils/appToast";
 
 const props = defineProps({
@@ -59,7 +60,7 @@ async function load() {
 		html.value = res?.html || "";
 		style.value = res?.style || "";
 	} catch (err) {
-		if (mine === latest) showToast(err.message || "Failed to load print", "error");
+		if (mine === latest) showToast(err.message || __("Failed to load print"), "error");
 	} finally {
 		if (mine === latest) loading.value = false;
 	}

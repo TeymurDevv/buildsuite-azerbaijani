@@ -163,11 +163,11 @@ class OvertimeAttendanceRegister(Document):
 		)
 		if not docs and row_status != "Overtime Only":
 			frappe.throw(
-				f"No regular attendance record found for labour {frappe.bold(self.employee_name)} for date {frappe.bold(self.overtime_date)}!"
+				_("No regular attendance record found for labour {0} for date {1}!").format(frappe.bold(self.employee_name), frappe.bold(self.overtime_date))
 			)
 		if ("Half Day" in docs and docs.count("Half Day") != 2) or "Absent" in docs:
 			frappe.throw(
-				f"Cannot mark overtime as labour {frappe.bold(self.employee_name)} was not Present full day for date {frappe.bold(self.overtime_date)}"
+				_("Cannot mark overtime as labour {0} was not Present full day for date {1}").format(frappe.bold(self.employee_name), frappe.bold(self.overtime_date))
 			)
 		OTR = frappe.qb.DocType("Overtime Attendance Register")
 

@@ -177,9 +177,14 @@ export function parseFrappeError(err) {
 			serverErrorMessage(err._server_messages) ??
 			messages[messages.length - 1] ??
 			stripHtml(err.message) ??
-			"An unexpected error occurred",
+			__("An unexpected error occurred"),
 		fieldErrors: {},
 	};
+}
+
+/** Keep the server's message intact. Translate only the application's own fallback. */
+export function frappeErrorMessage(err, fallback = "Request failed.") {
+	return parseFrappeError(err).summary || __(fallback);
 }
 
 /**

@@ -843,9 +843,20 @@ export const VIZ_LABEL = {
 	kpi: "Single figure",
 };
 const enumDimensions = new Set(["status", "state", "priority", "blocker"]);
+const scopeChangeTypes = new Set([
+	"Design Change",
+	"Client Request",
+	"Statutory",
+	"Site Condition",
+	"Rework",
+	"Other",
+]);
+function isEnumDimension(key, value) {
+	return enumDimensions.has(key) || (key === "type" && scopeChangeTypes.has(value));
+}
 export function displayDimension(key, value) {
 	if (key === "month") return monthOf(value);
-	return enumDimensions.has(key) ? __(value) : value;
+	return isEnumDimension(key, value) ? __(value) : value;
 }
 const stateTerms = {
 	Open: ["açıq"],
@@ -1061,7 +1072,7 @@ function applyFilters(spec, text, store, notes) {
 			dim === "priority" ? text.replace(/\ben (?:yuksek|asagi|az|cox) \d+\b/g, " ") : text;
 		const candidates = [...options]
 			.flatMap((value) => {
-				const words = enumDimensions.has(dim)
+				const words = isEnumDimension(dim, value)
 					? [value, __(value), ...(stateTerms[value] || [])]
 					: [value];
 				return words

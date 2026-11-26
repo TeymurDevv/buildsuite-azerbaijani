@@ -41,7 +41,7 @@ export function todoReference(todo) {
 /** The heading for a card or a list row — the first line of the description, trimmed. */
 export function todoTitle(todo, max = 90) {
 	const first = String(todo?.description || "").split("\n")[0].trim();
-	if (!first) return "(no description)";
+	if (!first) return __("(no description)");
 	return first.length > max ? first.slice(0, max - 1).trimEnd() + "…" : first;
 }
 

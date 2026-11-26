@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError, serverErrorMessage } from "@/utils/frappeError";
+import { frappeErrorMessage, serverErrorMessage } from "@/utils/frappeError";
 
 // Thin wrappers over buildsuite_core.api.timesheet — timesheets on the native Timesheet doctype:
 // one worker, one day, rows of hours against a project and cost code.
@@ -11,7 +11,7 @@ async function call(method, params) {
 			params: params || {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Request failed.");
+		throw new Error(frappeErrorMessage(err));
 	}
 }
 

@@ -3,6 +3,7 @@
 // object (New) or a `ref` replaced wholesale on snapshot (Detail).
 
 import { computed, ref, watch } from "vue";
+import { __ } from "@/utils/translate";
 import { getRoster } from "@/data/fieldAttendanceApi";
 
 export function useAttendanceSheet(getForm) {
@@ -106,7 +107,7 @@ export function useAttendanceSheet(getForm) {
 				projectRoster.value = rows;
 			} catch (err) {
 				if (token !== rosterToken) return;
-				rosterError.value = err.message || "Could not load the project roster.";
+				rosterError.value = err.message || __("Could not load the project roster.");
 			}
 		},
 		{ immediate: true }
@@ -124,8 +125,8 @@ export function useAttendanceSheet(getForm) {
 	const rosterTitle = computed(() => {
 		if (rosterError.value) return rosterError.value;
 		return projectRoster.value.length
-			? `${projectRoster.value.length} worker(s) allocated to this project`
-			: "No workers allocated to this project yet";
+			? __(projectRoster.value.length === 1 ? "{0} worker allocated to this project" : "{0} workers allocated to this project", [projectRoster.value.length])
+			: __("No workers allocated to this project yet");
 	});
 
 	return {

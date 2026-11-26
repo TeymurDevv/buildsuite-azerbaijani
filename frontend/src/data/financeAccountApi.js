@@ -1,5 +1,5 @@
 import { frappeRequest } from "frappe-ui-frappe-request";
-import { parseFrappeError } from "@/utils/frappeError";
+import { frappeErrorMessage } from "@/utils/frappeError";
 
 // Settings › Bank & Cash Accounts (S229). The finance-account master backed by ERPNext
 // Account (Bank / Cash, company-scoped) — see buildsuite_core.api.finance_account.
@@ -12,7 +12,7 @@ export async function listFinanceAccounts(company) {
 			params: company ? { company } : {},
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Failed to load accounts.");
+		throw new Error(frappeErrorMessage(err, "Failed to load accounts."));
 	}
 }
 
@@ -24,7 +24,7 @@ export async function saveFinanceAccount(payload) {
 			params: payload,
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Failed to save the account.");
+		throw new Error(frappeErrorMessage(err, "Failed to save the account."));
 	}
 }
 
@@ -36,6 +36,6 @@ export async function deleteFinanceAccount(account) {
 			params: { account },
 		});
 	} catch (err) {
-		throw new Error(parseFrappeError(err).summary || "Failed to delete the account.");
+		throw new Error(frappeErrorMessage(err, "Failed to delete the account."));
 	}
 }

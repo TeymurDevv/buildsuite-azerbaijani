@@ -1,0 +1,596 @@
+{
+  "Print Format": {
+    "Cheque Printing Format": {
+      "html": {
+        "Prepared By": "Hazırlayan",
+        "Authorised Signatory": "Səlahiyyətli imza sahibi",
+        "Received Payment as Above": "Yuxarıda göstərilən ödəniş alındı",
+        "A/C Payee": "Çekin alıcısı"
+      },
+      "format_data": {
+        "Prepared By": "Hazırlayan",
+        "Authorised Signatory": "Səlahiyyətli imza sahibi",
+        "Received Payment as Above": "Yuxarıda göstərilən ödəniş alındı",
+        "A/C Payee": "Çekin alıcısı"
+      },
+      "__source_file__": "accounts/print_format/cheque_printing_format/cheque_printing_format.json"
+    },
+    "Credit Note": {
+      "format_data": {
+        "Journal Entry": "Mühasibat yazılışı"
+      }
+    },
+    "Delivery Note Bordered": {
+      "html": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      },
+      "format_data": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      }
+    },
+    "Delivery Note Modern": {
+      "html": {
+        "Delivery Note": "Göndəriş sənədi"
+      },
+      "format_data": {
+        "Delivery Note": "Göndəriş sənədi"
+      }
+    },
+    "Delivery Note Modern with Images": {
+      "html": {
+        "Delivery Note": "Göndəriş sənədi",
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Delivery Note": "Göndəriş sənədi",
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Detailed Tax Invoice": {
+      "format_data": {
+        "TAX Invoice": "VERGİ HESAB-FAKTURASI"
+      }
+    },
+    "Drop Shipping Format": {
+      "html": {
+        "Purchase Order": "Satınalma sifarişi",
+        "Supplier Name": "Təchizatçının adı",
+        "Address": "Ünvan",
+        "Contact": "Əlaqə",
+        "Mobile No": "Mobil nömrə",
+        "Date": "Tarix",
+        "Customer Name": "Müştərinin adı",
+        "Customer Address": "Müştərinin ünvanı",
+        "Customer Contact": "Müştərinin əlaqə məlumatları",
+        "Customer Mobile No": "Müştərinin mobil nömrəsi",
+        "Sr": "№",
+        "Item Name": "Malın adı",
+        "Description": "Təsvir",
+        "Qty": "Miqdar",
+        "Rate": "Vahid qiyməti",
+        "Amount": "Məbləğ",
+        "Item Code:": "Malın kodu:",
+        "Total": "Cəmi",
+        "Grand Total": "Yekun məbləğ",
+        "In Words": "Yazı ilə"
+      },
+      "format_data": {
+        "Purchase Order": "Satınalma sifarişi",
+        "Supplier Name": "Təchizatçının adı",
+        "Address": "Ünvan",
+        "Contact": "Əlaqə",
+        "Mobile No": "Mobil nömrə",
+        "Date": "Tarix",
+        "Customer Name": "Müştərinin adı",
+        "Customer Address": "Müştərinin ünvanı",
+        "Customer Contact": "Müştərinin əlaqə məlumatları",
+        "Customer Mobile No": "Müştərinin mobil nömrəsi",
+        "Sr": "№",
+        "Item Name": "Malın adı",
+        "Description": "Təsvir",
+        "Qty": "Miqdar",
+        "Rate": "Vahid qiyməti",
+        "Amount": "Məbləğ",
+        "Item Code:": "Malın kodu:",
+        "Total": "Cəmi",
+        "Grand Total": "Yekun məbləğ",
+        "In Words": "Yazı ilə"
+      }
+    },
+    "Pick List": {
+      "format_data": {
+        "Pick List": "Anbardan yığım siyahısı"
+      }
+    },
+    "POS Invoice Bordered": {
+      "html": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      },
+      "format_data": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      }
+    },
+    "POS Invoice Classic": {
+      "html": {
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Billed To": "Ödəyici"
+      }
+    },
+    "POS Invoice Modern with Images": {
+      "html": {
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Purchase Invoice Bordered": {
+      "html": {
+        "Company:": "Şirkət:",
+        "Supplier:": "Təchizatçı:"
+      },
+      "format_data": {
+        "Company:": "Şirkət:",
+        "Supplier:": "Təchizatçı:"
+      }
+    },
+    "Purchase Invoice Classic": {
+      "html": {
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Purchase Invoice Modern with Images": {
+      "html": {
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Purchase Order Bordered": {
+      "html": {
+        "Company:": "Şirkət:",
+        "Supplier:": "Təchizatçı:"
+      },
+      "format_data": {
+        "Company:": "Şirkət:",
+        "Supplier:": "Təchizatçı:"
+      }
+    },
+    "Purchase Order Classic": {
+      "html": {
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Purchase Order Modern": {
+      "html": {
+        "Purchase Order": "Satınalma sifarişi"
+      },
+      "format_data": {
+        "Purchase Order": "Satınalma sifarişi"
+      }
+    },
+    "Purchase Order Modern with Images": {
+      "html": {
+        "Purchase Order": "Satınalma sifarişi",
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Purchase Order": "Satınalma sifarişi",
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Purchase Receipt Serial and Batch Bundle Print": {
+      "format_data": {
+        "Purchase Receipt": "Malların qəbulu",
+        "Sr": "№",
+        "Item Name": "Malın adı",
+        "Description": "Təsvir",
+        "Qty": "Miqdar",
+        "Rate": "Vahid qiyməti",
+        "Amount": "Məbləğ",
+        "Item Code:": "Malın kodu:",
+        "Serial Nos": "Seriya nömrələri",
+        "Batch Nos (Qty)": "Partiya № (miqdar)"
+      }
+    },
+    "Quotation Bordered": {
+      "html": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      },
+      "format_data": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      }
+    },
+    "Quotation Classic": {
+      "html": {
+        "Party Name": "Tərəfin adı"
+      },
+      "format_data": {
+        "Party Name": "Tərəfin adı"
+      }
+    },
+    "Quotation Modern": {
+      "html": {
+        "Quotation": "Qiymət təklifi"
+      },
+      "format_data": {
+        "Quotation": "Qiymət təklifi"
+      }
+    },
+    "Quotation Modern with Images": {
+      "html": {
+        "Quotation": "Qiymət təklifi",
+        "Party Name": "Tərəfin adı"
+      },
+      "format_data": {
+        "Quotation": "Qiymət təklifi",
+        "Party Name": "Tərəfin adı"
+      }
+    },
+    "Request for Quotation Bordered": {
+      "html": {
+        "Company:": "Şirkət:"
+      },
+      "format_data": {
+        "Company:": "Şirkət:"
+      }
+    },
+    "Request for Quotation Classic": {
+      "html": {
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Request for Quotation Modern": {
+      "html": {
+        "Request for Quotation": "Qiymət təklifi sorğusu"
+      },
+      "format_data": {
+        "Request for Quotation": "Qiymət təklifi sorğusu"
+      }
+    },
+    "Request for Quotation Modern with Images": {
+      "html": {
+        "Request for Quotation": "Qiymət təklifi sorğusu",
+        "Supplier": "Təchizatçı"
+      },
+      "format_data": {
+        "Request for Quotation": "Qiymət təklifi sorğusu",
+        "Supplier": "Təchizatçı"
+      }
+    },
+    "Sales Invoice Bordered": {
+      "html": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      },
+      "format_data": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      }
+    },
+    "Sales Invoice Classic": {
+      "html": {
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Sales Invoice Modern with Images": {
+      "html": {
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Sales Order Bordered": {
+      "html": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      },
+      "format_data": {
+        "Bill From:": "Göndərən:",
+        "Bill To:": "Alıcı:"
+      }
+    },
+    "Sales Order Classic": {
+      "html": {
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Sales Order Modern": {
+      "html": {
+        "Sales Order": "Satış sifarişi"
+      },
+      "format_data": {
+        "Sales Order": "Satış sifarişi"
+      }
+    },
+    "Sales Order Modern with Images": {
+      "html": {
+        "Sales Order": "Satış sifarişi",
+        "Billed To": "Ödəyici"
+      },
+      "format_data": {
+        "Sales Order": "Satış sifarişi",
+        "Billed To": "Ödəyici"
+      }
+    },
+    "Simplified Tax Invoice": {
+      "format_data": {
+        "TAX Invoice": "VERGİ HESAB-FAKTURASI"
+      }
+    },
+    "Tax Invoice": {
+      "format_data": {
+        "TAX Invoice": "VERGİ HESAB-FAKTURASI"
+      }
+    },
+    "Bank and Cash Payment Voucher": {
+      "html": {
+        "Account": "Hesab",
+        "Amount": "Məbləğ",
+        "Credit": "Kredit",
+        "Date:": "Tarix:",
+        "Debit": "Debet",
+        "Narration": "Təyinat",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Total (credit)": "Cəmi (kredit)",
+        "Total (debit)": "Cəmi (debet)",
+        "Voucher No:": "Çek №:"
+      },
+      "format_data": {
+        "Account": "Hesab",
+        "Amount": "Məbləğ",
+        "Credit": "Kredit",
+        "Date:": "Tarix:",
+        "Debit": "Debet",
+        "Narration": "Təyinat",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Total (credit)": "Cəmi (kredit)",
+        "Total (debit)": "Cəmi (debet)",
+        "Voucher No:": "Çek №:"
+      },
+      "__source_file__": "accounts/print_format/bank_and_cash_payment_voucher/bank_and_cash_payment_voucher.html"
+    },
+    "Journal Auditing Voucher": {
+      "html": {
+        "Account": "Hesab",
+        "Amount": "Məbləğ",
+        "Credit": "Kredit",
+        "Date:": "Tarix:",
+        "Debit": "Debet",
+        "Narration:": "Təyinat:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Total (credit)": "Cəmi (kredit)",
+        "Total (debit)": "Cəmi (debet)",
+        "Voucher No:": "Çek №:"
+      },
+      "format_data": {
+        "Account": "Hesab",
+        "Amount": "Məbləğ",
+        "Credit": "Kredit",
+        "Date:": "Tarix:",
+        "Debit": "Debet",
+        "Narration:": "Təyinat:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Total (credit)": "Cəmi (kredit)",
+        "Total (debit)": "Cəmi (debet)",
+        "Voucher No:": "Çek №:"
+      },
+      "__source_file__": "accounts/print_format/journal_auditing_voucher/journal_auditing_voucher.html"
+    },
+    "Purchase Auditing Voucher": {
+      "html": {
+        "Account": "Hesab",
+        "Address:": "Ünvan:",
+        "Amount": "Məbləğ",
+        "Basic Rate": "Əsas tarif",
+        "Contact:": "Əlaqə:",
+        "Credit Amount": "Kredit məbləği",
+        "Date:": "Tarix:",
+        "Debit Amount": "Debet məbləği",
+        "Due Date:": "Ödəniş vaxtı:",
+        "Item Code": "Malın kodu",
+        "Item Name": "Malın adı",
+        "Mobile no:": "Mobil nömrə:",
+        "Net Payable:": "Ödəniləcək xalis məbləğ:",
+        "Net Weight:": "Xalis çəki:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Qty": "Miqdar",
+        "Received Qty.": "Qəbul edilmiş miqdar",
+        "Rejected Qty": "Rədd edilmiş miqdar",
+        "Supplier Name:": "Təchizatçının adı:",
+        "Tax and Charges:": "Vergi və xərclər:",
+        "Taxes and Charges Added:": "Əlavə edilmiş vergi və xərclər:",
+        "Taxes and Charges Deducted:": "Çıxılmış vergi və xərclər:",
+        "Total": "Cəmi",
+        "Total Quantity:": "Ümumi miqdar:",
+        "Total Taxes and Charges:": "Vergi və xərclərin cəmi:",
+        "Total:": "Cəmi:",
+        "Voucher No:": "Çek №:"
+      },
+      "format_data": {
+        "Account": "Hesab",
+        "Address:": "Ünvan:",
+        "Amount": "Məbləğ",
+        "Basic Rate": "Əsas tarif",
+        "Contact:": "Əlaqə:",
+        "Credit Amount": "Kredit məbləği",
+        "Date:": "Tarix:",
+        "Debit Amount": "Debet məbləği",
+        "Due Date:": "Ödəniş vaxtı:",
+        "Item Code": "Malın kodu",
+        "Item Name": "Malın adı",
+        "Mobile no:": "Mobil nömrə:",
+        "Net Payable:": "Ödəniləcək xalis məbləğ:",
+        "Net Weight:": "Xalis çəki:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Qty": "Miqdar",
+        "Received Qty.": "Qəbul edilmiş miqdar",
+        "Rejected Qty": "Rədd edilmiş miqdar",
+        "Supplier Name:": "Təchizatçının adı:",
+        "Tax and Charges:": "Vergi və xərclər:",
+        "Taxes and Charges Added:": "Əlavə edilmiş vergi və xərclər:",
+        "Taxes and Charges Deducted:": "Çıxılmış vergi və xərclər:",
+        "Total": "Cəmi",
+        "Total Quantity:": "Ümumi miqdar:",
+        "Total Taxes and Charges:": "Vergi və xərclərin cəmi:",
+        "Total:": "Cəmi:",
+        "Voucher No:": "Çek №:"
+      },
+      "__source_file__": "accounts/print_format/purchase_auditing_voucher/purchase_auditing_voucher.html"
+    },
+    "Sales Auditing Voucher": {
+      "html": {
+        "Account": "Hesab",
+        "Address:": "Ünvan:",
+        "Amount": "Məbləğ",
+        "Basic Rate": "Əsas tarif",
+        "Contact:": "Əlaqə:",
+        "Credit Amount": "Kredit məbləği",
+        "Customer Name:": "Müştərinin adı:",
+        "Date:": "Tarix:",
+        "Debit Amount": "Debet məbləği",
+        "Due Date:": "Ödəniş vaxtı:",
+        "Item Code": "Malın kodu",
+        "Item Name": "Malın adı",
+        "Mobile no:": "Mobil nömrə:",
+        "Net Payable:": "Ödəniləcək xalis məbləğ:",
+        "Net Weight:": "Xalis çəki:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Quantity": "Miqdar",
+        "Tax and Charges:": "Vergi və xərclər:",
+        "Total": "Cəmi",
+        "Total Quantity:": "Ümumi miqdar:",
+        "Total Taxes and Charges:": "Vergi və xərclərin cəmi:",
+        "Total:": "Cəmi:",
+        "Voucher No:": "Çek №:"
+      },
+      "format_data": {
+        "Account": "Hesab",
+        "Address:": "Ünvan:",
+        "Amount": "Məbləğ",
+        "Basic Rate": "Əsas tarif",
+        "Contact:": "Əlaqə:",
+        "Credit Amount": "Kredit məbləği",
+        "Customer Name:": "Müştərinin adı:",
+        "Date:": "Tarix:",
+        "Debit Amount": "Debet məbləği",
+        "Due Date:": "Ödəniş vaxtı:",
+        "Item Code": "Malın kodu",
+        "Item Name": "Malın adı",
+        "Mobile no:": "Mobil nömrə:",
+        "Net Payable:": "Ödəniləcək xalis məbləğ:",
+        "Net Weight:": "Xalis çəki:",
+        "Party": "Qarşı tərəf",
+        "Party Type": "Tərəfin növü",
+        "Quantity": "Miqdar",
+        "Tax and Charges:": "Vergi və xərclər:",
+        "Total": "Cəmi",
+        "Total Quantity:": "Ümumi miqdar:",
+        "Total Taxes and Charges:": "Vergi və xərclərin cəmi:",
+        "Total:": "Cəmi:",
+        "Voucher No:": "Çek №:"
+      },
+      "__source_file__": "accounts/print_format/sales_auditing_voucher/sales_auditing_voucher.html"
+    }
+  },
+  "Notification": {
+    "Error Log": {
+      "subject": {
+        "[Error]": "[Xəta]"
+      },
+      "message": {
+        "Error Log": "Xəta jurnalı",
+        "Site": "Tikinti sahəsi",
+        "Error ID": "Xəta identifikatoru",
+        "Title": "Başlıq",
+        "Logged At": "Qeyd vaxtı",
+        "Reference": "İstinad",
+        "Error Details": "Xəta təfərrüatları",
+        "View Error Log": "Xəta jurnalına bax",
+        "This is an automated notification from": "Bu, avtomatik bildirişdir. Mənbə:"
+      }
+    },
+    "Integration Request": {
+      "subject": {
+        "[Error]": "[Xəta]"
+      },
+      "message": {
+        "Integration Request": "İnteqrasiya sorğusu",
+        "Site": "Tikinti sahəsi",
+        "Request ID": "Sorğunun identifikatoru",
+        "Service": "Xidmət",
+        "Status": "Vəziyyət",
+        "Description": "Təsvir",
+        "Logged At": "Qeyd vaxtı",
+        "Endpoint URL": "Son nöqtənin URL-i",
+        "Reference": "İstinad",
+        "Error Details": "Xəta təfərrüatları",
+        "Response Output": "Cavab nəticəsi",
+        "View Integration Request": "İnteqrasiya sorğusuna bax",
+        "This is an automated notification from": "Bu, avtomatik bildirişdir. Mənbə:"
+      }
+    },
+    "Material Request Receipt Notification": {
+      "subject": {
+        "has been received": "qəbul edildi"
+      }
+    },
+    "Notification for new fiscal year": {
+      "subject": {
+        "New Fiscal Year": "Yeni maliyyə ili",
+        "- Review Required": "— Yoxlama tələb olunur"
+      }
+    }
+  },
+  "Web Form": {
+    "request-data": {
+      "introduction_text": {
+        "__replace_entire_field__": "<div class=\"ql-editor read-mode\"><p>Sistemimizdə saxlanılan şəxsiyyəti müəyyən edən məlumatlarınızın (PII) faylını istəyin. Fayl JSON formatında hazırlanaraq sizə e-poçtla göndəriləcək. PII məlumatlarınızın silinməsini istəyirsinizsə, <a href=\"/request-to-delete-data\" rel=\"noopener noreferrer\">məlumatların silinməsi üçün sorğu</a> göndərin.</p></div>"
+      }
+    },
+    "request-to-delete-data": {
+      "introduction_text": {
+        "__replace_entire_field__": "<div class=\"ql-editor read-mode\"><p>Sistemimizdə saxlanılan hesabınızın və şəxsiyyəti müəyyən edən məlumatlarınızın (PII) silinməsi üçün sorğu göndərin. Sorğunu təsdiqləmək üçün sizə e-poçt göndəriləcək. Təsdiqdən sonra hesabınız və PII məlumatlarınız silinəcək. Saxlanılan PII məlumatlarına baxmaq istəyirsinizsə, <a href=\"/request-data\" rel=\"noopener noreferrer\">məlumatlarınızı əldə etmək üçün sorğu</a> göndərin.</p></div>"
+      }
+    }
+  },
+  "Letter Head": {
+    "Company Letterhead": {
+      "content": {
+        "Company Logo": "Şirkətin loqosu"
+      }
+    }
+  }
+}

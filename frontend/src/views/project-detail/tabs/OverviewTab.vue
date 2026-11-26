@@ -289,7 +289,7 @@ function deviationColor(pct) {
 										: 'bg-white border-ink-200 hover:border-brand-400 hover:bg-brand-50'
 								"
 								style="border-radius: 8px"
-								:title="rt.desc"
+								:title="__(rt.desc)"
 							>
 								<span
 									class="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 transition-colors"
@@ -318,7 +318,7 @@ function deviationColor(pct) {
 											? 'text-ink-900'
 											: 'text-ink-900 group-hover:text-brand-700'
 									"
-									>{{ rt.label }}</span
+									>{{ __(rt.label) }}</span
 								>
 								<span
 									v-if="rt.primary"

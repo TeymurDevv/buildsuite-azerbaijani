@@ -106,124 +106,70 @@ const summarySentences = computed(() => {
 	const out = [];
 	if (isClient.value) {
 		out.push(
-			`The works are ${pr.actual}% complete against a programme position of ${Math.round(
-				pr.expected
-			)}% as at ${fmtDate(window_.value.end)}.`
+			__("The works are {0}% complete against a programme position of {1}% as at {2}.", [
+				pr.actual,
+				Math.round(pr.expected),
+				fmtDate(window_.value.end),
+			])
 		);
 		out.push(
 			pr.slip_days > 0
-				? `This represents a slippage of approximately ${pr.slip_days} ${plural(
+				? __("This represents a slippage of approximately {0} days against programme.", [
 						pr.slip_days,
-						"day",
-						"days"
-				  )} against programme.`
-				: "The works are on or ahead of programme."
+				  ])
+				: __("The works are on or ahead of programme.")
 		);
 		if (currentStages.value.length) {
 			const named = currentStages.value
-				.map((s) => `${s.name}${s.pct !== null ? ` (${s.pct}% complete)` : ""}`)
+				.map((stage) =>
+					stage.pct !== null
+						? __("{0} ({1}% complete)", [stage.name, stage.pct])
+						: stage.name
+				)
 				.join(", ");
 			out.push(
-				`Work is currently in ${
-					currentStages.value.length === 1 ? "the" : "the following stages:"
-				} ${named}${currentStages.value.length === 1 ? " stage" : ""}.`
+				currentStages.value.length === 1
+					? __("Work is currently in stage {0}.", [named])
+					: __("Work is currently in these stages: {0}.", [named])
 			);
 		}
-		const advanced = (report.value.task_activity || []).filter((r) => r.delta > 0);
+		const advanced = (report.value.task_activity || []).filter((row) => row.delta > 0);
 		if (advanced.length)
-			out.push(
-				`${advanced.length} ${plural(
-					advanced.length,
-					"activity",
-					"activities"
-				)} advanced during the period${
-					k.tasks_completed ? `, of which ${k.tasks_completed} reached completion` : ""
-				}.`
-			);
+			out.push(__("{0} activities advanced during the period.", [advanced.length]));
 		if (labour.value.total)
-			out.push(
-				`${labour.value.total} ${plural(
-					labour.value.total,
-					"labour-day",
-					"labour-days"
-				)} were deployed on site.`
-			);
+			out.push(__("{0} labour-days were deployed on site.", [labour.value.total]));
 		if (k.blockers)
-			out.push(
-				`${k.blockers} ${plural(
-					k.blockers,
-					"constraint",
-					"constraints"
-				)} affecting progress ${plural(
-					k.blockers,
-					"is",
-					"are"
-				)} listed under Delays & constraints.`
-			);
+			out.push(__("{0} constraints affecting progress are listed under Delays & constraints.", [k.blockers]));
 		if (variations.value.items.length)
-			out.push(
-				`${variations.value.items.length} ${plural(
-					variations.value.items.length,
-					"variation",
-					"variations"
-				)} chargeable to the contract ${plural(
-					variations.value.items.length,
-					"was",
-					"were"
-				)} raised in the period.`
-			);
+			out.push(__("{0} chargeable variations were raised during the period.", [variations.value.items.length]));
 		return out;
 	}
 	out.push(
-		`Project is ${pr.actual}% complete against ${Math.round(
-			pr.expected
-		)}% expected by ${fmtDate(window_.value.end)}${
-			pr.slip_days > 0
-				? ` — ${pr.slip_days} ${plural(pr.slip_days, "day", "days")} behind programme`
-				: " — on or ahead of programme"
-		}.`
+		pr.slip_days > 0
+			? __("Project is {0}% complete against {1}% expected by {2}, {3} days behind programme.", [
+					pr.actual, Math.round(pr.expected), fmtDate(window_.value.end), pr.slip_days,
+			  ])
+			: __("Project is {0}% complete against {1}% expected by {2}, on or ahead of programme.", [
+					pr.actual, Math.round(pr.expected), fmtDate(window_.value.end),
+			  ])
 	);
 	out.push(
-		`Of ${t.total} tasks, ${t.completed} complete, ${t.in_progress} in progress, ${
-			t.yet_to_start
-		} not started${t.delayed ? `, ${t.delayed} in delay` : ""}${
-			t.blocked ? `, ${t.blocked} blocked` : ""
-		}.`
+		__("Of {0} tasks, {1} are complete, {2} are in progress, {3} have not started, {4} are delayed and {5} are blocked.", [
+			t.total, t.completed, t.in_progress, t.yet_to_start, t.delayed, t.blocked,
+		])
 	);
 	if (k.tasks_completed)
-		out.push(
-			`${k.tasks_completed} ${plural(
-				k.tasks_completed,
-				"task",
-				"tasks"
-			)} completed in this period.`
-		);
+		out.push(__("{0} tasks were completed during this period.", [k.tasks_completed]));
 	if (k.entries)
-		out.push(
-			`${k.entries} progress ${plural(k.entries, "entry", "entries")} filed; ${
-				labour.value.total
-			} ${plural(labour.value.total, "labour-day", "labour-days")} deployed (${
-				labour.value.skilled
-			} skilled / ${labour.value.unskilled} unskilled).`
-		);
-	if (k.deliveries)
-		out.push(`${k.deliveries} ${plural(k.deliveries, "delivery", "deliveries")} received.`);
-	if (k.blockers)
-		out.push(
-			`${k.blockers} ${plural(
-				k.blockers,
-				"blocker",
-				"blockers"
-			)} raised — see Delays & constraints.`
-		);
-	if (k.scope_changes)
-		out.push(
-			`${k.scope_changes} scope ${plural(k.scope_changes, "change", "changes")} raised.`
-		);
-	if (t.overdue)
-		out.push(`${t.overdue} ${plural(t.overdue, "task is", "tasks are")} currently overdue.`);
+		out.push(__("{0} progress entries were filed; {1} labour-days were deployed ({2} skilled and {3} unskilled).", [
+			k.entries, labour.value.total, labour.value.skilled, labour.value.unskilled,
+		]));
+	if (k.deliveries) out.push(__("{0} deliveries were received.", [k.deliveries]));
+	if (k.blockers) out.push(__("{0} blockers were raised. See Delays & constraints.", [k.blockers]));
+	if (k.scope_changes) out.push(__("{0} scope changes were raised.", [k.scope_changes]));
+	if (t.overdue) out.push(__("{0} tasks are currently overdue.", [t.overdue]));
 	return out;
-});
+});;
 
 const STAGE_TONE = {
 	Complete: "bg-success-50 text-success-700",

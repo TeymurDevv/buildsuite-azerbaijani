@@ -68,7 +68,7 @@ function selectOptions(f) {
 
 const breadcrumbs = computed(() => [
 	{ label: __("BuildSuite Core"), to: "/" },
-	{ label: config.value?.label || props.doctype },
+	{ label: __(config.value?.label || props.doctype) },
 ]);
 
 function onNew() {
@@ -80,7 +80,7 @@ function onRow(row) {
 </script>
 
 <template>
-	<DeskPage :title="config?.label || doctype" :breadcrumbs="breadcrumbs">
+	<DeskPage  :title="__(config?.label || doctype)" :breadcrumbs="breadcrumbs">
 		<template #actions>
 			<button v-if="perms.create" type="button" class="desk-save-btn" @click="onNew">
 				+ {{ __("New") }}
@@ -106,7 +106,7 @@ function onRow(row) {
 			<template v-if="filters.length" #filter-chips>
 				<div v-for="f in filters" :key="f.fieldname" class="flex items-center gap-1.5">
 					<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-						{{ f.label }}
+						{{ __(f.label) }}
 					</span>
 					<!-- Link -->
 					<DeskLinkPicker
@@ -124,7 +124,7 @@ function onRow(row) {
 						class="!w-40"
 					>
 						<option value="">{{ __("Any") }}</option>
-						<option v-for="o in selectOptions(f)" :key="o" :value="o">{{ o }}</option>
+						<option v-for="o in selectOptions(f)" :key="o" :value="o">{{ __(o) }}</option>
 					</DeskSelect>
 					<!-- Check -->
 					<DeskSelect

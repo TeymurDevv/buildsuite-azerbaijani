@@ -89,18 +89,18 @@ class LabourAttendanceRegister(Document):
 			if self.status == "Full Day" or self.status == "Absent":
 				if "Full Day" in docs or "Half Day" in docs or "Absent" in docs:
 					frappe.throw(
-						f"Cannot Mark {frappe.bold(self.status)} for Employee {frappe.bold(self.employee)} as is Already Marked {docs[0]}."
+						_("Cannot Mark {0} for Employee {1} as is Already Marked {2}.").format(frappe.bold(self.status), frappe.bold(self.employee), docs[0])
 					)
 
 			if self.status == "Half Day":
 				if "Full Day" in docs or "Absent" in docs:
 					frappe.throw(
-						f"Cannot Mark {frappe.bold(self.status)} for Employee {frappe.bold(self.employee)} as is Already Marked {docs[0]}."
+						_("Cannot Mark {0} for Employee {1} as is Already Marked {2}.").format(frappe.bold(self.status), frappe.bold(self.employee), docs[0])
 					)
 
 			if docs.count("Half Day") == 2 and self.status in ["Half Day", "Full Day", "Absent"]:
 				frappe.throw(
-					f"Cannot Mark {frappe.bold(self.status)} for Employee {frappe.bold(self.employee)} as 2 Half Days are Marked Already!"
+					_("Cannot Mark {0} for Employee {1} as 2 Half Days are Marked Already!").format(frappe.bold(self.status), frappe.bold(self.employee))
 				)
 
 
