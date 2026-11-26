@@ -195,7 +195,7 @@ _PO_PRINT_HTML = """
 	<div class="po-title-row">
 		<div class="po-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
 		<div class="right">
-			<div class="po-title">PURCHASE ORDER</div>
+			<div class="po-title">{{ _("PURCHASE ORDER") }}</div>
 			<div class="muted" style="font-size:11px; margin-top:4px;">{{ doc.name }}</div>
 			<div class="muted" style="margin-top:2px;">{{ frappe.utils.format_date(doc.transaction_date) }}</div>
 		</div>
@@ -203,50 +203,50 @@ _PO_PRINT_HTML = """
 
 	<div class="parties">
 		<div class="party">
-			<div class="label">Ordered by</div>
+			<div class="label">{{ _("Ordered by") }}</div>
 			<div style="font-weight:600; margin-top:4px;">{{ doc.company or "&mdash;" }}</div>
 			<div class="co-lines">
 				{# The address / GSTIN / contact text set in Settings > Companies, then whatever of Tax ID, CIN, phone and email the Company record holds that the text does not already say. #}
 				{% if co_text %}<div class="pre">{{ co_text }}</div>{% endif %}
-				{% if co.tax_id and co.tax_id not in co_text %}<div>GSTIN / Tax ID: {{ co.tax_id }}</div>{% endif %}
-				{% if co.registration_details and co.registration_details not in co_text %}<div>CIN: {{ co.registration_details }}</div>{% endif %}
-				{% if co.phone_no and co.phone_no not in co_text %}<div>Phone: {{ co.phone_no }}</div>{% endif %}
-				{% if co.email and co.email not in co_text %}<div>Email: {{ co.email }}</div>{% endif %}
+				{% if co.tax_id and co.tax_id not in co_text %}<div>{{ _("GSTIN / Tax ID:") }} {{ co.tax_id }}</div>{% endif %}
+				{% if co.registration_details and co.registration_details not in co_text %}<div>{{ _("CIN:") }} {{ co.registration_details }}</div>{% endif %}
+				{% if co.phone_no and co.phone_no not in co_text %}<div>{{ _("Phone:") }} {{ co.phone_no }}</div>{% endif %}
+				{% if co.email and co.email not in co_text %}<div>{{ _("Email:") }} {{ co.email }}</div>{% endif %}
 			</div>
 		</div>
 		<div class="party">
-			<div class="label">To &mdash; Supplier</div>
+			<div class="label">{{ _("To — Supplier") }}</div>
 			<div style="font-weight:600; margin-top:4px;">{{ doc.supplier_name or doc.supplier }}</div>
 			{% if sup %}
-				{% if sup.supplier_primary_contact %}<div class="muted">Attn: {{ sup.supplier_primary_contact }}</div>{% endif %}
+				{% if sup.supplier_primary_contact %}<div class="muted">{{ _("Attn:") }} {{ sup.supplier_primary_contact }}</div>{% endif %}
 				{% if sup.mobile_no or sup.email_id %}<div class="muted">{{ sup.mobile_no or "" }}{% if sup.mobile_no and sup.email_id %} &middot; {% endif %}{{ sup.email_id or "" }}</div>{% endif %}
-				{% if sup.tax_id %}<div class="muted">Tax ID: {{ sup.tax_id }}</div>{% endif %}
+				{% if sup.tax_id %}<div class="muted">{{ _("Tax ID:") }} {{ sup.tax_id }}</div>{% endif %}
 			{% endif %}
 		</div>
 	</div>
 
 	<div class="meta">
 		<div>
-			<div class="label">Deliver to project</div>
+			<div class="label">{{ _("Deliver to project") }}</div>
 			<div style="font-weight:500;">{{ proj.project_name if proj else doc.project or "&mdash;" }}</div>
 			{% if proj and proj.custom_project_id %}<div class="muted">{{ proj.custom_project_id }}{% if proj.location %} &middot; {{ proj.location }}{% endif %}</div>{% endif %}
 			{% set site_contact = frappe.db.get_value("User", doc.custom_site_contact, ["full_name", "mobile_no"], as_dict=True) if doc.custom_site_contact else None %}
-			{% if site_contact %}<div style="color:#475569; margin-top:2px;">Site contact: <span style="font-weight:500;">{{ site_contact.full_name | e }}</span>{% if site_contact.mobile_no %} &middot; {{ site_contact.mobile_no | e }}{% endif %}</div>{% endif %}
+			{% if site_contact %}<div style="color:#475569; margin-top:2px;">{{ _("Site contact:") }} <span style="font-weight:500;">{{ site_contact.full_name | e }}</span>{% if site_contact.mobile_no %} &middot; {{ site_contact.mobile_no | e }}{% endif %}</div>{% endif %}
 		</div>
-		<div><div class="label">Required by</div><div style="font-weight:500;">{{ frappe.utils.format_date(doc.schedule_date) if doc.schedule_date else "&mdash;" }}</div></div>
-		<div><div class="label">Order date</div><div style="font-weight:500;">{{ frappe.utils.format_date(doc.transaction_date) }}</div></div>
+		<div><div class="label">{{ _("Required by", context="BuildSuite Print") }}</div><div style="font-weight:500;">{{ frappe.utils.format_date(doc.schedule_date) if doc.schedule_date else "&mdash;" }}</div></div>
+		<div><div class="label">{{ _("Order date") }}</div><div style="font-weight:500;">{{ frappe.utils.format_date(doc.transaction_date) }}</div></div>
 	</div>
 
-	<h3 class="sec">Order items</h3>
+	<h3 class="sec">{{ _("Order items") }}</h3>
 	<table class="items">
 		<thead>
 			<tr>
 				<th style="width:24px;">#</th>
-				<th>Item</th>
-				<th class="right">Qty</th>
-				<th>UOM</th>
-				<th class="right">Rate</th>
-				<th class="right">Amount</th>
+				<th>{{ _("Item") }}</th>
+				<th class="right">{{ _("Qty") }}</th>
+				<th>{{ _("UOM") }}</th>
+				<th class="right">{{ _("Rate") }}</th>
+				<th class="right">{{ _("Amount") }}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -266,32 +266,32 @@ _PO_PRINT_HTML = """
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="5" class="right" style="background:#f8fafc; font-weight:600; text-transform:uppercase; font-size:9px;">Total order value</td>
+				<td colspan="5" class="right" style="background:#f8fafc; font-weight:600; text-transform:uppercase; font-size:9px;">{{ _("Total order value") }}</td>
 				<td class="right" style="background:#f8fafc; font-weight:600;">{{ frappe.utils.fmt_money(doc.grand_total, currency=currency) }}</td>
 			</tr>
 		</tfoot>
 	</table>
 
-	<h3 class="sec">Terms &amp; conditions</h3>
+	<h3 class="sec">{{ _("Terms & conditions") }}</h3>
 	<div class="terms{{ '' if '<' in (doc.terms or '') else ' plain' }}">
 		{% if doc.terms %}
-			{{ doc.terms }}
+			{{ buildsuite_print_terms(doc.terms) }}
 		{% else %}
 		<ul>
-			<li>Deliver to the project site named above{% if doc.schedule_date %} on or before {{ frappe.utils.format_date(doc.schedule_date) }}{% endif %}. Part deliveries are accepted against this order.</li>
-			<li>Each delivery must carry a challan quoting this PO number; quantities are confirmed at site on receipt.</li>
-			<li>Material not conforming to the ordered specification may be rejected at site at the supplier's cost.</li>
-			<li>Invoices must reference this PO and the site-acknowledged receipt quantities.</li>
+			<li>{% if doc.schedule_date %}{{ _("Deliver to the project site named above on or before {0}. Part deliveries are accepted against this order.").format(frappe.utils.format_date(doc.schedule_date)) }}{% else %}{{ _("Deliver to the project site named above. Part deliveries are accepted against this order.") }}{% endif %}</li>
+			<li>{{ _("Each delivery must carry a challan quoting this PO number; quantities are confirmed at site on receipt.") }}</li>
+			<li>{{ _("Material not conforming to the ordered specification may be rejected at site at the supplier's cost.") }}</li>
+			<li>{{ _("Invoices must reference this PO and the site-acknowledged receipt quantities.") }}</li>
 		</ul>
 		{% endif %}
 	</div>
 
 	<div class="sign">
-		<div><div class="line">For {{ doc.company or "&mdash;" }}</div><div class="muted" style="font-size:9px;">Authorised signatory &middot; Date</div></div>
-		<div><div class="line">For {{ doc.supplier_name or doc.supplier }}</div><div class="muted" style="font-size:9px;">Acknowledged &middot; Date</div></div>
+		<div><div class="line">{{ _("For {0}", context="BuildSuite Print").format(doc.company or "&mdash;") }}</div><div class="muted" style="font-size:9px;">{{ _("Authorised signatory · Date") }}</div></div>
+		<div><div class="line">{{ _("For {0}", context="BuildSuite Print").format(doc.supplier_name or doc.supplier) }}</div><div class="muted" style="font-size:9px;">{{ _("Acknowledged · Date") }}</div></div>
 	</div>
 
-	<div class="footer">{{ doc.name }} &middot; Generated {{ frappe.utils.format_date(frappe.utils.nowdate()) }}</div>
+	<div class="footer">{{ doc.name }} &middot; {{ _("Generated {0}").format(frappe.utils.format_date(frappe.utils.nowdate())) }}</div>
 </div>
 """
 

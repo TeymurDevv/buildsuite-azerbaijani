@@ -98,7 +98,7 @@ function onRowClick(row) {
 				:title="__('Filter by trade')"
 			>
 				<option value="">{{ __("All trades") }}</option>
-				<option v-for="t in tradeOptions" :key="t" :value="t">{{ t }}</option>
+				<option v-for="t in tradeOptions" :key="t" :value="t">{{ __(t) }}</option>
 			</select>
 			<RouterLink
 				v-if="canCreate('subcontractor')"
@@ -132,7 +132,7 @@ function onRowClick(row) {
 				<span
 					v-if="row.trade"
 					class="text-[11px] px-1.5 py-0.5 bg-ink-100 text-ink-700 rounded"
-					>{{ row.trade }}</span
+					>{{ __(row.trade) }}</span
 				>
 				<span v-else class="text-ink-300">—</span>
 			</template>

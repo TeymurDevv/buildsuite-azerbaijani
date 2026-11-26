@@ -134,7 +134,7 @@ function onRowClick(row) {
 			:active="anyFilter"
 			:shown="rows.length"
 			:total="allBills.length"
-			:noun="__('bills')"
+			:noun="__('bills', null, 'Record count')"
 			@clear="clearFilters"
 		>
 			<label class="flex items-center gap-1.5">

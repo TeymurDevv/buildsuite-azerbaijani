@@ -133,10 +133,9 @@ async function onRestoreRevision(snap) {
 async function onDeleteRevision(snap) {
 	const ok = await confirmDialog({
 		title: __("Delete revision?"),
-		message: __(
-			'Delete the saved revision "{0}"? This does not change the schedule.',
-			[snap.label]
-		),
+		message: __('Delete the saved revision "{0}"? This does not change the schedule.', [
+			snap.label,
+		]),
 		confirmLabel: __("Delete"),
 		destructive: true,
 	});
@@ -737,10 +736,10 @@ const subTicks = computed(() => {
 	while (cursor.getTime() < dateRange.value.maxMs) {
 		let label = "";
 		if (viewMode.value === "day") label = String(cursor.getDate());
-		else if (viewMode.value === "week") label = `W${weekOf(cursor)}`;
+		else if (viewMode.value === "week") label = __("W{0}", [weekOf(cursor)]);
 		else if (viewMode.value === "month")
 			label = calendarDate(cursor, "en-IN", { month: "short" });
-		else label = `Q${Math.floor(cursor.getMonth() / 3) + 1}`;
+		else label = __("Q{0}", [Math.floor(cursor.getMonth() / 3) + 1]);
 		out.push({ label, x: dateToX(msToISO(cursor.getTime())) });
 		cursor.setDate(cursor.getDate() + stride);
 	}
@@ -1144,7 +1143,11 @@ onBeforeUnmount(() => {
 			<div>
 				<h1 class="text-lg font-semibold text-ink-900">{{ __("Schedule") }}</h1>
 				<p class="text-xs text-ink-500 mt-0.5">
-					{{ __("Gantt timeline — view the schedule and adjust task dates from the list") }}
+					{{
+						__(
+							"Gantt timeline — view the schedule and adjust task dates from the list"
+						)
+					}}
 				</p>
 			</div>
 			<div
@@ -1160,7 +1163,9 @@ onBeforeUnmount(() => {
 			v-if="canEditAny && allTasks.length"
 			class="mb-2 text-[11px] text-ink-500 flex items-center gap-2 flex-wrap"
 		>
-			<span>{{ __('Edit a task\'s start / due dates inline in the list on the left.') }}</span>
+			<span>{{
+				__("Edit a task's start / due dates inline in the list on the left.")
+			}}</span>
 		</div>
 
 		<!-- Toolbar -->
@@ -1302,7 +1307,11 @@ onBeforeUnmount(() => {
 							v-if="!revisions.length"
 							class="px-3 py-4 text-center text-[11px] text-ink-400 italic"
 						>
-							{{ __("No saved revisions yet. Save one to snapshot the current schedule.") }}
+							{{
+								__(
+									"No saved revisions yet. Save one to snapshot the current schedule."
+								)
+							}}
 						</div>
 						<div
 							v-for="rev in revisions"
@@ -1346,7 +1355,9 @@ onBeforeUnmount(() => {
 			<div class="ml-auto text-xs text-ink-500 flex items-center gap-3">
 				<span>{{ __("{0} tasks", [allTasks.length]) }}</span>
 				<span v-if="allDeps.length">· {{ __("{0} dependencies", [allDeps.length]) }}</span>
-				<span class="text-ink-400 italic hidden md:inline">{{ __("Ctrl + scroll to zoom") }}</span>
+				<span class="text-ink-400 italic hidden md:inline">{{
+					__("Ctrl + scroll to zoom")
+				}}</span>
 			</div>
 		</div>
 
@@ -1468,7 +1479,9 @@ onBeforeUnmount(() => {
 										<span class="text-[10px] text-ink-500 tabular-nums">
 											{{
 												r.computedFinish
-													? __("finish {0}", [fmtShort(r.computedFinish)])
+													? __("finish {0}", [
+															fmtShort(r.computedFinish),
+													  ])
 													: __("no dates")
 											}}
 										</span>
@@ -1514,9 +1527,9 @@ onBeforeUnmount(() => {
 													onScheduleInput(r.task, 'endDate', $event)
 												"
 											/>
-											<span class="text-[9px] text-ink-400 ml-1"
-												>{{ __("milestone") }}</span
-											>
+											<span class="text-[9px] text-ink-400 ml-1">{{
+												__("milestone")
+											}}</span>
 										</template>
 										<template v-else>
 											<input
@@ -1706,7 +1719,11 @@ onBeforeUnmount(() => {
 										height: SUMMARY_BAR_HEIGHT + 'px',
 									}"
 									class="bg-ink-900 cursor-help"
-									:title="__('Stage planned end') + ' · ' + fmtShort(sb.group.plannedEnd)"
+									:title="
+										__('Stage planned end') +
+										' · ' +
+										fmtShort(sb.group.plannedEnd)
+									"
 								></div>
 							</template>
 
@@ -1892,7 +1909,11 @@ onBeforeUnmount(() => {
 									v-if="canEditTask(b.task)"
 									data-link-arrow="true"
 									class="absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2 border-brand-700 cursor-crosshair opacity-50 group-hover:opacity-100 z-20 shadow transition-opacity"
-									:title="__('Drag to another task to create a Finish-to-Start dependency')"
+									:title="
+										__(
+											'Drag to another task to create a Finish-to-Start dependency'
+										)
+									"
 									@mousedown.stop="onArrowHandleMouseDown(b.task, $event)"
 								></div>
 							</div>
@@ -1914,7 +1935,9 @@ onBeforeUnmount(() => {
 									b.task.schedule_conflict
 										? b.task.name + ' — ' + b.task.conflict_reason
 										: b.task.name +
-										  ' · ' + __('Milestone') + ' · ' +
+										  ' · ' +
+										  __('Milestone') +
+										  ' · ' +
 										  fmtShort(b.task.endDate) +
 										  (b.isOverdue ? ' · ' + __('OVERDUE') : '')
 								"
@@ -1975,7 +1998,11 @@ onBeforeUnmount(() => {
 										top: (ROW_HEIGHT - 16) / 2 + 'px',
 										pointerEvents: 'auto',
 									}"
-									:title="__('Drag to another task to create a Finish-to-Start dependency')"
+									:title="
+										__(
+											'Drag to another task to create a Finish-to-Start dependency'
+										)
+									"
 									@mousedown.stop="onArrowHandleMouseDown(b.task, $event)"
 								></div>
 							</div>
@@ -2137,8 +2164,12 @@ onBeforeUnmount(() => {
 							<div class="text-[11px] text-ink-500 mt-0.5">
 								{{
 									previewState.moves.length === 1
-										? __("{0} downstream task would shift forward", [previewState.moves.length])
-										: __("{0} downstream tasks would shift forward", [previewState.moves.length])
+										? __("{0} downstream task would shift forward", [
+												previewState.moves.length,
+										  ])
+										: __("{0} downstream tasks would shift forward", [
+												previewState.moves.length,
+										  ])
 								}}
 							</div>
 						</div>
@@ -2160,7 +2191,9 @@ onBeforeUnmount(() => {
 							<div class="text-[10px] uppercase tracking-wider text-ink-500">
 								{{ __("From") }}
 							</div>
-							<div class="text-[10px] uppercase tracking-wider text-ink-500">{{ __("To") }}</div>
+							<div class="text-[10px] uppercase tracking-wider text-ink-500">
+								{{ __("To") }}
+							</div>
 							<template v-for="m in previewState.moves" :key="m.task">
 								<div class="text-ink-900 truncate" :title="taskName(m.task)">
 									{{ taskName(m.task) }}
@@ -2208,9 +2241,9 @@ onBeforeUnmount(() => {
 			class="mt-3 px-3 py-2 bg-white border border-ink-200 rounded-lg space-y-1.5 text-xs text-ink-600"
 		>
 			<div class="flex items-center gap-4 flex-wrap">
-				<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium"
-					>{{ __("Type") }}</span
-				>
+				<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{
+					__("Type")
+				}}</span>
 				<div class="flex items-center gap-1.5">
 					<span class="inline-block w-5 h-2.5 rounded bg-brand-500"></span
 					><span>{{ __("Activity") }}</span>
@@ -2234,9 +2267,9 @@ onBeforeUnmount(() => {
 				</div>
 			</div>
 			<div class="flex items-center gap-4 flex-wrap">
-				<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium"
-					>{{ __("Status") }}</span
-				>
+				<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{
+					__("Status")
+				}}</span>
 				<div class="flex items-center gap-1.5">
 					<span
 						class="inline-block w-5 h-2.5 rounded bg-success-100 border border-success-700 relative overflow-hidden"
@@ -2282,7 +2315,8 @@ onBeforeUnmount(() => {
 					>{{ __("Overdue") }} <span class="text-ink-500">⏱</span>
 				</div>
 				<div v-if="groupBy === 'stage'" class="ml-auto flex items-center gap-1.5">
-					<span class="inline-block w-0.5 h-3 bg-ink-900"></span>{{ __("Stage planned end") }}
+					<span class="inline-block w-0.5 h-3 bg-ink-900"></span
+					>{{ __("Stage planned end") }}
 				</div>
 				<div class="flex items-center gap-1.5" :class="{ 'ml-auto': groupBy !== 'stage' }">
 					<span class="w-px h-3 bg-danger-500/60"></span>{{ __("Today") }}

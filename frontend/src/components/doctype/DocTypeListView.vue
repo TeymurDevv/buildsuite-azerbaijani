@@ -1,4 +1,5 @@
 <script setup>
+import { recordCountLabel } from "@/utils/translate";
 import { numberLocale } from "@/utils/locale";
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -796,14 +797,14 @@ const pagerShown = computed(
 );
 const listCountText = computed(() => {
 	if (!props.paginated) {
-		return `${filteredRows.value.length} of ${resource.data?.length ?? 0}`;
+		return __("{0} of {1}", [filteredRows.value.length, resource.data?.length ?? 0]);
 	}
 
-	if (!filteredRows.value.length) return "0 records";
-	if (totalCount.value != null) {
-		return `${backendRangeStart.value}-${backendRangeEnd.value} of ${totalCount.value} records`;
-	}
-	return `${backendRangeStart.value}-${backendRangeEnd.value} records`;
+	return recordCountLabel(
+		backendRangeStart.value,
+		filteredRows.value.length ? backendRangeEnd.value : 0,
+		totalCount.value
+	);
 });
 
 function onPageChange(page) {
@@ -825,10 +826,10 @@ function onPageSizeChange(value) {
 <template>
 	<div class="relative">
 		<div v-if="metaError" class="mb-2 text-xs text-danger-600">
-			{{ __('Failed to load') }} {{ doctype }} {{ __('metadata.') }}
+			{{ __("Failed to load") }} {{ doctype }} {{ __("metadata.") }}
 		</div>
 		<div v-if="listError" class="mb-2 text-xs text-danger-600">
-			{{ __('Couldn\'t load this list. Please adjust your filters or try again.') }}
+			{{ __("Couldn't load this list. Please adjust your filters or try again.") }}
 		</div>
 
 		<!-- Dynamic filter editor (Frappe-style field/condition/value builder) -->
@@ -893,7 +894,7 @@ function onPageSizeChange(value) {
 					"
 					@click="togglePreset(preset.key)"
 				>
-					{{ preset.label }}
+					{{ __(preset.label) }}
 				</button>
 				<span
 					v-for="(f, i) in dynamicFilters"
@@ -910,7 +911,7 @@ function onPageSizeChange(value) {
 					class="text-[11px] text-ink-500 hover:text-ink-800 px-1"
 					@click="clearFilters"
 				>
-					{{ __('Clear') }}
+					{{ __("Clear") }}
 				</button>
 			</template>
 
@@ -993,7 +994,7 @@ function onPageSizeChange(value) {
 
 			<template #empty>
 				<slot name="empty">
-					<div class="text-sm text-ink-500">{{ emptyMessage }}</div>
+					<div class="text-sm text-ink-500">{{ __(emptyMessage) }}</div>
 				</slot>
 			</template>
 		</DeskList>

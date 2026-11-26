@@ -3,3 +3,7 @@
 !README.md
 !buildsuite_core
 !buildsuite_core/__init__.py
+!local-runtime
+local-runtime/**
+!local-runtime/register_print_font.py
+local-runtime/private

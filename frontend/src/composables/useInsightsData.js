@@ -47,32 +47,72 @@ export function useInsightsData() {
 
 	// --- Core-5 (unchanged) ------------------------------------------------
 	const projectsRes = adapter.list("Project", {
-		fields: ["name", "project_name", "custom_project_id", "parent_project", "project_status", "company", "expected_start_date"],
+		fields: [
+			"name",
+			"project_name",
+			"custom_project_id",
+			"parent_project",
+			"project_status",
+			"company",
+			"expected_start_date",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.projects,
 	});
 	const tasksRes = adapter.list("Task", {
-		fields: ["name", "subject", "project", "task_status", "status", "progress", "priority", "exp_end_date"],
+		fields: [
+			"name",
+			"subject",
+			"project",
+			"task_status",
+			"status",
+			"progress",
+			"priority",
+			"exp_end_date",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.tasks,
 	});
 	const stagesRes = adapter.list("Stage Planning", {
-		fields: ["name", "stage_name", "project", "workflow_state", "planned_end", "planned_start"],
+		fields: [
+			"name",
+			"stage_name",
+			"project",
+			"workflow_state",
+			"planned_end",
+			"planned_start",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.stages,
 	});
 	const subBillsRes = adapter.list("Subcontractor Bill", {
-		fields: ["name", "project", "subcontractor", "subcontractor_name", "date", "status", "gross"],
+		fields: [
+			"name",
+			"project",
+			"subcontractor",
+			"subcontractor_name",
+			"date",
+			"status",
+			"gross",
+		],
 		filters: { docstatus: ["<", 2] },
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.subBills,
 	});
 	const poRes = adapter.list("Purchase Order", {
-		fields: ["name", "supplier", "supplier_name", "status", "grand_total", "transaction_date", "project"],
+		fields: [
+			"name",
+			"supplier",
+			"supplier_name",
+			"status",
+			"grand_total",
+			"transaction_date",
+			"project",
+		],
 		filters: { docstatus: ["<", 2] },
 		pageLength: 0,
 		orderBy: "modified desc",
@@ -81,25 +121,60 @@ export function useInsightsData() {
 
 	// --- Flat (header-level) datasets -------------------------------------
 	const progressRes = adapter.list("Task Progress Entry", {
-		fields: ["name", "task", "entry_date", "cumulative_progress", "skilled", "unskilled", "blocker"],
+		fields: [
+			"name",
+			"task",
+			"entry_date",
+			"cumulative_progress",
+			"skilled",
+			"unskilled",
+			"blocker",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.progress,
 	});
 	const wpRes = adapter.list("Work Package", {
-		fields: ["name", "project", "code", "work_package_name", "status", "progress", "start_date", "end_date", "budget"],
+		fields: [
+			"name",
+			"project",
+			"code",
+			"work_package_name",
+			"status",
+			"progress",
+			"start_date",
+			"end_date",
+			"budget",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.workPackages,
 	});
 	const scoRes = adapter.list("Scope Change Order", {
-		fields: ["name", "project", "project_name", "title", "type", "impact", "status", "raised_date"],
+		fields: [
+			"name",
+			"project",
+			"project_name",
+			"title",
+			"type",
+			"impact",
+			"status",
+			"raised_date",
+		],
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.scos,
 	});
 	const woRes = adapter.list("Subcontractor Work Order", {
-		fields: ["name", "subcontractor", "subcontractor_name", "project", "date", "delivery_type", "total_value"],
+		fields: [
+			"name",
+			"subcontractor",
+			"subcontractor_name",
+			"project",
+			"date",
+			"delivery_type",
+			"total_value",
+		],
 		filters: { docstatus: ["<", 2] },
 		pageLength: 0,
 		orderBy: "modified desc",
@@ -113,14 +188,30 @@ export function useInsightsData() {
 		auto: can.measurementBooks,
 	});
 	const invoiceRes = adapter.list("Sales Invoice", {
-		fields: ["name", "customer", "customer_name", "project", "posting_date", "grand_total", "status"],
+		fields: [
+			"name",
+			"customer",
+			"customer_name",
+			"project",
+			"posting_date",
+			"grand_total",
+			"status",
+		],
 		filters: { docstatus: ["<", 2] },
 		pageLength: 0,
 		orderBy: "modified desc",
 		auto: can.invoices,
 	});
 	const billRes = adapter.list("Purchase Invoice", {
-		fields: ["name", "supplier", "supplier_name", "project", "posting_date", "grand_total", "status"],
+		fields: [
+			"name",
+			"supplier",
+			"supplier_name",
+			"project",
+			"posting_date",
+			"grand_total",
+			"status",
+		],
 		filters: { docstatus: ["<", 2] },
 		pageLength: 0,
 		orderBy: "modified desc",
@@ -151,7 +242,15 @@ export function useInsightsData() {
 		auto: can.machineryUsage,
 	});
 	const fieldEmpRes = adapter.list("Employee", {
-		fields: ["name", "employee_name", "custom_trade", "custom_wage", "custom_contractor", "status", "date_of_joining"],
+		fields: [
+			"name",
+			"employee_name",
+			"custom_trade",
+			"custom_wage",
+			"custom_contractor",
+			"status",
+			"date_of_joining",
+		],
 		filters: { is_labour: 1 },
 		pageLength: 0,
 		orderBy: "modified desc",
@@ -164,6 +263,7 @@ export function useInsightsData() {
 	// caller's PARENT read permission and returns the flat row shape the engine expects.
 	const lineData = ref({ receiptLines: [], consumptionLines: [], expenses: [], attendance: [] });
 	const lineLoading = ref(false);
+	const failedLines = ref(new Set());
 	async function fetchLine(name) {
 		try {
 			const rows = await frappeRequest({
@@ -172,7 +272,7 @@ export function useInsightsData() {
 			});
 			lineData.value = { ...lineData.value, [name]: Array.isArray(rows) ? rows : [] };
 		} catch {
-			/* leave this dataset empty — the surface just won't offer it */
+			failedLines.value = new Set([...failedLines.value, name]);
 		}
 	}
 	const lineJobs = [
@@ -264,10 +364,54 @@ export function useInsightsData() {
 	}));
 
 	const resources = [
-		projectsRes, tasksRes, stagesRes, subBillsRes, poRes, progressRes, wpRes, scoRes, woRes, mbRes,
-		invoiceRes, billRes, pettyCashRes, itemsRes, machineryUsageRes, machineryRes, fieldEmpRes,
+		projectsRes,
+		tasksRes,
+		stagesRes,
+		subBillsRes,
+		poRes,
+		progressRes,
+		wpRes,
+		scoRes,
+		woRes,
+		mbRes,
+		invoiceRes,
+		billRes,
+		pettyCashRes,
+		itemsRes,
+		machineryUsageRes,
+		machineryRes,
+		fieldEmpRes,
 	];
-	const loading = computed(() => lineLoading.value || resources.some((r) => r.loading));
+	const loading = computed(
+		() => lineLoading.value || resources.some((r) => r.list?.loading || r.loading)
+	);
 
-	return { ctx, loading };
+	const sources = {
+		projects: projectsRes,
+		tasks: tasksRes,
+		stages: stagesRes,
+		subBills: subBillsRes,
+		purchaseOrders: poRes,
+		progress: progressRes,
+		workPackages: wpRes,
+		scos: scoRes,
+		workOrders: woRes,
+		measurementBooks: mbRes,
+		invoices: invoiceRes,
+		bills: billRes,
+		pettyCash: pettyCashRes,
+		items: itemsRes,
+		machineryUsage: machineryUsageRes,
+		fieldEmployees: fieldEmpRes,
+	};
+	const failedSources = computed(
+		() =>
+			new Set([
+				...failedLines.value,
+				...Object.entries(sources)
+					.filter(([, resource]) => resource.list?.error || resource.error)
+					.map(([source]) => source),
+			])
+	);
+	return { ctx, loading, failedSources };
 }

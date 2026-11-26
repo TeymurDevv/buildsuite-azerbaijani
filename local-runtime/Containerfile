@@ -4,3 +4,5 @@ COPY --chown=frappe:frappe pyproject.toml README.md apps/buildsuite_core/
 COPY --chown=frappe:frappe buildsuite_core/__init__.py apps/buildsuite_core/buildsuite_core/
 RUN uv pip install --python /home/frappe/frappe-bench/env/bin/python --no-deps -e ./apps/buildsuite_core && \
     ln -s /home/frappe/frappe-bench/apps/buildsuite_core/buildsuite_core/public /home/frappe/frappe-bench/assets/buildsuite_core
+COPY --chown=frappe:frappe local-runtime/register_print_font.py /tmp/register_print_font.py
+RUN env/bin/python /tmp/register_print_font.py && fc-cache -f ~/.local/share/fonts

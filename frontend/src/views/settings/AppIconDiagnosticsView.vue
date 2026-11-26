@@ -106,7 +106,7 @@ onMounted(() => {
 				<!-- Plain-language read, surfaced first. -->
 				<DeskSection id="likely-cause" :title="__('Likely cause')">
 					<ul class="list-disc pl-5 space-y-1.5 text-sm text-ink-800">
-						<li v-for="(h, i) in report.hints || []" :key="i">{{ h }}</li>
+						<li v-for="(h, i) in report.hints || []" :key="i">{{ __(h) }}</li>
 					</ul>
 				</DeskSection>
 

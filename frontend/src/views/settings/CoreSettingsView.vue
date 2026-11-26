@@ -6,7 +6,7 @@
 // represents it as store.coreSettings (flat object). Edits flow through
 // store.updateCoreSettings(patch).
 
-import { ref, watch, onMounted } from "vue";
+import { computed, ref, watch, onMounted } from "vue";
 import { useRouter, RouterLink } from "vue-router";
 import { useDataStore } from "@/stores";
 import {
@@ -128,6 +128,26 @@ const namingModes = ref([PROJECT_ID_MODE, "Name Series"]);
 // to/from (server-persisted on BuildSuite Core Settings). Loaded like project naming.
 const pettyCashAccount = ref("");
 const pettyCashOptions = ref([]);
+
+function cashAccountLabel(account) {
+	if (account?.account_type !== "Cash" || !["Cash", "Petty Cash"].includes(account.account_name))
+		return account?.name;
+	const suffix = account.name.slice(account.account_name.length);
+	if (
+		!suffix.startsWith(" - ") ||
+		account.name !== account.account_name + suffix ||
+		account.parent_account !== "Cash In Hand" + suffix
+	)
+		return account.name;
+	return __(account.account_name) + suffix;
+}
+
+const selectedCashLabel = computed(() => {
+	const account = pettyCashOptions.value.find(
+		(option) => option.name === pettyCashAccount.value
+	);
+	return cashAccountLabel(account) || pettyCashAccount.value;
+});
 
 // Company-awareness master switch (server-persisted). Off = single-company UX.
 const multiCompanyEnabled = ref(false);
@@ -303,12 +323,12 @@ const breadcrumbs = [
 						"
 					>
 						<div v-if="!editing" class="text-sm text-ink-900 py-1">
-							{{ pettyCashAccount || "—" }}
+							{{ selectedCashLabel || "—" }}
 						</div>
 						<DeskSelect v-else v-model="form.petty_cash_account">
 							<option value="">{{ __("— None —") }}</option>
 							<option v-for="a in pettyCashOptions" :key="a.name" :value="a.name">
-								{{ a.name }} ({{ a.account_type }})
+								{{ cashAccountLabel(a) }} ({{ __(a.account_type) }})
 							</option>
 						</DeskSelect>
 					</DeskField>

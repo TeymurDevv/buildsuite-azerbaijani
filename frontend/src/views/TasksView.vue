@@ -1,4 +1,5 @@
 <script setup>
+import { templateTaskSubject } from "@/utils/translate";
 // Tasks list — use the generic DocType list shell so sort controls stay
 // consistent with other meta-backed list screens.
 
@@ -145,7 +146,7 @@ function onRowClick(row) {
 				'modified',
 			]"
 			:columns="[
-				{ key: 'subject', label: __('Task') },
+				{ key: 'subject', label: __('Task'), fields: ['subject', 'is_template'] },
 				{ key: 'project', label: __('Project · WP'), fields: ['project', 'work_package'] },
 				{ key: 'task_status', label: __('Status'), preset: 'status' },
 				{ key: 'priority', label: __('Priority'), preset: 'status' },
@@ -251,7 +252,9 @@ function onRowClick(row) {
 
 			<template #cell-subject="{ row }">
 				<span class="text-ink-900 font-medium">{{
-					row.subject || row.name || __("Untitled task")
+					templateTaskSubject(row.subject, row.is_template) ||
+					row.name ||
+					__("Untitled task")
 				}}</span>
 			</template>
 			<template #cell-project="{ row }">

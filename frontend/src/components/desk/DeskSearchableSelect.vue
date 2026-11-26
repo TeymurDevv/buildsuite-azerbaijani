@@ -207,13 +207,13 @@ onBeforeUnmount(() => {
 			@click="open"
 		>
 			<span v-if="triggerLabel" class="truncate text-ink-900">{{ triggerLabel }}</span>
-			<span v-else class="truncate text-ink-400">{{ placeholder }}</span>
+			<span v-else class="truncate text-ink-400">{{ __(placeholder) }}</span>
 			<span class="flex items-center gap-1 flex-shrink-0">
 				<button
 					v-if="allowClear && hasValue"
 					type="button"
 					class="text-ink-400 hover:text-danger-700 text-xs leading-none px-1"
-					aria-label="Clear"
+					:aria-label="__('Clear')"
 					@click.stop="clear"
 				>
 					×
@@ -245,7 +245,7 @@ onBeforeUnmount(() => {
 							v-model="search"
 							type="text"
 							class="desk-input"
-							:placeholder="searchPlaceholder"
+							:placeholder="__(searchPlaceholder)"
 							@keydown="onSearchKeydown"
 						/>
 					</div>
@@ -288,7 +288,7 @@ onBeforeUnmount(() => {
 							</template>
 						</template>
 						<div v-else class="px-3 py-3 text-xs text-ink-400 italic text-center">
-							No matches.
+							{{ __("No matches.") }}
 						</div>
 					</div>
 				</div>

@@ -9,6 +9,7 @@ from frappe.utils.jinja_globals import is_rtl
 
 from buildsuite_core.api.permission import has_app_permission
 from buildsuite_core.sdk import SDK_VERSION, get_customisations, get_extension_entries
+from buildsuite_core.utils.desk_record_labels import standard_display_labels
 
 no_cache = 1
 
@@ -53,6 +54,12 @@ def get_boot():
 			csrf_token = ""
 
 	defaults = frappe.defaults.get_defaults()
+	lang = get_user_lang()
+	standard_labels = (
+		{doctype: standard_display_labels(doctype) for doctype in ("UOM", "Report")}
+		if (lang or "").lower().replace("_", "-").split("-")[0] == "az"
+		else {}
+	)
 
 	return frappe._dict(
 		{
@@ -66,7 +73,8 @@ def get_boot():
 			"site_name": frappe.local.site,
 			"read_only_mode": frappe.flags.read_only,
 			"csrf_token": csrf_token,
-			"lang": get_user_lang(),
+			"lang": lang,
+			"standard_link_labels": standard_labels,
 			"text_direction": "rtl" if is_rtl() else "ltr",
 			"translated_doctypes": get_translated_doctypes(),
 			"translated_messages": get_messages_for_boot(),

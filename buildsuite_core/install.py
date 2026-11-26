@@ -13,6 +13,9 @@ from buildsuite_core.utils.task import backfill_native_task_type, backfill_task_
 
 
 def after_install():
+	from buildsuite_core.dispatch import update_existing_templates
+
+	update_existing_templates()
 	print(_("Creating Custom Fields..."))
 	create_custom_fields(CUSTOM_FIELD, ignore_validate=True)
 	make_property_setters()
@@ -170,9 +173,11 @@ def seed_master_data():
 
 	# Custom print formats for Sales Invoice + Subcontractor Work Order matching the prototype layout,
 	# seeded as each doctype's default so the SPA's print view picks them up. See print_formats.
+	from buildsuite_core.dispatch import update_standard_delivery_note
 	from buildsuite_core.print_formats import seed_print_formats
 
 	seed_print_formats()
+	update_standard_delivery_note()
 
 	# Shipped approval workflows — created only when missing, so an admin's edits survive migrate.
 	from buildsuite_core.seed_workflows import seed_workflows

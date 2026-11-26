@@ -26744,3 +26744,381 @@ s,san,Seconds (Field: Duration)
 {0} submitted this document {1},{0} bu sənədi {1} təsdiqlədi,Form timeline
 {0}.,{0}.,Money in words
 Left,İşdən ayrılıb,Employee
+"Assignments, mentions, shares and alerts addressed to you.","Sizə ünvanlanan tapşırıqlar, qeydlərdə adınızın çəkilməsi, paylaşımlar və xəbərdarlıqlar."
+Attendance and overtime.,Davamiyyət və iş vaxtından artıq iş.
+Bill of quantities revisions priced for this project.,Bu layihə üçün qiymətləndirilmiş iş həcmləri cədvəlinin versiyaları.
+"BuildSuite-product admin — Workspace Structure, Site Execution Settings, Project Type templates, Pro license. The ""BuildSuite owner"" at a customer org.","BuildSuite üzrə inzibatçı iş sahələrinin quruluşunu, tikinti sahəsində işlərin icrası üzrə ayarları, layihə növü şablonlarını və Pro lisenziyasını idarə edir. Bu şəxs sifarişçi təşkilatda BuildSuite üzrə məsuldur."
+By cost code,Xərc kodu üzrə
+By project,Layihə üzrə
+By site,Tikinti sahəsi üzrə
+By worker,İşçi üzrə
+Carpentry,Dülgərlik işləri
+"Child projects under this one. Also needs ""Allow subprojects"" on the project itself.",Bu layihəyə daxil olan alt layihələr. Layihənin özündə də «Alt layihələrə icazə ver» seçimi aktiv olmalıdır.
+Concreting,Betonlama işləri
+Direct link to the SCO register,İş həcminin dəyişdirilməsi sifarişlərinin reyestrinə keç
+"Drawings, contracts and permits held on the project record.","Layihə sənədlərinə əlavə edilmiş çertyojlar, müqavilələr və icazələr."
+Earthwork,Torpaq işləri
+Every task on the project and its subprojects.,Layihənin və ona daxil olan alt layihələrin bütün tapşırıqları.
+False Ceiling,Asma tavan
+Flooring,Döşəmə örtükləri
+Go to the workspace where SCOs now live,İş həcminin dəyişdirilməsi sifarişlərinin yerləşdiyi iş sahəsinə keç
+"Items, stock entries, warehouses and inventory.","Mallar, anbar əməliyyatları, anbarlar və ehtiyatlar."
+Landscaping,Yaşıllaşdırma
+Masonry,Hörgü işləri
+Material & overhead,Material və qaimə xərcləri
+"New-navigation Dock for buildsuite_core is MISSING — the left-rail app icon won't show. The Dock/Sidebar fixtures (PR #395) are likely not deployed, or migrate hasn't run.",buildsuite_core üçün yeni naviqasiya paneli yoxdur. Tətbiq nişanı sol paneldə görünməyəcək. Dock/Sidebar konfiqurasiyasının (PR #395) quraşdırıldığını və miqrasiyanın icra edildiyini yoxlayın.
+No material consumption recorded yet.,Hələ material sərfiyyatı qeydə alınmayıb.
+"No obvious server-side cause found — the entry, logo and fixtures look present. Check a hard refresh / cleared cache in the browser, and that `bench build` + `bench migrate` ran.","Serverdə aşkar səbəb tapılmadı. Tətbiq qeydi, loqotip və konfiqurasiya yerindədir. Brauzerin keşini təmizləyib səhifəni yeniləyin. `bench build` və `bench migrate` əmrlərinin icra olunduğunu yoxlayın."
+"Nothing here yet. Assignments, mentions, shares and alerts land here.","Hələ bildiriş yoxdur. Sizə aid tapşırıqlar, adınızın çəkildiyi qeydlər, paylaşımlar və xəbərdarlıqlar burada görünəcək."
+"Office staff records, leaves and salary.","Ofis işçiləri haqqında məlumatlar, məzuniyyətlər və əməkhaqqı."
+Painting,Boyaq işləri
+People assigned to the project alongside the project manager.,Layihə rəhbəri ilə birlikdə layihəyə təyin edilmiş şəxslər.
+"Petty cash, cost summary, variance reports.","Kiçik xərclər kassası, xərclərin icmalı və kənarlaşma hesabatları."
+"Plant, machinery and asset register.","Qurğuların, texnikanın və aktivlərin reyestri."
+Plastering,Suvaq işləri
+Plumbing,Santexnika işləri
+Project intelligence reports.,Layihələr üzrə təhlil hesabatları.
+Quarter,Rüb
+Q{0},R{0}
+"Raised by a rule rather than a person — a deadline, an overrun, a rejection.","Sistem qaydasının yaratdığı bildiriş. Məsələn, son tarix, həddin aşılması və ya imtina."
+Scope change orders live under Site Execution.,İş həcminin dəyişdirilməsi sifarişləri tikinti sahəsində işlərin icrası bölməsindədir.
+Scope change orders raised against the project.,Bu layihə üzrə verilmiş iş həcminin dəyişdirilməsi sifarişləri.
+Somebody gave you access to a record you would not otherwise see.,Kimsə əvvəllər görə bilmədiyiniz qeydə baxmaq üçün sizə icazə verib.
+"Somebody put a record in your hands — a to-do, an approval, a bill to certify.","Sizə icra ediləcək iş, təsdiq sorğusu və ya yoxlanılacaq hesab həvalə olunub."
+Structural Steel,Polad konstruksiyalar
+"Suppliers, purchase orders and request-for-quotation flows.","Təchizatçılar, satınalma sifarişləri və qiymət təklifi sorğuları."
+The cost and control breakdown under the project.,Layihə üzrə xərclərin və nəzarət sahələrinin bölgüsü.
+The logo asset is NOT in the built assets — run `bench build --app buildsuite_core` on the remote. A missing asset shows a broken/absent icon even when the entry is listed.,Yığılmış fayllar arasında loqotip yoxdur. Serverdə `bench build --app buildsuite_core` əmrini icra edin. Bu fayl olmadıqda tətbiq siyahıda görünsə də nişanı düzgün göstərilmir.
+Tiling,Üzlük plitələrinin döşənməsi
+"Time-phased stages, their approval state and linked tasks.","Mərhələlərin vaxt planı, təsdiq vəziyyəti və əlaqəli tapşırıqlar."
+Uncategorised,Kateqoriyasız
+"Vendors, RA Bills, retention, payments.","Təchizatçılar, görülmüş işlər üzrə aralıq hesablar, təminat tutulmaları və ödənişlər."
+Waterproofing,Hidroizolyasiya işləri
+W{0},H{0}
+You were named in a comment or a note on a record.,Qeydə yazılmış şərhdə və ya qeyddə adınız çəkilib.
+add_to_apps_screen hook is EMPTY — the app won't appear on the /apps grid. The code that enables it (PR #396) is likely not deployed to this site.,add_to_apps_screen qoşulma nöqtəsi boşdur. Tətbiq /apps siyahısında görünməyəcək. Bu imkanı əlavə edən dəyişiklik (PR #396) saytda quraşdırılmamış ola bilər.
+avatar,Profil şəkli
+entries,qeyd
+machines,texnika vahidi
+month,ay
+quarter,rüb
+stages,mərhələ
+week,həftə
+{0}-{1} of {2} records,{2} qeyddən {0}–{1}
+{0}-{1} records,{0}–{1} aralığındakı qeydlər
+Density,Sıxlıq
+Electric Current,Elektrik cərəyanı
+Electrical Charge,Elektrik yükü
+Frequency and Wavelength,Tezlik və dalğa uzunluğu
+Magnetic Induction,Maqnit induksiyası
+Mass,Kütlə
+Power,Güc
+Pressure,Təzyiq
+Speed,Sürət
+Temperature,Temperatur
+Volume,Həcm
+BuildSuite Project User,BuildSuite layihə istifadəçisi
+Material Request Approval,Material tələbinin təsdiqi
+Purchase Invoice Approval,Alış hesab-fakturasının təsdiqi
+Purchase Order Approval,Satınalma sifarişinin təsdiqi
+Purchase Receipt Approval,Malların qəbulunun təsdiqi
+Sales Invoice Approval,Satış hesab-fakturasının təsdiqi
+Scope Change Order Approval,İş həcminin dəyişdirilməsi sifarişinin təsdiqi
+Stage Planning Approval,Mərhələ planının təsdiqi
+Subcontractor Bill Approval,Subpodratçının hesabının təsdiqi
+BuildSuite Quotation,BuildSuite qiymət təklifi
+BuildSuite Request for Quotation,BuildSuite qiymət təklifi sorğusu
+BuildSuite Tax Invoice,BuildSuite vergi hesab-fakturası
+BuildSuite Tender,BuildSuite tenderi
+BuildSuite Work Order,BuildSuite iş sifarişi
+Material Request Receipt Notification,Material tələbi üzrə qəbul bildirişi
+Notification for new fiscal year,Yeni maliyyə ili haqqında bildiriş
+New Fiscal Year {{ doc.name }} - Review Required,Yeni maliyyə ili {{ doc.name }} — nəzərdən keçirin
+{{ doc.name }} has been received,{{ doc.name }} qəbul edilib
+[Error] {{ doc.integration_request_service }},[Xəta] {{ doc.integration_request_service }}
+[Error] {{ doc.method }},[Xəta] {{ doc.method }}
+Accounts Payable Standard,Kreditor borcları — standart
+Accounts Payable Summary Standard,Kreditor borclarının xülasəsi — standart
+Accounts Receivable Standard,Debitor borcları — standart
+Accounts Receivable Summary Standard,Debitor borclarının xülasəsi — standart
+Balance Sheet Standard,Mühasibat balansı — standart
+Bank and Cash Payment Voucher,Bank və kassa ödəniş sənədi
+Cash Flow Statement Standard,Pul vəsaitlərinin hərəkəti haqqında hesabat — standart
+Cheque Printing Format,Çek çap formatı
+Customer Balance Confirmation,Müştəri üzrə qalığın təsdiqi
+Customer Bill-wise Pending,Müştərinin hesablar üzrə qalıq borcu
+Detailed Tax Invoice,Ətraflı vergi hesab-fakturası
+Drop Shipping Format,Birbaşa təchizatçıdan çatdırılma formatı
+General Ledger Standard,Baş kitab — standart
+IRS 1099 Form,IRS 1099 forması
+Journal Auditing Voucher,Mühasibat yazılışının yoxlama sənədi
+P&L Statement Standard,Mənfəət və zərər haqqında hesabat — standart
+Payment Receipt Voucher,Ödənişin qəbul sənədi
+Purchase Auditing Voucher,Alışın yoxlama sənədi
+Purchase Orders Outstanding,İcrası gözlənilən satınalma sifarişləri
+Purchase Receipt Serial and Batch Bundle Print,Qəbul sənədi üzrə seriya və partiya dəstinin çapı
+Purchase eInvoice,Elektron alış hesab-fakturası
+Return POS Invoice,Satış nöqtəsinin qaytarma hesab-fakturası
+Sales Auditing Voucher,Satışın yoxlama sənədi
+Sales Invoice Return,Satış hesab-fakturası üzrə qaytarma
+Sales Orders Outstanding,İcrası gözlənilən satış sifarişləri
+Simplified Tax Invoice,Sadələşdirilmiş vergi hesab-fakturası
+Statement of Account,Hesab çıxarışı
+Supplier Balance Confirmation,Təchizatçı üzrə qalığın təsdiqi
+Supplier Bill-wise Pending,Təchizatçıya hesablar üzrə qalıq borc
+Tax Invoice,Vergi hesab-fakturası
+Trial Balance Standard,Dövriyyə-qalıq cədvəli — standart
+Warehouse Stock Summary,Anbar ehtiyatlarının xülasəsi
+Customer's Name,Müştərinin adı
+Contact's Name,Əlaqə şəxsinin adı
+Address Details,Ünvan məlumatları
+Order Number,Sifariş nömrəsi
+Order Total,Sifarişin yekun məbləği
+Driver's Name,Sürücünün adı
+Driver's Number,Sürücünün nömrəsi
+POS Invoice Bordered,POS hesab-fakturası — çərçivəli
+POS Invoice Classic,POS hesab-fakturası — klassik
+POS Invoice Modern,POS hesab-fakturası — müasir
+POS Invoice Modern with Images,"POS hesab-fakturası — müasir, şəkillərlə"
+Purchase Invoice Bordered,Alış üzrə hesab-faktura — çərçivəli
+Purchase Invoice Classic,Alış üzrə hesab-faktura — klassik
+Purchase Invoice Modern,Alış üzrə hesab-faktura — müasir
+Purchase Invoice Modern with Images,"Alış üzrə hesab-faktura — müasir, şəkillərlə"
+Sales Invoice Bordered,Satış üzrə hesab-faktura — çərçivəli
+Sales Invoice Classic,Satış üzrə hesab-faktura — klassik
+Sales Invoice Modern,Satış üzrə hesab-faktura — müasir
+Sales Invoice Modern with Images,"Satış üzrə hesab-faktura — müasir, şəkillərlə"
+Purchase Order Bordered,Satınalma sifarişi — çərçivəli
+Purchase Order Classic,Satınalma sifarişi — klassik
+Purchase Order Modern,Satınalma sifarişi — müasir
+Purchase Order Modern with Images,"Satınalma sifarişi — müasir, şəkillərlə"
+Request for Quotation Bordered,Qiymət təklifi sorğusu — çərçivəli
+Request for Quotation Classic,Qiymət təklifi sorğusu — klassik
+Request for Quotation Modern,Qiymət təklifi sorğusu — müasir
+Request for Quotation Modern with Images,"Qiymət təklifi sorğusu — müasir, şəkillərlə"
+Quotation Bordered,Qiymət təklifi — çərçivəli
+Quotation Classic,Qiymət təklifi — klassik
+Quotation Modern,Qiymət təklifi — müasir
+Quotation Modern with Images,"Qiymət təklifi — müasir, şəkillərlə"
+Sales Order Bordered,Satış sifarişi — çərçivəli
+Sales Order Classic,Satış sifarişi — klassik
+Sales Order Modern,Satış sifarişi — müasir
+Sales Order Modern with Images,"Satış sifarişi — müasir, şəkillərlə"
+Delivery Note Bordered,Göndəriş sənədi — çərçivəli
+Delivery Note Classic,Göndəriş sənədi — klassik
+Delivery Note Modern,Göndəriş sənədi — müasir
+Delivery Note Modern with Images,"Göndəriş sənədi — müasir, şəkillərlə"
+TAX INVOICE,VERGİ HESAB-FAKTURASI
+Draft — not posted,Qaralama — uçota alınmayıb
+Bill to,Ödəyici
+Attn:,Diqqətinə:
+GSTIN:,GSTIN:
+Invoice no.,Hesab-faktura №
+Discount (on net total),Endirim (xalis məbləğə)
+Balance due,Ödənilməli qalıq
+Payment due by {0}. Interest may be charged on overdue amounts as per contract. This is a computer-generated invoice.,Ödəniş üçün son tarix: {0}. Müqavilə şərtlərinə əsasən gecikdirilmiş məbləğlərə faiz hesablana bilər. Bu hesab-faktura elektron qaydada tərtib olunub.
+For {0} — Authorised signatory,{0} adından — imza səlahiyyəti olan şəxs
+Generated {0} using {1},{0} tarixində {1} vasitəsilə tərtib olunub
+WORK ORDER,İŞ SİFARİŞİ
+To — Subcontractor,Alan — subpodratçı
+Against project,Aid olduğu layihə
+Scope of work,İşlərin həcmi
+Total order value,Sifarişin ümumi dəyəri
+Progress billing is measurement-based: certified Measurement Books drive each subcontractor bill.,Aralıq ödənişlər faktiki iş həcmlərinə əsaslanır: subpodratçının hər bir hesabı təsdiqlənmiş ölçü jurnalları əsasında tərtib edilir.
+"Retention of {0}% is withheld on each bill, released after completion and defect-liability sign-off.",Hər bir hesabın {0}%-i zəmanət məbləği kimi tutulur. İşlər tamamlandıqdan və qüsurlara görə məsuliyyət müddətinin başa çatması təsdiqləndikdən sonra həmin məbləğ ödənilir.
+Retention ({0}%),Zəmanət tutulması ({0}%)
+Net of retention,Zəmanət tutulmasından sonra qalan məbləğ
+Authorised signatory · Date,İmza səlahiyyəti olan şəxs · Tarix
+Accepted · Date,Qəbul edən · Tarix
+QUOTATION,QİYMƏT TƏKLİFİ
+Valid until,Qüvvədə olma müddəti
+Schedule of prices,Qiymət cədvəli
+Accepted for {0},{0} adından qəbul edən
+Generated using {0},{0} vasitəsilə tərtib olunub
+TENDER,TENDER TƏKLİFİ
+Submitted to,Təklifin təqdim edildiyi qurum
+Bid total,Tender təklifinin ümumi dəyəri
+Tax @ {0}%,Vergi ({0}%)
+Earnest money deposit:,Tender təklifinin təminatı:
+", valid to {0}",", qüvvədə olduğu son tarix: {0}"
+"Performance guarantee: {0}% of the contract value ({1}), to be furnished on award.",İcra təminatı müqavilə dəyərinin {0}%-ni ({1}) təşkil edir və tenderin qalibi müəyyən edildikdə təqdim olunmalıdır.
+Received for {0},{0} adından təhvil alan
+REQUEST FOR QUOTATION,QİYMƏT SORĞUSU
+GSTIN / Tax ID:,GSTIN / Vergi nömrəsi:
+Phone:,Telefon:
+To — Supplier,Alan — təchizatçı
+Deliver to project,Çatdırılma layihəsi
+Items to quote,Qiymət təklifi istənilən mallar
+Your rate,Təklif etdiyiniz vahid qiyməti
+Quotation reference · Date,Qiymət təklifinin nömrəsi · Tarix
+PURCHASE ORDER,SATINALMA SİFARİŞİ
+Ordered by,Sifariş verən
+CIN:,CIN:
+Tax ID:,Vergi nömrəsi:
+Site contact:,Tikinti sahəsi üzrə əlaqələndirici:
+Order items,Sifariş edilmiş mallar
+Deliver to the project site named above on or before {0}. Part deliveries are accepted against this order.,Malları yuxarıda göstərilən tikinti sahəsinə ən geci {0} tarixində çatdırın. Bu sifariş üzrə hissə-hissə çatdırılmaya icazə verilir.
+Deliver to the project site named above. Part deliveries are accepted against this order.,Malları yuxarıda göstərilən tikinti sahəsinə çatdırın. Bu sifariş üzrə hissə-hissə çatdırılmaya icazə verilir.
+Each delivery must carry a challan quoting this PO number; quantities are confirmed at site on receipt.,Hər çatdırılma zamanı bu satınalma sifarişinin nömrəsi göstərilən təhvil sənədi təqdim olunmalıdır. Miqdarlar malların tikinti sahəsində qəbulu zamanı təsdiqlənir.
+Material not conforming to the ordered specification may be rejected at site at the supplier's cost.,Sifarişdə göstərilən texniki tələblərə uyğun olmayan material tikinti sahəsində qəbul edilməyə bilər. Bununla bağlı xərcləri təchizatçı ödəyir.
+Invoices must reference this PO and the site-acknowledged receipt quantities.,Hesab-fakturalarda bu satınalma sifarişinin nömrəsi və tikinti sahəsində qəbulu təsdiqlənmiş miqdarlar göstərilməlidir.
+Acknowledged · Date,Təsdiq edən · Tarix
+Generated {0},Tərtib tarixi: {0}
+Details:,Ətraflı məlumat:
+List items received last month,Keçən ay qəbul edilmiş malları siyahıya al
+"Supplier spend by supplier, top 5","Təchizatçı hesablarının məbləğini təchizatçı üzrə göstər, ilk 5"
+Invoice value by month,Satış hesab-fakturalarının məbləğini aylar üzrə göstər
+Tasks by status as a pie,Tapşırıqları status üzrə dairəvi diaqramda göstər
+Man-days by project this month,Bu ay adam-günləri layihələr üzrə göstər
+Material consumed by item,Material sərfini mallar üzrə göstər
+Spend by supplier,Təchizatçılar üzrə xərclər
+Revenue by month,Aylar üzrə gəlir
+Tasks by status,Status üzrə tapşırıqlar
+Expenses by cost type,Növ üzrə xərclər
+Man-days by project,Layihələr üzrə adam-günlər
+Subcontractor billing,Subpodratçı hesabları
+Material received,Qəbul edilmiş materiallar
+Deliveries — detail,Təhvil qeydləri
+POs by status,Status üzrə satınalma sifarişləri
+Site reporting by month,Aylar üzrə sahə hesabatları
+"supplier bill value by supplier, top 8","Təchizatçı hesablarının məbləğini təchizatçı üzrə göstər, ilk 8"
+invoice value by month,Satış hesab-fakturalarının məbləğini aylar üzrə göstər
+tasks by status as a pie,Tapşırıqları status üzrə dairəvi diaqramda göstər
+expense value by cost type,Xərclərin məbləğini xərc növünə görə göstər
+man-days by project,Adam-günləri layihələr üzrə göstər
+subcontractor bill value by subcontractor,Subpodratçı hesablarının məbləğini subpodratçı üzrə göstər
+items received by item,Qəbul edilmiş materialları mallar üzrə göstər
+list items received last month,Keçən ay qəbul edilmiş malları siyahıya al
+consumption by item,Material sərfini mallar üzrə göstər
+purchase order value by status,Satınalma sifarişlərinin məbləğini status üzrə göstər
+progress entries by month,İrəliləyiş qeydlərini aylar üzrə göstər
+scope change value by status,İş həcmi dəyişikliklərinin məbləğini status üzrə göstər
+Reading your question…,Sualınız oxunur…
+Selecting records…,Qeydlər seçilir…
+Building the report…,Hesabat hazırlanır…
+Couldn't tell which records you mean. Try naming one: {0}.,Hansı qeydləri istədiyiniz aydın olmadı. Mövcud mənbələrdən birini yazın: {0}.
+"Nothing in that changed the report. Try a chart type, a group, a time period, a limit, or clear the filters.","Hesabat dəyişmədi. Diaqram növü, qruplaşdırma, dövr və ya say həddi göstərin, yaxud filtrləri təmizləyin."
+Read as: {0},Sorğu belə başa düşüldü: {0}
+Applied: {0},Tətbiq edildi: {0}
+Reverted the last change.,Son dəyişiklik geri qaytarıldı.
+Preset: {0},Hazır hesabat: {0}
+By {0},{0} üzrə
+Top {0},İlk {0}
+Other ({0}),Digər ({0})
+Chart: {0},Diaqram: {0}
+Filters cleared,Filtrlər təmizləndi
+All rows,Bütün sətirlər
+Over {0},{0} dəyərindən çox
+At least {0},Ən azı {0}
+At most {0},Ən çoxu {0}
+Contains “{0}”,Tərkibində “{0}” olan
+Project: {0},Layihə: {0}
+Min {0},Minimum {0}
+{0} record,{0} qeyd
+{0} group ({1}),{0} qrup ({1})
+{0} groups ({1}),{0} qrup ({1})
+{0} — detail,{0} — ətraflı siyahı
+{0}: {1} by {2},{0}: {2} üzrə {1}
+Last {0} days,Son {0} gün
+Remove filter: {0},Filtri sil: {0}
+Bar chart,Üfüqi zolaqlı diaqram
+Column chart,Sütunlu diaqram
+Line chart,Xətti qrafik
+Donut chart,Halqavarı diaqram
+Single figure,Yekun göstərici
+Share of total,Ümumi məbləğdə pay
+Alphabetical,Əlifba sırası ilə
+The report data could not be loaded. Reload the page to try again.,Hesabat üçün məlumatları yükləmək mümkün olmadı. Yenidən cəhd etmək üçün səhifəni təzələyin.
+"1. Payment: Payment is due by the due date stated on this invoice. Interest may be charged on overdue amounts as per the contract.
+2. Taxes: Amounts are exclusive of taxes unless stated; GST is charged as itemised on this invoice.
+3. Disputes: Any discrepancy must be notified in writing within 7 days of receipt of this invoice.
+4. Remittance: Payment by account-payee instrument or bank transfer to the account communicated separately, quoting this invoice number.","1. Ödəniş: Məbləğ bu hesab-fakturada göstərilən son tarixədək ödənilməlidir. Müqaviləyə uyğun olaraq gecikdirilmiş məbləğlərə faiz hesablana bilər.
+2. Vergilər: Başqa hal göstərilmədikdə, məbləğlərə vergilər daxil deyil. Mal və xidmətlər vergisi (GST) bu hesab-fakturada ayrıca göstərildiyi qaydada hesablanır.
+3. Mübahisələr: Hər hansı uyğunsuzluq barədə bu hesab-fakturanın alındığı tarixdən 7 gün ərzində yazılı məlumat verilməlidir.
+4. Köçürmə: Ödəniş bu hesab-fakturanın nömrəsi göstərilməklə, yalnız vəsaiti alan tərəfin bank hesabına mədaxil edilən ödəniş sənədi ilə və ya ayrıca bildirilən bank hesabına köçürmə yolu ilə həyata keçirilməlidir."
+"1. Basis: This invoice is raised against the certified work-done / milestone stated in the line items, as per the contract billing schedule.
+2. Certification: Quantities and values are as certified by the client's engineer; recovery of advances and retention (if applicable) is as per contract.
+3. Payment: Due by the stated due date. Delays beyond the credit period attract interest as per contract.
+4. Taxes: GST as itemised. TDS, if deducted, must be deposited and certificates furnished within statutory timelines.
+5. Disputes: Discrepancies must be raised in writing within 7 days; undisputed amounts shall not be withheld.","1. Əsas: Bu hesab-faktura müqavilənin ödəniş qrafikinə uyğun olaraq, sətirlərdə göstərilən və yerinə yetirilməsi təsdiqlənmiş işlər və ya mərhələ üzrə tərtib edilib.
+2. Təsdiq: Miqdarlar və dəyərlər sifarişçinin mühəndisi tərəfindən təsdiqlənib. Avansların əvəzləşdirilməsi və zəmanət tutulmaları (tətbiq olunduqda) müqaviləyə uyğun aparılır.
+3. Ödəniş: Məbləğ göstərilmiş son tarixədək ödənilməlidir. Möhlət müddəti keçdikdə müqaviləyə uyğun faiz hesablanır.
+4. Vergilər: Mal və xidmətlər vergisi (GST) ayrıca göstərilib. Ödəmə mənbəyində vergi (TDS) tutulduqda həmin məbləğ qanunla müəyyən edilmiş müddətdə büdcəyə köçürülməli və müvafiq arayışlar təqdim edilməlidir.
+5. Mübahisələr: Uyğunsuzluqlar barədə 7 gün ərzində yazılı məlumat verilməlidir. Mübahisə predmeti olmayan məbləğlərin ödənişi saxlanılmamalıdır."
+"1. Adjustment: This invoice is net of advances received and adjusted as itemised/communicated.
+2. Payment: Balance due by the stated due date to the designated bank account, quoting this invoice number.
+3. Taxes: GST as itemised on this invoice.
+4. Disputes: Any discrepancy must be notified in writing within 7 days of receipt.","1. Avansın əvəzləşdirilməsi: Bu hesab-fakturanın məbləği ayrıca göstərildiyi və ya bildirildiyi qaydada alınmış avanslar çıxılmaqla hesablanıb.
+2. Ödəniş: Qalıq məbləğ bu hesab-fakturanın nömrəsi göstərilməklə, müəyyən edilmiş son tarixədək təyin olunmuş bank hesabına ödənilməlidir.
+3. Vergilər: Mal və xidmətlər vergisi (GST) bu hesab-fakturada ayrıca göstərilib.
+4. Mübahisələr: Hər hansı uyğunsuzluq barədə sənədin alındığı tarixdən 7 gün ərzində yazılı məlumat verilməlidir."
+"<ol>
+<li><strong>Reference and closing date.</strong> Quote against the request number above and send
+your quotation by the ""Quote by"" date. A late quotation may not be considered.</li>
+<li><strong>Validity.</strong> Your quotation stays valid for at least 30 days from its date.</li>
+<li><strong>Prices.</strong> Quote a rate per unit for each item, in the currency of this request,
+including packing, loading, transport and unloading at the project site. Show applicable taxes
+separately.</li>
+<li><strong>Specification.</strong> Supply material that meets the description and any standard
+given for each item, and state the make or brand offered. Test certificates are to come with the
+delivery where the item calls for them.</li>
+<li><strong>Delivery.</strong> State your lead time from the date of order. Deliveries are to the
+project site during working hours; part deliveries are accepted unless the order says otherwise.</li>
+<li><strong>Part quotations.</strong> You may quote for some items only; leave out the ones you
+cannot supply. We may order all, part, or none of the items, and may order items from different
+suppliers.</li>
+<li><strong>Payment.</strong> State your payment terms. Payment is made against your invoice and
+the material received at site.</li>
+<li><strong>No commitment.</strong> This request and your quotation do not commit either side. An
+order is placed only by our purchase order.</li>
+</ol>","<ol>
+<li><strong>Sorğunun nömrəsi və son tarix.</strong> Təklifinizdə yuxarıdakı sorğu nömrəsini göstərin və təklifi qiymət təklifləri üçün göstərilən son tarixədək göndərin. Gecikmiş təklifə baxılmaya bilər.</li>
+<li><strong>Qüvvədə olma müddəti.</strong> Qiymət təklifiniz verildiyi tarixdən ən azı 30 gün qüvvədə qalmalıdır.</li>
+<li><strong>Qiymətlər.</strong> Hər malın vahid qiymətini bu sorğunun valyutası ilə göstərin. Qiymətə qablaşdırma, yükləmə, tikinti sahəsinə daşınma və orada boşaltma xərclərini daxil edin. Tətbiq olunan vergiləri ayrıca göstərin.</li>
+<li><strong>Texniki tələblər.</strong> Hər bir mal üçün göstərilmiş təsvirə və standartlara uyğun material təklif edin, istehsalçının və ya markanın adını göstərin. Tələb olunduqda, sınaq sertifikatları materialla birlikdə təqdim edilməlidir.</li>
+<li><strong>Çatdırılma.</strong> Sifariş tarixindən etibarən çatdırılma müddətini göstərin. Mallar iş saatlarında tikinti sahəsinə çatdırılmalıdır. Sifarişdə başqa hal nəzərdə tutulmadıqda hissə-hissə çatdırılmaya icazə verilir.</li>
+<li><strong>Qismən təkliflər.</strong> Yalnız təmin edə bildiyiniz mallar üzrə təklif verə bilərsiniz. Malların hamısını, bir hissəsini və ya heç birini sifariş etməmək, həmçinin onları müxtəlif təchizatçılardan almaq hüququmuzu saxlayırıq.</li>
+<li><strong>Ödəniş.</strong> Ödəniş şərtlərinizi göstərin. Ödəniş təqdim etdiyiniz hesab-faktura və tikinti sahəsində faktiki qəbul edilmiş material əsasında həyata keçirilir.</li>
+<li><strong>Öhdəliyin yaranmaması.</strong> Bu sorğu və təqdim etdiyiniz qiymət təklifi tərəflərin heç biri üçün öhdəlik yaratmır. Sifariş yalnız satınalma sifarişimizi təqdim etdikdə rəsmiləşir.</li>
+</ol>"
+Earthwork excavation,Qazıntı işləri,Project template task
+PCC laying,Armaturlaşdırılmamış beton qatının tökülməsi,Project template task
+Raft foundation casting,Bütöv plitə bünövrənin betonlanması,Project template task
+Column casting — Level 1 to 5,1–5-ci səviyyələrdə sütunların betonlanması,Project template task
+Slab casting — Level 1 to 5,1–5-ci səviyyələrdə örtük plitələrinin betonlanması,Project template task
+Electrical conduit laying,Elektrik kabelləri üçün boruların çəkilməsi,Project template task
+Plumbing rough-in,Santexnika xətlərinin ilkin quraşdırılması,Project template task
+Internal plaster,Daxili suvaq işləri,Project template task
+Floor tiling,Döşəmə plitələrinin döşənməsi,Project template task
+Painting,Boyaq işləri,Project template task
+Snagging walkthrough,Qüsurların müəyyənləşdirilməsi üçün yerində baxış,Project template task
+Occupancy certificate,İstismara icazənin alınması,Project template task
+Tower column casting,Hündürmərtəbəli binanın sütunlarının betonlanması,Project template task
+Tower slab casting,Hündürmərtəbəli binanın örtük plitələrinin betonlanması,Project template task
+Conduit + plumbing per unit,Hər mənzildə elektrik borularının və santexnika xətlərinin çəkilməsi,Project template task
+Wall plaster + putty,Divarların suvanması və hamarlanması,Project template task
+Floor tiling per unit,Hər mənzildə döşəmə plitələrinin döşənməsi,Project template task
+Joinery + kitchen fit-out,Dülgərlik işləri və mətbəxin quraşdırılması,Project template task
+Clubhouse finishing,Klub binasının tamamlama işləri,Project template task
+Landscaping,Ərazinin abadlaşdırılması,Project template task
+Site grading,Tikinti sahəsinin hamarlanması,Project template task
+Utility diversion,Mühəndis kommunikasiya xətlərinin köçürülməsi,Project template task
+Pile installation,Svayların quraşdırılması,Project template task
+Pile cap casting,Svay başlıqlarını birləşdirən rostverkin betonlanması,Project template task
+Column casting,Sütunların betonlanması,Project template task
+Deck casting,Örtük plitəsinin betonlanması,Project template task
+Retaining wall construction,İstinad divarının tikintisi,Project template task
+Signalling fit-out,Siqnalizasiya avadanlığının quraşdırılması,Project template task
+Testing & commissioning,Sınaq və istismara vermə,Project template task
+Edit template source,Şablonun mənbəyini redaktə et
+Submit for Approval,Təsdiqə göndər
+From,Göndərən,BuildSuite Print
+For,Təklifin ünvanlandığı tərəf,BuildSuite Print
+For {0},{0} adından,BuildSuite Print
+Due date,Son ödəniş tarixi,BuildSuite Print
+Received,Ödənilmiş məbləğ,BuildSuite Print
+Required by,Tələb olunan son tarix,BuildSuite Print
+Delivery type,Təhvil növü,BuildSuite Print
+bills,hesab,Record count
+Billed To,Ödəyici
+Sub Total,Aralıq cəm

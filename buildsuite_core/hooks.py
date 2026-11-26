@@ -50,9 +50,11 @@ update_website_context = ["buildsuite_core.utils.website.localize_login_title"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/buildsuite_core/css/buildsuite_core.css"
+extend_bootinfo = ["buildsuite_core.utils.desk_record_labels.add_bootinfo"]
 app_include_js = [
-    "/assets/buildsuite_core/js/desk_az_calendar.js",
-    "/assets/buildsuite_core/js/desk_az_form_buttons.js",
+	"/assets/buildsuite_core/js/desk_az_calendar.js",
+	"/assets/buildsuite_core/js/desk_az_record_labels.js",
+	"/assets/buildsuite_core/js/desk_az_form_buttons.js",
 ]
 
 # include js, css files in header of web template
@@ -72,7 +74,11 @@ page_js = {"desktop": "public/js/desktop_language.js"}
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-doctype_tree_js = {"Account": "public/js/desk_az_accounts.js"}
+doctype_tree_js = {
+	"Account": "public/js/desk_az_accounts.js",
+	"Warehouse": "public/js/desk_az_master_trees.js",
+	"Department": "public/js/desk_az_master_trees.js",
+}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
 # Svg Icons
@@ -103,11 +109,12 @@ doctype_tree_js = {"Account": "public/js/desk_az_accounts.js"}
 # Jinja
 # ----------
 
-# add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "buildsuite_core.utils.jinja_methods",
-# 	"filters": "buildsuite_core.utils.jinja_filters"
-# }
+jinja = {
+	"methods": [
+		"buildsuite_core.print_text.buildsuite_print_terms",
+		"buildsuite_core.print_text.buildsuite_rfq_message",
+	]
+}
 
 # Installation
 # ------------
@@ -191,7 +198,12 @@ override_doctype_class = {  # nosemgrep: override-doctype-class -- intentional, 
 # ---------------
 # Hook on document methods and events
 
+override_whitelisted_methods = {
+	"erpnext.stock.doctype.delivery_trip.delivery_trip.notify_customers": "buildsuite_core.dispatch.notify_customers",
+}
+
 doc_events = {
+	"Email Template": {"before_insert": "buildsuite_core.dispatch.translate_stock_template"},
 	# Team-scoped workflow notifications (utils.team_workflow_notifications): for a workflow ticked
 	# "Team-scoped notifications", the next step's users are notified, following their persona's
 	# project-team setting. A document type without such a workflow returns at once.
@@ -493,6 +505,30 @@ doctype_js = {
 	"Journal Entry": "public/js/journal_entry.js",
 	"Petty Cash Request": "public/js/petty_cash_request.js",
 	"Email Account": "public/js/email_account.js",
+	"Email Template": "public/js/desk_az_dispatch_preview.js",
 }
 
-doctype_list_js = {"Task": "public/js/task_list.js"}
+doctype_list_js = {
+	"Task": ["public/js/task_list.js", "public/js/desk_az_master_lists.js"],
+	**dict.fromkeys(
+		(
+			"Warehouse",
+			"Department",
+			"Project Type",
+			"UOM",
+			"UOM Category",
+			"Print Format",
+			"Report",
+			"Workspace",
+			"Dashboard Chart",
+			"Role",
+			"User Type",
+			"Workflow",
+			"Workflow State",
+			"Workflow Action Master",
+			"Email Template",
+			"Notification",
+		),
+		"public/js/desk_az_master_lists.js",
+	),
+}

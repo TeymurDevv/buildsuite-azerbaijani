@@ -46,7 +46,9 @@ const reference = computed(() => {
 		label: n.reference_label || n.document_name,
 		to: spa ? spa(n.document_name) : null,
 		// Fall back to the Desk form for doctypes the SPA has no route for.
-		desk: `/app/${n.document_type.toLowerCase().replaceAll(" ", "-")}/${encodeURIComponent(n.document_name)}`,
+		desk: `/app/${n.document_type.toLowerCase().replaceAll(" ", "-")}/${encodeURIComponent(
+			n.document_name
+		)}`,
 	};
 });
 
@@ -84,20 +86,27 @@ function openReference() {
 			class="inline-flex items-center gap-1.5 text-xs text-ink-600 hover:text-ink-900 mb-3"
 		>
 			<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M15 19l-7-7 7-7"
+				/>
 			</svg>
-			{{ __('All notifications') }}
+			{{ __("All notifications") }}
 		</RouterLink>
 
-		<div v-if="loading" class="text-sm text-ink-500 px-1 py-14 text-center">{{ __('Loading…') }}</div>
+		<div v-if="loading" class="text-sm text-ink-500 px-1 py-14 text-center">
+			{{ __("Loading…") }}
+		</div>
 
 		<div
 			v-else-if="notFound || !note"
 			class="border border-dashed border-ink-200 rounded-xl px-4 py-14 text-center"
 		>
-			<div class="text-sm text-ink-700">{{ __('That notification is not here.') }}</div>
+			<div class="text-sm text-ink-700">{{ __("That notification is not here.") }}</div>
 			<div class="text-xs text-ink-500 mt-1">
-				{{ __('It may have been cleared, or it belongs to someone else.') }}
+				{{ __("It may have been cleared, or it belongs to someone else.") }}
 			</div>
 		</div>
 
@@ -107,21 +116,28 @@ function openReference() {
 				<span
 					class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
 					:class="kind.tint"
-					:title="note.type"
+					:title="__(note.type)"
 				>
 					<WorkspaceIcon :slug="kind.icon" :size="18" />
 				</span>
 				<div class="min-w-0 flex-1">
 					<div class="flex flex-wrap items-center gap-2">
-						<span class="text-[10px] uppercase tracking-wider font-semibold text-ink-500">
-							{{ kind.label }}
+						<span
+							class="text-[10px] uppercase tracking-wider font-semibold text-ink-500"
+						>
+							{{ __(kind.label) }}
 						</span>
-						<span class="text-[11px] text-ink-400 ml-auto">{{ when(note.creation) }}</span>
+						<span class="text-[11px] text-ink-400 ml-auto">{{
+							when(note.creation)
+						}}</span>
 					</div>
 					<h1 class="text-base sm:text-lg font-semibold text-ink-900 leading-snug mt-1">
 						{{ note.subject }}
 					</h1>
-					<div v-if="note.from_user" class="flex items-center gap-1.5 mt-2 text-xs text-ink-600">
+					<div
+						v-if="note.from_user"
+						class="flex items-center gap-1.5 mt-2 text-xs text-ink-600"
+					>
 						<UserAvatar :user-id="note.from_user" size="xs" class="shrink-0" />
 						<span>{{ note.from_user_name || note.from_user }}</span>
 					</div>
@@ -138,7 +154,7 @@ function openReference() {
 			<!-- Referenced record -->
 			<div v-if="reference" class="px-4 sm:px-5 py-3 border-t border-ink-100">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium mb-1.5">
-					{{ __('Related record') }}
+					{{ __("Related record") }}
 				</div>
 				<button
 					type="button"

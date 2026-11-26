@@ -1,4 +1,6 @@
-import { calendarDate, displayLocale } from "@/utils/locale";
+import { __ } from "../utils/translate.js";
+import { foldQuery, readAz, queryDates, numericLimits } from "./insightQueryLanguage.js";
+import { calendarDate, displayLocale } from "../utils/locale.js";
 // Insights — the query model behind the prompt box (first layer).
 //
 // HONESTY NOTE, read before extending. There is no model call. A prompt is
@@ -20,18 +22,33 @@ import { calendarDate, displayLocale } from "@/utils/locale";
 // ---------------------------------------------------------------------------
 // Helpers shared by the dataset definitions
 // ---------------------------------------------------------------------------
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
 function monthOf(iso) {
 	if (!iso) return "—";
 	const [y, m] = String(iso).slice(0, 7).split("-");
 	const locale = displayLocale();
 	if (locale && /^\d{4}$/.test(y) && Number(m) >= 1 && Number(m) <= 12) {
 		return calendarDate(new Date(Number(y), Number(m) - 1, 1), locale, {
-			month: "short", year: "numeric",
+			month: "short",
+			year: "numeric",
 		});
 	}
 	return m ? `${MONTHS[Number(m) - 1]} ${y}` : "—";
 }
+const monthKey = (date) => (date ? String(date).slice(0, 7) : "—");
 const n = (v) => Number(v) || 0;
 const pName = (s, id) => s.projectById(id)?.name || id || "—";
 
@@ -50,7 +67,7 @@ export const DATASETS = {
 		date: (r) => r.expected_start_date,
 		amount: () => 0,
 		qty: () => 0,
-		project: (r) => r.name,
+		project: (r) => r.id || r.name,
 		measures: ["count"],
 		dims: {
 			status: { label: "Status", get: (r) => r.project_status || "—" },
@@ -83,7 +100,7 @@ export const DATASETS = {
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			status: { label: "Status", get: (r) => r.task_status || r.status || "—" },
 			priority: { label: "Priority", get: (r) => r.priority || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.exp_end_date) },
+			month: { label: "Month", get: (r) => monthKey(r.exp_end_date) },
 		},
 		list: {
 			columns: [
@@ -113,7 +130,7 @@ export const DATASETS = {
 		dims: {
 			state: { label: "Approval state", get: (r) => r.workflow_state || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.planned_end) },
+			month: { label: "Month", get: (r) => monthKey(r.planned_end) },
 		},
 		list: {
 			columns: [
@@ -133,7 +150,14 @@ export const DATASETS = {
 	subBills: {
 		label: "Subcontractor bills",
 		can: (s) => s.canReadSubBills,
-		words: ["subcontractor bill", "subcontractor bills", "ra bill", "ra bills", "sub bill", "sub bills"],
+		words: [
+			"subcontractor bill",
+			"subcontractor bills",
+			"ra bill",
+			"ra bills",
+			"sub bill",
+			"sub bills",
+		],
 		rows: (s) => s.subBills,
 		date: (r) => r.date,
 		amount: (r) => n(r.gross),
@@ -141,10 +165,13 @@ export const DATASETS = {
 		project: (r) => r.project,
 		measures: ["amount", "count"],
 		dims: {
-			subcontractor: { label: "Subcontractor", get: (r) => r.subcontractor_name || r.subcontractor || "—" },
+			subcontractor: {
+				label: "Subcontractor",
+				get: (r) => r.subcontractor_name || r.subcontractor || "—",
+			},
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			status: { label: "Status", get: (r) => r.status || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -175,7 +202,7 @@ export const DATASETS = {
 			supplier: { label: "Supplier", get: (r) => r.supplier_name || r.supplier || "—" },
 			status: { label: "Status", get: (r) => r.status || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.transaction_date) },
+			month: { label: "Month", get: (r) => monthKey(r.transaction_date) },
 		},
 		list: {
 			columns: [
@@ -195,7 +222,14 @@ export const DATASETS = {
 	progress: {
 		label: "Progress entries",
 		can: (s) => s.canReadProgress,
-		words: ["progress", "progress entries", "progress entry", "site report", "site reports", "daily report"],
+		words: [
+			"progress",
+			"progress entries",
+			"progress entry",
+			"site report",
+			"site reports",
+			"daily report",
+		],
 		rows: (s) => s.taskProgressEntries,
 		date: (r) => r.entry_date,
 		amount: () => 0,
@@ -204,7 +238,7 @@ export const DATASETS = {
 		measures: ["count"],
 		dims: {
 			project: { label: "Project", get: (r, s) => pName(s, s.taskProject(r.task)) },
-			month: { label: "Month", get: (r) => monthOf(r.entry_date) },
+			month: { label: "Month", get: (r) => monthKey(r.entry_date) },
 			blocker: { label: "Blocker", get: (r) => (r.blocker ? "Blocked" : "Clear") },
 		},
 		list: {
@@ -235,7 +269,7 @@ export const DATASETS = {
 		dims: {
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			status: { label: "Status", get: (r) => r.status || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.start_date) },
+			month: { label: "Month", get: (r) => monthKey(r.start_date) },
 		},
 		list: {
 			columns: [
@@ -266,7 +300,7 @@ export const DATASETS = {
 			status: { label: "Status", get: (r) => r.status || "—" },
 			type: { label: "Type", get: (r) => r.type || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.raised_date) },
+			month: { label: "Month", get: (r) => monthKey(r.raised_date) },
 		},
 		list: {
 			columns: [
@@ -296,9 +330,12 @@ export const DATASETS = {
 		project: (r) => r.project,
 		measures: ["amount", "count"],
 		dims: {
-			subcontractor: { label: "Subcontractor", get: (r) => r.subcontractor_name || r.subcontractor || "—" },
+			subcontractor: {
+				label: "Subcontractor",
+				get: (r) => r.subcontractor_name || r.subcontractor || "—",
+			},
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -328,7 +365,7 @@ export const DATASETS = {
 		dims: {
 			status: { label: "Status", get: (r) => r.status || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -348,7 +385,16 @@ export const DATASETS = {
 	invoices: {
 		label: "Invoices",
 		can: (s) => s.canReadInvoices,
-		words: ["invoice", "invoices", "billing", "revenue", "income", "sales", "receivable", "receivables"],
+		words: [
+			"invoice",
+			"invoices",
+			"billing",
+			"revenue",
+			"income",
+			"sales",
+			"receivable",
+			"receivables",
+		],
 		rows: (s) => s.invoices,
 		date: (r) => r.posting_date,
 		amount: (r) => n(r.grand_total),
@@ -359,7 +405,7 @@ export const DATASETS = {
 			customer: { label: "Customer", get: (r) => r.customer_name || r.customer || "—" },
 			status: { label: "Status", get: (r) => r.status || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.posting_date) },
+			month: { label: "Month", get: (r) => monthKey(r.posting_date) },
 		},
 		list: {
 			columns: [
@@ -379,7 +425,14 @@ export const DATASETS = {
 	bills: {
 		label: "Supplier bills",
 		can: (s) => s.canReadBills,
-		words: ["supplier bill", "supplier bills", "purchase invoice", "payable", "payables", "supplier spend"],
+		words: [
+			"supplier bill",
+			"supplier bills",
+			"purchase invoice",
+			"payable",
+			"payables",
+			"supplier spend",
+		],
 		rows: (s) => s.bills,
 		date: (r) => r.posting_date,
 		amount: (r) => n(r.grand_total),
@@ -390,7 +443,7 @@ export const DATASETS = {
 			supplier: { label: "Supplier", get: (r) => r.supplier_name || r.supplier || "—" },
 			status: { label: "Status", get: (r) => r.status || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.posting_date) },
+			month: { label: "Month", get: (r) => monthKey(r.posting_date) },
 		},
 		list: {
 			columns: [
@@ -421,7 +474,7 @@ export const DATASETS = {
 			costType: { label: "Cost type", get: (r) => r.costType || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			employee: { label: "Paid by", get: (r) => r.employee || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -452,7 +505,7 @@ export const DATASETS = {
 			status: { label: "Status", get: (r) => r.status || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			holder: { label: "Holder", get: (r) => r.requested_by || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.request_date) },
+			month: { label: "Month", get: (r) => monthKey(r.request_date) },
 		},
 		list: {
 			columns: [
@@ -472,7 +525,16 @@ export const DATASETS = {
 	attendance: {
 		label: "Labour attendance",
 		can: (s) => s.canReadAttendance,
-		words: ["attendance", "labour", "labor", "manpower", "man-days", "mandays", "workers", "wages"],
+		words: [
+			"attendance",
+			"labour",
+			"labor",
+			"manpower",
+			"man-days",
+			"mandays",
+			"workers",
+			"wages",
+		],
 		rows: (s) => s.attendance,
 		date: (r) => r.date,
 		amount: () => 0,
@@ -483,7 +545,7 @@ export const DATASETS = {
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
 			worker: { label: "Worker", get: (r) => r.employee || "—" },
 			status: { label: "Status", get: (r) => r.status || "—" },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -503,7 +565,17 @@ export const DATASETS = {
 	receiptLines: {
 		label: "Items received",
 		can: (s) => s.canReadReceipts,
-		words: ["purchase receipt", "purchase receipts", "goods receipt", "goods received", "items received", "received", "grn", "delivery", "deliveries"],
+		words: [
+			"purchase receipt",
+			"purchase receipts",
+			"goods receipt",
+			"goods received",
+			"items received",
+			"received",
+			"grn",
+			"delivery",
+			"deliveries",
+		],
 		rows: (s) => s.receiptLines,
 		date: (r) => r.date,
 		amount: (r) => n(r.amount),
@@ -514,7 +586,7 @@ export const DATASETS = {
 			item: { label: "Item", get: (r) => r.item_name || r.item || "—" },
 			supplier: { label: "Supplier", get: (r) => r.supplier || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -546,7 +618,7 @@ export const DATASETS = {
 		dims: {
 			item: { label: "Item", get: (r) => r.item_name || r.item || "—" },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -605,7 +677,7 @@ export const DATASETS = {
 		dims: {
 			machine: { label: "Machine", get: (r, s) => s.machineryName(r.machine) },
 			project: { label: "Project", get: (r, s) => pName(s, r.project) },
-			month: { label: "Month", get: (r) => monthOf(r.date) },
+			month: { label: "Month", get: (r) => monthKey(r.date) },
 		},
 		list: {
 			columns: [
@@ -664,7 +736,12 @@ export function availableDatasets(store) {
 	});
 }
 
-export const MEASURE_LABEL = { count: "Count", amount: "Value", mandays: "Man-days", qty: "Quantity" };
+export const MEASURE_LABEL = {
+	count: "Count",
+	amount: "Value",
+	mandays: "Man-days",
+	qty: "Quantity",
+};
 export const VIZ = ["bar", "column", "line", "donut", "table", "kpi"];
 
 // ---------------------------------------------------------------------------
@@ -706,7 +783,19 @@ const MEASURE_WORDS = {
 	qty: ["quantity", "qty", "volume", "hours", "how much of"],
 	count: ["count", "how many", "number of", "no of"],
 };
-const LIST_WORDS = ["list", "show me the", "which ", "what were", "detail", "details", "log of", "register of", "itemised", "itemized", "line by line"];
+const LIST_WORDS = [
+	"list",
+	"show me the",
+	"which ",
+	"what were",
+	"detail",
+	"details",
+	"log of",
+	"register of",
+	"itemised",
+	"itemized",
+	"line by line",
+];
 
 function hit(text, words) {
 	return words.some((w) => text.includes(w));
@@ -720,7 +809,11 @@ function editDistance(a, b) {
 		prev[0] = i;
 		for (let j = 1; j <= b.length; j++) {
 			const tmp = prev[j];
-			prev[j] = Math.min(prev[j] + 1, prev[j - 1] + 1, diag + (a[i - 1] === b[j - 1] ? 0 : 1));
+			prev[j] = Math.min(
+				prev[j] + 1,
+				prev[j - 1] + 1,
+				diag + (a[i - 1] === b[j - 1] ? 0 : 1)
+			);
 			diag = tmp;
 		}
 	}
@@ -741,264 +834,295 @@ function fuzzyIncludes(tokens, phrase) {
 		.every((w) => tokens.some((tk) => tokenMatches(tk, w)));
 }
 
-export function parsePrompt(prompt, store, base = null) {
-	const text = ` ${String(prompt || "").toLowerCase().trim()} `;
-	if (!text.trim()) return null;
-	const spec = base
-		? JSON.parse(JSON.stringify(base))
-		: { source: null, mode: "aggregate", measure: "count", dimension: null, filters: {}, viz: "bar", sort: "desc", limit: null };
-	const understood = [];
-	const allowed = availableDatasets(store);
+export const VIZ_LABEL = {
+	bar: "Bar chart",
+	column: "Column chart",
+	line: "Line chart",
+	donut: "Donut chart",
+	table: "Table",
+	kpi: "Single figure",
+};
+const enumDimensions = new Set(["status", "state", "priority", "blocker"]);
+export function displayDimension(key, value) {
+	if (key === "month") return monthOf(value);
+	return enumDimensions.has(key) ? __(value) : value;
+}
+const stateTerms = {
+	Open: ["açıq"],
+	Completed: ["tamamlanmış", "tamamlanıb", "bitmiş", "başa çatmış"],
+	Closed: ["bağlı", "bağlanmış", "bağlanıb"],
+	Pending: ["gözləyən", "gözləmədə"],
+	"Pending Approval": ["təsdiq gözləyən", "təsdiq gözləyir"],
+	"Pending Review": ["baxış gözləyən", "baxış gözləyir"],
+	Approved: ["təsdiqlənmiş", "təsdiqlənib"],
+	Draft: ["qaralama"],
+	Rejected: ["rədd edilmiş"],
+	Overdue: ["gecikmiş", "gecikən", "vaxtı keçmiş"],
+	Cancelled: ["ləğv edilmiş", "ləğv edilib"],
+	"Work In Progress": ["icrada", "icra olunan"],
+	"In Progress": ["davam edən", "icrada"],
+	High: ["yüksək", "yüksək prioritetli"],
+	Low: ["aşağı", "aşağı prioritetli"],
+	Medium: ["orta"],
+	Urgent: ["təcili"],
+	Paid: ["ödənilmiş", "ödənilib"],
+	Unpaid: ["ödənilməmiş"],
+	Blocked: ["bloklanmış"],
+};
+// A recognized predicate must still narrow the report when no matching record
+// exists. Without this, asking for closed tasks can quietly return every open task.
+const knownEnums = {
+	status: [
+		"Open",
+		"Completed",
+		"Closed",
+		"Pending",
+		"Approved",
+		"Draft",
+		"Rejected",
+		"Overdue",
+		"Cancelled",
+		"Work In Progress",
+		"In Progress",
+		"Unpaid",
+		"Paid",
+	],
+	state: ["Pending Approval", "Pending Review", "Approved", "Draft", "Rejected", "Pending"],
+	priority: ["High", "Medium", "Low", "Urgent"],
+	blocker: ["Blocked", "Clear"],
+};
+const escaped = (v) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function containsTerm(text, term) {
+	return (
+		term &&
+		new RegExp("(?:^|[^a-z0-9])" + escaped(foldQuery(term)) + "(?=$|[^a-z0-9])").test(text)
+	);
+}
 
-	const forSource = text.replace(/\b(?:group by|split by|by)\s+[a-z\s-]{2,20}/g, " ");
-	const tokens = forSource.split(/[^a-z0-9-]+/).filter(Boolean);
-	let best = null;
-	for (const [key, ds] of allowed) {
-		for (const w of ds.words) {
-			const exact = forSource.includes(w);
-			const fuzzy = !exact && fuzzyIncludes(tokens, w);
-			if (!exact && !fuzzy) continue;
-			const score = w.length - (fuzzy ? 0.5 : 0);
-			if (!best || score > best.len) best = { key, len: score, label: ds.label };
+function sourceOf(text, az) {
+	if (az.source) return az.source;
+	const sourceText = az.sourceText.replace(
+		/\b(?:group by|split by|by)\s+(?:[a-z-]+(?:\s+type|\s+state|\s+group)?)/g,
+		" "
+	);
+	const tokens = sourceText.split(/[^a-z0-9-]+/).filter(Boolean);
+	let best;
+	for (const [key, ds] of Object.entries(DATASETS)) {
+		for (const word of ds.words) {
+			const exact = containsTerm(sourceText, word);
+			if (!exact && !fuzzyIncludes(tokens, word)) continue;
+			const score = word.length - (exact ? 0 : 0.5);
+			if (!best || score > best.score) best = { key, score };
 		}
 	}
-	if (!best) return null;
-	spec.source = best.key;
-	understood.push(best.label);
+	return best?.key;
+}
 
+function selectDimension(ds, text, az, refining) {
+	const azDim =
+		az.dims.find((d) => ds.dims[d]) ||
+		(az.dims.includes("status") && ds.dims.state ? "state" : null);
+	if (azDim) return azDim;
+	const by = text.match(/\bby ([a-z -]+)/);
+	if (by)
+		return Object.keys(ds.dims).find((k) =>
+			(DIM_WORDS[k] || []).some((w) => by[1].startsWith(w))
+		);
+	if (refining || az.source) return null;
+	// A reporting period alone does not request grouping by month.
+	const words = text.replace(/\b(?:last|this|past|next) (?:month|year|week|quarter)\b/g, "");
+	return Object.keys(ds.dims).find((k) =>
+		(DIM_WORDS[k] || []).some((w) => containsTerm(words, w))
+	);
+}
+function applyPresentation(spec, text, az, refining, notes) {
 	const ds = DATASETS[spec.source];
-
-	if (hit(text, LIST_WORDS)) {
+	const list = az.list || hit(text, LIST_WORDS);
+	if (list) {
 		spec.mode = "list";
-		understood.push("as a list");
+		notes.push(__("Records"));
 	}
-
-	let measured = false;
-	for (const m of ["mandays", "qty", "amount", "count"]) {
-		if (ds.measures.includes(m) && hit(text, MEASURE_WORDS[m])) {
-			spec.measure = m;
-			measured = true;
-			understood.push(MEASURE_LABEL[m]);
-			break;
-		}
+	if (az.summary || /\b(?:summar\w*|roll ?up|group it)\b/.test(text)) {
+		spec.mode = "aggregate";
+		notes.push(__("Summary"));
 	}
-	if (!measured || !ds.measures.includes(spec.measure)) spec.measure = ds.measures[0];
-
-	const byMatch = text.match(/\bby ([a-z\s-]{2,20})/);
-	let dim = null;
-	if (byMatch) {
-		const phrase = byMatch[1].trim();
-		for (const k of Object.keys(ds.dims)) {
-			if ((DIM_WORDS[k] || []).some((w) => phrase.startsWith(w))) {
-				dim = k;
-				break;
-			}
-		}
+	const measure = [
+		az.measure,
+		...["mandays", "qty", "amount", "count"].filter((m) => hit(text, MEASURE_WORDS[m])),
+	].find((m) => ds.measures.includes(m));
+	if (measure) {
+		spec.measure = measure;
+		notes.push(__(MEASURE_LABEL[measure]));
 	}
-	if (!dim) {
-		for (const k of Object.keys(ds.dims)) {
-			if ((DIM_WORDS[k] || []).some((w) => text.includes(` ${w} `))) {
-				dim = k;
-				break;
-			}
-		}
-	}
+	const dim = selectDimension(ds, text, az, refining);
 	if (dim) {
 		spec.dimension = dim;
-		understood.push(`by ${ds.dims[dim].label}`);
+		if (refining && !list) spec.mode = "aggregate";
+		notes.push(__("Grouped by {0}", [__(ds.dims[dim].label)]));
 	}
-	if (!spec.dimension || !ds.dims[spec.dimension]) spec.dimension = Object.keys(ds.dims)[0];
-
-	for (const [v, words] of Object.entries(VIZ_WORDS)) {
-		if (v === "kpi" && dim) continue;
-		if (hit(text, words)) {
-			spec.viz = v;
-			understood.push(v);
-			break;
-		}
+	const viz = az.viz || Object.keys(VIZ_WORDS).find((v) => hit(text, VIZ_WORDS[v]));
+	if (viz && !(viz === "kpi" && dim)) {
+		spec.viz = viz;
+		if (refining && !list) spec.mode = "aggregate";
+		notes.push(__("Chart: {0}", [__(VIZ_LABEL[viz])]));
+	} else if (dim === "month") spec.viz = "line";
+	const top = text.match(
+		/\b(?:top|ilk|birinci|en yuksek|en cox|en boyuk|en az|en asagi|en kicik)\s+(\d{1,3})\b/
+	);
+	if (top && +top[1] > 0) {
+		spec.limit = +top[1];
+		notes.push(__("Top {0}", [spec.limit]));
 	}
-	if (spec.dimension === "month" && spec.viz === "bar") spec.viz = "line";
-
-	for (const p of store.projects) {
-		const code = (p.code || "").toLowerCase();
-		const words = (p.name || "").toLowerCase().split(/\s+/).filter((w) => w.length > 2);
-		const opener = words.slice(0, 2).join(" ");
-		if ((code.length > 2 && text.includes(code)) || (opener.length > 4 && text.includes(opener))) {
-			spec.filters.project = p.id;
-			understood.push(p.name);
-			break;
-		}
+	if (/\b(?:ascending|lowest|smallest|artan|en az|en asagi|en kicik)\b/.test(text)) {
+		spec.sort = "asc";
+		notes.push(__("Ascending"));
+	} else if (/\b(?:descending|highest|largest|azalan|en yuksek|en boyuk)\b/.test(text)) {
+		spec.sort = "desc";
+		notes.push(__("Descending"));
+	} else if (/\b(?:alphabetical|a-z|elifba[a-z]*)\b/.test(text)) {
+		spec.sort = "label";
+		notes.push(__("Alphabetical"));
 	}
-
-	const now = new Date();
-	const iso = (d) => d.toISOString().slice(0, 10);
-	const back = (days) => iso(new Date(now.getTime() - days * 86400000));
-	if (text.includes("today")) {
-		spec.filters.from = iso(now);
-		understood.push("today");
-	} else if (text.includes("last 7") || text.includes("this week") || text.includes("past week")) {
-		spec.filters.from = back(7);
-		understood.push("last 7 days");
-	} else if (text.includes("last month") || text.includes("last 30") || text.includes("this month") || text.includes("past month")) {
-		spec.filters.from = back(30);
-		understood.push("last 30 days");
-	} else if (text.includes("last 90") || text.includes("quarter")) {
-		spec.filters.from = back(90);
-		understood.push("last 90 days");
-	} else if (text.includes("this year") || text.includes("ytd")) {
-		spec.filters.from = `${now.getFullYear()}-01-01`;
-		understood.push("year to date");
+	if (
+		/\b(?:show all|all rows|remove limit|butun setir[a-z]*|hamisini goster|limiti (?:sil|gotur))\b/.test(
+			text
+		)
+	) {
+		spec.limit = null;
+		notes.push(__("All rows"));
 	}
-
-	const topMatch = text.match(/\btop (\d{1,2})/);
-	if (topMatch) {
-		spec.limit = Number(topMatch[1]);
-		understood.push(`top ${spec.limit}`);
-	}
-	if (text.includes("ascending") || text.includes("lowest") || text.includes("smallest")) spec.sort = "asc";
-	if (text.includes("descending") || text.includes("highest") || text.includes("largest")) spec.sort = "desc";
-	if (text.includes("alphabetical") || text.includes("a-z")) spec.sort = "label";
-
-	applyValueFilters(spec, text, store, understood);
-
-	spec.understood = understood;
-	return spec;
 }
-
-function applyValueFilters(spec, text, store, understood) {
-	spec.filters.values = spec.filters.values || {};
-	const num = (raw) => {
-		const v = Number(String(raw).replace(/[,]/g, ""));
-		if (!Number.isFinite(v)) return null;
-		if (/\blakh|\bl\b/.test(text) && v < 1000) return v * 100000;
-		if (/\bcrore|\bcr\b/.test(text) && v < 1000) return v * 10000000;
-		return v;
-	};
-	const over = text.match(/\b(?:over|above|more than|greater than|exceeding)\s+[₹₦]?\s*([\d,]+)/);
-	if (over) {
-		const v = num(over[1]);
-		if (v != null) {
-			spec.filters.min = v;
-			understood.push(`over ${over[1]}`);
+function applyFilters(spec, text, store, notes) {
+	const f = spec.filters;
+	if (
+		/\b(?:clear filters?|remove filters?|no filters?|filtr[a-z]* (?:temizle|sil|legv et|gotur)|filtrsiz)\b/.test(
+			text
+		)
+	) {
+		spec.filters = {};
+		notes.push(__("Filters cleared"));
+		return;
+	}
+	const allProjects = /\b(?:all projects|every project|butun layihe[a-z]*|her layihe)\b/.test(
+		text
+	);
+	if (allProjects) {
+		delete f.project;
+		notes.push(__("All projects"));
+	} else if (store) {
+		const project = [...(store.projects || [])]
+			.sort((a, b) => b.name.length - a.name.length)
+			.find((p) => [p.id, p.code, p.name].some((term) => term && containsTerm(text, term)));
+		if (project) {
+			f.project = project.id;
+			notes.push(__("Project: {0}", [project.name]));
 		}
 	}
-	const under = text.match(/\b(?:under|below|less than|up to)\s+[₹₦]?\s*([\d,]+)/);
-	if (under) {
-		const v = num(under[1]);
-		if (v != null) {
-			spec.filters.max = v;
-			understood.push(`under ${under[1]}`);
-		}
-	}
-
-	const dv = dimensionValues(spec.source, store);
-	let bestVal = null;
-	for (const [k, d] of Object.entries(dv)) {
-		for (const v of d.values) {
-			const lv = v.toLowerCase();
-			if (lv.length < 4) continue;
-			if (text.includes(lv) && (!bestVal || lv.length > bestVal.len)) bestVal = { k, v, len: lv.length, label: d.label };
-		}
-	}
-	if (bestVal && !(bestVal.k === "project" && spec.filters.project)) {
-		spec.filters.values[bestVal.k] = bestVal.v;
-		understood.push(`${bestVal.label} = ${bestVal.v}`);
-	}
-	if (!Object.keys(spec.filters.values).length) delete spec.filters.values;
-}
-
-export function refineSpec(spec, prompt) {
-	const text = ` ${String(prompt || "").toLowerCase().trim()} `;
-	const next = JSON.parse(JSON.stringify(spec));
-	const applied = [];
-	const ds = DATASETS[next.source];
-
-	if (hit(text, LIST_WORDS)) {
-		next.mode = "list";
-		applied.push("as a list");
-	}
-	if (text.includes("summar") || text.includes("roll up") || text.includes("rollup") || text.includes("group it")) {
-		next.mode = "aggregate";
-		applied.push("summarised");
-	}
-	for (const [v, words] of Object.entries(VIZ_WORDS)) {
-		if (hit(text, words)) {
-			next.viz = v;
-			next.mode = "aggregate";
-			applied.push(`shown as ${v}`);
-			break;
-		}
-	}
-	const byMatch = text.match(/\b(?:by|group by|split by) ([a-z\s-]{2,20})/);
-	if (byMatch) {
-		const phrase = byMatch[1].trim();
-		for (const k of Object.keys(ds.dims)) {
-			if ((DIM_WORDS[k] || []).some((w) => phrase.startsWith(w))) {
-				next.dimension = k;
-				next.mode = "aggregate";
-				applied.push(`grouped by ${ds.dims[k].label}`);
-				break;
+	if (
+		/\b(?:all time|no date|remove date|butun tarix[a-z]*|butun dovr[a-z]*|tarixi sil)\b/.test(
+			text
+		)
+	) {
+		delete f.from;
+		delete f.to;
+		notes.push(__("All dates"));
+	} else {
+		const range = queryDates(text);
+		if (range) {
+			for (const key of ["from", "to"]) {
+				if (range[key]) {
+					f[key] = range[key];
+					notes.push(__(key === "from" ? "From {0}" : "To {0}", [range[key]]));
+				} else delete f[key];
 			}
 		}
 	}
-	for (const m of ["mandays", "qty", "amount", "count"]) {
-		if (ds.measures.includes(m) && hit(text, MEASURE_WORDS[m])) {
-			next.measure = m;
-			applied.push(MEASURE_LABEL[m]);
-			break;
+	const limits = numericLimits(text);
+	for (const key of ["min", "max"]) {
+		if (limits[key] == null) continue;
+		f[key] = limits[key];
+		f[key + "Exclusive"] = limits[key + "Exclusive"];
+		const label =
+			key === "min"
+				? f.minExclusive
+					? "Over {0}"
+					: "At least {0}"
+				: f.maxExclusive
+				? "Under {0}"
+				: "At most {0}";
+		notes.push(__(label, [limits[key]]));
+	}
+	if (!store) return;
+	const values = dimensionValues(spec.source, store);
+	for (const [dim, d] of Object.entries(values)) {
+		if (dim === "month" || (dim === "project" && (f.project || allProjects))) continue;
+		const options = new Set([...d.values, ...(knownEnums[dim] || [])]);
+		const valueText =
+			dim === "priority" ? text.replace(/\ben (?:yuksek|asagi|az|cox) \d+\b/g, " ") : text;
+		const candidates = [...options]
+			.flatMap((value) => {
+				const words = enumDimensions.has(dim)
+					? [value, __(value), ...(stateTerms[value] || [])]
+					: [value];
+				return words
+					.filter((word) => String(word).length > 1 && containsTerm(valueText, word))
+					.map((word) => ({ value, length: word.length }));
+			})
+			.sort((a, b) => b.length - a.length);
+		if (candidates.length) {
+			const value = candidates[0].value;
+			f.values = { ...f.values, [dim]: value };
+			notes.push(__("{0}: {1}", [d.label, displayDimension(dim, value)]));
 		}
 	}
-	const topMatch = text.match(/\btop (\d{1,2})/);
-	if (topMatch) {
-		next.limit = Number(topMatch[1]);
-		applied.push(`top ${next.limit}`);
+}
+export function parsePrompt(prompt, store, base = null) {
+	const text = foldQuery(prompt);
+	if (!text) return null;
+	// A named project such as "Yeni İş Paketi" is a scope, not a source.
+	let sourceText = text;
+	for (const project of store.projects || []) {
+		for (const name of [project.name, project.code, project.id]) {
+			if (name && containsTerm(sourceText, name) && sourceText !== foldQuery(name))
+				sourceText = sourceText.replace(foldQuery(name), " ");
+		}
 	}
-	if (text.includes("show all") || text.includes("all rows") || text.includes("remove limit")) {
-		next.limit = null;
-		applied.push("all rows");
-	}
-	if (text.includes("ascending") || text.includes("lowest")) {
-		next.sort = "asc";
-		applied.push("ascending");
-	}
-	if (text.includes("descending") || text.includes("highest")) {
-		next.sort = "desc";
-		applied.push("descending");
-	}
-	if (text.includes("alphabetical") || text.includes("a-z")) {
-		next.sort = "label";
-		applied.push("alphabetical");
-	}
-	if (text.includes("all projects") || text.includes("every project")) {
-		delete next.filters.project;
-		applied.push("all projects");
-	}
-	if (text.includes("all time") || text.includes("no date") || text.includes("remove date")) {
-		delete next.filters.from;
-		delete next.filters.to;
-		applied.push("all dates");
-	}
-	if (text.includes("clear filter") || text.includes("remove filter") || text.includes("no filter")) {
-		next.filters = {};
-		applied.push("filters cleared");
-	}
-
-	if (!applied.length) return null;
-	next.understood = applied;
+	const az = readAz(sourceText),
+		source = sourceOf(sourceText, az),
+		ds = DATASETS[source];
+	if (!ds || !ds.can(store)) return null;
+	const spec =
+		base?.source === source
+			? JSON.parse(JSON.stringify(base))
+			: {
+					source,
+					mode: "aggregate",
+					measure: ds.measures[0],
+					dimension: Object.keys(ds.dims)[0],
+					filters: {},
+					viz: "bar",
+					sort: "desc",
+					limit: null,
+			  };
+	const notes = [__(ds.label)];
+	applyPresentation(spec, text, az, false, notes);
+	applyFilters(spec, text, store, notes);
+	spec.understood = notes;
+	return spec;
+}
+export function refineSpec(spec, prompt, store = null) {
+	if (!spec || !DATASETS[spec.source] || (store && !DATASETS[spec.source].can(store)))
+		return null;
+	const text = foldQuery(prompt),
+		next = JSON.parse(JSON.stringify(spec)),
+		notes = [];
+	applyPresentation(next, text, readAz(text), true, notes);
+	applyFilters(next, text, store, notes);
+	if (!notes.length) return null;
+	next.understood = notes;
 	return next;
 }
-
-export function refineWithStore(spec, prompt, store) {
-	const text = ` ${String(prompt || "").toLowerCase().trim()} `;
-	const base = refineSpec(spec, prompt);
-	const next = base || JSON.parse(JSON.stringify(spec));
-	const applied = base ? [...(base.understood || [])] : [];
-	const before = JSON.stringify(next.filters);
-	applyValueFilters(next, text, store, applied);
-	if (!base && JSON.stringify(next.filters) === before) return null;
-	next.understood = applied;
-	return next;
-}
+export const refineWithStore = refineSpec;
 
 // ---------------------------------------------------------------------------
 // Executor — spec → result, straight off the live rows. (verbatim)
@@ -1009,9 +1133,12 @@ export function filteredRows(spec, store) {
 	const f = spec.filters || {};
 
 	const scope = f.project
-		? new Set([f.project, ...store.projects.filter((p) => p.parentId === f.project).map((p) => p.id)])
+		? new Set([
+				f.project,
+				...store.projects.filter((p) => p.parentId === f.project).map((p) => p.id),
+		  ])
 		: null;
-	const q = (f.q || "").trim().toLowerCase();
+	const q = foldQuery(f.q);
 	const values = f.values || {};
 	const dimEntries = Object.entries(values).filter(([, v]) => v);
 
@@ -1025,15 +1152,19 @@ export function filteredRows(spec, store) {
 		if (f.to && (!d || d > f.to)) return false;
 		if (f.min != null || f.max != null) {
 			const v = measureOf(ds, r, spec.measure);
-			if (f.min != null && v < f.min) return false;
-			if (f.max != null && v > f.max) return false;
+			if (f.min != null && (f.minExclusive ? v <= f.min : v < f.min)) return false;
+			if (f.max != null && (f.maxExclusive ? v >= f.max : v > f.max)) return false;
 		}
 		for (const [k, want] of dimEntries) {
 			const dim = ds.dims[k];
 			if (dim && String(dim.get(r, store)) !== String(want)) return false;
 		}
 		if (q) {
-			const hay = Object.values(ds.list.row(r, store)).join(" ").toLowerCase();
+			const hay = foldQuery(
+				Object.entries(ds.list.row(r, store))
+					.flatMap(([key, value]) => [value, displayDimension(key, value)])
+					.join(" ")
+			);
 			if (!hay.includes(q)) return false;
 		}
 		return true;
@@ -1052,7 +1183,7 @@ export function dimensionValues(source, store, cap = 60) {
 			if (v && v !== "—") set.add(String(v));
 			if (set.size > cap) break;
 		}
-		out[k] = { label: dim.label, values: [...set].sort((a, b) => a.localeCompare(b)) };
+		out[k] = { label: __(dim.label), values: [...set].sort((a, b) => a.localeCompare(b)) };
 	}
 	return out;
 }
@@ -1064,22 +1195,27 @@ export function runSpec(spec, store, window = null) {
 	const rows = filteredRows(spec, store);
 	const base = {
 		recordCount: rows.length,
-		datasetLabel: ds.label,
+		datasetLabel: __(ds.label),
 		measure: spec.measure,
-		measureLabel: MEASURE_LABEL[spec.measure],
+		measureLabel: __(MEASURE_LABEL[spec.measure]),
 	};
 
 	if (spec.mode === "list") {
 		const dateOf = (r) => ds.date(r) || "";
-		const sorted = rows.slice().sort((a, b) => String(dateOf(b)).localeCompare(String(dateOf(a))));
+		const sorted = rows
+			.slice()
+			.sort((a, b) => String(dateOf(b)).localeCompare(String(dateOf(a))));
 		const offset = Math.max(0, window?.offset || 0);
 		const size = window?.pageSize || sorted.length;
 		const page = sorted.slice(offset, offset + size);
 		return {
 			...base,
 			mode: "list",
-			columns: ds.list.columns,
-			records: page.map((r, i) => ({ _k: r._key || r.name || `${offset + i}`, ...ds.list.row(r, store) })),
+			columns: ds.list.columns.map((column) => ({ ...column, label: __(column.label) })),
+			records: page.map((r, i) => ({
+				_k: r._key || r.name || `${offset + i}`,
+				...ds.list.row(r, store),
+			})),
 			offset,
 			pageSize: size,
 			total: +rows.reduce((a, r) => a + measureOf(ds, r, spec.measure), 0).toFixed(2),
@@ -1095,8 +1231,11 @@ export function runSpec(spec, store, window = null) {
 		buckets.set(key, (buckets.get(key) || 0) + measureOf(ds, r, spec.measure));
 	}
 
-	let out = [...buckets.entries()].map(([label, value]) => ({ label, value: +value.toFixed(2) }));
-	if (spec.dimension === "month") out.sort((a, b) => monthKey(a.label) - monthKey(b.label));
+	let out = [...buckets.entries()].map(([label, value]) => ({
+		label,
+		value: +value.toFixed(2),
+	}));
+	if (spec.dimension === "month") out.sort((a, b) => a.label.localeCompare(b.label));
 	else if (spec.sort === "label") out.sort((a, b) => a.label.localeCompare(b.label));
 	else if (spec.sort === "asc") out.sort((a, b) => a.value - b.value);
 	else out.sort((a, b) => b.value - a.value);
@@ -1110,34 +1249,30 @@ export function runSpec(spec, store, window = null) {
 	return {
 		...base,
 		mode: "aggregate",
-		rows: out,
+		rows: out.map((r) => ({ ...r, label: displayDimension(spec.dimension, r.label) })),
 		total: +out.reduce((a, r) => a + r.value, 0).toFixed(2),
 		truncated,
-		dimensionLabel: dim.label,
+		dimensionLabel: __(dim.label),
 	};
 }
 
 function measureOf(ds, r, measure) {
 	if (measure === "amount") return ds.amount(r);
 	if (measure === "qty") return ds.qty(r);
-	if (measure === "mandays") return r.status === "Half Day" ? 0.5 : r.status === "Absent" ? 0 : 1;
+	if (measure === "mandays")
+		return r.status === "Half Day" ? 0.5 : r.status === "Absent" ? 0 : 1;
 	return 1;
-}
-
-function monthKey(label) {
-	if (!label || label === "—") return 0;
-	const [m, y] = label.split(" ");
-	return Number(y) * 12 + MONTHS.indexOf(m);
 }
 
 export function describeSpec(spec) {
 	const ds = DATASETS[spec.source];
 	if (!ds) return "";
-	if (spec.mode === "list") return `${ds.label} — detail`;
+	if (spec.mode === "list") return __("{0} — detail", [__(ds.label)]);
+	const measure = __(MEASURE_LABEL[spec.measure]);
 	const dim = ds.dims[spec.dimension];
-	const bits = [`${MEASURE_LABEL[spec.measure]} of ${ds.label.toLowerCase()}`];
-	if (dim) bits.push(`by ${dim.label.toLowerCase()}`);
-	return bits.join(" ");
+	return dim && spec.viz !== "kpi"
+		? __("{0}: {1} by {2}", [__(ds.label), measure, __(dim.label)])
+		: __("{0}: {1}", [__(ds.label), measure]);
 }
 
 // ---------------------------------------------------------------------------
@@ -1157,18 +1292,78 @@ const P = (source, measure, dimension, viz, extra = {}) => ({
 });
 
 export const ALL_PRESETS = [
-	{ id: "spend-by-supplier", title: "Spend by supplier", prompt: "supplier bill value by supplier, top 8", spec: P("bills", "amount", "supplier", "bar", { limit: 8 }) },
-	{ id: "revenue-by-month", title: "Revenue by month", prompt: "invoice value by month", spec: P("invoices", "amount", "month", "line") },
-	{ id: "tasks-by-status", title: "Tasks by status", prompt: "tasks by status as a pie", spec: P("tasks", "count", "status", "donut") },
-	{ id: "cost-by-type", title: "Expenses by cost type", prompt: "expense value by cost type", spec: P("expenses", "amount", "costType", "donut") },
-	{ id: "manpower", title: "Man-days by project", prompt: "man-days by project", spec: P("attendance", "mandays", "project", "bar") },
-	{ id: "sub-billing", title: "Subcontractor billing", prompt: "subcontractor bill value by subcontractor", spec: P("subBills", "amount", "subcontractor", "bar") },
-	{ id: "received-by-item", title: "Material received", prompt: "items received by item", spec: P("receiptLines", "qty", "item", "bar") },
-	{ id: "received-detail", title: "Deliveries — detail", prompt: "list items received last month", spec: P("receiptLines", "qty", "item", "table", { mode: "list" }) },
-	{ id: "consumed-by-item", title: "Material consumed", prompt: "consumption by item", spec: P("consumptionLines", "qty", "item", "bar") },
-	{ id: "po-by-status", title: "POs by status", prompt: "purchase order value by status", spec: P("purchaseOrders", "amount", "status", "bar") },
-	{ id: "reporting", title: "Site reporting by month", prompt: "progress entries by month", spec: P("progress", "count", "month", "line") },
-	{ id: "variations", title: "Scope changes", prompt: "scope change value by status", spec: P("scos", "amount", "status", "bar") },
+	{
+		id: "spend-by-supplier",
+		title: "Spend by supplier",
+		prompt: "supplier bill value by supplier, top 8",
+		spec: P("bills", "amount", "supplier", "bar", { limit: 8 }),
+	},
+	{
+		id: "revenue-by-month",
+		title: "Revenue by month",
+		prompt: "invoice value by month",
+		spec: P("invoices", "amount", "month", "line"),
+	},
+	{
+		id: "tasks-by-status",
+		title: "Tasks by status",
+		prompt: "tasks by status as a pie",
+		spec: P("tasks", "count", "status", "donut"),
+	},
+	{
+		id: "cost-by-type",
+		title: "Expenses by cost type",
+		prompt: "expense value by cost type",
+		spec: P("expenses", "amount", "costType", "donut"),
+	},
+	{
+		id: "manpower",
+		title: "Man-days by project",
+		prompt: "man-days by project",
+		spec: P("attendance", "mandays", "project", "bar"),
+	},
+	{
+		id: "sub-billing",
+		title: "Subcontractor billing",
+		prompt: "subcontractor bill value by subcontractor",
+		spec: P("subBills", "amount", "subcontractor", "bar"),
+	},
+	{
+		id: "received-by-item",
+		title: "Material received",
+		prompt: "items received by item",
+		spec: P("receiptLines", "qty", "item", "bar"),
+	},
+	{
+		id: "received-detail",
+		title: "Deliveries — detail",
+		prompt: "list items received last month",
+		spec: P("receiptLines", "qty", "item", "table", { mode: "list" }),
+	},
+	{
+		id: "consumed-by-item",
+		title: "Material consumed",
+		prompt: "consumption by item",
+		spec: P("consumptionLines", "qty", "item", "bar"),
+	},
+	{
+		id: "po-by-status",
+		title: "POs by status",
+		prompt: "purchase order value by status",
+		spec: P("purchaseOrders", "amount", "status", "bar"),
+	},
+	{
+		id: "reporting",
+		title: "Site reporting by month",
+		prompt: "progress entries by month",
+		spec: P("progress", "count", "month", "line"),
+	},
+	{
+		id: "variations",
+		title: "Scope changes",
+		prompt: "scope change value by status",
+		spec: P("scos", "amount", "status", "bar"),
+	},
 ];
 
 export function availablePresets(store) {
@@ -1176,10 +1371,10 @@ export function availablePresets(store) {
 }
 
 export const SUGGESTIONS = [
-	"List items received last month",
-	"Supplier spend by supplier, top 5",
-	"Invoice value by month",
-	"Tasks by status as a pie",
-	"Man-days by project this month",
-	"Material consumed by item",
+	{ source: "receiptLines", prompt: "List items received last month" },
+	{ source: "bills", prompt: "Supplier spend by supplier, top 5" },
+	{ source: "invoices", prompt: "Invoice value by month" },
+	{ source: "tasks", prompt: "Tasks by status as a pie" },
+	{ source: "attendance", prompt: "Man-days by project this month" },
+	{ source: "consumptionLines", prompt: "Material consumed by item" },
 ];

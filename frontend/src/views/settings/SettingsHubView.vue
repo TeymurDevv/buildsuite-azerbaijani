@@ -246,7 +246,7 @@ function onTileClick(tile) {
 					</div>
 					<div class="text-[11px] text-ink-500 mt-0.5">
 						{{ __("Role:") }}
-						<span class="text-ink-700">{{ store.currentRole?.name }}</span>
+						<span class="text-ink-700">{{ __(store.currentRole?.name) }}</span>
 						<span v-if="store.isMultiCompany && store.currentCompany">
 							· {{ __("Acting on:") }}
 							<span class="text-ink-700">{{ store.currentCompany.shortName }}</span>

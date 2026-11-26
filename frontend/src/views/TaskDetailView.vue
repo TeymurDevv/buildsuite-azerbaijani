@@ -1,4 +1,5 @@
 <script setup>
+import { templateTaskSubject } from "@/utils/translate";
 import { fixedNumber } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
 import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
@@ -107,6 +108,7 @@ function loadTaskResource() {
 		fields: [
 			"name",
 			"subject",
+			"is_template",
 			"project",
 			"work_package",
 			"task_status",
@@ -124,6 +126,7 @@ function loadTaskResource() {
 			return rows.map((row) => ({
 				id: row?.name || "",
 				name: row?.subject || row?.name || "",
+				isTemplate: row?.is_template,
 				projectId: row?.project || "",
 				workPackageId: row?.work_package || "",
 				status: row?.task_status || "Yet To Start",
@@ -148,6 +151,8 @@ const task = computed(() => {
 	if (backendTask) return backendTask;
 	return store.taskById(props.id) || null;
 });
+
+const taskTitle = computed(() => templateTaskSubject(task.value?.name, task.value?.isTemplate));
 
 // ===== Dependencies — Connections-style cards (prototype S135). Predecessors are
 // stored on Task.depends_on; successors are inferred (reverse query). + Add opens
@@ -476,8 +481,8 @@ const progressCameraInput = ref(null);
 function fmtBytes(n) {
 	if (!n) return "0 B";
 	if (n < 1024) return `${n} B`;
-	if (n < 1024 * 1024) return `${fixedNumber((n / 1024), 1)} KB`;
-	return `${fixedNumber((n / (1024 * 1024)), 1)} MB`;
+	if (n < 1024 * 1024) return `${fixedNumber(n / 1024, 1)} KB`;
+	return `${fixedNumber(n / (1024 * 1024), 1)} MB`;
 }
 
 function openProgressFilePicker() {
@@ -788,13 +793,13 @@ const progressColor = computed(() => {
 	return "bg-ink-300";
 });
 
-usePageTitle(() => task.value?.name);
+usePageTitle(() => taskTitle.value);
 </script>
 
 <template>
 	<DeskPage
 		v-if="task"
-		:title="task.name"
+		:title="taskTitle"
 		:subtitle="task.id"
 		:breadcrumbs="breadcrumbs"
 		:status="titleStatuses"
@@ -901,13 +906,15 @@ usePageTitle(() => task.value?.name);
 						</div>
 						<div class="text-[11px] text-ink-500 mt-3">
 							<template v-if="latestEntry">
-								{{ __('Latest:') }}
+								{{ __("Latest:") }}
 								<DeskLink :to="`/progress-entries/${latestEntry.id}`"
-									>{{ latestEntry.progressPct }}{{ __('% on') }}
+									>{{ latestEntry.progressPct }}{{ __("% on") }}
 									{{ fmtDate(latestEntry.entryDate) }}</DeskLink
 								>
-								{{ __('by') }} <UserAvatar :user-id="latestEntry.enteredBy" size="xs" /> ·
-								{{ entryCount }} {{ entryCount === 1 ? "entry" : "entries" }} {{ __('total') }}
+								{{ __("by") }}
+								<UserAvatar :user-id="latestEntry.enteredBy" size="xs" /> ·
+								{{ entryCount }} {{ entryCount === 1 ? "entry" : "entries" }}
+								{{ __("total") }}
 							</template>
 							<template v-else>
 								{{
@@ -922,7 +929,7 @@ usePageTitle(() => task.value?.name);
 
 				<DeskSection id="details" :title="__('Details')">
 					<DeskField name="name" :label="__('Name')">
-						<div class="text-sm text-ink-900 py-1">{{ task.name }}</div>
+						<div class="text-sm text-ink-900 py-1">{{ taskTitle }}</div>
 					</DeskField>
 					<DeskField
 						name="task_type"
@@ -1206,7 +1213,7 @@ usePageTitle(() => task.value?.name);
 							<h2 class="text-sm font-semibold text-ink-900">
 								{{ __("Edit task") }}
 							</h2>
-							<p class="text-[11px] text-ink-500 mt-0.5 truncate">{{ task.name }}</p>
+							<p class="text-[11px] text-ink-500 mt-0.5 truncate">{{ taskTitle }}</p>
 						</div>
 						<button
 							type="button"
@@ -1395,7 +1402,7 @@ usePageTitle(() => task.value?.name);
 								{{ __("File progress entry") }}
 							</h2>
 							<p class="text-[11px] text-ink-500 mt-0.5 truncate">
-								{{ task.name }} · {{ __("currently") }} {{ task.progress }}% ·
+								{{ taskTitle }} · {{ __("currently") }} {{ task.progress }}% ·
 								{{ __(task.status) }}
 							</p>
 						</div>

@@ -109,9 +109,9 @@ const columns = [
 ];
 
 const breadcrumbs = [
-	{ label: "BuildSuite Core", to: "/" },
-	{ label: "Procurement", to: "/procurement" },
-	{ label: "Material Consumption" },
+	{ label: __("BuildSuite Core"), to: "/" },
+	{ label: __("Procurement"), to: "/procurement" },
+	{ label: __("Material Consumption") },
 ];
 </script>
 
@@ -123,7 +123,7 @@ const breadcrumbs = [
 				to="/material-consumption/new"
 				class="desk-save-btn !text-xs"
 			>
-				{{ __('+ Record consumption') }}
+				{{ __("+ Record consumption") }}
 			</RouterLink>
 		</template>
 
@@ -212,7 +212,7 @@ const breadcrumbs = [
 
 			<template #empty>
 				<div class="text-sm text-ink-500">
-					{{ loading ? "Loading…" : "No material consumption recorded yet." }}
+					{{ __(loading ? "Loading…" : "No material consumption recorded yet.") }}
 				</div>
 			</template>
 		</DeskList>

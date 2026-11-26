@@ -1,4 +1,5 @@
 <script setup>
+import { recordCountLabel } from "@/utils/translate";
 // List view — filter bar on top (search + filter chips + sort + columns +
 // add-filter), then a table with generous row padding and hover-only row
 // differentiation (no stripes). Pagination footer (page size selector + range
@@ -311,15 +312,15 @@ const rangeStart = computed(() => {
 	return (pageValue.value - 1) * pageSizeValue.value + 1;
 });
 const rangeEnd = computed(() =>
-	Math.min(rangeStart.value + pagedRows.value.length - 1, totalRowsValue.value)
+	pagedRows.value.length
+		? Math.min(rangeStart.value + pagedRows.value.length - 1, totalRowsValue.value)
+		: 0
 );
 
 // "1-8 of 8 records" — same wording as DocTypeListView, so every list reads the same, with or
 // without the pager (which only appears past the smallest page size).
 const countText = computed(() =>
-	totalRowsValue.value
-		? `${rangeStart.value}-${rangeEnd.value} of ${totalRowsValue.value} records`
-		: "0 records"
+	recordCountLabel(rangeStart.value, rangeEnd.value, totalRowsValue.value)
 );
 
 // Clamp current page when rows shrink (filtering / search) so we don't end up
@@ -410,7 +411,7 @@ const showPagination = computed(() => {
 						type="text"
 						data-test="list-search"
 						:value="modelValue"
-						:placeholder="searchPlaceholder"
+						:placeholder="__(searchPlaceholder)"
 						class="desk-input"
 						style="width: 14rem; padding-left: 28px"
 						@input="emit('update:modelValue', $event.target.value)"
@@ -424,7 +425,7 @@ const showPagination = computed(() => {
 					class="desk-link text-xs px-1.5"
 					@click="onAddFilter"
 				>
-					{{ __('+ Add filter') }}
+					{{ __("+ Add filter") }}
 				</button>
 
 				<div class="ml-auto flex items-center gap-1">
@@ -444,7 +445,7 @@ const showPagination = computed(() => {
 						style="border-radius: 6px"
 						@click="emit('toggle-columns')"
 					>
-						{{ __('Columns ▾') }}
+						{{ __("Columns ▾") }}
 					</button>
 					<!-- Consumer-supplied action button(s) sit at the far right, after
              Sort + Columns. Convention: primary "+ New / + Add" CTAs go here. -->
@@ -471,7 +472,7 @@ const showPagination = computed(() => {
 								class="text-[11px] uppercase tracking-wider font-medium text-ink-500 px-3 py-2.5 whitespace-nowrap"
 								:class="alignClass(col)"
 							>
-								{{ col.label }}
+								{{ __(col.label) }}
 							</th>
 						</tr>
 					</thead>
@@ -517,7 +518,7 @@ const showPagination = computed(() => {
 								<input
 									type="checkbox"
 									:checked="isSelected(row)"
-									:aria-label="`Select row ${keyFor(row)}`"
+									:aria-label="__('Select row {0}', [keyFor(row)])"
 									@change="toggleRow(row)"
 								/>
 							</td>
@@ -542,7 +543,9 @@ const showPagination = computed(() => {
 								class="px-3 py-12 text-center"
 							>
 								<slot name="empty">
-									<div class="text-sm text-ink-500">{{ __('No records found') }}</div>
+									<div class="text-sm text-ink-500">
+										{{ __("No records found") }}
+									</div>
 								</slot>
 							</td>
 						</tr>
@@ -556,7 +559,7 @@ const showPagination = computed(() => {
 				class="border-t border-ink-200 px-3 py-2 flex items-center gap-3 flex-wrap text-xs text-ink-600"
 			>
 				<div class="flex items-center gap-2">
-					<span class="text-ink-500">{{ __('Rows per page') }}</span>
+					<span class="text-ink-500">{{ __("Rows per page") }}</span>
 					<select
 						data-test="pager-size"
 						:value="pageSizeValue"
@@ -571,10 +574,7 @@ const showPagination = computed(() => {
 				</div>
 
 				<div class="text-ink-500 tabular-nums">
-					{{ __('Showing') }}
-					<span class="text-ink-800 font-medium">{{ rangeStart }}–{{ rangeEnd }}</span>
-					{{ __('of') }}
-					<span class="text-ink-800 font-medium">{{ totalRowsValue }}</span>
+					{{ __("Showing {0}–{1} of {2}", [rangeStart, rangeEnd, totalRowsValue]) }}
 				</div>
 
 				<div class="ml-auto flex items-center gap-1">
@@ -586,11 +586,10 @@ const showPagination = computed(() => {
 						:disabled="pageValue <= 1"
 						@click="goPrev"
 					>
-						{{ __('‹ Prev') }}
+						{{ __("‹ Prev") }}
 					</button>
 					<span class="text-ink-500 tabular-nums px-2">
-						{{ __('Page') }} <span class="text-ink-800 font-medium">{{ pageValue }}</span> {{ __('of') }}
-						<span class="text-ink-800 font-medium">{{ totalPages }}</span>
+						{{ __("Page {0} of {1}", [pageValue, totalPages]) }}
 					</span>
 					<button
 						type="button"
@@ -600,7 +599,7 @@ const showPagination = computed(() => {
 						:disabled="pageValue >= totalPages"
 						@click="goNext"
 					>
-						{{ __('Next ›') }}
+						{{ __("Next ›") }}
 					</button>
 				</div>
 			</div>

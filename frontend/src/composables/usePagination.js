@@ -24,9 +24,13 @@ export function usePagination(rowsRef, opts = {}) {
 		const start = (page.value - 1) * size.value;
 		return rows.value.slice(start, start + size.value);
 	});
-	const rangeStart = computed(() => (totalRows.value === 0 ? 0 : (page.value - 1) * size.value + 1));
+	const rangeStart = computed(() =>
+		totalRows.value === 0 ? 0 : (page.value - 1) * size.value + 1
+	);
 	const rangeEnd = computed(() =>
-		Math.min(rangeStart.value + pagedRows.value.length - 1, totalRows.value),
+		pagedRows.value.length
+			? Math.min(rangeStart.value + pagedRows.value.length - 1, totalRows.value)
+			: 0
 	);
 	// Only worth showing once there's more than the smallest page size worth of rows.
 	const showPagination = computed(() => totalRows.value > Math.min(...pageSizeOptions));

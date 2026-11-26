@@ -1,4 +1,5 @@
 <script setup>
+import { ROLES, ROLE_TO_PERSONA } from "@/data/roles";
 // Personas — settings list (backend-backed via the Persona master). Admin / BSA
 // gated. A persona maps to one or more Frappe roles; assigning it to a user grants
 // those roles (sync_persona_roles hook).
@@ -27,11 +28,28 @@ const columns = [
 	{ key: "enabled", label: __("Status") },
 ];
 
+function personaLabel(persona) {
+	const builtIn = ROLES.find(
+		(role) => role.id === persona.slug && role.name === persona.persona_name
+	);
+	return builtIn ? __(builtIn.name) : persona.persona_name;
+}
+
+function roleLabel(role) {
+	return Object.hasOwn(ROLE_TO_PERSONA, role) ? __(role) : role;
+}
+
 const items = computed(() => {
 	const term = search.value.trim().toLowerCase();
 	if (!term) return personas.value;
 	return personas.value.filter((p) =>
-		`${p.persona_name} ${p.slug} ${(p.roles || []).join(" ")}`.toLowerCase().includes(term),
+		`${p.persona_name} ${personaLabel(p)} ${p.slug} ${(p.roles || []).join(" ")} ${(
+			p.roles || []
+		)
+			.map(roleLabel)
+			.join(" ")}`
+			.toLowerCase()
+			.includes(term)
 	);
 });
 
@@ -69,7 +87,9 @@ onMounted(() => {
 <template>
 	<DeskPage :title="__('Personas')" :breadcrumbs="breadcrumbs">
 		<template #actions>
-			<DeskLink to="/settings/personas/new" class="desk-save-btn">{{ __("+ New Persona") }}</DeskLink>
+			<DeskLink to="/settings/personas/new" class="desk-save-btn">{{
+				__("+ New Persona")
+			}}</DeskLink>
 		</template>
 
 		<div
@@ -90,7 +110,7 @@ onMounted(() => {
 		>
 			<template #cell-persona_name="{ row }">
 				<span class="text-sm font-medium text-ink-900 dark:text-[#F5F5F5]">{{
-					row.persona_name
+					personaLabel(row)
 				}}</span>
 			</template>
 			<template #cell-slug="{ row }">
@@ -102,9 +122,11 @@ onMounted(() => {
 						v-for="role in row.roles"
 						:key="role"
 						class="text-[10px] px-1.5 py-0.5 rounded-full font-medium bg-ink-100 text-ink-700"
-						>{{ role }}</span
+						>{{ roleLabel(role) }}</span
 					>
-					<span v-if="!row.roles || !row.roles.length" class="text-[10px] text-ink-400"
+					<span
+						v-if="!row.roles || !row.roles.length"
+						class="text-[10px] text-ink-400"
 						>{{ __("No roles") }}</span
 					>
 				</span>

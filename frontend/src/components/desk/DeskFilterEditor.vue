@@ -85,7 +85,7 @@ const sortedFields = computed(() =>
 // Options for the searchable field picker — the fieldname shows as a hint so
 // same-labelled fields stay distinguishable.
 const fieldOptions = computed(() =>
-	sortedFields.value.map((f) => ({ value: f.fieldname, label: f.label, hint: f.fieldname }))
+	sortedFields.value.map((f) => ({ value: f.fieldname, label: __(f.label), hint: f.fieldname }))
 );
 
 const fieldname = ref(props.initial?.fieldname || sortedFields.value[0]?.fieldname || "");
@@ -275,7 +275,7 @@ async function apply() {
 			<!-- Condition -->
 			<DeskSelect v-model="condition" class="!w-32 flex-shrink-0">
 				<option v-for="[op, label] in conditions" :key="op" :value="op">
-					{{ label }}
+					{{ __(label) }}
 				</option>
 			</DeskSelect>
 
@@ -307,19 +307,19 @@ async function apply() {
 				/>
 				<DeskSelect v-else-if="valueKind === 'select'" v-model="value">
 					<option value="">—</option>
-					<option v-for="o in selectOptions" :key="o" :value="o">{{ o }}</option>
+					<option v-for="o in selectOptions" :key="o" :value="o">{{ __(o) }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'check'" v-model="value">
-					<option value="1">{{ __('Yes') }}</option>
-					<option value="0">{{ __('No') }}</option>
+					<option value="1">{{ __("Yes") }}</option>
+					<option value="0">{{ __("No") }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'isset'" v-model="value">
-					<option value="set">{{ __('Set') }}</option>
-					<option value="not set">{{ __('Not Set') }}</option>
+					<option value="set">{{ __("Set") }}</option>
+					<option value="not set">{{ __("Not Set") }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'timespan'" v-model="value">
 					<option value="">—</option>
-					<option v-for="t in TIMESPANS" :key="t" :value="t">{{ t }}</option>
+					<option v-for="t in TIMESPANS" :key="t" :value="t">{{ __(t) }}</option>
 				</DeskSelect>
 				<div v-else-if="valueKind === 'between'" class="flex items-center gap-1">
 					<input v-model="value[0]" type="date" class="desk-input flex-1" />
@@ -380,8 +380,8 @@ async function apply() {
 						:model-value="''"
 						@update:model-value="addMultiItem"
 					>
-						<option value="">{{ __('Add…') }}</option>
-						<option v-for="o in selectOptions" :key="o" :value="o">{{ o }}</option>
+						<option value="">{{ __("Add…") }}</option>
+						<option v-for="o in selectOptions" :key="o" :value="o">{{ __(o) }}</option>
 					</DeskSelect>
 					<input
 						v-else
@@ -408,7 +408,7 @@ async function apply() {
 				class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 				@click="emit('cancel')"
 			>
-				{{ __('Cancel') }}
+				{{ __("Cancel") }}
 			</button>
 			<button
 				type="button"
@@ -417,7 +417,7 @@ async function apply() {
 				:class="{ 'opacity-50 cursor-not-allowed': !canApply }"
 				@click="apply"
 			>
-				{{ __('Apply') }}
+				{{ __("Apply") }}
 			</button>
 		</div>
 	</div>

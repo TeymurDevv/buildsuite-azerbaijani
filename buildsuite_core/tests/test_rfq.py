@@ -29,6 +29,7 @@ class RfqTestCase(BuildSuiteTestCase):
 				"supplier_name": f"UAT {label} {self._n}",
 				"supplier_group": frappe.db.get_value("Supplier Group", {"is_group": 0}, "name"),
 				"supplier_type": "Company",
+				"language": "en",  # This fixture asserts the English supplier-facing email and print.
 			}
 		).insert(ignore_permissions=True)
 		if contact or email:

@@ -1,3 +1,5 @@
+import { __ } from "./translate.js";
+
 import { frappeRequest } from "frappe-ui-frappe-request";
 
 // Shared helpers for the Frappe-style dynamic "Add filter" builder — used by DocTypeListView and by
@@ -155,11 +157,14 @@ export function chipLabel(f) {
 	// A Link filter keeps the record's name (valueLabel) beside its ID, so the chip reads
 	// "Project = Aso Villa" rather than "Project = PROJ-0042".
 	const shown = f.valueLabel ?? f.value;
-	if (f.condition === "is") text = f.value === "not set" ? "Not Set" : "Set";
+	if (f.condition === "is") text = __(f.value === "not set" ? "Not Set" : "Set");
 	else if (f.condition === "Between" && Array.isArray(f.value))
 		text = `${f.value[0]} – ${f.value[1]}`;
-	else if (Array.isArray(shown)) text = shown.join(", ");
-	else if (f.fieldtype === "Check") text = f.value === "0" || f.value === 0 ? "No" : "Yes";
+	else if (Array.isArray(shown))
+		text = (f.fieldtype === "Select" ? shown.map((value) => __(value)) : shown).join(", ");
+	else if (f.fieldtype === "Check") text = __(f.value === "0" || f.value === 0 ? "No" : "Yes");
+	else if (f.fieldtype === "Select" || f.condition === "Timespan")
+		text = __(String(shown ?? ""));
 	else text = String(shown ?? "");
-	return `${f.label} ${CONDITION_SYMBOL[f.condition] || f.condition} ${text}`.trim();
+	return `${__(f.label)} ${__(CONDITION_SYMBOL[f.condition] || f.condition)} ${text}`.trim();
 }

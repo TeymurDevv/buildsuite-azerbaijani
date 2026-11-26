@@ -40,7 +40,7 @@ def _petty_cash_options(company):
 	return frappe.get_all(
 		"Account",
 		filters={"company": company, "is_group": 0, "account_type": ["in", ["Cash", "Bank"]]},
-		fields=["name", "account_type"],
+		fields=["name", "account_type", "account_name", "parent_account"],
 		order_by="account_type, name",
 	)
 

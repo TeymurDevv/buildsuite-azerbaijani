@@ -10,9 +10,8 @@ tables — and child DocTypes carry no standalone read permission, so a direct c
 403s. This endpoint reads each parent (honouring the caller's read permission on the PARENT
 DocType) and joins its child rows server-side, returning the same flat shape the engine expects.
 
-Only a persona that may read the parent gets rows; otherwise an empty list, mirroring the Vue
-`canRead` gate. `frappe.get_all` is used for the child join (it bypasses the child's own perms),
-which is safe because the parent-permission gate above already authorises the read.
+Only child rows of parents visible to the current user are returned. The parent query applies
+Frappe record permissions, including user permissions and sharing, before the child join.
 """
 
 import frappe
@@ -23,7 +22,8 @@ def _headers(doctype, filters, fields):
 	"""Accessible parent rows keyed by name (empty if the caller can't read the DocType)."""
 	if not frappe.has_permission(doctype, "read"):
 		return {}
-	return {r["name"]: r for r in frappe.get_all(doctype, filters=filters, fields=fields)}
+	parents = frappe.get_list(doctype, filters=filters, fields=fields, limit_page_length=0)
+	return {row["name"]: row for row in parents}
 
 
 @frappe.whitelist()
@@ -39,7 +39,7 @@ def line_dataset(dataset: str):
 			return []
 		lines = frappe.get_all(
 			"Purchase Receipt Item",
-			filters={"parent": ["in", list(hdr)]},
+			filters={"parenttype": "Purchase Receipt", "parent": ["in", list(hdr)]},
 			fields=["name", "parent", "item_code", "item_name", "uom", "received_qty", "amount"],
 		)
 		out = []
@@ -72,7 +72,7 @@ def line_dataset(dataset: str):
 			return []
 		lines = frappe.get_all(
 			"Stock Entry Detail",
-			filters={"parent": ["in", list(hdr)]},
+			filters={"parenttype": "Stock Entry", "parent": ["in", list(hdr)]},
 			fields=["name", "parent", "item_code", "item_name", "qty", "uom"],
 		)
 		out = []
@@ -99,7 +99,7 @@ def line_dataset(dataset: str):
 			return []
 		lines = frappe.get_all(
 			"Expense Entry Table",
-			filters={"parent": ["in", list(hdr)]},
+			filters={"parenttype": "Expense Entry", "parent": ["in", list(hdr)]},
 			fields=[
 				"name",
 				"parent",
@@ -114,7 +114,9 @@ def line_dataset(dataset: str):
 		)
 		out = []
 		for it in lines:
-			h = hdr.get(it.parent) or {}
+			h = hdr.get(it.parent)
+			if not h:
+				continue
 			out.append(
 				{
 					"_key": it.name,
@@ -133,7 +135,7 @@ def line_dataset(dataset: str):
 			return []
 		lines = frappe.get_all(
 			"Field Attendance Employee",
-			filters={"parent": ["in", list(hdr)]},
+			filters={"parenttype": "Field Attendance", "parent": ["in", list(hdr)]},
 			fields=["name", "parent", "employee", "employee_name", "status"],
 		)
 		out = []

@@ -121,8 +121,8 @@ function printReport() {
 }
 
 const breadcrumbs = [
-	{ label: "BuildSuite Core", to: "/" },
-	{ label: "Cost vs Budget by Cost Code" },
+	{ label: __("BuildSuite Core"), to: "/" },
+	{ label: __("Cost vs Budget by Cost Code") },
 ];
 </script>
 
@@ -135,12 +135,14 @@ const breadcrumbs = [
 				style="border-radius: 6px"
 				@click="printReport"
 			>
-				{{ __('Print') }}
+				{{ __("Print") }}
 			</button>
 		</template>
 
 		<p class="text-xs text-ink-500 mb-3">
-			{{ __('Planned, committed, actual and variance per cost code, grouped by cost type.') }}
+			{{
+				__("Planned, committed, actual and variance per cost code, grouped by cost type.")
+			}}
 		</p>
 
 		<!-- Scope + filters -->
@@ -152,9 +154,9 @@ const breadcrumbs = [
 			@clear="clearFilters"
 		>
 			<label class="flex items-center gap-1.5">
-				<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-					>{{ __('Project') }}</span
-				>
+				<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+					__("Project")
+				}}</span>
 				<span class="w-56 inline-block">
 					<DeskLinkPicker
 						v-model="projectId"
@@ -169,16 +171,20 @@ const breadcrumbs = [
 
 			<template v-if="projectId">
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __('Find') }}</span
-					>
-					<DeskInput v-model="f.q" :placeholder="__('Code or description…')" class="!w-52" />
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Find")
+					}}</span>
+					<DeskInput
+						v-model="f.q"
+						:placeholder="__('Code or description…')"
+						class="!w-52"
+					/>
 				</label>
 
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __('Cost type') }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Cost type")
+					}}</span>
 					<span class="w-44 inline-block">
 						<DeskSearchableSelect
 							v-model="f.costType"
@@ -191,11 +197,11 @@ const breadcrumbs = [
 				</label>
 
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>{{ __('Variance over') }}</span
-					>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{
+						__("Variance over")
+					}}</span>
 					<DeskSelect v-model="varianceThreshold" class="!w-24">
-						<option value="0">{{ __('All') }}</option>
+						<option value="0">{{ __("All") }}</option>
 						<option value="5">5%</option>
 						<option value="10">10%</option>
 						<option value="20">20%</option>
@@ -205,15 +211,19 @@ const breadcrumbs = [
 		</ReportFilters>
 
 		<div v-if="!projectId" class="text-sm text-ink-500 italic py-10 text-center">
-			{{ __('Pick a project to run this report.') }}
+			{{ __("Pick a project to run this report.") }}
 		</div>
 
 		<template v-else>
 			<div v-if="!costGroups.length" class="text-sm text-ink-500 italic py-10 text-center">
-				<template v-if="!boq"
-					>{{ __('No approved BOQ on this project — there is nothing to measure cost against yet.') }}</template
-				>
-				<template v-else>{{ __('No cost codes exceed the selected variance threshold.') }}</template>
+				<template v-if="!boq">{{
+					__(
+						"No approved BOQ on this project — there is nothing to measure cost against yet."
+					)
+				}}</template>
+				<template v-else>{{
+					__("No cost codes exceed the selected variance threshold.")
+				}}</template>
 			</div>
 			<div v-else class="space-y-4">
 				<div
@@ -224,26 +234,32 @@ const breadcrumbs = [
 					<div
 						class="px-3 py-2 bg-ink-50 border-b border-ink-200 flex items-center justify-between"
 					>
-						<span class="text-[11px] font-semibold uppercase tracking-wider text-ink-700">{{
-							g.type
-						}}</span>
+						<span
+							class="text-[11px] font-semibold uppercase tracking-wider text-ink-700"
+							>{{ g.type }}</span
+						>
 						<span class="text-[11px] text-ink-500 tabular-nums"
-							>{{ fmtCompactINR(g.actual) }} {{ __('of') }} {{ fmtCompactINR(g.planned) }}</span
+							>{{ fmtCompactINR(g.actual) }} {{ __("of") }}
+							{{ fmtCompactINR(g.planned) }}</span
 						>
 					</div>
 					<div class="overflow-x-auto">
 						<table class="w-full text-xs">
 							<thead class="text-ink-500 uppercase tracking-wider text-[10px]">
 								<tr>
-									<th class="text-left px-3 py-2">{{ __('Cost code') }}</th>
-									<th class="text-right px-3 py-2">{{ __('Planned') }}</th>
-									<th class="text-right px-3 py-2">{{ __('Committed') }}</th>
-									<th class="text-right px-3 py-2">{{ __('Actual') }}</th>
-									<th class="text-right px-3 py-2">{{ __('Variance') }}</th>
+									<th class="text-left px-3 py-2">{{ __("Cost code") }}</th>
+									<th class="text-right px-3 py-2">{{ __("Planned") }}</th>
+									<th class="text-right px-3 py-2">{{ __("Committed") }}</th>
+									<th class="text-right px-3 py-2">{{ __("Actual") }}</th>
+									<th class="text-right px-3 py-2">{{ __("Variance") }}</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="r in g.rows" :key="r.key" class="border-t border-ink-100">
+								<tr
+									v-for="r in g.rows"
+									:key="r.key"
+									class="border-t border-ink-100"
+								>
 									<td class="px-3 py-2 text-ink-900">
 										<span class="font-mono text-[11px] text-ink-500 mr-1.5">{{
 											r.code
@@ -259,7 +275,10 @@ const breadcrumbs = [
 									<td class="px-3 py-2 text-right tabular-nums text-ink-900">
 										{{ fmtINR(r.actual) }}
 									</td>
-									<td class="px-3 py-2 text-right tabular-nums" :class="tone(r.variance)">
+									<td
+										class="px-3 py-2 text-right tabular-nums"
+										:class="tone(r.variance)"
+									>
 										{{ r.variance > 0 ? "+" : "" }}{{ fmtINR(r.variance) }}
 										<span class="text-[10px] ml-1"
 											>({{ r.variancePct > 0 ? "+" : ""
@@ -274,10 +293,11 @@ const breadcrumbs = [
 				<div
 					class="bg-ink-50 border border-ink-200 rounded-lg px-3 py-2 flex items-center justify-between text-xs"
 				>
-					<span class="font-medium text-ink-900">{{ __('Total') }}</span>
+					<span class="font-medium text-ink-900">{{ __("Total") }}</span>
 					<span class="tabular-nums text-ink-700">
-						{{ __('Planned') }} {{ fmtINR(totals.planned) }} {{ __('· Committed') }}
-						{{ fmtINR(totals.committed) }} {{ __('· Actual') }} {{ fmtINR(totals.actual) }}
+						{{ __("Planned") }} {{ fmtINR(totals.planned) }} {{ __("· Committed") }}
+						{{ fmtINR(totals.committed) }} {{ __("· Actual") }}
+						{{ fmtINR(totals.actual) }}
 					</span>
 				</div>
 			</div>

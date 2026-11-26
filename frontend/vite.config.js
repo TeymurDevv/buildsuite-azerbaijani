@@ -29,6 +29,20 @@ export default defineConfig(({ command }) => ({
 		__FRAPPE_DEV_HOST__: JSON.stringify(command === "serve" ? frappeBackend() : ""),
 	},
 	plugins: [
+		// Frappe UI's Autocomplete exposes neither props nor slots for these captions.
+		// Compile them with the same runtime translator as BuildSuite's own templates.
+		{
+			name: "translate-frappe-autocomplete",
+			enforce: "pre",
+			transform(source, id) {
+				if (!id.endsWith("/frappe-ui/src/components/Autocomplete/Autocomplete.vue"))
+					return;
+				return source
+					.replace('placeholder="Search"', `:placeholder="__('Search')"`)
+					.replace(/label="(Clear|Clear All|Select All)"/g, `:label="__('$1')"`)
+					.replace(/>\s*No results found\s*</, `>{{ __('No results found') }}<`);
+			},
+		},
 		// lucideIcons resolves ~icons/lucide/* used inside frappe-ui components.
 		// frappeProxy / jinjaBootData / buildConfig are disabled — BuildSuite manages them separately.
 		...frappeui({

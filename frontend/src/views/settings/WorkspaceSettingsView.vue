@@ -130,8 +130,8 @@ async function save() {
 	}
 }
 
-const activeLabel = computed(
-	() => workspaces.value.find((w) => w.slug === activeSlug.value)?.label || __("Workspace")
+const activeLabel = computed(() =>
+	__(workspaces.value.find((w) => w.slug === activeSlug.value)?.label || "Workspace")
 );
 
 const breadcrumbs = [
@@ -210,7 +210,7 @@ onMounted(() => {
 						"
 						@click="activeSlug = w.slug"
 					>
-						{{ w.label }}
+						{{ __(w.label) }}
 						<span v-if="byWorkspace[w.slug]?.length" class="text-[10px] text-ink-400"
 							>· {{ byWorkspace[w.slug].length }}</span
 						>
@@ -219,11 +219,15 @@ onMounted(() => {
 
 				<DeskSection :title="__('{0} reports', [activeLabel])" :cols="1">
 					<p class="text-sm text-ink-500 -mt-1">
-						{{ __('Tiles render in the') }} {{ activeLabel }} {{ __('workspace in the order below. Set a') }}
-						<strong>{{ __('Report') }}</strong> {{ __('(its Desk route is used)') }} <em>{{ __('or') }}</em> a
-						<strong>{{ __('Route') }}</strong> {{ __('(an in-app path like') }}
-						<code>{{ __('/subcontractor-work-orders') }}</code>{{ __(', or a Desk URL like') }}
-						<code>{{ __('/app/query-report/Stock Balance') }}</code>{{ __('). Route overrides Report.') }}
+						{{ __("Tiles render in the") }} {{ activeLabel }}
+						{{ __("workspace in the order below. Set a") }}
+						<strong>{{ __("Report") }}</strong> {{ __("(its Desk route is used)") }}
+						<em>{{ __("or") }}</em> a <strong>{{ __("Route") }}</strong>
+						{{ __("(an in-app path like") }}
+						<code>{{ __("/subcontractor-work-orders") }}</code
+						>{{ __(", or a Desk URL like") }}
+						<code>{{ __("/app/query-report/Stock Balance") }}</code
+						>{{ __("). Route overrides Report.") }}
 					</p>
 					<div class="overflow-x-auto">
 						<table class="w-full text-sm">
@@ -275,7 +279,10 @@ onMounted(() => {
 										/>
 									</td>
 									<td class="py-1 pr-2">
-										<DeskInput v-model="r.icon" :placeholder="__('file-text')" />
+										<DeskInput
+											v-model="r.icon"
+											:placeholder="__('file-text')"
+										/>
 									</td>
 									<td class="py-1 pr-2">
 										<DeskInput
@@ -326,8 +333,13 @@ onMounted(() => {
 
 				<DeskSection :title="__('{0} records', [activeLabel])" :cols="1">
 					<p class="text-sm text-ink-500 -mt-1">
-						{{ __('DocType tiles render in the') }} {{ activeLabel }} {{ __('workspace\'s') }}
-						<strong>{{ __('Records') }}</strong> {{ __('group. Each opens the generic list + add/edit form for that DocType (columns and filters come from the DocType\'s own fields).') }}
+						{{ __("DocType tiles render in the") }} {{ activeLabel }}
+						{{ __("workspace's") }} <strong>{{ __("Records") }}</strong>
+						{{
+							__(
+								"group. Each opens the generic list + add/edit form for that DocType (columns and filters come from the DocType's own fields)."
+							)
+						}}
 					</p>
 					<div class="overflow-x-auto">
 						<table class="w-full text-sm">
@@ -371,7 +383,10 @@ onMounted(() => {
 										/>
 									</td>
 									<td class="py-1 pr-2">
-										<DeskInput v-model="r.icon" :placeholder="__('file-text')" />
+										<DeskInput
+											v-model="r.icon"
+											:placeholder="__('file-text')"
+										/>
 									</td>
 									<td class="py-1 pr-2">
 										<DeskInput

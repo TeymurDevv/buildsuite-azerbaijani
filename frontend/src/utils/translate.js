@@ -39,6 +39,21 @@ export function __(text, replace = null, context = null) {
 	return format(translated, replace);
 }
 
+/** A list can know its visible range before the server returns the total. */
+export function recordCountLabel(start, end, total) {
+	if (!end) return __("{0} records", [0]);
+	if (total == null) return __("{0}-{1} records", [start, end]);
+	return __("{0}-{1} of {2} records", [start, end, total]);
+}
+
+// Template tasks can share a subject with a live project task. Only look up
+// explicit translations of the shipped template subjects in this context.
+export function templateTaskSubject(subject, isTemplate) {
+	return Number(isTemplate) === 1
+		? messages()[`${subject}:Project template task`] || subject
+		: subject;
+}
+
 /** The active language code (from boot), e.g. "en", "fr", "ar". */
 export function currentLang() {
 	return (typeof window !== "undefined" && window.lang) || "en";

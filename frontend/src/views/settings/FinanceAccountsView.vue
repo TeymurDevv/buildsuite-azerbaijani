@@ -198,7 +198,12 @@ async function del(acc) {
 											"
 										></svg>
 									</div>
-									<span class="text-ink-900 font-medium">{{ acc.name }}</span>
+									<span class="text-ink-900 font-medium">{{
+										acc.name === acc.type &&
+										(acc.type === "Cash" || acc.type === "Petty Cash")
+											? __(acc.name)
+											: acc.name
+									}}</span>
 								</div>
 							</td>
 							<td class="px-4 py-2.5">

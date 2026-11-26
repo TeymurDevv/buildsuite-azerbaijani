@@ -13,6 +13,7 @@ resolved format name for display.
 """
 
 import frappe
+from frappe.translate import print_language
 from frappe.utils import cint
 
 
@@ -54,20 +55,20 @@ def get_print_html(
 	"""
 	from frappe.www.printview import get_html_and_style
 
-	if language:
-		frappe.local.lang = language
+	document = frappe.get_doc(doctype, name, check_permission="read")
 
 	if not letterhead and not cint(no_letterhead):
 		letterhead = _letter_head_for_company(doctype, name)
 
-	result = get_html_and_style(
-		doc=doctype,
-		name=name,
-		print_format=print_format,  # None → meta.default_print_format or "Standard"
-		letterhead=letterhead,  # None → doc.letter_head or the is_default Letter Head
-		no_letterhead=cint(no_letterhead),
-		trigger_print=False,
-	)
+	with print_language(language or document.get("language")):
+		result = get_html_and_style(
+			doc=doctype,
+			name=name,
+			print_format=print_format,  # None → meta.default_print_format or "Standard"
+			letterhead=letterhead,  # None → doc.letter_head or the is_default Letter Head
+			no_letterhead=cint(no_letterhead),
+			trigger_print=False,
+		)
 
 	resolved_format = print_format or frappe.get_meta(doctype).default_print_format or "Standard"
 	return {

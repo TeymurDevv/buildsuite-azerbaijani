@@ -27,6 +27,7 @@ import re
 
 import frappe
 from frappe import _
+from frappe.translate import print_language
 from frappe.utils import flt, getdate, now_datetime, nowdate, strip_html
 
 from buildsuite_core.api.procurement_docs import (
@@ -40,6 +41,8 @@ from buildsuite_core.api.procurement_docs import (
 	_project_name,
 	_state,
 )
+from buildsuite_core.dispatch import recipient_language
+from buildsuite_core.print_text import buildsuite_rfq_message
 from buildsuite_core.utils.party import primary_contact, upsert_primary_contact
 
 RFQ = "Request for Quotation"
@@ -502,27 +505,19 @@ def _rfq_email(doc, row):
 	"""The email one supplier gets: who, the subject, and the body. The greeting names the
 	contact the copy is addressed to; a message that opens with its own salutation keeps it only
 	when no contact is named."""
-	body = _text(doc.message_for_supplier)
-	contact = (row.get("custom_contact_person") or "").strip() if row else ""
-	if contact:
-		body = re.sub(r"^dear[^\n]*\n+", "", body, flags=re.IGNORECASE)
-		greeting = _("Dear {0},").format(contact)
-	elif re.match(r"^dear", body, flags=re.IGNORECASE):
-		greeting = ""
-	else:
-		greeting = _("Dear Sir / Madam,")
-	company = frappe.db.get_value("Company", doc.company, "company_name") or doc.company or ""
-	parts = [
-		greeting,
-		body,
-		_("The request is attached ({0}).").format(doc.name),
-		_("Regards,") + "\n" + company,
-	]
-	return {
-		"to": (row.email_id or "") if row else "",
-		"subject": doc.subject or _("Request for Quotation {0}").format(doc.name),
-		"body": "\n\n".join(p for p in parts if p).strip(),
-	}
+	with print_language(recipient_language("Supplier", row.supplier if row else None, doc.get("language"))):
+		contact = row.get("custom_contact_person") if row else None
+		company = frappe.db.get_value("Company", doc.company, "company_name") or doc.company or ""
+		parts = [
+			buildsuite_rfq_message(doc.message_for_supplier, contact, default_greeting=True),
+			_("The request is attached ({0}).").format(doc.name),
+			_("Regards,") + "\n" + company,
+		]
+		return {
+			"to": (row.email_id or "") if row else "",
+			"subject": doc.subject or _("Request for Quotation {0}").format(doc.name),
+			"body": "\n\n".join(p for p in parts if p).strip(),
+		}
 
 
 def _rfq_email_preview(doc):
@@ -546,7 +541,7 @@ def _rfq_print_format():
 
 
 @frappe.whitelist()
-def get_rfq_print_html(name: str, supplier: str | None = None):
+def get_rfq_print_html(name: str, supplier: str | None = None, language: str | None = None):
 	"""``{html, style, print_format}`` for a request's print view, addressed to one of its
 	suppliers (the first when none is named). The same document is what the email attaches."""
 	from frappe.www.printview import get_html_and_style
@@ -558,12 +553,14 @@ def get_rfq_print_html(name: str, supplier: str | None = None):
 		# ERPNext's own field for "the supplier this copy is for" (Tools > Download PDF).
 		doc.vendor = supplier
 	print_format = _rfq_print_format()
-	result = get_html_and_style(
-		doc=doc.as_json(),
-		print_format=print_format,
-		letterhead=_rfq_letterhead(doc),
-		trigger_print=False,
-	)
+	target = supplier or (doc.suppliers[0].supplier if doc.suppliers else None)
+	with print_language(language or recipient_language("Supplier", target, doc.get("language"))):
+		result = get_html_and_style(
+			doc=doc.as_json(),
+			print_format=print_format,
+			letterhead=_rfq_letterhead(doc),
+			trigger_print=False,
+		)
 	return {
 		"html": result.get("html"),
 		"style": result.get("style"),
@@ -576,15 +573,16 @@ def _rfq_attachment(doc, supplier):
 	this server cannot make PDFs (no PDF engine installed) so the send still goes."""
 	doc.vendor = supplier
 	kwargs = {"print_format": _rfq_print_format(), "doc": doc, "letterhead": _rfq_letterhead(doc)}
-	try:
-		return {
-			"fname": f"{doc.name}.pdf",
-			"fcontent": frappe.get_print(RFQ, doc.name, as_pdf=True, **kwargs),
-		}
-	except Exception:
-		frappe.clear_last_message()
-		frappe.log_error(title="Request for Quotation PDF", message=frappe.get_traceback())
-		return {"fname": f"{doc.name}.html", "fcontent": frappe.get_print(RFQ, doc.name, **kwargs)}
+	with print_language(recipient_language("Supplier", supplier, doc.get("language"))):
+		try:
+			return {
+				"fname": f"{doc.name}.pdf",
+				"fcontent": frappe.get_print(RFQ, doc.name, as_pdf=True, **kwargs),
+			}
+		except Exception:
+			frappe.clear_last_message()
+			frappe.log_error(title="Request for Quotation PDF", message=frappe.get_traceback())
+			return {"fname": f"{doc.name}.html", "fcontent": frappe.get_print(RFQ, doc.name, **kwargs)}
 
 
 @frappe.whitelist()

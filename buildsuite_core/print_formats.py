@@ -80,33 +80,33 @@ _INVOICE_HTML = """
   <div class="bs-title-row">
     <div class="bs-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
     <div class="bs-doc-ref">
-      <div class="bs-doc-title">TAX INVOICE</div>
-      {% if doc.docstatus == 0 %}<div class="bs-marker draft">Draft — not posted</div>
-      {% elif doc.docstatus == 2 %}<div class="bs-marker cancelled">Cancelled</div>{% endif %}
+      <div class="bs-doc-title">{{ _("TAX INVOICE") }}</div>
+      {% if doc.docstatus == 0 %}<div class="bs-marker draft">{{ _("Draft — not posted") }}</div>
+      {% elif doc.docstatus == 2 %}<div class="bs-marker cancelled">{{ _("Cancelled") }}</div>{% endif %}
       <div class="bold mono" style="margin-top:4px">{{ doc.name }}</div>
     </div>
   </div>
 
   <div class="bs-meta">
     <div>
-      <div class="bs-label">Bill to</div>
+      <div class="bs-label">{{ _("Bill to") }}</div>
       <div class="bs-name">{{ doc.customer_name or doc.customer }}</div>
-      {% if doc.contact_display %}<div class="muted small">Attn: {{ doc.contact_display }}</div>{% endif %}
-      {% if doc.tax_id %}<div class="mono muted">GSTIN: {{ doc.tax_id }}</div>{% endif %}
+      {% if doc.contact_display %}<div class="muted small">{{ _("Attn:") }} {{ doc.contact_display }}</div>{% endif %}
+      {% if doc.tax_id %}<div class="mono muted">{{ _("GSTIN:") }} {{ doc.tax_id }}</div>{% endif %}
       {% if doc.address_display %}<div class="muted small" style="margin-top:4px; line-height:1.5;">{{ doc.address_display | safe }}</div>{% endif %}
     </div>
     <div>
       <table class="bs-kv">
-        <tr><td>Invoice no.</td><td class="r mono">{{ doc.name }}</td></tr>
-        <tr><td>Invoice date</td><td class="r">{{ frappe.utils.formatdate(doc.posting_date) }}</td></tr>
-        {% if doc.due_date %}<tr><td>Due date</td><td class="r">{{ frappe.utils.formatdate(doc.due_date) }}</td></tr>{% endif %}
-        {% if doc.project %}<tr><td>Project</td><td class="r">{{ frappe.db.get_value("Project", doc.project, "project_name") or doc.project }}</td></tr>{% endif %}
+        <tr><td>{{ _("Invoice no.") }}</td><td class="r mono">{{ doc.name }}</td></tr>
+        <tr><td>{{ _("Invoice date") }}</td><td class="r">{{ frappe.utils.formatdate(doc.posting_date) }}</td></tr>
+        {% if doc.due_date %}<tr><td>{{ _("Due date", context="BuildSuite Print") }}</td><td class="r">{{ frappe.utils.formatdate(doc.due_date) }}</td></tr>{% endif %}
+        {% if doc.project %}<tr><td>{{ _("Project") }}</td><td class="r">{{ frappe.db.get_value("Project", doc.project, "project_name") or doc.project }}</td></tr>{% endif %}
       </table>
     </div>
   </div>
 
   <table class="bs-lines">
-    <thead><tr><th class="l" style="width:24px">#</th><th class="l">Description</th><th class="r" style="width:64px">Qty</th><th class="r" style="width:90px">Rate</th><th class="r" style="width:110px">Amount</th></tr></thead>
+    <thead><tr><th class="l" style="width:24px">#</th><th class="l">{{ _("Description") }}</th><th class="r" style="width:64px">{{ _("Qty") }}</th><th class="r" style="width:90px">{{ _("Rate") }}</th><th class="r" style="width:110px">{{ _("Amount") }}</th></tr></thead>
     <tbody>
       {% for item in doc.items %}
       <tr>
@@ -122,31 +122,31 @@ _INVOICE_HTML = """
 
   <div class="bs-totals-wrap">
     <div class="bs-totals">
-      <div class="row"><span>Net total</span><span class="nums">{{ doc.get_formatted("total") }}</span></div>
-      {% if doc.discount_amount and doc.apply_discount_on == "Net Total" %}<div class="row"><span>Discount (on net total)</span><span class="nums">&minus; {{ doc.get_formatted("discount_amount") }}</span></div>{% endif %}
-      {% if doc.total - doc.net_total > 0.005 %}<div class="row"><span>Taxable value</span><span class="nums">{{ doc.get_formatted("net_total") }}</span></div>{% endif %}
+      <div class="row"><span>{{ _("Net total") }}</span><span class="nums">{{ doc.get_formatted("total") }}</span></div>
+      {% if doc.discount_amount and doc.apply_discount_on == "Net Total" %}<div class="row"><span>{{ _("Discount (on net total)") }}</span><span class="nums">&minus; {{ doc.get_formatted("discount_amount") }}</span></div>{% endif %}
+      {% if doc.total - doc.net_total > 0.005 %}<div class="row"><span>{{ _("Taxable value") }}</span><span class="nums">{{ doc.get_formatted("net_total") }}</span></div>{% endif %}
       {% for tax in doc.taxes %}<div class="row"><span>{{ tax.account_head.rsplit(" - ", 1)[0] }}{% if tax.rate %} ({{ tax.rate }}%){% endif %}</span><span class="nums">{{ tax.get_formatted("tax_amount") }}</span></div>{% endfor %}
-      {% if doc.discount_amount and doc.apply_discount_on == "Grand Total" %}<div class="row"><span>Discount (on grand total)</span><span class="nums">&minus; {{ doc.get_formatted("discount_amount") }}</span></div>{% endif %}
-      <div class="row grand"><span>Invoice total</span><span class="nums">{{ doc.get_formatted("grand_total") }}</span></div>
+      {% if doc.discount_amount and doc.apply_discount_on == "Grand Total" %}<div class="row"><span>{{ _("Discount (on grand total)") }}</span><span class="nums">&minus; {{ doc.get_formatted("discount_amount") }}</span></div>{% endif %}
+      <div class="row grand"><span>{{ _("Invoice total") }}</span><span class="nums">{{ doc.get_formatted("grand_total") }}</span></div>
       {% if doc.docstatus == 1 %}
-      <div class="row"><span>Received</span><span class="nums">{{ frappe.utils.fmt_money(doc.grand_total - doc.outstanding_amount, currency=doc.currency) }}</span></div>
-      <div class="row {{ 'due' if doc.outstanding_amount > 0.01 else 'paid' }}"><span>Balance due</span><span class="nums">{{ doc.get_formatted("outstanding_amount") }}</span></div>
+      <div class="row"><span>{{ _("Received", context="BuildSuite Print") }}</span><span class="nums">{{ frappe.utils.fmt_money(doc.grand_total - doc.outstanding_amount, currency=doc.currency) }}</span></div>
+      <div class="row {{ 'due' if doc.outstanding_amount > 0.01 else 'paid' }}"><span>{{ _("Balance due") }}</span><span class="nums">{{ doc.get_formatted("outstanding_amount") }}</span></div>
       {% endif %}
     </div>
   </div>
 
   <div class="bs-terms">
-    <div class="bs-label">Terms</div>
-    {% if doc.terms %}<div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ doc.terms }}</div>
-    {% else %}<div class="bs-terms-text">Payment due by {{ frappe.utils.formatdate(doc.due_date) }}. Interest may be charged on overdue amounts as per contract. This is a computer-generated invoice.</div>{% endif %}
+    <div class="bs-label">{{ _("Terms") }}</div>
+    {% if doc.terms %}<div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ buildsuite_print_terms(doc.terms) }}</div>
+    {% else %}<div class="bs-terms-text">{{ _("Payment due by {0}. Interest may be charged on overdue amounts as per contract. This is a computer-generated invoice.").format(frappe.utils.formatdate(doc.due_date)) }}</div>{% endif %}
   </div>
 
   <div class="bs-sign">
-    <div class="c"><div class="sig">Prepared by</div></div>
-    <div class="c r"><div class="sig">For {{ doc.company }} — Authorised signatory</div></div>
+    <div class="c"><div class="sig">{{ _("Prepared by") }}</div></div>
+    <div class="c r"><div class="sig">{{ _("For {0} — Authorised signatory").format(doc.company) }}</div></div>
   </div>
 
-  <div class="bs-footer">Generated {{ frappe.utils.format_datetime(frappe.utils.now()) }} using <span class="bold">BuildSuite</span></div>
+  <div class="bs-footer">{{ _("Generated {0} using {1}").format(frappe.utils.format_datetime(frappe.utils.now()), '<span class="bold">BuildSuite</span>') }}</div>
 </div>
 """
 
@@ -173,7 +173,7 @@ _WO_HTML = """
   <div class="bs-title-row">
     <div class="bs-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
     <div class="bs-doc-ref">
-      <div class="bs-doc-title">WORK ORDER</div>
+      <div class="bs-doc-title">{{ _("WORK ORDER") }}</div>
       <div class="bold mono" style="margin-top:4px">{{ doc.name }}</div>
       <div class="muted">{{ frappe.utils.formatdate(doc.date) }}</div>
     </div>
@@ -182,29 +182,29 @@ _WO_HTML = """
   {% set sub = frappe.db.get_value("Supplier", doc.subcontractor, ["custom_trade", "tax_id", "mobile_no", "email_id"], as_dict=True) or {} %}
   <div class="bs-parties">
     <div class="bs-party">
-      <div class="bs-label">Issued by</div>
+      <div class="bs-label">{{ _("Issued by") }}</div>
       <div class="bs-name">{{ doc.company }}</div>
     </div>
     <div class="bs-party">
-      <div class="bs-label">To — Subcontractor</div>
+      <div class="bs-label">{{ _("To — Subcontractor") }}</div>
       <div class="bs-name">{{ doc.subcontractor_name or doc.subcontractor }}</div>
       {% if sub.custom_trade %}<div class="muted small" style="margin-top:2px">{{ sub.custom_trade }}</div>{% endif %}
       {% if sub.mobile_no or sub.email_id %}<div class="muted small" style="margin-top:4px">{% if sub.mobile_no %}{{ sub.mobile_no }}{% endif %}{% if sub.mobile_no and sub.email_id %} &middot; {% endif %}{% if sub.email_id %}{{ sub.email_id }}{% endif %}</div>{% endif %}
-      {% if sub.tax_id %}<div class="muted small" style="margin-top:2px">GSTIN: {{ sub.tax_id }}</div>{% endif %}
+      {% if sub.tax_id %}<div class="muted small" style="margin-top:2px">{{ _("GSTIN:") }} {{ sub.tax_id }}</div>{% endif %}
     </div>
   </div>
 
   {% set proj = frappe.db.get_value("Project", doc.project, ["project_name", "customer", "location"], as_dict=True) or {} %}
   <div class="bs-metastrip">
-    <div><div class="bs-label">Against project</div><div class="bold">{{ proj.project_name or doc.project or "—" }}</div>{% if proj.location %}<div class="muted">{{ proj.location }}</div>{% endif %}</div>
-    <div><div class="bs-label">Client</div><div class="bold">{{ proj.customer or "—" }}</div></div>
-    <div><div class="bs-label">Delivery type</div><div class="bold">{{ doc.delivery_type or "—" }}</div></div>
-    <div><div class="bs-label">Retention</div><div class="bold">{{ doc.retention_percent or 0 }}%</div></div>
+    <div><div class="bs-label">{{ _("Against project") }}</div><div class="bold">{{ proj.project_name or doc.project or "—" }}</div>{% if proj.location %}<div class="muted">{{ proj.location }}</div>{% endif %}</div>
+    <div><div class="bs-label">{{ _("Client") }}</div><div class="bold">{{ proj.customer or "—" }}</div></div>
+    <div><div class="bs-label">{{ _("Delivery type", context="BuildSuite Print") }}</div><div class="bold">{{ doc.delivery_type or "—" }}</div></div>
+    <div><div class="bs-label">{{ _("Retention") }}</div><div class="bold">{{ doc.retention_percent or 0 }}%</div></div>
   </div>
 
-  <div class="bs-h2">Schedule of values</div>
+  <div class="bs-h2">{{ _("Schedule of values") }}</div>
   <table class="bs-lines bordered">
-    <thead><tr><th class="l" style="width:24px">#</th><th class="l">Scope of work</th><th class="l">Cost code</th><th class="r" style="width:56px">Qty</th><th class="l" style="width:56px">UOM</th><th class="r" style="width:90px">Rate</th><th class="r" style="width:110px">Amount</th></tr></thead>
+    <thead><tr><th class="l" style="width:24px">#</th><th class="l">{{ _("Scope of work") }}</th><th class="l">{{ _("Cost code") }}</th><th class="r" style="width:56px">{{ _("Qty") }}</th><th class="l" style="width:56px">{{ _("UOM") }}</th><th class="r" style="width:90px">{{ _("Rate") }}</th><th class="r" style="width:110px">{{ _("Amount") }}</th></tr></thead>
     <tbody>
       {% for line in doc.lines %}
       <tr>
@@ -218,33 +218,33 @@ _WO_HTML = """
       </tr>
       {% endfor %}
     </tbody>
-    <tfoot><tr><td colspan="6" class="r foot-label">Total order value</td><td class="r nums bold">{{ doc.get_formatted("total_value") }}</td></tr></tfoot>
+    <tfoot><tr><td colspan="6" class="r foot-label">{{ _("Total order value") }}</td><td class="r nums bold">{{ doc.get_formatted("total_value") }}</td></tr></tfoot>
   </table>
 
   {% set currency = frappe.db.get_value("Company", doc.company, "default_currency") %}
   {% set retention = (doc.total_value or 0) * (doc.retention_percent or 0) / 100.0 %}
   <div class="bs-wo-footer">
     <div>
-      <div class="bs-h3">Terms &amp; conditions</div>
-      {% if doc.terms %}<div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ doc.terms }}</div>
+      <div class="bs-h3">{{ _("Terms & conditions") }}</div>
+      {% if doc.terms %}<div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ buildsuite_print_terms(doc.terms) }}</div>
       {% else %}<ul class="bs-terms-list">
-        <li>Progress billing is measurement-based: certified Measurement Books drive each subcontractor bill.</li>
-        <li>Retention of {{ doc.retention_percent or 0 }}% is withheld on each bill, released after completion and defect-liability sign-off.</li>
+        <li>{{ _("Progress billing is measurement-based: certified Measurement Books drive each subcontractor bill.") }}</li>
+        <li>{{ _("Retention of {0}% is withheld on each bill, released after completion and defect-liability sign-off.").format(doc.retention_percent or 0) }}</li>
       </ul>{% endif %}
     </div>
     <div class="bs-wo-totals">
-      <div class="row"><span>Total order value</span><span class="nums">{{ doc.get_formatted("total_value") }}</span></div>
-      <div class="row"><span>Retention ({{ doc.retention_percent or 0 }}%)</span><span class="nums due">&minus; {{ frappe.utils.fmt_money(retention, currency=currency) }}</span></div>
-      <div class="row grand"><span>Net of retention</span><span class="nums">{{ frappe.utils.fmt_money((doc.total_value or 0) - retention, currency=currency) }}</span></div>
+      <div class="row"><span>{{ _("Total order value") }}</span><span class="nums">{{ doc.get_formatted("total_value") }}</span></div>
+      <div class="row"><span>{{ _("Retention ({0}%)").format(doc.retention_percent or 0) }}</span><span class="nums due">&minus; {{ frappe.utils.fmt_money(retention, currency=currency) }}</span></div>
+      <div class="row grand"><span>{{ _("Net of retention") }}</span><span class="nums">{{ frappe.utils.fmt_money((doc.total_value or 0) - retention, currency=currency) }}</span></div>
     </div>
   </div>
 
   <div class="bs-sign">
-    <div class="c"><div class="sig">For {{ doc.company }}</div><div class="muted small">Authorised signatory · Date</div></div>
-    <div class="c"><div class="sig">For {{ doc.subcontractor_name or doc.subcontractor }}</div><div class="muted small">Accepted · Date</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(doc.company) }}</div><div class="muted small">{{ _("Authorised signatory · Date") }}</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(doc.subcontractor_name or doc.subcontractor) }}</div><div class="muted small">{{ _("Accepted · Date") }}</div></div>
   </div>
 
-  <div class="bs-footer">{{ doc.name }} &middot; Generated {{ frappe.utils.format_datetime(frappe.utils.now()) }} using <span class="bold">BuildSuite</span></div>
+  <div class="bs-footer">{{ doc.name }} &middot; {{ _("Generated {0} using {1}").format(frappe.utils.format_datetime(frappe.utils.now()), '<span class="bold">BuildSuite</span>') }}</div>
 </div>
 """
 
@@ -255,7 +255,7 @@ _QUOTATION_HTML = """
   <div class="bs-title-row">
     <div class="bs-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
     <div class="bs-doc-ref">
-      <div class="bs-doc-title">QUOTATION</div>
+      <div class="bs-doc-title">{{ _("QUOTATION") }}</div>
       <div class="bold">{{ doc.name }}</div>
       <div class="muted">{{ frappe.utils.formatdate(doc.transaction_date) }}</div>
     </div>
@@ -264,27 +264,27 @@ _QUOTATION_HTML = """
   <div class="bs-offer-title">{{ doc.title or doc.name }}</div>
   <div class="bs-strip">
     <div>
-      <div class="bs-label">For</div>
+      <div class="bs-label">{{ _("For", context="BuildSuite Print") }}</div>
       <div class="val">{{ doc.customer_name or doc.party_name }}</div>
       {% if doc.tax_id %}<div class="mono muted">{{ doc.tax_id }}</div>{% endif %}
     </div>
     <div>
-      <div class="bs-label">Dated</div>
+      <div class="bs-label">{{ _("Dated") }}</div>
       <div class="val">{{ frappe.utils.formatdate(doc.transaction_date) }}</div>
     </div>
     <div>
-      <div class="bs-label">Valid until</div>
+      <div class="bs-label">{{ _("Valid until") }}</div>
       <div class="val">{{ frappe.utils.formatdate(doc.valid_till) if doc.valid_till else "&mdash;" }}</div>
     </div>
     <div>
-      <div class="bs-label">Total</div>
+      <div class="bs-label">{{ _("Total") }}</div>
       <div class="val">{{ doc.get_formatted("grand_total") }}</div>
     </div>
   </div>
 
-  <div class="bs-label">Schedule of prices</div>
+  <div class="bs-label">{{ _("Schedule of prices") }}</div>
   <table class="bs-lines bordered">
-    <thead><tr><th class="l" style="width:24px">#</th><th class="l">Description</th><th class="r" style="width:64px">Qty</th><th class="l" style="width:64px">Unit</th><th class="r" style="width:90px">Rate</th><th class="r" style="width:110px">Amount</th></tr></thead>
+    <thead><tr><th class="l" style="width:24px">#</th><th class="l">{{ _("Description") }}</th><th class="r" style="width:64px">{{ _("Qty") }}</th><th class="l" style="width:64px">{{ _("Unit") }}</th><th class="r" style="width:90px">{{ _("Rate") }}</th><th class="r" style="width:110px">{{ _("Amount") }}</th></tr></thead>
     <tbody>
       {% for item in doc.items %}
       <tr>
@@ -301,25 +301,25 @@ _QUOTATION_HTML = """
 
   <div class="bs-totals-wrap">
     <div class="bs-totals">
-      <div class="row"><span>Price</span><span class="nums">{{ doc.get_formatted("net_total") }}</span></div>
+      <div class="row"><span>{{ _("Price") }}</span><span class="nums">{{ doc.get_formatted("net_total") }}</span></div>
       {% for tax in doc.taxes %}
       <div class="row"><span>{{ tax.description }}</span><span class="nums">{{ tax.get_formatted("tax_amount") }}</span></div>
       {% endfor %}
-      <div class="row grand"><span>Total</span><span class="nums">{{ doc.get_formatted("grand_total") }}</span></div>
+      <div class="row grand"><span>{{ _("Total") }}</span><span class="nums">{{ doc.get_formatted("grand_total") }}</span></div>
     </div>
   </div>
 
   {% if doc.terms %}
-  <div class="bs-label">Terms &amp; conditions</div>
-  <div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ doc.terms }}</div>
+  <div class="bs-label">{{ _("Terms & conditions") }}</div>
+  <div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}">{{ buildsuite_print_terms(doc.terms) }}</div>
   {% endif %}
 
   <div class="bs-sign">
-    <div class="c"><div class="sig">For {{ doc.company }}</div></div>
-    <div class="c"><div class="sig">Accepted for {{ doc.customer_name or doc.party_name }}</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(doc.company) }}</div></div>
+    <div class="c"><div class="sig">{{ _("Accepted for {0}").format(doc.customer_name or doc.party_name) }}</div></div>
   </div>
 
-  <div class="bs-footer">Generated using <span class="bold">BuildSuite</span></div>
+  <div class="bs-footer">{{ _("Generated using {0}").format('<span class="bold">BuildSuite</span>') }}</div>
 </div>
 """
 
@@ -332,7 +332,7 @@ _TENDER_HTML = """
   <div class="bs-title-row">
     <div class="bs-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
     <div class="bs-doc-ref">
-      <div class="bs-doc-title">TENDER</div>
+      <div class="bs-doc-title">{{ _("TENDER") }}</div>
       <div class="bold">{{ doc.name }}</div>
       <div class="muted">{{ frappe.utils.formatdate(doc.date_issued) if doc.date_issued else "" }}</div>
     </div>
@@ -344,19 +344,19 @@ _TENDER_HTML = """
   </div>
   <div class="bs-strip">
     <div>
-      <div class="bs-label">Submitted to</div>
+      <div class="bs-label">{{ _("Submitted to") }}</div>
       <div class="val">{{ doc.issuing_body or "&mdash;" }}</div>
     </div>
     <div>
-      <div class="bs-label">Submission deadline</div>
+      <div class="bs-label">{{ _("Submission deadline") }}</div>
       <div class="val">{{ frappe.utils.formatdate(doc.submission_deadline) if doc.submission_deadline else "&mdash;" }}</div>
     </div>
     <div>
-      <div class="bs-label">Envelope</div>
-      <div class="val">{{ doc.envelope_structure or "&mdash;" }}</div>
+      <div class="bs-label">{{ _("Envelope") }}</div>
+      <div class="val">{{ _(doc.envelope_structure) if doc.envelope_structure else "&mdash;" }}</div>
     </div>
     <div>
-      <div class="bs-label">Bid total</div>
+      <div class="bs-label">{{ _("Bid total") }}</div>
       <div class="val">{{ doc.get_formatted("bid_value") }}</div>
     </div>
   </div>
@@ -366,9 +366,9 @@ _TENDER_HTML = """
     <div class="bs-terms-text{{ ' bs-rich' if '<' in (s.text or '') else '' }}" style="margin-bottom:16px;">{{ s.text }}</div>
   {% endfor %}
 
-  <div class="bs-label">Schedule of prices</div>
+  <div class="bs-label">{{ _("Schedule of prices") }}</div>
   <table class="bs-lines bordered">
-    <thead><tr><th class="l" style="width:24px">#</th><th class="l">Description</th><th class="r" style="width:64px">Qty</th><th class="l" style="width:64px">Unit</th><th class="r" style="width:90px">Rate</th><th class="r" style="width:110px">Amount</th></tr></thead>
+    <thead><tr><th class="l" style="width:24px">#</th><th class="l">{{ _("Description") }}</th><th class="r" style="width:64px">{{ _("Qty") }}</th><th class="l" style="width:64px">{{ _("Unit") }}</th><th class="r" style="width:90px">{{ _("Rate") }}</th><th class="r" style="width:110px">{{ _("Amount") }}</th></tr></thead>
     <tbody>
       {% for item in doc.buildsuite_tenders_items %}
       <tr>
@@ -385,17 +385,17 @@ _TENDER_HTML = """
 
   <div class="bs-totals-wrap">
     <div class="bs-totals">
-      <div class="row"><span>Price</span><span class="nums">{{ doc.get_formatted("bid_before_tax") }}</span></div>
-      {% if doc.tax_percent %}<div class="row"><span>Tax @ {{ doc.tax_percent }}%</span><span class="nums">{{ doc.get_formatted("tax_amount") }}</span></div>{% endif %}
-      <div class="row grand"><span>Bid total</span><span class="nums">{{ doc.get_formatted("bid_value") }}</span></div>
+      <div class="row"><span>{{ _("Price") }}</span><span class="nums">{{ doc.get_formatted("bid_before_tax") }}</span></div>
+      {% if doc.tax_percent %}<div class="row"><span>{{ _("Tax @ {0}%").format(doc.tax_percent) }}</span><span class="nums">{{ doc.get_formatted("tax_amount") }}</span></div>{% endif %}
+      <div class="row grand"><span>{{ _("Bid total") }}</span><span class="nums">{{ doc.get_formatted("bid_value") }}</span></div>
     </div>
   </div>
 
   {% if doc.emd_amount or doc.performance_guarantee_percent %}
-  <div class="bs-label">Earnest money and guarantee</div>
+  <div class="bs-label">{{ _("Earnest money and guarantee") }}</div>
   <div class="bs-terms-text" style="margin-bottom:16px;">
-    {% if doc.emd_amount %}<div>Earnest money deposit: {{ doc.get_formatted("emd_amount") }}{% if doc.emd_instrument %} &mdash; {{ doc.emd_instrument }}{% endif %}{% if doc.emd_valid_until %}, valid to {{ frappe.utils.formatdate(doc.emd_valid_until) }}{% endif %}</div>{% endif %}
-    {% if doc.performance_guarantee_percent %}<div>Performance guarantee: {{ doc.performance_guarantee_percent }}% of the contract value ({{ frappe.utils.fmt_money((doc.bid_before_tax or 0) * (doc.performance_guarantee_percent | float) / 100, currency=currency) }}), to be furnished on award.</div>{% endif %}
+    {% if doc.emd_amount %}<div>{{ _("Earnest money deposit:") }} {{ doc.get_formatted("emd_amount") }}{% if doc.emd_instrument %} &mdash; {{ doc.emd_instrument }}{% endif %}{% if doc.emd_valid_until %}{{ _(", valid to {0}").format(frappe.utils.formatdate(doc.emd_valid_until)) }}{% endif %}</div>{% endif %}
+    {% if doc.performance_guarantee_percent %}<div>{{ _("Performance guarantee: {0}% of the contract value ({1}), to be furnished on award.").format(doc.performance_guarantee_percent, frappe.utils.fmt_money((doc.bid_before_tax or 0) * (doc.performance_guarantee_percent | float) / 100, currency=currency)) }}</div>{% endif %}
   </div>
   {% endif %}
 
@@ -406,11 +406,11 @@ _TENDER_HTML = """
   {% endfor %}
 
   <div class="bs-sign">
-    <div class="c"><div class="sig">For {{ doc.company or "" }}</div></div>
-    <div class="c"><div class="sig">Received for {{ doc.issuing_body or "" }}</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(doc.company or "") }}</div></div>
+    <div class="c"><div class="sig">{{ _("Received for {0}").format(doc.issuing_body or "") }}</div></div>
   </div>
 
-  <div class="bs-footer">Generated using <span class="bold">BuildSuite</span></div>
+  <div class="bs-footer">{{ _("Generated using {0}").format('<span class="bold">BuildSuite</span>') }}</div>
 </div>
 """
 
@@ -441,15 +441,14 @@ _RFQ_HTML = """
 {% set co = (frappe.db.get_value("Company", doc.company, ["custom_letter_head_subtext", "tax_id", "registration_details", "phone_no", "email"], as_dict=True) if doc.company else None) or {} %}
 {% set co_text = co.custom_letter_head_subtext or "" %}
 {% set contact = (row.custom_contact_person or "") if row else "" %}
-{% set msg = (frappe.utils.strip_html(doc.message_for_supplier or "") if "<" in (doc.message_for_supplier or "") else (doc.message_for_supplier or "")).strip() %}
-{% set msg_lines = msg.split("\\n") %}
+{% set msg = buildsuite_rfq_message(doc.message_for_supplier, contact) %}
 <div class="bs-print">
   <div class="bs-title-row">
     <div class="bs-lh">{% if letter_head and not no_letterhead %}{{ letter_head }}{% endif %}</div>
     <div class="bs-doc-ref">
-      <div class="bs-doc-title">REQUEST FOR QUOTATION</div>
-      {% if doc.docstatus == 0 %}<div class="bs-marker draft">Draft</div>
-      {% elif doc.docstatus == 2 %}<div class="bs-marker cancelled">Cancelled</div>{% endif %}
+      <div class="bs-doc-title">{{ _("REQUEST FOR QUOTATION") }}</div>
+      {% if doc.docstatus == 0 %}<div class="bs-marker draft">{{ _("Draft") }}</div>
+      {% elif doc.docstatus == 2 %}<div class="bs-marker cancelled">{{ _("Cancelled") }}</div>{% endif %}
       <div class="bold mono" style="margin-top:4px">{{ doc.name }}</div>
       <div class="muted">{{ frappe.utils.formatdate(doc.transaction_date) }}</div>
     </div>
@@ -457,39 +456,36 @@ _RFQ_HTML = """
 
   <div class="bs-parties">
     <div class="bs-party">
-      <div class="bs-label">From</div>
+      <div class="bs-label">{{ _("From", context="BuildSuite Print") }}</div>
       <div class="bs-name">{{ doc.company or "&mdash;" }}</div>
       <div class="co-lines">
         {% if co_text %}<div class="pre">{{ co_text }}</div>{% endif %}
-        {% if co.tax_id and co.tax_id not in co_text %}<div>GSTIN / Tax ID: {{ co.tax_id }}</div>{% endif %}
-        {% if co.phone_no and co.phone_no not in co_text %}<div>Phone: {{ co.phone_no }}</div>{% endif %}
-        {% if co.email and co.email not in co_text %}<div>Email: {{ co.email }}</div>{% endif %}
+        {% if co.tax_id and co.tax_id not in co_text %}<div>{{ _("GSTIN / Tax ID:") }} {{ co.tax_id }}</div>{% endif %}
+        {% if co.phone_no and co.phone_no not in co_text %}<div>{{ _("Phone:") }} {{ co.phone_no }}</div>{% endif %}
+        {% if co.email and co.email not in co_text %}<div>{{ _("Email:") }} {{ co.email }}</div>{% endif %}
       </div>
     </div>
     <div class="bs-party">
-      <div class="bs-label">To &mdash; Supplier</div>
+      <div class="bs-label">{{ _("To — Supplier") }}</div>
       <div class="bs-name">{{ sup.supplier_name or (row.supplier if row else "&mdash;") }}</div>
-      {% if contact %}<div class="muted small" style="margin-top:2px">Attn: {{ contact }}</div>{% endif %}
+      {% if contact %}<div class="muted small" style="margin-top:2px">{{ _("Attn:") }} {{ contact }}</div>{% endif %}
       {% if row and (sup.mobile_no or row.email_id) %}<div class="muted small" style="margin-top:4px">{% if sup.mobile_no %}{{ sup.mobile_no }}{% endif %}{% if sup.mobile_no and row.email_id %} &middot; {% endif %}{% if row.email_id %}{{ row.email_id }}{% endif %}</div>{% endif %}
-      {% if sup.tax_id %}<div class="muted small" style="margin-top:2px">GSTIN: {{ sup.tax_id }}</div>{% endif %}
+      {% if sup.tax_id %}<div class="muted small" style="margin-top:2px">{{ _("GSTIN:") }} {{ sup.tax_id }}</div>{% endif %}
     </div>
   </div>
 
   <div class="bs-metastrip three">
-    <div><div class="bs-label">Deliver to project</div><div class="bold">{{ proj.project_name or doc.project or "&mdash;" }}</div>{% if proj.custom_project_id or proj.location %}<div class="muted">{{ proj.custom_project_id or "" }}{% if proj.custom_project_id and proj.location %} &middot; {% endif %}{{ proj.location or "" }}</div>{% endif %}</div>
-    <div><div class="bs-label">Quote by</div><div class="bold">{{ frappe.utils.formatdate(doc.custom_closing_date) if doc.custom_closing_date else "&mdash;" }}</div></div>
-    <div><div class="bs-label">Material required by</div><div class="bold">{{ frappe.utils.formatdate(doc.schedule_date) if doc.schedule_date else "&mdash;" }}</div></div>
+    <div><div class="bs-label">{{ _("Deliver to project") }}</div><div class="bold">{{ proj.project_name or doc.project or "&mdash;" }}</div>{% if proj.custom_project_id or proj.location %}<div class="muted">{{ proj.custom_project_id or "" }}{% if proj.custom_project_id and proj.location %} &middot; {% endif %}{{ proj.location or "" }}</div>{% endif %}</div>
+    <div><div class="bs-label">{{ _("Quote by") }}</div><div class="bold">{{ frappe.utils.formatdate(doc.custom_closing_date) if doc.custom_closing_date else "&mdash;" }}</div></div>
+    <div><div class="bs-label">{{ _("Material required by") }}</div><div class="bold">{{ frappe.utils.formatdate(doc.schedule_date) if doc.schedule_date else "&mdash;" }}</div></div>
   </div>
 
   {% if doc.subject %}<div class="bs-subject">{{ doc.subject }}</div>{% endif %}
-  {# The copy greets the person it is addressed to, as the email does: a named contact replaces the message's own opening "Dear ..." line. #}
-  {% if msg or contact %}<div class="bs-message">{% if contact %}Dear {{ contact }},
-{% if msg_lines and msg_lines[0].lower().startswith("dear") %}{{ msg_lines[1:] | join("\\n") }}{% else %}
-{{ msg }}{% endif %}{% else %}{{ msg }}{% endif %}</div>{% endif %}
+  {% if msg %}<div class="bs-message">{{ msg }}</div>{% endif %}
 
-  <div class="bs-h2">Items to quote</div>
+  <div class="bs-h2">{{ _("Items to quote") }}</div>
   <table class="bs-lines bordered">
-    <thead><tr><th class="l" style="width:24px">#</th><th class="l">Item</th><th class="l">Description</th><th class="r" style="width:64px">Qty</th><th class="l" style="width:56px">UOM</th><th class="r" style="width:90px">Your rate</th><th class="r" style="width:90px">Delivery</th></tr></thead>
+    <thead><tr><th class="l" style="width:24px">#</th><th class="l">{{ _("Item") }}</th><th class="l">{{ _("Description") }}</th><th class="r" style="width:64px">{{ _("Qty") }}</th><th class="l" style="width:56px">{{ _("UOM") }}</th><th class="r" style="width:90px">{{ _("Your rate") }}</th><th class="r" style="width:90px">{{ _("Delivery") }}</th></tr></thead>
     <tbody>
       {% for line in doc.items %}
       {% set desc = (frappe.utils.strip_html(line.description or "") if "<" in (line.description or "") else (line.description or "")).strip() %}
@@ -507,16 +503,16 @@ _RFQ_HTML = """
   </table>
 
   {% if doc.terms %}
-  <div class="bs-h3">Terms &amp; conditions</div>
-  <div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}" style="margin-bottom:24px;">{{ doc.terms }}</div>
+  <div class="bs-h3">{{ _("Terms & conditions") }}</div>
+  <div class="bs-terms-text{{ ' bs-rich' if '<' in (doc.terms or '') else '' }}" style="margin-bottom:24px;">{{ buildsuite_print_terms(doc.terms) }}</div>
   {% endif %}
 
   <div class="bs-sign">
-    <div class="c"><div class="sig">For {{ doc.company or "" }}</div><div class="muted small">Authorised signatory &middot; Date</div></div>
-    <div class="c"><div class="sig">For {{ sup.supplier_name or (row.supplier if row else "") }}</div><div class="muted small">Quotation reference &middot; Date</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(doc.company or "") }}</div><div class="muted small">{{ _("Authorised signatory · Date") }}</div></div>
+    <div class="c"><div class="sig">{{ _("For {0}", context="BuildSuite Print").format(sup.supplier_name or (row.supplier if row else "")) }}</div><div class="muted small">{{ _("Quotation reference · Date") }}</div></div>
   </div>
 
-  <div class="bs-footer">{{ doc.name }} &middot; Generated {{ frappe.utils.format_datetime(frappe.utils.now()) }} using <span class="bold">BuildSuite</span></div>
+  <div class="bs-footer">{{ doc.name }} &middot; {{ _("Generated {0} using {1}").format(frappe.utils.format_datetime(frappe.utils.now()), '<span class="bold">BuildSuite</span>') }}</div>
 </div>
 """
 

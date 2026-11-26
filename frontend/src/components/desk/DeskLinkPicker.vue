@@ -174,11 +174,29 @@ function applyClientFilters(rows, filters = []) {
 	});
 }
 
+// Only packaged records in the boot manifest have localizable names. Other
+// link values (people, companies and custom reports) use their stored label.
+const standardLabels = computed(() => window.standard_link_labels?.[props.doctype] || {});
+function displayLabel(value, fallback) {
+	const labels = standardLabels.value;
+	return Object.hasOwn(labels, value) ? __(labels[value]) : String(fallback ?? "");
+}
+
 const serverOrFilters = computed(() => {
 	const term = query.value.trim();
 	if (!term) return [];
 
-	return resolvedSearchFields.value.map((fieldname) => [fieldname, "like", `%${term}%`]);
+	const filters = resolvedSearchFields.value.map((fieldname) => [
+		fieldname,
+		"like",
+		`%${term}%`,
+	]);
+	const search = term.toLocaleLowerCase("az");
+	const matches = Object.keys(standardLabels.value).filter((id) =>
+		displayLabel(id, id).toLocaleLowerCase("az").includes(search)
+	);
+	if (matches.length) filters.push(["name", "in", matches]);
+	return filters;
 });
 
 const listOrderBy = computed(() => props.orderBy || `${props.labelField} asc`);
@@ -211,7 +229,7 @@ const selectedOption = computed(() => {
 	const currentValue = props.modelValue;
 	if (currentValue === "" || currentValue == null) return null;
 	return {
-		label: String(currentValue),
+		label: displayLabel(currentValue, currentValue),
 		value: currentValue,
 	};
 });
@@ -308,7 +326,7 @@ function buildOption(record) {
 	const label = record?.[props.labelField] ?? record?.[props.valueField] ?? "";
 	const value = record?.[props.valueField];
 	return {
-		label: label == null ? "" : String(label),
+		label: displayLabel(record?.name ?? value, label),
 		value,
 		description: record?.description || record?.abbr || "",
 		record,
@@ -375,7 +393,7 @@ function onCreate(togglePopover) {
 						@click="togglePopover"
 					>
 						<span class="min-w-0 flex-1 truncate">
-							{{ selectedOption?.label || placeholder }}
+							{{ selectedOption?.label || __(placeholder) }}
 						</span>
 						<span v-if="showClear" class="w-4" aria-hidden="true"></span>
 						<span class="text-[10px] text-ink-400">▾</span>

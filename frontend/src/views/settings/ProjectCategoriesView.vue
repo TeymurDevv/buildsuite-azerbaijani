@@ -12,6 +12,16 @@ import DocTypeListView from "@/components/doctype/DocTypeListView.vue";
 const store = useDataStore();
 const router = useRouter();
 
+const defaultCategories = new Set([
+	"Commercial",
+	"Residential",
+	"Infrastructure",
+	"Industrial",
+	"Renovation",
+	"Interior",
+	"Other",
+]);
+
 const columns = [
 	{ key: "category_name", label: __("Category") },
 	{ key: "work_package_label", label: __("Work Package label") },
@@ -60,6 +70,27 @@ onMounted(() => {
 			:search-placeholder="__('Search categories…')"
 			@row-click="onRowClick"
 		>
+			<template #cell-category_name="{ row }">
+				{{
+					row.name === row.category_name && defaultCategories.has(row.name)
+						? __(row.name)
+						: row.category_name
+				}}
+			</template>
+			<template #cell-work_package_label="{ row }">
+				{{
+					row.work_package_label === "Work Package"
+						? __(row.work_package_label)
+						: row.work_package_label
+				}}
+			</template>
+			<template #cell-work_package_label_plural="{ row }">
+				{{
+					row.work_package_label_plural === "Work Packages"
+						? __(row.work_package_label_plural)
+						: row.work_package_label_plural
+				}}
+			</template>
 			<template #cell-enabled="{ row }">
 				<span
 					class="text-[10px] px-1.5 py-0.5 font-medium"
