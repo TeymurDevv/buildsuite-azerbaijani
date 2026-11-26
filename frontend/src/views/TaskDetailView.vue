@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
 import { endBeforeStartError, outOfParentBoundsError } from "@/utils/dateBounds";
 import { fetchProjectBounds } from "@/utils/projectBounds";
@@ -475,8 +476,8 @@ const progressCameraInput = ref(null);
 function fmtBytes(n) {
 	if (!n) return "0 B";
 	if (n < 1024) return `${n} B`;
-	if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
-	return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+	if (n < 1024 * 1024) return `${fixedNumber((n / 1024), 1)} KB`;
+	return `${fixedNumber((n / (1024 * 1024)), 1)} MB`;
 }
 
 function openProgressFilePicker() {
@@ -900,13 +901,13 @@ usePageTitle(() => task.value?.name);
 						</div>
 						<div class="text-[11px] text-ink-500 mt-3">
 							<template v-if="latestEntry">
-								Latest:
+								{{ __('Latest:') }}
 								<DeskLink :to="`/progress-entries/${latestEntry.id}`"
-									>{{ latestEntry.progressPct }}% on
+									>{{ latestEntry.progressPct }}{{ __('% on') }}
 									{{ fmtDate(latestEntry.entryDate) }}</DeskLink
 								>
-								by <UserAvatar :user-id="latestEntry.enteredBy" size="xs" /> ·
-								{{ entryCount }} {{ entryCount === 1 ? "entry" : "entries" }} total
+								{{ __('by') }} <UserAvatar :user-id="latestEntry.enteredBy" size="xs" /> ·
+								{{ entryCount }} {{ entryCount === 1 ? "entry" : "entries" }} {{ __('total') }}
 							</template>
 							<template v-else>
 								{{

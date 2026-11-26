@@ -1,11 +1,12 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import WorkspaceShortcut from "@/components/WorkspaceShortcut.vue";
 import WorkspaceReportsSection from "@/components/workspaces/WorkspaceReportsSection.vue";
 import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() =>
-	new Date().toLocaleDateString(currentLang(), {
+	calendarDate(new Date(), currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

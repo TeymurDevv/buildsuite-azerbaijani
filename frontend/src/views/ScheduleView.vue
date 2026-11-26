@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { ref, computed, watch, nextTick, onBeforeUnmount } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import DeskLinkPicker from "@/components/desk/DeskLinkPicker.vue";
@@ -212,7 +213,7 @@ function diffDays(a, b) {
 }
 function fmtShort(iso) {
 	if (!iso) return "";
-	return parseISO(iso).toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
+	return calendarDate(parseISO(iso), "en-IN", { day: "2-digit", month: "short" });
 }
 
 // === Data load ========================================================
@@ -709,7 +710,7 @@ const monthTicks = computed(() => {
 	cursor.setDate(1);
 	while (cursor.getTime() < dateRange.value.maxMs) {
 		out.push({
-			label: cursor.toLocaleDateString("en-IN", { month: "short", year: "2-digit" }),
+			label: calendarDate(cursor, "en-IN", { month: "short", year: "2-digit" }),
 			x: dateToX(msToISO(cursor.getTime())),
 		});
 		cursor.setMonth(cursor.getMonth() + 1);
@@ -738,7 +739,7 @@ const subTicks = computed(() => {
 		if (viewMode.value === "day") label = String(cursor.getDate());
 		else if (viewMode.value === "week") label = `W${weekOf(cursor)}`;
 		else if (viewMode.value === "month")
-			label = cursor.toLocaleDateString("en-IN", { month: "short" });
+			label = calendarDate(cursor, "en-IN", { month: "short" });
 		else label = `Q${Math.floor(cursor.getMonth() / 3) + 1}`;
 		out.push({ label, x: dateToX(msToISO(cursor.getTime())) });
 		cursor.setDate(cursor.getDate() + stride);
@@ -1159,7 +1160,7 @@ onBeforeUnmount(() => {
 			v-if="canEditAny && allTasks.length"
 			class="mb-2 text-[11px] text-ink-500 flex items-center gap-2 flex-wrap"
 		>
-			<span>Edit a task's start / due dates inline in the list on the left.</span>
+			<span>{{ __('Edit a task\'s start / due dates inline in the list on the left.') }}</span>
 		</div>
 
 		<!-- Toolbar -->

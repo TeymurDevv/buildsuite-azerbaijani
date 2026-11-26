@@ -116,14 +116,14 @@ const breadcrumbs = [
 </script>
 
 <template>
-	<DeskPage title="Material Consumption" :breadcrumbs="breadcrumbs">
+	<DeskPage :title="__('Material Consumption')" :breadcrumbs="breadcrumbs">
 		<template #actions>
 			<RouterLink
 				v-if="canCreate('materialConsumption')"
 				to="/material-consumption/new"
 				class="desk-save-btn !text-xs"
 			>
-				+ Record consumption
+				{{ __('+ Record consumption') }}
 			</RouterLink>
 		</template>
 
@@ -161,7 +161,7 @@ const breadcrumbs = [
 					<DeskSearchableSelect
 						v-model="projectFilter"
 						:options="projectOptions"
-						placeholder="All projects"
+						:placeholder="__('All projects')"
 						search-placeholder="Search projects…"
 						allow-clear
 					/>

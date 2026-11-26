@@ -85,7 +85,7 @@ watch(() => [props.doctype, props.name, props.loader], load, { immediate: true }
 					v-if="html"
 					@click="printDoc"
 					class="ml-auto text-xs px-3 py-1.5 rounded bg-ink-900 text-white hover:bg-ink-800 flex items-center gap-1.5"
-					title="Opens the browser print dialog. Pick 'Save as PDF' to export."
+					:title="__('Opens the browser print dialog. Pick \'Save as PDF\' to export.')"
 				>
 					<svg
 						class="w-3.5 h-3.5"
@@ -103,7 +103,7 @@ watch(() => [props.doctype, props.name, props.loader], load, { immediate: true }
 						/>
 						<rect x="6" y="14" width="12" height="8" />
 					</svg>
-					<span>Export PDF</span>
+					<span>{{ __('Export PDF') }}</span>
 				</button>
 				<slot name="actions" />
 			</div>
@@ -126,11 +126,11 @@ watch(() => [props.doctype, props.name, props.loader], load, { immediate: true }
 			v-else-if="loading"
 			class="max-w-4xl mx-auto px-6 py-16 text-center text-sm text-ink-500"
 		>
-			Loading…
+			{{ __('Loading…') }}
 		</main>
 		<main v-else class="max-w-4xl mx-auto px-6 py-16 text-center">
 			<div class="text-sm text-ink-700 mb-2">
-				No printable document for <span class="font-mono">{{ name }}</span
+				{{ __('No printable document for') }} <span class="font-mono">{{ name }}</span
 				>.
 			</div>
 			<button v-if="backTo" @click="goBack" class="text-xs text-brand-700 hover:underline">

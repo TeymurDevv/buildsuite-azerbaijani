@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDateTime } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
 // Stage Planning detail — adapter-backed. UI follows the prototype detail
 // layout (KPI strip, details card, StageTaskPicker for tasks, edit modal).
@@ -522,7 +523,7 @@ function activityGlyphCls(type) {
 function activityWhen(at) {
 	if (!at) return "";
 	const d = new Date(String(at).replace(" ", "T"));
-	return isNaN(d) ? at : d.toLocaleString();
+	return isNaN(d) ? at : calendarDateTime(d);
 }
 
 const activityEntries = ref([]);
@@ -1004,9 +1005,9 @@ usePageTitle(() => stage.value?.stageName);
 					<span class="text-success-700 font-medium">{{
 						stageTaskStats.completed
 					}}</span>
-					done ·
+					{{ __('done ·') }}
 					<span class="text-info-700 font-medium">{{ stageTaskStats.inProgress }}</span>
-					in progress
+					{{ __('in progress') }}
 				</div>
 			</div>
 			<div
@@ -1373,14 +1374,14 @@ usePageTitle(() => stage.value?.stageName);
 
 						<DeskSection id="tasks" :title="__('Tasks')">
 							<div class="md:col-span-2 text-xs text-ink-500">
-								{{ (stage.stagePlanningTasks || []).length }} task{{
+								{{ (stage.stagePlanningTasks || []).length }} {{ __('task') }}{{
 									(stage.stagePlanningTasks || []).length === 1 ? "" : "s"
 								}}
-								linked · manage via the
+								{{ __('linked · manage via the') }}
 								<span class="font-medium text-ink-700 dark:text-ink-300"
-									>Add/Remove Tasks</span
+									>{{ __('Add/Remove Tasks') }}</span
 								>
-								button on the page.
+								{{ __('button on the page.') }}
 							</div>
 						</DeskSection>
 					</div>

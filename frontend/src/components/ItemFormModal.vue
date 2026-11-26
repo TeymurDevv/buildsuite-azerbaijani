@@ -199,7 +199,7 @@ async function onDelete() {
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="emit('close')"
 					>
 						×
@@ -220,14 +220,14 @@ async function onDelete() {
 								v-model="form.item_code"
 								class="font-mono"
 								:disabled="editing"
-								placeholder="e.g. CEM-OPC53"
+								:placeholder="__('e.g. CEM-OPC53')"
 								@input="clearError('item_code')"
 							/>
 						</DeskField>
 						<DeskField label="Item name">
 							<DeskInput
 								v-model="form.item_name"
-								placeholder="Cement — OPC 53 Grade"
+								:placeholder="__('Cement — OPC 53 Grade')"
 							/>
 						</DeskField>
 					</div>
@@ -239,7 +239,7 @@ async function onDelete() {
 								doctype="Item Group"
 								label-field="name"
 								value-field="name"
-								placeholder="— Select group —"
+								:placeholder="__('— Select group —')"
 								@change="clearError('item_group')"
 							/>
 						</DeskField>
@@ -249,7 +249,7 @@ async function onDelete() {
 								doctype="UOM"
 								label-field="name"
 								value-field="name"
-								placeholder="— Select UOM —"
+								:placeholder="__('— Select UOM —')"
 								@change="clearError('stock_uom')"
 							/>
 						</DeskField>
@@ -275,7 +275,7 @@ async function onDelete() {
 						<DeskSearchableSelect
 							v-model="form.custom_rate_master"
 							:options="rateMasterOptions"
-							placeholder="Not linked"
+							:placeholder="__('Not linked')"
 							search-placeholder="Search rate codes, descriptions…"
 							allow-clear
 						/>
@@ -286,30 +286,26 @@ async function onDelete() {
 						class="text-[11px] text-warning-700 bg-warning-50 border border-warning-200 px-2.5 py-2 -mt-1"
 						style="border-radius: 6px"
 					>
-						Unit mismatch — this item is <strong>{{ form.stock_uom }}</strong> but the
-						rate is per <strong>{{ linkedRate.uom }}</strong
-						>. The rate check compares the two figures directly, so the link does
-						nothing until the units match.
+						{{ __('Unit mismatch — this item is') }} <strong>{{ form.stock_uom }}</strong> {{ __('but the rate is per') }} <strong>{{ linkedRate.uom }}</strong
+						>{{ __('. The rate check compares the two figures directly, so the link does nothing until the units match.') }}
 					</p>
 
 					<div class="pt-1">
 						<label class="flex items-center gap-2 text-sm text-ink-700">
 							<input v-model="form.is_stock_item" type="checkbox" />
-							Maintain stock (physical inventory)
+							{{ __('Maintain stock (physical inventory)') }}
 						</label>
 						<p class="text-[11px] text-ink-500 mt-1 ml-6">
-							On: a Purchase Receipt of this item adds to the project store, so it
-							appears in Material Consumption. Off: a service item (labour,
-							subcontractor work, charges) — no stock is tracked.
+							{{ __('On: a Purchase Receipt of this item adds to the project store, so it appears in Material Consumption. Off: a service item (labour, subcontractor work, charges) — no stock is tracked.') }}
 							<span v-if="editing" class="text-warning-700"
-								>Can't be changed once the item has stock transactions.</span
+								>{{ __('Can\'t be changed once the item has stock transactions.') }}</span
 							>
 						</p>
 					</div>
 
 					<label class="flex items-center gap-2 text-sm text-ink-700">
 						<input v-model="form.disabled" type="checkbox" />
-						Disabled (hidden from pickers)
+						{{ __('Disabled (hidden from pickers)') }}
 					</label>
 				</div>
 
@@ -323,7 +319,7 @@ async function onDelete() {
 						style="border-radius: 6px"
 						@click="onDelete"
 					>
-						Delete
+						{{ __('Delete') }}
 					</button>
 					<span v-else></span>
 
@@ -334,7 +330,7 @@ async function onDelete() {
 							style="border-radius: 6px"
 							@click="emit('close')"
 						>
-							Cancel
+							{{ __('Cancel') }}
 						</button>
 						<button
 							type="button"

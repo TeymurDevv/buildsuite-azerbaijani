@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Equipment (plant & machinery) workspace landing — mirrors the demo. The Machinery /
 // Machinery Usage shortcuts and the Equipment Dashboard tile navigate; the two report tiles
 // open the Machinery Utilisation (usage log) and Equipment Register (machinery) reports.
@@ -10,7 +11,7 @@ import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), { weekday: "long", month: "short", day: "numeric" });
+	return calendarDate(d, currentLang(), { weekday: "long", month: "short", day: "numeric" });
 });
 
 const shortcuts = [

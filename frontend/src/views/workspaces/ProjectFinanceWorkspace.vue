@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Project Finance workspace landing — standard workspace pattern (like Site
 // Execution / Subcontract): a prominent Overview CTA + grouped WorkspaceShortcut
 // tiles that open each function in its own page. Role-gated via the session roles
@@ -23,7 +24,7 @@ const { canRead } = usePermissions();
 const session = useSessionStore();
 const activeCompany = useActiveCompany();
 
-const today = new Date().toLocaleDateString(currentLang(), {
+const today = calendarDate(new Date(), currentLang(), {
 	weekday: "long",
 	month: "short",
 	day: "numeric",

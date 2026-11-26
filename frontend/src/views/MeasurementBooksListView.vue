@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Measurement Book list — Desk-styled, mirrors the prototype. Sits at
 // project level; each MB carries a work_order link so you can see which
 // WO it feeds.
@@ -179,7 +180,7 @@ function onRowClick(row) {
 			</template>
 			<template #cell-measured_total="{ row }">
 				<span class="text-xs tabular-nums text-info-700 font-medium">{{
-					Number(row.measured_total || 0).toLocaleString("en-IN")
+					Number(row.measured_total || 0).toLocaleString(numberLocale("en-IN"))
 				}}</span>
 			</template>
 			<template #cell-status="{ row }">

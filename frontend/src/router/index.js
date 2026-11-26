@@ -5,6 +5,7 @@ import { useDataStore } from "@/stores";
 import { usePermissions } from "@/composables/usePermissions";
 import { getDoctypePermissions } from "@/data/workspaceSettingApi";
 import { getLoginUrl } from "@/utils/session";
+import { __ } from "@/utils/translate";
 import { APP_ROUTE, APP_TITLE } from "@/utils/appRoute";
 
 // Per-route browser title (route name -> human label). Detail pages get a generic
@@ -1527,7 +1528,7 @@ router.beforeEach(async (to) => {
 // record name) via usePageTitle once its data loads.
 router.afterEach((to) => {
 	const label = PAGE_TITLES[to.name];
-	document.title = label ? `${label} · ${APP_TITLE}` : APP_TITLE;
+	document.title = label ? `${__(label)} · ${APP_TITLE}` : APP_TITLE;
 });
 
 export default router;

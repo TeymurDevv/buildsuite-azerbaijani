@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed, ref, onMounted, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { fmtCompactINR, fmtDate } from "@/utils/format";
@@ -10,7 +11,7 @@ import { dayjs } from "frappe-ui";
 import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() =>
-	new Date().toLocaleDateString(currentLang(), {
+	calendarDate(new Date(), currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",
@@ -37,10 +38,6 @@ async function loadDashboard() {
 	} finally {
 		loading.value = false;
 	}
-}
-
-function plural(n) {
-	return n === 1 ? "" : "s";
 }
 
 // Frappe Desk list URL with filters, e.g. per_received=["<",100].
@@ -95,10 +92,9 @@ const actionRows = computed(() => {
 			icon: "check-circle",
 			label: __("Approved requests to order"),
 			sub: na.approved_to_order.count
-				? __("Oldest waiting {0} day{1}", [
-						na.approved_to_order.oldest_days,
-						plural(na.approved_to_order.oldest_days),
-				  ])
+				? na.approved_to_order.oldest_days === 1
+					? __("Oldest waiting {0} day", [na.approved_to_order.oldest_days])
+					: __("Oldest waiting {0} days", [na.approved_to_order.oldest_days])
 				: __("All caught up"),
 			count: na.approved_to_order.count,
 			href: listUrl("material-request", {
@@ -126,10 +122,9 @@ const actionRows = computed(() => {
 			icon: "chart-bar",
 			label: __("Partial deliveries"),
 			sub: na.partial_deliveries.count
-				? __("{0} PO{1} between 1–99% received", [
-						na.partial_deliveries.count,
-						plural(na.partial_deliveries.count),
-				  ])
+				? na.partial_deliveries.count === 1
+					? __("{0} PO between 1–99% received", [na.partial_deliveries.count])
+					: __("{0} POs between 1–99% received", [na.partial_deliveries.count])
 				: __("No partial deliveries pending"),
 			count: na.partial_deliveries.count,
 			href: listUrl("purchase-order", {
@@ -146,10 +141,9 @@ const actionRows = computed(() => {
 			icon: "file-text",
 			label: __("Received, not billed"),
 			sub: na.received_not_billed.count
-				? __("{0} GRN{1} awaiting supplier invoice", [
-						na.received_not_billed.count,
-						plural(na.received_not_billed.count),
-				  ])
+				? na.received_not_billed.count === 1
+					? __("{0} GRN awaiting supplier invoice", [na.received_not_billed.count])
+					: __("{0} GRNs awaiting supplier invoice", [na.received_not_billed.count])
 				: __("All receipts billed"),
 			count: na.received_not_billed.count,
 			href: listUrl("purchase-receipt", { docstatus: 1, per_billed: ["<", 100] }),

@@ -51,7 +51,7 @@ async function createTrade() {
 				doctype="Construction Trade"
 				label-field="name"
 				value-field="name"
-				placeholder="Pick a trade…"
+				:placeholder="__('Pick a trade…')"
 				:error="error"
 				@update:model-value="(v) => emit('update:modelValue', v)"
 			/>
@@ -59,10 +59,10 @@ async function createTrade() {
 		<button
 			type="button"
 			class="text-xs px-2.5 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-brand-700 rounded-md flex-shrink-0 whitespace-nowrap"
-			title="Create a new trade"
+			:title="__('Create a new trade')"
 			@click="openCreate"
 		>
-			+ New
+			{{ __('+ New') }}
 		</button>
 	</div>
 
@@ -79,7 +79,7 @@ async function createTrade() {
 				<header
 					class="px-4 py-3 border-b border-ink-200 flex items-center justify-between"
 				>
-					<h2 class="text-sm font-semibold text-ink-900">Create new trade</h2>
+					<h2 class="text-sm font-semibold text-ink-900">{{ __('Create new trade') }}</h2>
 					<button
 						type="button"
 						class="text-ink-400 hover:text-ink-900"
@@ -91,12 +91,12 @@ async function createTrade() {
 				<div class="px-4 py-4">
 					<label
 						class="block text-[11px] uppercase tracking-wider text-ink-500 font-medium mb-1"
-						>Trade name</label
+						>{{ __('Trade name') }}</label
 					>
 					<input
 						v-model="name"
 						type="text"
-						placeholder="e.g. Waterproofing"
+						:placeholder="__('e.g. Waterproofing')"
 						class="w-full text-sm px-2.5 py-1.5 border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400"
 						@keyup.enter="createTrade"
 					/>
@@ -109,7 +109,7 @@ async function createTrade() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="open = false"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"

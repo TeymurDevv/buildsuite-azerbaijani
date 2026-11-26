@@ -150,14 +150,14 @@ function ago(dt) {
 					<span
 						class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
 						:class="notificationType(n.type).tint"
-						:title="n.type"
+						:title="__(n.type)"
 					>
 						<WorkspaceIcon :slug="notificationType(n.type).icon" :size="14" />
 					</span>
 					<span class="flex-1 min-w-0">
 						<span class="block text-xs text-ink-900 leading-snug">{{ n.subject }}</span>
 						<span class="block text-[11px] text-ink-500 mt-0.5">
-							<template v-if="n.document_type">{{ n.document_type }} &middot; </template
+							<template v-if="n.document_type">{{ __(n.document_type) }} &middot; </template
 							>{{ ago(n.creation) }}
 						</span>
 					</span>

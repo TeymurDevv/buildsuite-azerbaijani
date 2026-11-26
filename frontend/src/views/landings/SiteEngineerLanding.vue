@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -16,7 +17,7 @@ const store = useDataStore();
 const SITE_ENGINEER_USER_ID = "USR-005";
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -156,13 +157,13 @@ const alerts = computed(() => {
 				</h1>
 				<p class="text-sm opacity-90 mt-1">{{ todayLabel }}</p>
 				<div v-if="primaryProject" class="mt-3 pt-3 border-t border-white/20 text-sm">
-					<div class="opacity-75 text-xs uppercase tracking-wider">Today's project</div>
+					<div class="opacity-75 text-xs uppercase tracking-wider">{{ __("Today's project") }}</div>
 					<div class="font-medium mt-0.5">{{ primaryProject.name }}</div>
 				</div>
 			</div>
 
 			<!-- Quick actions -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">Today's quick actions</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">{{ __("Today's quick actions") }}</h2>
 			<div class="grid grid-cols-2 gap-3">
 				<RouterLink
 					v-for="a in quickActions"
@@ -177,7 +178,7 @@ const alerts = computed(() => {
 			</div>
 
 			<!-- My tasks today -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">My tasks today</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">{{ __("My tasks today") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div class="divide-y divide-ink-100">
 					<RouterLink
@@ -209,13 +210,13 @@ const alerts = computed(() => {
 						v-if="!todaysTasks.length"
 						class="px-4 py-8 text-center text-sm text-ink-400"
 					>
-						No open tasks assigned to you. Nice.
+						{{ __("No open tasks assigned to you. Nice.") }}
 					</div>
 				</div>
 			</div>
 
 			<!-- Alerts -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">Alerts</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-8 mb-3">{{ __("Alerts") }}</h2>
 			<div v-if="alerts.length" class="space-y-2">
 				<RouterLink
 					v-for="a in alerts"
@@ -261,9 +262,9 @@ const alerts = computed(() => {
 				v-else
 				class="bg-success-50 border border-success-200 rounded-xl px-4 py-3 text-success-800 text-sm"
 			>
-				<span class="font-medium">All clear ✓</span>
+				<span class="font-medium">{{ __("All clear ✓") }}</span>
 				<span class="text-success-700 ml-1"
-					>· No overdue tasks or behind-schedule work packages.</span
+					>{{ __("· No overdue tasks or behind-schedule work packages.") }}</span
 				>
 			</div>
 		</div>

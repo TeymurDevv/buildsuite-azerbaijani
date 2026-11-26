@@ -586,7 +586,7 @@ const { status: autosaveStatus } = useAutosave(form, quietSave, {
 							v-model="form.currency"
 							doctype="Currency"
 							:filters="[['enabled', '=', 1]]"
-							placeholder="Company currency"
+							:placeholder="__('Company currency')"
 							@update:model-value="onCurrencyChange"
 						/>
 					</DeskField>

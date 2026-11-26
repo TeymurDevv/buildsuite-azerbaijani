@@ -87,7 +87,7 @@ export function applyBootToWindow(boot) {
 	});
 
 	if (window.lang) {
-		document.documentElement.lang = window.lang;
+		document.documentElement.lang = window.lang.replace(/_/g, "-");
 	}
 	if (window.text_direction) {
 		document.documentElement.dir = window.text_direction;

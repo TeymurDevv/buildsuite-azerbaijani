@@ -461,18 +461,16 @@ async function unlinkAdvance(row) {
 			>
 				<span>
 					<span class="font-medium text-ink-900"
-						>{{ inv.customer_name }} has {{ fmtINR(unlinkedTotal) }} in unadjusted
-						advance payment{{ availableAdvances.length === 1 ? "" : "s" }}</span
+						>{{ inv.customer_name }} {{ __('has') }} {{ fmtINR(unlinkedTotal) }} {{ __('in unadjusted advance payment') }}{{ availableAdvances.length === 1 ? "" : "s" }}</span
 					>
-					— adjust {{ availableAdvances.length === 1 ? "it" : "them" }} against this
-					invoice to reduce the outstanding.
+					{{ __('— adjust') }} {{ availableAdvances.length === 1 ? "it" : "them" }} {{ __('against this invoice to reduce the outstanding.') }}
 				</span>
 				<button
 					type="button"
 					class="text-xs px-2.5 py-1 border border-info-200 bg-white hover:bg-info-50 text-info-700 font-medium flex-shrink-0 rounded-md"
 					@click="openLinkAdvance"
 				>
-					Link advance →
+					{{ __('Link advance →') }}
 				</button>
 			</div>
 
@@ -743,9 +741,9 @@ async function unlinkAdvance(row) {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						From <span class="font-medium">{{ inv.customer_name }}</span> against
+						{{ __('From') }} <span class="font-medium">{{ inv.customer_name }}</span> {{ __('against') }}
 						<span class="font-mono text-xs">{{ inv.name }}</span
-						>. Outstanding
+						>{{ __('. Outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(payment.outstanding)
 						}}</span
@@ -827,13 +825,13 @@ async function unlinkAdvance(row) {
 				</header>
 				<div class="px-4 py-4 overflow-y-auto flex-1 space-y-3">
 					<div class="text-xs text-ink-600">
-						Unadjusted advances received from
+						{{ __('Unadjusted advances received from') }}
 						<span class="font-medium text-ink-900">{{ inv.customer_name }}</span
-						>. Current outstanding
+						>{{ __('. Current outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(remainingOutstanding)
 						}}</span>
-						— the suggested allocation settles as much of it as each advance allows.
+						{{ __('— the suggested allocation settles as much of it as each advance allows.') }}
 					</div>
 					<div v-if="availableAdvances.length" class="space-y-2">
 						<div

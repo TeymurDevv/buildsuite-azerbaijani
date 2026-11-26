@@ -39,8 +39,8 @@ function updateField(event) {
 			:title="!options.length ? 'Sort unavailable' : 'Sort field'"
 			@change="updateField"
 		>
-			<option v-if="!options.length" value="">Sort unavailable</option>
-			<option v-else-if="!sortField" value="">Sort by</option>
+			<option v-if="!options.length" value="">{{ __('Sort unavailable') }}</option>
+			<option v-else-if="!sortField" value="">{{ __('Sort by') }}</option>
 			<option v-for="option in options" :key="option.value" :value="option.value">
 				{{ option.label }}
 			</option>

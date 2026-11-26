@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate, numberLocale } from "@/utils/locale";
 // Subcontractor Dashboard — rolls the Work Order, Subcontractor, Measurement
 // Book and Subcontractor Bill slices into KPI cards + recent-activity panels.
 // Mirrors the prototype's SubcontractorDashboardView. All lists come through
@@ -17,7 +18,7 @@ import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), {
+	return calendarDate(d, currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",
@@ -426,7 +427,7 @@ function woPercent(wo) {
 						<div
 							class="text-sm font-semibold text-info-700 tabular-nums whitespace-nowrap"
 						>
-							{{ Number(mb.measured_total || 0).toLocaleString("en-IN") }}
+							{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
 						</div>
 					</li>
 				</ul>

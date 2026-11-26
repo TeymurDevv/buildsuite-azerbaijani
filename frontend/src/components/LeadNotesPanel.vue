@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDateTime } from "@/utils/locale";
 // A lead's notes — ERPNext's own CRM Note table on the Lead (who wrote what, when), as in
 // ERPNext's Lead form. Notes are HTML (a Text Editor field); the read-only editor renders them
 // safely. Every change returns the lead's notes again (api.leads.add/edit/delete_note), which
@@ -76,7 +77,7 @@ async function removeNote(note) {
 
 const fmtNoteDate = (d) =>
 	d
-		? new Date(String(d).replace(" ", "T")).toLocaleString(undefined, {
+		? calendarDateTime(new Date(String(d).replace(" ", "T")), undefined, {
 				dateStyle: "medium",
 				timeStyle: "short",
 		  })

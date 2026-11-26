@@ -14,6 +14,10 @@ It is built on the principle that construction software should not re-implement 
 
 > **Beta.** All planned modules are shipped and installable. Interfaces are stable enough to build against, but this is a beta — expect rough edges, and please report them.
 
+## Azərbaycan dilində yerli versiya
+
+[BuildSuite-i bu Mac-da açın](http://localhost:8765/login?_lang=az&redirect-to=%2Fcore). Hesab menyusundakı **Dil** sahəsindən Azərbaycan dilini və ya başqa aktiv dili seçə bilərsiniz. Parametr hər istifadəçi üçün ayrıca saxlanılır. [Yerli quraşdırma və giriş qaydası](local-runtime/README.md) · [Azərbaycan dili lüğəti](buildsuite_core/translations/az.csv)
+
 ## Screenshots
 
 **Project overview** — the spine: work packages, tasks, live progress roll-up, and project-scoped reports.

@@ -127,7 +127,7 @@ const breadcrumbs = [
 </script>
 
 <template>
-	<DeskPage title="Cost vs Budget by Cost Code" :breadcrumbs="breadcrumbs">
+	<DeskPage :title="__('Cost vs Budget by Cost Code')" :breadcrumbs="breadcrumbs">
 		<template #actions>
 			<button
 				type="button"
@@ -135,12 +135,12 @@ const breadcrumbs = [
 				style="border-radius: 6px"
 				@click="printReport"
 			>
-				Print
+				{{ __('Print') }}
 			</button>
 		</template>
 
 		<p class="text-xs text-ink-500 mb-3">
-			Planned, committed, actual and variance per cost code, grouped by cost type.
+			{{ __('Planned, committed, actual and variance per cost code, grouped by cost type.') }}
 		</p>
 
 		<!-- Scope + filters -->
@@ -153,7 +153,7 @@ const breadcrumbs = [
 		>
 			<label class="flex items-center gap-1.5">
 				<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-					>Project</span
+					>{{ __('Project') }}</span
 				>
 				<span class="w-56 inline-block">
 					<DeskLinkPicker
@@ -162,7 +162,7 @@ const breadcrumbs = [
 						label-field="project_name"
 						value-field="name"
 						:search-fields="['project_name', 'name']"
-						placeholder="Pick a project…"
+						:placeholder="__('Pick a project…')"
 					/>
 				</span>
 			</label>
@@ -170,21 +170,21 @@ const breadcrumbs = [
 			<template v-if="projectId">
 				<label class="flex items-center gap-1.5">
 					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>Find</span
+						>{{ __('Find') }}</span
 					>
-					<DeskInput v-model="f.q" placeholder="Code or description…" class="!w-52" />
+					<DeskInput v-model="f.q" :placeholder="__('Code or description…')" class="!w-52" />
 				</label>
 
 				<label class="flex items-center gap-1.5">
 					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>Cost type</span
+						>{{ __('Cost type') }}</span
 					>
 					<span class="w-44 inline-block">
 						<DeskSearchableSelect
 							v-model="f.costType"
 							:options="costTypeOptions"
 							allow-clear
-							placeholder="All types"
+							:placeholder="__('All types')"
 							search-placeholder="Search…"
 						/>
 					</span>
@@ -192,10 +192,10 @@ const breadcrumbs = [
 
 				<label class="flex items-center gap-1.5">
 					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>Variance over</span
+						>{{ __('Variance over') }}</span
 					>
 					<DeskSelect v-model="varianceThreshold" class="!w-24">
-						<option value="0">All</option>
+						<option value="0">{{ __('All') }}</option>
 						<option value="5">5%</option>
 						<option value="10">10%</option>
 						<option value="20">20%</option>
@@ -205,16 +205,15 @@ const breadcrumbs = [
 		</ReportFilters>
 
 		<div v-if="!projectId" class="text-sm text-ink-500 italic py-10 text-center">
-			Pick a project to run this report.
+			{{ __('Pick a project to run this report.') }}
 		</div>
 
 		<template v-else>
 			<div v-if="!costGroups.length" class="text-sm text-ink-500 italic py-10 text-center">
 				<template v-if="!boq"
-					>No approved BOQ on this project — there is nothing to measure cost against
-					yet.</template
+					>{{ __('No approved BOQ on this project — there is nothing to measure cost against yet.') }}</template
 				>
-				<template v-else>No cost codes exceed the selected variance threshold.</template>
+				<template v-else>{{ __('No cost codes exceed the selected variance threshold.') }}</template>
 			</div>
 			<div v-else class="space-y-4">
 				<div
@@ -229,18 +228,18 @@ const breadcrumbs = [
 							g.type
 						}}</span>
 						<span class="text-[11px] text-ink-500 tabular-nums"
-							>{{ fmtCompactINR(g.actual) }} of {{ fmtCompactINR(g.planned) }}</span
+							>{{ fmtCompactINR(g.actual) }} {{ __('of') }} {{ fmtCompactINR(g.planned) }}</span
 						>
 					</div>
 					<div class="overflow-x-auto">
 						<table class="w-full text-xs">
 							<thead class="text-ink-500 uppercase tracking-wider text-[10px]">
 								<tr>
-									<th class="text-left px-3 py-2">Cost code</th>
-									<th class="text-right px-3 py-2">Planned</th>
-									<th class="text-right px-3 py-2">Committed</th>
-									<th class="text-right px-3 py-2">Actual</th>
-									<th class="text-right px-3 py-2">Variance</th>
+									<th class="text-left px-3 py-2">{{ __('Cost code') }}</th>
+									<th class="text-right px-3 py-2">{{ __('Planned') }}</th>
+									<th class="text-right px-3 py-2">{{ __('Committed') }}</th>
+									<th class="text-right px-3 py-2">{{ __('Actual') }}</th>
+									<th class="text-right px-3 py-2">{{ __('Variance') }}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -275,10 +274,10 @@ const breadcrumbs = [
 				<div
 					class="bg-ink-50 border border-ink-200 rounded-lg px-3 py-2 flex items-center justify-between text-xs"
 				>
-					<span class="font-medium text-ink-900">Total</span>
+					<span class="font-medium text-ink-900">{{ __('Total') }}</span>
 					<span class="tabular-nums text-ink-700">
-						Planned {{ fmtINR(totals.planned) }} · Committed
-						{{ fmtINR(totals.committed) }} · Actual {{ fmtINR(totals.actual) }}
+						{{ __('Planned') }} {{ fmtINR(totals.planned) }} {{ __('· Committed') }}
+						{{ fmtINR(totals.committed) }} {{ __('· Actual') }} {{ fmtINR(totals.actual) }}
 					</span>
 				</div>
 			</div>

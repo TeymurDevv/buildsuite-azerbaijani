@@ -192,7 +192,7 @@ async function save() {
 					style="border-radius: 12px 12px 0 0"
 				>
 					<div class="min-w-0 flex-1">
-						<h2 class="text-sm font-semibold text-ink-900">New task</h2>
+						<h2 class="text-sm font-semibold text-ink-900">{{ __('New task') }}</h2>
 						<p v-if="selectedProject" class="text-[11px] text-ink-500 mt-0.5 truncate">
 							{{ selectedProject.project_name
 							}}<template v-if="selectedWP">
@@ -203,7 +203,7 @@ async function save() {
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none flex-shrink-0 ml-3"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="close"
 					>
 						×
@@ -211,11 +211,11 @@ async function save() {
 				</header>
 
 				<div class="p-5 overflow-y-auto flex-1">
-					<DeskSection id="task-details" title="Task details">
+					<DeskSection id="task-details" :title="__('Task details')">
 						<DeskField label="Task name" required :error="errors.name">
 							<DeskInput
 								v-model="form.name"
-								placeholder="e.g. Level 5 column casting"
+								:placeholder="__('e.g. Level 5 column casting')"
 								@input="clearError('name')"
 							/>
 						</DeskField>
@@ -234,12 +234,12 @@ async function save() {
 							<DeskTextarea
 								v-model="form.description"
 								:rows="3"
-								placeholder="Optional context for this task"
+								:placeholder="__('Optional context for this task')"
 							/>
 						</DeskField>
 					</DeskSection>
 
-					<DeskSection id="hierarchy" title="Hierarchy">
+					<DeskSection id="hierarchy" :title="__('Hierarchy')">
 						<DeskField
 							label="Project"
 							required
@@ -255,7 +255,7 @@ async function save() {
 								:disabled="projectLocked"
 								@change="clearError('projectId')"
 							>
-								<option value="">— Select project —</option>
+								<option value="">{{ __('— Select project —') }}</option>
 								<option
 									v-for="p in projectsResource.data"
 									:key="p.name"
@@ -274,7 +274,7 @@ async function save() {
 							"
 						>
 							<DeskSelect v-model="form.workPackageId" :disabled="wpLocked">
-								<option :value="null">— None —</option>
+								<option :value="null">{{ __('— None —') }}</option>
 								<option v-for="wp in availableWPs" :key="wp.name" :value="wp.name">
 									{{ wp.work_package_name }}
 								</option>
@@ -282,7 +282,7 @@ async function save() {
 						</DeskField>
 					</DeskSection>
 
-					<DeskSection id="schedule" title="Schedule">
+					<DeskSection id="schedule" :title="__('Schedule')">
 						<!-- Milestone = a point in time: only a Due date, no start. -->
 						<DeskField
 							v-if="form.task_type !== 'Milestone'"
@@ -307,12 +307,12 @@ async function save() {
 						</DeskField>
 					</DeskSection>
 
-					<DeskSection id="assignment-status" title="Assignment & status">
+					<DeskSection id="assignment-status" :title="__('Assignment \u0026 status')">
 						<DeskField label="Assignee">
 							<DeskLinkPicker
 								v-model="form.assignee"
 								doctype="User"
-								placeholder="Select assignee"
+								:placeholder="__('Select assignee')"
 								label-field="full_name"
 								value-field="name"
 								:search-fields="['full_name', 'name', 'email']"
@@ -323,18 +323,18 @@ async function save() {
 						</DeskField>
 						<DeskField label="Status">
 							<DeskSelect v-model="form.status">
-								<option>Yet To Start</option>
-								<option>In Progress</option>
-								<option>In Delay</option>
-								<option>Completed</option>
-								<option>Blocked</option>
+								<option value="Yet To Start">{{ __('Yet To Start') }}</option>
+								<option value="In Progress">{{ __('In Progress') }}</option>
+								<option value="In Delay">{{ __('In Delay') }}</option>
+								<option value="Completed">{{ __('Completed') }}</option>
+								<option value="Blocked">{{ __('Blocked') }}</option>
 							</DeskSelect>
 						</DeskField>
 						<DeskField label="Priority">
 							<DeskSelect v-model="form.priority">
-								<option>Low</option>
-								<option>Medium</option>
-								<option>High</option>
+								<option value="Low">{{ __('Low') }}</option>
+								<option value="Medium">{{ __('Medium') }}</option>
+								<option value="High">{{ __('High') }}</option>
 							</DeskSelect>
 						</DeskField>
 					</DeskSection>
@@ -350,7 +350,7 @@ async function save() {
 						style="border-radius: 6px"
 						@click="close"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button type="button" class="desk-save-btn" :disabled="saving" @click="save">
 						{{ saving ? "Creating…" : "Create task" }}

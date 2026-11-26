@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Subcontractor Work Order detail — summary strip, read-only SOV table,
 // terms, and workflow action buttons (Submit for Approval / Approve /
 // Reject / Start / Close, whatever the approval workflow offers the
@@ -439,7 +440,7 @@ const tabs = computed(() => [
 									: __('Sum across certified Measurement Books for this line')
 							"
 						>
-							{{ lineMeasured(line.name).toLocaleString("en-IN") }} {{ line.uom }}
+							{{ lineMeasured(line.name).toLocaleString(numberLocale("en-IN")) }} {{ line.uom }}
 						</td>
 					</tr>
 				</tbody>
@@ -508,7 +509,7 @@ const tabs = computed(() => [
 								{{ mb.entries_count }}
 							</td>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-900">
-								{{ Number(mb.measured_total || 0).toLocaleString("en-IN") }}
+								{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
 							</td>
 							<td class="px-3 py-2">
 								<StatusBadge :status="mb.status" size="xs" />

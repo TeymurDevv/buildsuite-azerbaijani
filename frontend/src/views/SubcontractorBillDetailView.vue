@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber, numberLocale } from "@/utils/locale";
 // Subcontractor Bill detail — Desk-styled to match the demo: summary strip, lines,
 // Taxes & Charges table, side-by-side Retention/TDS/discount + the live waterfall, and
 // Attachments. Real data throughout — company-scoped tax-template / account / expense pickers,
@@ -560,7 +561,7 @@ function formatFileSize(bytes) {
 		n /= 1024;
 		i++;
 	}
-	return (i === 0 ? n : n.toFixed(n < 10 ? 1 : 0)) + " " + units[i];
+	return (i === 0 ? n : fixedNumber(n, n < 10 ? 1 : 0)) + " " + units[i];
 }
 
 const breadcrumbs = computed(() => [
@@ -730,11 +731,9 @@ const accountFilters = computed(() =>
 		>
 			<span>
 				<span class="font-medium text-ink-900"
-					>{{ bill.subcontractor_name }} has {{ fmtINR(unlinkedTotal) }} in unlinked
-					advance payment{{ availableAdvances.length === 1 ? "" : "s" }}</span
+					>{{ bill.subcontractor_name }} {{ __('has') }} {{ fmtINR(unlinkedTotal) }} {{ __('in unlinked advance payment') }}{{ availableAdvances.length === 1 ? "" : "s" }}</span
 				>
-				— link {{ availableAdvances.length === 1 ? "it" : "them" }} to this bill to settle
-				the payable.
+				{{ __('— link') }} {{ availableAdvances.length === 1 ? "it" : "them" }} {{ __('to this bill to settle the payable.') }}
 			</span>
 			<button
 				type="button"
@@ -890,7 +889,7 @@ const accountFilters = computed(() =>
 							v-model="bill.supplier_invoice_no"
 							:readonly="!editable"
 							type="text"
-							placeholder="e.g. SI-2026-0042"
+							:placeholder="__('e.g. SI-2026-0042')"
 							class="desk-input"
 						/>
 					</div>
@@ -980,7 +979,7 @@ const accountFilters = computed(() =>
 							>
 								{{
 									l.measured_qty_to_date != null
-										? Number(l.measured_qty_to_date).toLocaleString("en-IN") +
+										? Number(l.measured_qty_to_date).toLocaleString(numberLocale("en-IN")) +
 										  (l.uom ? " " + l.uom : "")
 										: "—"
 								}}
@@ -988,7 +987,7 @@ const accountFilters = computed(() =>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-500">
 								{{
 									l.previous_qty != null
-										? Number(l.previous_qty).toLocaleString("en-IN") +
+										? Number(l.previous_qty).toLocaleString(numberLocale("en-IN")) +
 										  (l.uom ? " " + l.uom : "")
 										: "—"
 								}}
@@ -996,7 +995,7 @@ const accountFilters = computed(() =>
 							<td class="px-3 py-2 text-right tabular-nums text-ink-900 font-medium">
 								{{
 									l.this_period_qty != null
-										? Number(l.this_period_qty).toLocaleString("en-IN") +
+										? Number(l.this_period_qty).toLocaleString(numberLocale("en-IN")) +
 										  (l.uom ? " " + l.uom : "")
 										: "—"
 								}}
@@ -1300,8 +1299,8 @@ const accountFilters = computed(() =>
 							</div>
 						</div>
 						<p class="text-[10px] text-ink-400 mt-1">
-							Apply on <span class="font-medium">Net Total</span> (before tax) or
-							<span class="font-medium">Grand Total</span> (after tax).
+							{{ __('Apply on') }} <span class="font-medium">{{ __('Net Total') }}</span> {{ __('(before tax) or') }}
+							<span class="font-medium">{{ __('Grand Total') }}</span> {{ __('(after tax).') }}
 						</p>
 					</div>
 					<div class="pt-3 border-t border-ink-100">
@@ -1675,9 +1674,9 @@ const accountFilters = computed(() =>
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						Pay <span class="font-medium">{{ bill.subcontractor_name }}</span> against
+						{{ __('Pay') }} <span class="font-medium">{{ bill.subcontractor_name }}</span> {{ __('against') }}
 						<span class="font-mono text-xs">{{ bill.ra_no || bill.name }}</span
-						>. Outstanding
+						>{{ __('. Outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(payment.outstanding)
 						}}</span
@@ -1802,13 +1801,13 @@ const accountFilters = computed(() =>
 				</header>
 				<div class="px-4 py-4 overflow-y-auto flex-1 space-y-3">
 					<div class="text-xs text-ink-600">
-						Unlinked advances paid to
+						{{ __('Unlinked advances paid to') }}
 						<span class="font-medium text-ink-900">{{ bill.subcontractor_name }}</span
-						>. Current outstanding
+						>{{ __('. Current outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(payment.outstanding)
 						}}</span>
-						— the suggested allocation settles as much of it as each advance allows.
+						{{ __('— the suggested allocation settles as much of it as each advance allows.') }}
 					</div>
 					<div v-if="availableAdvances.length" class="space-y-2">
 						<div

@@ -147,7 +147,7 @@ function onSave() {
 							v-model="form.gstin"
 							type="text"
 							class="w-full text-sm px-2.5 py-1.5 border border-ink-200 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400 font-mono"
-							placeholder="29AABC…1Z5"
+							:placeholder="__('29AABC…1Z5')"
 						/>
 					</div>
 				</fieldset>

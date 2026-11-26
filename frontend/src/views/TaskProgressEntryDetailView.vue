@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
 import { ref, computed, watch, nextTick } from "vue";
 import { useRouter } from "vue-router";
@@ -441,7 +442,7 @@ function formatFileSize(bytes) {
 		n /= 1024;
 		i++;
 	}
-	return (i === 0 ? n : n.toFixed(n < 10 ? 1 : 0)) + " " + units[i];
+	return (i === 0 ? n : fixedNumber(n, n < 10 ? 1 : 0)) + " " + units[i];
 }
 
 // ── Display helpers ──────────────────────────────────────────────────────────
@@ -506,7 +507,7 @@ usePageTitle(() => task.value?.name || entry.value?.id);
 							v-if="!isLatestOnTask && latestOnTask"
 							class="text-[11px] text-ink-500"
 						>
-							⚠ Older entry — task's current progress is
+							{{ __('⚠ Older entry — task\'s current progress is') }}
 							<DeskLink
 								:to="`/progress-entries/${latestOnTask.id}`"
 								class="font-medium"
@@ -882,10 +883,10 @@ usePageTitle(() => task.value?.name || entry.value?.id);
 							{{ __("Total labour") }}
 						</div>
 						<div class="text-sm text-ink-700 tabular-nums">
-							{{ (entry.skilledLabour || 0) + (entry.unskilledLabour || 0) }} workers
+							{{ (entry.skilledLabour || 0) + (entry.unskilledLabour || 0) }} {{ __('workers') }}
 							<span class="text-[11px] text-ink-500"
-								>({{ entry.skilledLabour || 0 }} skilled,
-								{{ entry.unskilledLabour || 0 }} unskilled)</span
+								>({{ entry.skilledLabour || 0 }} {{ __('skilled,') }}
+								{{ entry.unskilledLabour || 0 }} {{ __('unskilled)') }}</span
 							>
 						</div>
 					</div>
@@ -897,13 +898,13 @@ usePageTitle(() => task.value?.name || entry.value?.id);
 				<div class="flex items-center gap-6 text-xs text-ink-500 flex-wrap">
 					<div class="flex items-center gap-1.5">
 						<span>💬</span
-						><span>Comments — <span class="font-medium text-ink-700">0</span></span>
+						><span>{{ __('Comments —') }} <span class="font-medium text-ink-700">0</span></span>
 						<span class="text-ink-400 italic ml-1">{{ __("stub") }}</span>
 					</div>
 					<div class="flex items-center gap-1.5">
 						<span>📎</span
 						><span
-							>Attachments —
+							>{{ __('Attachments —') }}
 							<span class="font-medium text-ink-700">{{
 								attachedFiles.length
 							}}</span></span

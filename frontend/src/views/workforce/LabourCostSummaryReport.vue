@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Labour Cost Summary — hours, man-days and what labour cost, by project, cost code or worker,
 // from submitted attendance AND timesheets.
 //
@@ -75,7 +76,7 @@ const dash = (n) => !(Math.abs(Number(n) || 0) > 0.0001);
 const hrs = (n) =>
 	dash(n)
 		? "—"
-		: (Number(n) || 0).toLocaleString("en-IN", {
+		: (Number(n) || 0).toLocaleString(numberLocale("en-IN"), {
 				minimumFractionDigits: 1,
 				maximumFractionDigits: 1,
 		  });

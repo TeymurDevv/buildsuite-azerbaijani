@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Generic, report-agnostic renderer for a Frappe/ERPNext Report (Query or Script).
 //
 // Filters come from the REPORT itself, resolved the way the Desk does (query_report.js):
@@ -171,11 +172,15 @@ function summaryValueText(card) {
 		case "Currency":
 			return fmtINR(v);
 		case "Percent":
-			return `${Math.round((Number(v) || 0) * 100) / 100}%`;
+			{
+				const percent = Math.round((Number(v) || 0) * 100) / 100;
+				const locale = numberLocale();
+				return `${locale ? percent.toLocaleString(locale) : percent}%`;
+			}
 		case "Int":
-			return Number(v).toLocaleString("en-IN");
+			return Number(v).toLocaleString(numberLocale("en-IN"));
 		case "Float":
-			return Number(v).toLocaleString("en-IN", {
+			return Number(v).toLocaleString(numberLocale("en-IN"), {
 				minimumFractionDigits: 2,
 				maximumFractionDigits: 2,
 			});
@@ -287,11 +292,15 @@ function cellText(row, col) {
 		case "Currency":
 			return fmtINR(v);
 		case "Percent":
-			return `${Math.round((Number(v) || 0) * 100) / 100}%`;
+			{
+				const percent = Math.round((Number(v) || 0) * 100) / 100;
+				const locale = numberLocale();
+				return `${locale ? percent.toLocaleString(locale) : percent}%`;
+			}
 		case "Int":
-			return Number(v).toLocaleString("en-IN");
+			return Number(v).toLocaleString(numberLocale("en-IN"));
 		case "Float":
-			return Number(v).toLocaleString("en-IN", {
+			return Number(v).toLocaleString(numberLocale("en-IN"), {
 				minimumFractionDigits: 2,
 				maximumFractionDigits: 2,
 			});
@@ -380,7 +389,7 @@ const inputClass =
 			v-if="activeFilters.length"
 			class="report-print-only mb-3 text-xs border border-ink-300 rounded px-3 py-2"
 		>
-			<span class="font-semibold">Filters:</span>
+			<span class="font-semibold">{{ __('Filters:') }}</span>
 			<span v-for="(af, i) in activeFilters" :key="af.label">
 				{{ af.label }}: <strong>{{ af.value }}</strong
 				><span v-if="i < activeFilters.length - 1"> · </span>
@@ -414,7 +423,7 @@ const inputClass =
 					v-model="filterValues[f.fieldname]"
 					class="!w-44"
 				>
-					<option value="">All</option>
+					<option value="">{{ __('All') }}</option>
 					<option v-for="o in selectOptions(f)" :key="o" :value="o">{{ o }}</option>
 				</DeskSelect>
 
@@ -437,7 +446,7 @@ const inputClass =
 						:true-value="1"
 						:false-value="0"
 					/>
-					<span>Yes</span>
+					<span>{{ __('Yes') }}</span>
 				</label>
 
 				<!-- Int / Float / Currency -->
@@ -463,10 +472,10 @@ const inputClass =
 					class="text-[11px] text-ink-500 hover:underline"
 					@click="clearFilters"
 				>
-					Clear
+					{{ __('Clear') }}
 				</button>
 				<button type="button" class="text-xs desk-save-btn" @click="applyFilters">
-					Apply
+					{{ __('Apply') }}
 				</button>
 			</div>
 		</div>
@@ -498,17 +507,17 @@ const inputClass =
 			<input
 				v-model="search"
 				type="text"
-				placeholder="Search this report…"
+				:placeholder="__('Search this report…')"
 				class="text-xs px-2.5 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400 w-64 max-w-full"
 			/>
 			<span v-if="!loading && !error" class="text-[11px] text-ink-400">
-				{{ filtered.length.toLocaleString("en-IN") }} row{{
+				{{ filtered.length.toLocaleString(numberLocale("en-IN")) }} {{ __('row') }}{{
 					filtered.length === 1 ? "" : "s"
 				}}
 			</span>
 		</div>
 
-		<div v-if="loading" class="py-16 text-center text-sm text-ink-400">Running report…</div>
+		<div v-if="loading" class="py-16 text-center text-sm text-ink-400">{{ __('Running report…') }}</div>
 		<div
 			v-else-if="error"
 			class="bg-danger-50 border border-danger-200 rounded-lg px-4 py-6 text-sm text-danger-700"
@@ -616,16 +625,16 @@ const inputClass =
 					:disabled="page <= 1"
 					@click="go(-1)"
 				>
-					← Prev
+					{{ __('← Prev') }}
 				</button>
-				<span>Page {{ page }} / {{ pageCount }}</span>
+				<span>{{ __('Page') }} {{ page }} / {{ pageCount }}</span>
 				<button
 					type="button"
 					class="px-2 py-1 border border-ink-200 rounded-md disabled:opacity-40 hover:bg-ink-50"
 					:disabled="page >= pageCount"
 					@click="go(1)"
 				>
-					Next →
+					{{ __('Next →') }}
 				</button>
 			</div>
 		</template>

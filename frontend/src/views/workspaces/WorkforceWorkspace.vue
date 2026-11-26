@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Workforce landing — greeting, a DocType shortcuts grid, and a Reports group.
 
 import { computed } from "vue";
@@ -14,7 +15,7 @@ const { canRead } = usePermissions();
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), {
+	return calendarDate(d, currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // Supplier Quotation Comparison — a Procurement report (buildsuite_core.api.rfq.
 // supplier_quotation_comparison). For one request for quotation: every item asked for down
 // the side, every submitted quotation across the top, the lowest rate on each row marked. The
@@ -295,7 +296,7 @@ const breadcrumbs = [
 							<td
 								class="px-3 py-2.5 text-right tabular-nums text-ink-600 whitespace-nowrap"
 							>
-								{{ spread(r) ? spread(r).toFixed(1) + "%" : "—" }}
+								{{ spread(r) ? fixedNumber(spread(r), 1) + "%" : "—" }}
 							</td>
 						</tr>
 					</tbody>

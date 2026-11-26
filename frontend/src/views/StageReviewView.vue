@@ -379,7 +379,7 @@ function goBack() {
 					{{ taskCount }}
 				</div>
 				<div class="text-[11px] text-ink-500 mt-0.5">
-					{{ completedTaskCount }} done · {{ inProgressTaskCount }} in progress
+					{{ completedTaskCount }} {{ __('done ·') }} {{ inProgressTaskCount }} {{ __('in progress') }}
 				</div>
 			</div>
 			<div
@@ -395,7 +395,7 @@ function goBack() {
 						>{{ meanActualProgress }}%</span
 					>
 					<span class="text-sm text-ink-500 tabular-nums"
-						>/ {{ meanPlannedProgress }}% planned</span
+						>/ {{ meanPlannedProgress }}{{ __('% planned') }}</span
 					>
 				</div>
 				<div class="text-[11px] mt-0.5 flex items-center gap-1 flex-wrap">
@@ -403,12 +403,11 @@ function goBack() {
 						v-if="plannedVsActualPts !== 0"
 						:class="plannedVsActualPts > 0 ? 'text-success-700' : 'text-danger-700'"
 						class="font-medium"
-						>{{ plannedVsActualPts > 0 ? "+" : "" }}{{ plannedVsActualPts }} pts vs
-						plan</span
+						>{{ plannedVsActualPts > 0 ? "+" : "" }}{{ plannedVsActualPts }} {{ __('pts vs plan') }}</span
 					>
 					<span v-else class="text-ink-500">{{ __("on plan") }}</span>
 					<span v-if="expectedProgress !== null" class="text-ink-400"
-						>· expected {{ expectedProgress }}% by calendar</span
+						>{{ __('· expected') }} {{ expectedProgress }}{{ __('% by calendar') }}</span
 					>
 				</div>
 			</div>
@@ -425,7 +424,7 @@ function goBack() {
 					{{ labourTotals.total }}
 				</div>
 				<div class="text-[11px] text-ink-500 mt-0.5">
-					{{ labourTotals.skilled }} skilled · {{ labourTotals.unskilled }} unskilled
+					{{ labourTotals.skilled }} {{ __('skilled ·') }} {{ labourTotals.unskilled }} {{ __('unskilled') }}
 				</div>
 			</div>
 			<div
@@ -439,7 +438,7 @@ function goBack() {
 					v-if="daysOverrun > 0"
 					class="text-2xl font-semibold text-danger-700 mt-1 tabular-nums"
 				>
-					{{ daysOverrun }}d over
+					{{ daysOverrun }}{{ __('d over') }}
 				</div>
 				<div
 					v-else-if="expectedProgress !== null && expectedProgress < 100"
@@ -580,7 +579,7 @@ function goBack() {
 							"
 							class="text-[10px] px-1.5 py-0.5 rounded-full font-medium tabular-nums whitespace-nowrap"
 							>{{ rowPlannedActualVariance(tr) > 0 ? "+" : ""
-							}}{{ rowPlannedActualVariance(tr) }} pts</span
+							}}{{ rowPlannedActualVariance(tr) }} {{ __('pts') }}</span
 						>
 						<span v-else class="text-[10px] text-ink-400">—</span>
 					</div>
@@ -622,7 +621,7 @@ function goBack() {
 					<span class="font-semibold text-ink-900 tabular-nums dark:text-[#F5F5F5]">{{
 						delayDaysSummary.total
 					}}</span>
-					day{{ delayDaysSummary.total === 1 ? "" : "s" }} total
+					{{ __('day') }}{{ delayDaysSummary.total === 1 ? "" : "s" }} {{ __('total') }}
 					<span v-if="delayDaysSummary.pending > 0" class="text-ink-400"
 						>· {{ delayDaysSummary.pending }} TBD</span
 					>
@@ -696,7 +695,7 @@ function goBack() {
 				</div>
 			</div>
 			<div v-else class="px-5 py-8 text-center text-sm text-ink-400 italic">
-				No delay reasons logged. Use <span class="font-medium">+ Add</span> to record one.
+				{{ __('No delay reasons logged. Use') }} <span class="font-medium">{{ __('+ Add') }}</span> {{ __('to record one.') }}
 			</div>
 		</section>
 
@@ -786,13 +785,11 @@ function goBack() {
 							</div>
 						</div>
 						<div class="text-[11px] text-ink-500">
-							From
+							{{ __('From') }}
 							<span class="font-medium text-ink-700 tabular-nums">{{
 								labourTotals.entries
 							}}</span>
-							progress entr{{ labourTotals.entries === 1 ? "y" : "ies" }} filed
-							against this stage's tasks. Counts are deployment-days (cumulative
-							across filed entries) — not concurrent headcount.
+							{{ __('progress entr') }}{{ labourTotals.entries === 1 ? "y" : "ies" }} {{ __('filed against this stage\'s tasks. Counts are deployment-days (cumulative across filed entries) — not concurrent headcount.') }}
 						</div>
 					</div>
 				</section>

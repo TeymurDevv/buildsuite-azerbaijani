@@ -1,3 +1,5 @@
+import { calendarDate } from "./locale.js";
+import { __ } from "./translate.js";
 // Client-side mirror of the backend hierarchy date-boundary checks
 // (buildsuite_core/utils/date_bounds.py). Gives instant feedback before a save;
 // the server remains authoritative. Each function returns a clear error message
@@ -12,7 +14,7 @@ function toDate(v) {
 function fmt(v) {
 	const d = toDate(v);
 	if (!d) return "";
-	return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+	return calendarDate(d, "en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
 // End date may not precede start date on the same record.
@@ -20,7 +22,7 @@ export function endBeforeStartError(start, end) {
 	const s = toDate(start);
 	const e = toDate(end);
 	if (s && e && e < s) {
-		return `End date (${fmt(end)}) can't be earlier than the start date (${fmt(start)}).`;
+		return __("End date ({0}) can't be earlier than the start date ({1}).", [fmt(end), fmt(start)]);
 	}
 	return "";
 }
@@ -39,14 +41,14 @@ export function outOfParentBoundsError(
 	const ps = toDate(parentStart);
 	const pe = toDate(parentEnd);
 	if (s && ps && s < ps) {
-		return `Start date (${fmt(start)}) can't be before the ${parentLabel} start date (${fmt(
-			parentStart
-		)}).`;
+		return __("Start date ({0}) can't be before the {1} start date ({2}).", [
+			fmt(start), __(parentLabel), fmt(parentStart),
+		]);
 	}
 	if (e && pe && e > pe) {
-		return `End date (${fmt(end)}) can't be after the ${parentLabel} end date (${fmt(
-			parentEnd
-		)}).`;
+		return __("End date ({0}) can't be after the {1} end date ({2}).", [
+			fmt(end), __(parentLabel), fmt(parentEnd),
+		]);
 	}
 	return "";
 }

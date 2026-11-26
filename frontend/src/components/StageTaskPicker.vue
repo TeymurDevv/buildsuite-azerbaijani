@@ -479,11 +479,11 @@ defineExpose({
 				>
 					<div class="min-w-0 flex-1">
 						<h2 class="text-sm font-semibold text-ink-900 dark:text-[#F5F5F5]">
-							Add tasks to stage
+							{{ __('Add tasks to stage') }}
 						</h2>
 						<p class="text-[11px] text-ink-500 mt-0.5 truncate">
 							<template v-if="stageName">{{ stageName }}</template>
-							<template v-else>New stage</template>
+							<template v-else>{{ __('New stage') }}</template>
 							<template v-if="plannedStart && plannedEnd">
 								&nbsp;·&nbsp;{{ fmtDate(plannedStart) }} –
 								{{ fmtDate(plannedEnd) }}
@@ -493,7 +493,7 @@ defineExpose({
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none flex-shrink-0 ml-3 dark:text-ink-400 dark:hover:text-ink-200"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="onCancel"
 					>
 						×
@@ -519,21 +519,21 @@ defineExpose({
 								"
 								@click="suggestByDateOverlap"
 							>
-								Suggest tasks by date overlap
+								{{ __('Suggest tasks by date overlap') }}
 							</button>
 							<span class="text-xs text-ink-700 tabular-nums dark:text-[#F5F5F5]">
-								{{ selectionCount }} task{{ selectionCount === 1 ? "" : "s" }}
-								selected
+								{{ selectionCount }} {{ __('task') }}{{ selectionCount === 1 ? "" : "s" }}
+								{{ __('selected') }}
 							</span>
 						</div>
 
 						<div class="flex items-center gap-2 mt-3 flex-wrap">
 							<div class="w-64">
-								<DeskInput v-model="searchText" placeholder="Search tasks" />
+								<DeskInput v-model="searchText" :placeholder="__('Search tasks')" />
 							</div>
 							<div class="w-48">
 								<DeskSelect v-model="filterAssignee">
-									<option value="">— Any assignee —</option>
+									<option value="">{{ __('— Any assignee —') }}</option>
 									<option v-for="m in store.team" :key="m.id" :value="m.id">
 										{{ m.name }}
 									</option>
@@ -541,12 +541,12 @@ defineExpose({
 							</div>
 							<div class="w-44">
 								<DeskSelect v-model="filterStatus">
-									<option value="">— Any status —</option>
-									<option>Yet To Start</option>
-									<option>In Progress</option>
-									<option>In Delay</option>
-									<option>Completed</option>
-									<option>Blocked</option>
+									<option value="">{{ __('— Any status —') }}</option>
+									<option value="Yet To Start">{{ __('Yet To Start') }}</option>
+									<option value="In Progress">{{ __('In Progress') }}</option>
+									<option value="In Delay">{{ __('In Delay') }}</option>
+									<option value="Completed">{{ __('Completed') }}</option>
+									<option value="Blocked">{{ __('Blocked') }}</option>
 								</DeskSelect>
 							</div>
 						</div>
@@ -567,22 +567,21 @@ defineExpose({
 							v-if="!hasAnyProjectTasks"
 							class="text-center py-12 px-6 text-sm text-ink-500 dark:text-ink-400"
 						>
-							No tasks created on this project yet. Create tasks in the Tasks tab
-							before adding them to a stage.
+							{{ __('No tasks created on this project yet. Create tasks in the Tasks tab before adding them to a stage.') }}
 						</div>
 
 						<div
 							v-else-if="!hasAnyVisibleTasks"
 							class="text-center py-12 px-6 text-sm text-ink-500 dark:text-ink-400"
 						>
-							<div>No tasks match your filters.</div>
+							<div>{{ __('No tasks match your filters.') }}</div>
 							<button
 								v-if="anyFilterActive"
 								type="button"
 								class="text-xs text-brand-700 hover:underline mt-2 dark:text-brand-400"
 								@click="clearFilters"
 							>
-								Clear filters
+								{{ __('Clear filters') }}
 							</button>
 						</div>
 
@@ -624,7 +623,7 @@ defineExpose({
 										>{{ group.title }}</span
 									>
 									<span class="text-[11px] text-ink-500 dark:text-ink-400"
-										>· {{ group.tasks.length }} task{{
+										>· {{ group.tasks.length }} {{ __('task') }}{{
 											group.tasks.length === 1 ? "" : "s"
 										}}</span
 									>
@@ -677,7 +676,7 @@ defineExpose({
 														task.endDate ? fmtDate(task.endDate) : "—"
 													}}
 												</template>
-												<template v-else>No dates set</template>
+												<template v-else>{{ __('No dates set') }}</template>
 											</div>
 											<div
 												v-if="coOccurrenceLine(task.id)"
@@ -733,7 +732,7 @@ defineExpose({
 										>{{ unassignedGroup.title }}</span
 									>
 									<span class="text-[11px] text-ink-500 dark:text-ink-400"
-										>· {{ unassignedGroup.tasks.length }} task{{
+										>· {{ unassignedGroup.tasks.length }} {{ __('task') }}{{
 											unassignedGroup.tasks.length === 1 ? "" : "s"
 										}}</span
 									>
@@ -784,7 +783,7 @@ defineExpose({
 														task.endDate ? fmtDate(task.endDate) : "—"
 													}}
 												</template>
-												<template v-else>No dates set</template>
+												<template v-else>{{ __('No dates set') }}</template>
 											</div>
 											<div
 												v-if="coOccurrenceLine(task.id)"
@@ -811,7 +810,7 @@ defineExpose({
 					style="border-radius: 0 0 12px 12px"
 				>
 					<span class="text-xs text-ink-700 tabular-nums dark:text-ink-400">
-						{{ selectionCount }} task{{ selectionCount === 1 ? "" : "s" }} selected
+						{{ selectionCount }} {{ __('task') }}{{ selectionCount === 1 ? "" : "s" }} {{ __('selected') }}
 					</span>
 					<div class="flex items-center gap-2">
 						<button
@@ -820,10 +819,10 @@ defineExpose({
 							style="border-radius: 6px"
 							@click="onCancel"
 						>
-							Cancel
+							{{ __('Cancel') }}
 						</button>
 						<button type="button" class="desk-save-btn" @click="onSave">
-							Save selection
+							{{ __('Save selection') }}
 						</button>
 					</div>
 				</footer>
@@ -843,7 +842,7 @@ defineExpose({
 				<div class="min-w-0 flex-1">
 					<div class="text-sm font-semibold text-ink-900 dark:text-[#F5F5F5]">
 						<template v-if="stageName">{{ stageName }}</template>
-						<template v-else>New stage</template>
+						<template v-else>{{ __('New stage') }}</template>
 					</div>
 					<p
 						v-if="plannedStart && plannedEnd"
@@ -853,7 +852,7 @@ defineExpose({
 					</p>
 				</div>
 				<span class="text-xs text-ink-700 tabular-nums dark:text-ink-400">
-					{{ selectionCount }} task{{ selectionCount === 1 ? "" : "s" }} selected
+					{{ selectionCount }} {{ __('task') }}{{ selectionCount === 1 ? "" : "s" }} {{ __('selected') }}
 				</span>
 			</div>
 
@@ -870,14 +869,14 @@ defineExpose({
 					"
 					@click="suggestByDateOverlap"
 				>
-					Suggest tasks by date overlap
+					{{ __('Suggest tasks by date overlap') }}
 				</button>
 				<div class="w-64">
-					<DeskInput v-model="searchText" placeholder="Search tasks" />
+					<DeskInput v-model="searchText" :placeholder="__('Search tasks')" />
 				</div>
 				<div class="w-48">
 					<DeskSelect v-model="filterAssignee">
-						<option value="">— Any assignee —</option>
+						<option value="">{{ __('— Any assignee —') }}</option>
 						<option v-for="m in store.team" :key="m.id" :value="m.id">
 							{{ m.name }}
 						</option>
@@ -885,12 +884,12 @@ defineExpose({
 				</div>
 				<div class="w-44">
 					<DeskSelect v-model="filterStatus">
-						<option value="">— Any status —</option>
-						<option>Yet To Start</option>
-						<option>In Progress</option>
-						<option>In Delay</option>
-						<option>Completed</option>
-						<option>Blocked</option>
+						<option value="">{{ __('— Any status —') }}</option>
+						<option value="Yet To Start">{{ __('Yet To Start') }}</option>
+						<option value="In Progress">{{ __('In Progress') }}</option>
+						<option value="In Delay">{{ __('In Delay') }}</option>
+						<option value="Completed">{{ __('Completed') }}</option>
+						<option value="Blocked">{{ __('Blocked') }}</option>
 					</DeskSelect>
 				</div>
 			</div>
@@ -910,22 +909,21 @@ defineExpose({
 				v-if="!hasAnyProjectTasks"
 				class="text-center py-12 px-6 text-sm text-ink-500 dark:text-ink-400"
 			>
-				No tasks created on this project yet. Create tasks in the Tasks tab before adding
-				them to a stage.
+				{{ __('No tasks created on this project yet. Create tasks in the Tasks tab before adding them to a stage.') }}
 			</div>
 
 			<div
 				v-else-if="!hasAnyVisibleTasks"
 				class="text-center py-12 px-6 text-sm text-ink-500 dark:text-ink-400"
 			>
-				<div>No tasks match your filters.</div>
+				<div>{{ __('No tasks match your filters.') }}</div>
 				<button
 					v-if="anyFilterActive"
 					type="button"
 					class="text-xs text-brand-700 hover:underline mt-2 dark:text-brand-450"
 					@click="clearFilters"
 				>
-					Clear filters
+					{{ __('Clear filters') }}
 				</button>
 			</div>
 
@@ -961,7 +959,7 @@ defineExpose({
 							group.title
 						}}</span>
 						<span class="text-[11px] text-ink-500 dark:text-ink-400"
-							>· {{ group.tasks.length }} task{{
+							>· {{ group.tasks.length }} {{ __('task') }}{{
 								group.tasks.length === 1 ? "" : "s"
 							}}</span
 						>
@@ -1004,7 +1002,7 @@ defineExpose({
 										{{ task.startDate ? fmtDate(task.startDate) : "—" }} –
 										{{ task.endDate ? fmtDate(task.endDate) : "—" }}
 									</template>
-									<template v-else>No dates set</template>
+									<template v-else>{{ __('No dates set') }}</template>
 								</div>
 								<div
 									v-if="coOccurrenceLine(task.id)"
@@ -1050,7 +1048,7 @@ defineExpose({
 							unassignedGroup.title
 						}}</span>
 						<span class="text-[11px] text-ink-500 dark:text-ink-400"
-							>· {{ unassignedGroup.tasks.length }} task{{
+							>· {{ unassignedGroup.tasks.length }} {{ __('task') }}{{
 								unassignedGroup.tasks.length === 1 ? "" : "s"
 							}}</span
 						>
@@ -1092,7 +1090,7 @@ defineExpose({
 										{{ task.startDate ? fmtDate(task.startDate) : "—" }} –
 										{{ task.endDate ? fmtDate(task.endDate) : "—" }}
 									</template>
-									<template v-else>No dates set</template>
+									<template v-else>{{ __('No dates set') }}</template>
 								</div>
 								<div
 									v-if="coOccurrenceLine(task.id)"

@@ -463,9 +463,9 @@ async function saveAdvance() {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						From <span class="font-medium">{{ rec.inv?.customer_name }}</span> against
+						{{ __('From') }} <span class="font-medium">{{ rec.inv?.customer_name }}</span> {{ __('against') }}
 						<span class="font-mono text-xs">{{ rec.inv?.name }}</span
-						>. Outstanding
+						>{{ __('. Outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtINR(rec.inv?.outstanding)
 						}}</span

@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 import { reactive, ref, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useDataStore } from "@/stores";
@@ -66,8 +67,8 @@ const progressCameraInput = ref(null);
 function fmtBytes(n) {
 	if (!n) return "0 B";
 	if (n < 1024) return `${n} B`;
-	if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
-	return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+	if (n < 1024 * 1024) return `${fixedNumber((n / 1024), 1)} KB`;
+	return `${fixedNumber((n / (1024 * 1024)), 1)} MB`;
 }
 function openProgressFilePicker() {
 	if (progressFileInput.value) progressFileInput.value.click();
@@ -414,13 +415,11 @@ const breadcrumbs = [
 						class="md:col-span-2 text-xs text-ink-500 bg-ink-50 border border-ink-200 px-3 py-2"
 						style="border-radius: 2px"
 					>
-						Selected task
-						<strong class="text-ink-800">{{ selectedTask.name }}</strong> is currently
-						at
+						{{ __('Selected task') }}
+						<strong class="text-ink-800">{{ selectedTask.name }}</strong> {{ __('is currently at') }}
 						<strong class="text-ink-800 tabular-nums"
 							>{{ selectedTask.progress }}% · {{ selectedTask.status }}</strong
-						>. The Cumulative progress % you enter below will become the task's new
-						state on save.
+						>{{ __('. The Cumulative progress % you enter below will become the task\'s new state on save.') }}
 					</div>
 				</DeskSection>
 

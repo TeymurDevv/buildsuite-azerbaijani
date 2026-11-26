@@ -20,9 +20,9 @@ const { contractorOptions } = useContractorOptions();
 </script>
 
 <template>
-	<DeskSection id="worker" title="Worker" :cols="3">
+	<DeskSection id="worker" :title="__('Worker')" :cols="3">
 		<DeskField name="employee" label="Employee code" hint="Auto (HR-EMP-#####) if blank.">
-			<DeskInput v-model="form.employee" placeholder="HR-EMP-00015" :disabled="isExisting" />
+			<DeskInput v-model="form.employee" :placeholder="__('HR-EMP-00015')" :disabled="isExisting" />
 		</DeskField>
 		<DeskField name="first_name" label="First name" required :error="errors.first_name">
 			<DeskInput v-model="form.first_name" />
@@ -34,7 +34,7 @@ const { contractorOptions } = useContractorOptions();
 			<DeskLinkPicker
 				v-model="form.gender"
 				doctype="Gender"
-				placeholder="Select gender"
+				:placeholder="__('Select gender')"
 				:error="errors.gender"
 			/>
 		</DeskField>
@@ -59,8 +59,8 @@ const { contractorOptions } = useContractorOptions();
 			<!-- ERPNext also has Suspended and Left, but Left demands a
 			     relieving date this form doesn't collect, so it can never save. -->
 			<DeskSelect v-model="form.status">
-				<option>Active</option>
-				<option>Inactive</option>
+				<option value="Active">{{ __('Active') }}</option>
+				<option value="Inactive">{{ __('Inactive') }}</option>
 			</DeskSelect>
 		</DeskField>
 
@@ -70,7 +70,7 @@ const { contractorOptions } = useContractorOptions();
 				doctype="Labour Trade"
 				label-field="trade"
 				:search-fields="['trade', 'name']"
-				placeholder="Select trade"
+				:placeholder="__('Select trade')"
 			/>
 		</DeskField>
 		<DeskField
@@ -83,7 +83,7 @@ const { contractorOptions } = useContractorOptions();
 			<DeskSearchableSelect
 				v-model="form.custom_contractor"
 				:options="contractorOptions"
-				placeholder="— Engaged directly —"
+				:placeholder="__('— Engaged directly —')"
 				search-placeholder="Search suppliers…"
 				allow-clear
 			/>
@@ -95,13 +95,13 @@ const { contractorOptions } = useContractorOptions();
 			<DeskLinkPicker
 				v-model="form.company"
 				doctype="Company"
-				placeholder="Select company"
+				:placeholder="__('Select company')"
 				:error="errors.company"
 			/>
 		</DeskField>
 	</DeskSection>
 
-	<DeskSection id="wages" title="Wages" :cols="2">
+	<DeskSection id="wages" :title="__('Wages')" :cols="2">
 		<DeskField
 			name="custom_wage"
 			label="Daily wage"

@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Equipment dashboard — plant register + usage cost at a glance. Mirrors the demo.
 
 import { computed, ref, onMounted, watch } from "vue";
@@ -15,7 +16,7 @@ const router = useRouter();
 const { projectName } = useProjectNames();
 
 const today = computed(() =>
-	new Date().toLocaleDateString(currentLang(), { weekday: "long", month: "short", day: "numeric" })
+	calendarDate(new Date(), currentLang(), { weekday: "long", month: "short", day: "numeric" })
 );
 
 const loading = ref(true);

@@ -43,6 +43,8 @@ website_route_rules = [
 	{"from_route": f"/{APP_ROUTE}", "to_route": APP_ROUTE},
 ]
 
+update_website_context = ["buildsuite_core.utils.website.localize_login_title"]
+
 # Includes in <head>
 # ------------------
 

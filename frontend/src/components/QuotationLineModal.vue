@@ -108,15 +108,14 @@ function submit() {
 				@click.stop>
 				<header class="px-5 py-3 border-b border-ink-100 flex items-center justify-between">
 					<div>
-						<div class="text-sm font-semibold text-ink-900">Add a line</div>
+						<div class="text-sm font-semibold text-ink-900">{{ __('Add a line') }}</div>
 						<div class="text-[11px] text-ink-500">
-							Pick it out of the library — the quantity is always yours to enter. To
-							type one from scratch, use
-							<span class="text-ink-700">+ Add row</span> on the grid.
+							{{ __('Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use') }}
+							<span class="text-ink-700">{{ __('+ Add row') }}</span> {{ __('on the grid.') }}
 						</div>
 					</div>
 					<button type="button" class="text-ink-400 hover:text-ink-900 text-xl leading-none px-1"
-						title="Close" @click="close">
+						:title="__('Close')" @click="close">
 						&times;
 					</button>
 				</header>
@@ -124,22 +123,22 @@ function submit() {
 				<div class="px-5 py-4 space-y-4">
 					<DeskField label="Assembly" required>
 						<DeskSearchableSelect :model-value="row.assembly" :options="assemblyOptions"
-							placeholder="Pick an assembly…" search-placeholder="Search assemblies…"
+							:placeholder="__('Pick an assembly…')" search-placeholder="Search assemblies…"
 							@update:model-value="pickAssembly" />
 					</DeskField>
 
 					<DeskField label="Description" required>
 						<DeskTextarea v-model="row.description" :rows="2"
-							placeholder="What the line is for" />
+							:placeholder="__('What the line is for')" />
 					</DeskField>
 
 					<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 						<DeskField label="Code">
-							<DeskInput v-model="row.code" placeholder="optional" />
+							<DeskInput v-model="row.code" :placeholder="__('optional')" />
 						</DeskField>
 						<DeskField label="Unit">
 							<DeskLinkPicker v-model="row.uom" doctype="UOM" label-field="name"
-								value-field="name" placeholder="Unit" />
+								value-field="name" :placeholder="__('Unit')" />
 						</DeskField>
 						<DeskField label="Quantity" required>
 							<DeskInput v-model.number="row.qty" type="number" min="0" step="any" />
@@ -152,14 +151,14 @@ function submit() {
 					<div class="flex items-center justify-between bg-ink-50 px-3 py-2"
 						style="border-radius: 6px">
 						<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-							Line amount
+							{{ __('Line amount') }}
 						</span>
 						<span class="text-sm font-semibold text-ink-900 tabular-nums">
 							{{ fmtCurrency(amount) }}
 						</span>
 					</div>
 					<div v-if="marginPct" class="flex items-center justify-between px-3 text-[11px] text-ink-500">
-						<span>Sell rate &middot; +{{ marginPct }}% margin</span>
+						<span>{{ __('Sell rate · +') }}{{ marginPct }}{{ __('% margin') }}</span>
 						<span class="tabular-nums">{{ fmtCurrency(sellRate) }}</span>
 					</div>
 
@@ -170,10 +169,10 @@ function submit() {
 					<button type="button"
 						class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700"
 						style="border-radius: 6px" @click="close">
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button type="button" class="desk-save-btn !text-xs" @click="submit">
-						Add line
+						{{ __('Add line') }}
 					</button>
 				</footer>
 			</div>

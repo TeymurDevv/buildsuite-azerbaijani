@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { watchDebounced } from "@vueuse/core";
@@ -674,7 +675,7 @@ function formatValue(row, fieldname, column = null) {
 		fieldtype === "Percent"
 	) {
 		const number = Number(value);
-		return Number.isFinite(number) ? number.toLocaleString() : value;
+		return Number.isFinite(number) ? number.toLocaleString(numberLocale()) : value;
 	}
 
 	return value;
@@ -824,10 +825,10 @@ function onPageSizeChange(value) {
 <template>
 	<div class="relative">
 		<div v-if="metaError" class="mb-2 text-xs text-danger-600">
-			Failed to load {{ doctype }} metadata.
+			{{ __('Failed to load') }} {{ doctype }} {{ __('metadata.') }}
 		</div>
 		<div v-if="listError" class="mb-2 text-xs text-danger-600">
-			Couldn't load this list. Please adjust your filters or try again.
+			{{ __('Couldn\'t load this list. Please adjust your filters or try again.') }}
 		</div>
 
 		<!-- Dynamic filter editor (Frappe-style field/condition/value builder) -->
@@ -898,7 +899,7 @@ function onPageSizeChange(value) {
 					v-for="(f, i) in dynamicFilters"
 					:key="i"
 					class="cursor-pointer"
-					title="Click to edit"
+					:title="__('Click to edit')"
 					@click="editFilter(i)"
 				>
 					<DeskFilterChip :label="chipLabel(f)" @remove="removeFilter(i)" />
@@ -909,7 +910,7 @@ function onPageSizeChange(value) {
 					class="text-[11px] text-ink-500 hover:text-ink-800 px-1"
 					@click="clearFilters"
 				>
-					Clear
+					{{ __('Clear') }}
 				</button>
 			</template>
 

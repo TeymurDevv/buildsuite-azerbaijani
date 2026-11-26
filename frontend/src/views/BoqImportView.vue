@@ -352,7 +352,7 @@ const breadcrumbs = computed(() => [
 		>
 			{{ __("Only a Draft BOQ can take imported lines. This one is {0}.", [boq.status]) }}
 			<DeskLink :to="`/boq/${boqId}`">{{ __("Back to the BOQ") }}</DeskLink
-			>, and make a revision to change it.
+			>{{ __(', and make a revision to change it.') }}
 		</div>
 
 		<template v-else>

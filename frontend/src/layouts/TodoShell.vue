@@ -10,6 +10,7 @@ import { useSessionStore } from "@/stores/session";
 import { useUserNames } from "@/composables/useUserNames";
 import { getSessionUser } from "@/utils/session";
 import { __ } from "@/utils/translate";
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 import LogoIcon from "@/components/LogoIcon.vue";
 import NotificationPanel from "@/components/NotificationPanel.vue";
 import UserAvatar from "@/components/UserAvatar.vue";
@@ -27,7 +28,7 @@ const profileUser = computed(() => {
 	const u = session.user;
 	return u && u !== "Guest" ? u : getSessionUser();
 });
-const profileName = computed(() => userName(profileUser.value) || profileUser.value || "User");
+const profileName = computed(() => userName(profileUser.value) || profileUser.value || __("User"));
 const profileRole = computed(() => {
 	const persona = session.access?.persona;
 	if (persona) return persona;
@@ -79,6 +80,7 @@ const profileRole = computed(() => {
 			</RouterLink>
 
 			<div class="ml-auto flex items-center gap-1 sm:gap-2">
+				<LanguageSwitcher />
 				<!-- Theme toggle — sun in dark mode, moon in light mode. -->
 				<button
 					type="button"
@@ -139,7 +141,7 @@ const profileRole = computed(() => {
 							profileName
 						}}</span>
 						<span class="block text-[10px] text-ink-500 truncate">{{
-							profileRole
+							__(profileRole)
 						}}</span>
 					</span>
 				</div>

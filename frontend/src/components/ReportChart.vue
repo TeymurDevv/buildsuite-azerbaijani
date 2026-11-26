@@ -1,4 +1,5 @@
 <script setup>
+import { compactNumber, displayLocale } from "@/utils/locale";
 // Minimal SVG renderer for a frappe-charts spec ({ type, data: { labels, datasets } })
 // as returned by a Script Report's execute(). Supports bar (default) and line, multiple
 // datasets, and negative values (bars grow from a zero baseline). No external chart lib —
@@ -47,6 +48,8 @@ const zeroY = computed(() => yFor(0));
 // Compact number label (K / L / Cr for the Indian scale the reports use).
 function compact(v) {
 	const n = Number(v) || 0;
+	const locale = displayLocale();
+	if (locale) return compactNumber(n, locale);
 	const a = Math.abs(n);
 	const sign = n < 0 ? "-" : "";
 	if (a >= 1e7) return `${sign}${(a / 1e7).toFixed(2)}Cr`;

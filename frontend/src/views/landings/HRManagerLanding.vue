@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -11,7 +12,7 @@ const role = ROLES.find((r) => r.id === ROLE_ID);
 const store = useDataStore();
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -58,10 +59,10 @@ const tiles = computed(() =>
 					{{ role.shortName }} · People operations
 				</p>
 			</div>
-			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">HR overview today</h1>
+			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __("HR overview today") }}</h1>
 			<p class="text-sm text-ink-500 mt-1">
 				{{ todayLabel }} ·
-				<span class="text-ink-700 font-medium">5 pending approvals</span>
+				<span class="text-ink-700 font-medium">{{ __("5 pending approvals") }}</span>
 			</p>
 
 			<!-- KPIs -->
@@ -80,13 +81,12 @@ const tiles = computed(() =>
 			</div>
 
 			<!-- Labour vs office staff -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Labour vs office staff</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Labour vs office staff") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div
 					class="px-4 py-3 bg-ink-50 border-b border-ink-200 text-xs text-ink-600 leading-snug"
 				>
-					Two different populations. Office staff are managed in HR; site labour is
-					managed in Workforce.
+					{{ __("Two different populations. Office staff are managed in HR; site labour is managed in Workforce.") }}
 				</div>
 				<div class="divide-y divide-ink-100">
 					<div
@@ -112,7 +112,7 @@ const tiles = computed(() =>
 			</div>
 
 			<!-- Your workspaces -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Your workspaces</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Your workspaces") }}</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 				<RouterLink
 					v-for="t in tiles"

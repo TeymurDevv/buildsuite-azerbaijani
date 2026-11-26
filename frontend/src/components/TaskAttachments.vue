@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // A task's own files (drawings, reference images, specifications) plus the
 // photos its progress updates carried — mirrors the prototype's TaskAttachments.
 //
@@ -60,7 +61,7 @@ function formatFileSize(bytes) {
 		n /= 1024;
 		i++;
 	}
-	return (i === 0 ? n : n.toFixed(n < 10 ? 1 : 0)) + " " + units[i];
+	return (i === 0 ? n : fixedNumber(n, n < 10 ? 1 : 0)) + " " + units[i];
 }
 
 function rowsOf(resource) {

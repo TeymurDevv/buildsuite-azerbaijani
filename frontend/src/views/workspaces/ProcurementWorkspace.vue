@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import WorkspaceShortcut from "@/components/WorkspaceShortcut.vue";
@@ -9,7 +10,7 @@ import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), {
+	return calendarDate(d, currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

@@ -107,7 +107,7 @@ const breadcrumbs = [
 					:hint="__('Short stable identifier (e.g. ET-RES-TOWER).')"
 					:error="errors.templateCode"
 				>
-					<DeskInput v-model="form.templateCode" placeholder="ET-..." />
+					<DeskInput v-model="form.templateCode" :placeholder="__('ET-...')" />
 				</DeskField>
 				<DeskField
 					name="template_name"

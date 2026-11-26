@@ -115,15 +115,13 @@ function add() {
 				style="border-radius: 12px; max-height: calc(100vh - 3rem)" @click.stop>
 				<header class="px-5 py-3 border-b border-ink-200 flex items-start justify-between gap-4">
 					<div>
-						<h2 class="text-sm font-semibold text-ink-900">Add a line</h2>
+						<h2 class="text-sm font-semibold text-ink-900">{{ __('Add a line') }}</h2>
 						<p class="text-xs text-ink-500 mt-0.5">
-							Pick it out of the library — the quantity is always yours to enter. To type one
-							from scratch, use <span class="font-medium text-ink-700">+ Add Row</span> on the
-							grid.
+							{{ __('Pick it out of the library — the quantity is always yours to enter. To type one from scratch, use') }} <span class="font-medium text-ink-700">{{ __('+ Add Row') }}</span> {{ __('on the grid.') }}
 						</p>
 					</div>
 					<button type="button" class="text-ink-500 hover:text-ink-900 text-lg leading-none shrink-0"
-						aria-label="Close" @click="emit('close')">
+						:aria-label="__('Close')" @click="emit('close')">
 						×
 					</button>
 				</header>
@@ -141,26 +139,26 @@ function add() {
 					</div>
 
 					<p v-if="!sourceBoq" class="text-xs text-ink-500">
-						BOQ lines appear once this tender is priced off an estimate.
+						{{ __('BOQ lines appear once this tender is priced off an estimate.') }}
 					</p>
 
 					<template v-if="source === 'Assembly'">
 						<DeskField label="Assembly" required>
 							<DeskSearchableSelect :model-value="assembly" :options="assemblyOptions"
-								placeholder="Pick an assembly…" search-placeholder="Search by code or name…"
+								:placeholder="__('Pick an assembly…')" search-placeholder="Search by code or name…"
 								allow-clear @update:model-value="onAssemblyPicked" />
 						</DeskField>
 
 						<DeskField label="Description" required>
-							<DeskTextarea v-model="description" :rows="2" placeholder="What the line is for" />
+							<DeskTextarea v-model="description" :rows="2" :placeholder="__('What the line is for')" />
 						</DeskField>
 
 						<div class="grid grid-cols-4 gap-3">
 							<DeskField label="Code">
-								<DeskInput v-model="code" placeholder="optional" />
+								<DeskInput v-model="code" :placeholder="__('optional')" />
 							</DeskField>
 							<DeskField label="Unit">
-								<DeskLinkPicker v-model="unit" doctype="UOM" placeholder="nos" />
+								<DeskLinkPicker v-model="unit" doctype="UOM" :placeholder="__('nos')" />
 							</DeskField>
 							<DeskField label="Quantity" required>
 								<DeskInput v-model="qty" type="number" min="0" step="any" />
@@ -174,14 +172,14 @@ function add() {
 							class="bg-ink-50 border border-ink-200 px-3 py-2 flex items-center justify-between"
 							style="border-radius: 6px">
 							<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-								Line amount
+								{{ __('Line amount') }}
 							</span>
 							<span class="text-sm font-semibold text-ink-900 tabular-nums">
 								{{ fmtCurrency(lineAmount) }}
 							</span>
 						</div>
 						<p class="text-[11px] text-ink-400">
-							Cost before margin — the tender's margin is added to the rate on save.
+							{{ __('Cost before margin — the tender\'s margin is added to the rate on save.') }}
 						</p>
 					</template>
 
@@ -192,9 +190,9 @@ function add() {
 					<button type="button"
 						class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700"
 						style="border-radius: 6px" @click="emit('close')">
-						Cancel
+						{{ __('Cancel') }}
 					</button>
-					<button type="button" class="desk-save-btn !text-xs" @click="add">Add line</button>
+					<button type="button" class="desk-save-btn !text-xs" @click="add">{{ __('Add line') }}</button>
 				</footer>
 			</div>
 		</div>

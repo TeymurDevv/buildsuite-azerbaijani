@@ -29,18 +29,17 @@ import { RouterLink } from "vue-router";
 			</div>
 
 			<p class="mt-4 text-[11px] uppercase tracking-[0.18em] text-brand-700 font-semibold">
-				404 · Not Found
+				{{ __('404 · Not Found') }}
 			</p>
 			<h1 class="mt-1 text-lg font-semibold text-ink-900 dark:text-ink-100">
-				We couldn't find that page
+				{{ __('We couldn\'t find that page') }}
 			</h1>
 			<p class="mt-2 text-sm text-ink-500 leading-6">
-				The page or record doesn't exist, may have been deleted, or you don't have access
-				to it.
+				{{ __('The page or record doesn\'t exist, may have been deleted, or you don\'t have access to it.') }}
 			</p>
 
 			<RouterLink to="/home" class="mt-6 inline-block desk-save-btn !text-sm !px-4 !py-2">
-				Back to Home
+				{{ __('Back to Home') }}
 			</RouterLink>
 		</div>
 	</div>

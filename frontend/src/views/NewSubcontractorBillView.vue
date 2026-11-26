@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Subcontractor Bill — create + edit (core). Two modes:
 //   • From Work Order — this period's lines are derived from certified
 //     Measurement Books (read-only qty), retention inherited from the WO.
@@ -383,9 +384,8 @@ const breadcrumbs = computed(() => [
 					v-if="woContext"
 					class="mt-3 text-xs text-ink-600 bg-info-50 border border-info-100 rounded-md px-3 py-2"
 				>
-					{{ woContext.subcontractor_name }} · {{ woContext.project_name }} · This will
-					be
-					<span class="font-medium">Bill {{ woContext.next_ra_no }}</span>
+					{{ woContext.subcontractor_name }} · {{ woContext.project_name }} {{ __('· This will be') }}
+					<span class="font-medium">{{ __('Bill') }} {{ woContext.next_ra_no }}</span>
 				</div>
 
 				<section class="mt-6">
@@ -419,16 +419,16 @@ const breadcrumbs = computed(() => [
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-info-700">
 										{{
-											Number(l.measured_qty_to_date).toLocaleString("en-IN")
+											Number(l.measured_qty_to_date).toLocaleString(numberLocale("en-IN"))
 										}}
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-500">
-										{{ Number(l.previous_qty).toLocaleString("en-IN") }}
+										{{ Number(l.previous_qty).toLocaleString(numberLocale("en-IN")) }}
 									</td>
 									<td
 										class="px-3 py-2 text-right tabular-nums text-ink-900 font-medium"
 									>
-										{{ Number(l.this_period_qty).toLocaleString("en-IN") }}
+										{{ Number(l.this_period_qty).toLocaleString(numberLocale("en-IN")) }}
 									</td>
 									<td class="px-3 py-2 text-right tabular-nums font-medium">
 										{{ fmtINR(l.this_period_amount) }}

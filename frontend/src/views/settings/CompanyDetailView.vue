@@ -375,15 +375,13 @@ watch(
 				<DeskSection id="branding-letter-head" :title="__('Branding & Letter Head')">
 					<div class="md:col-span-2 space-y-4">
 						<p class="text-[11px] text-ink-500">
-							Logo and subtext for
+							{{ __('Logo and subtext for') }}
 							<b>{{ brandCompanyName || company.name }}</b
-							>, materialised into the
+							>{{ __(', materialised into the') }}
 							<span class="font-mono">{{
 								letterHeadName || __("letter head")
 							}}</span>
-							that fronts every print of this company's documents (Work Order,
-							Purchase Order, Invoice…). No logo? The letter head shows the company's
-							initials.
+							{{ __('that fronts every print of this company\'s documents (Work Order, Purchase Order, Invoice…). No logo? The letter head shows the company\'s initials.') }}
 						</p>
 
 						<!-- Logo -->

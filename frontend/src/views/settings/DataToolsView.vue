@@ -84,14 +84,13 @@ const breadcrumbs = [
 					style="border-radius: 2px"
 				>
 					<p class="mb-2">
-						All domain data lives in your browser's
+						{{ __('All domain data lives in your browser\'s') }}
 						<code
 							class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 							style="border-radius: 2px"
-							>localStorage</code
+							>{{ __('localStorage') }}</code
 						>
-						— no backend, no API. Created projects, tasks, SCOs, BOQs, attachments, and
-						stage plannings persist across reloads in <em>this browser only</em>.
+						{{ __('— no backend, no API. Created projects, tasks, SCOs, BOQs, attachments, and stage plannings persist across reloads in') }} <em>{{ __('this browser only') }}</em>.
 					</p>
 					<p class="mb-2">{{ __("Three independent keys:") }}</p>
 					<ul class="space-y-1 ml-4 list-disc">
@@ -99,36 +98,35 @@ const breadcrumbs = [
 							<code
 								class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 								style="border-radius: 2px"
-								>buildsuite:data:v1</code
+								>{{ __('buildsuite:data:v1') }}</code
 							>
-							— full domain payload (rehydrated by store.hydrate()).
+							{{ __('— full domain payload (rehydrated by store.hydrate()).') }}
 						</li>
 						<li>
 							<code
 								class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 								style="border-radius: 2px"
-								>buildsuite:role</code
+								>{{ __('buildsuite:role') }}</code
 							>
-							— active role (separate so resetAll() preserves UI preference).
+							{{ __('— active role (separate so resetAll() preserves UI preference).') }}
 						</li>
 						<li>
 							<code
 								class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 								style="border-radius: 2px"
-								>buildsuite:company</code
+								>{{ __('buildsuite:company') }}</code
 							>
-							— active company (same independent-persistence pattern).
+							{{ __('— active company (same independent-persistence pattern).') }}
 						</li>
 					</ul>
 					<p class="mt-2 text-ink-500 italic">
-						Attachment file bytes live as
+						{{ __('Attachment file bytes live as') }}
 						<code
 							class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 							style="border-radius: 2px"
-							>blob:</code
+							>{{ __('blob:') }}</code
 						>
-						URLs in the renderer process — session-only, lost on tab close (per §13.3
-						items 13 + 26).
+						{{ __('URLs in the renderer process — session-only, lost on tab close (per §13.3 items 13 + 26).') }}
 					</p>
 				</div>
 			</section>
@@ -164,15 +162,13 @@ const breadcrumbs = [
 				<hr class="border-0 border-t border-ink-200 mt-1 mb-3" />
 				<div class="bg-white border border-ink-200 px-4 py-3" style="border-radius: 2px">
 					<p class="text-xs text-ink-600 mb-3">
-						Wipe
+						{{ __('Wipe') }}
 						<code
 							class="bg-ink-50 px-1 py-0.5 border border-ink-200"
 							style="border-radius: 2px"
-							>buildsuite:data:v1</code
+							>{{ __('buildsuite:data:v1') }}</code
 						>
-						and re-hydrate from seed. Role / active-company preferences survive
-						(separate keys). Useful when seed data has been updated and you want to
-						pick up the new shape.
+						{{ __('and re-hydrate from seed. Role / active-company preferences survive (separate keys). Useful when seed data has been updated and you want to pick up the new shape.') }}
 					</p>
 					<button
 						type="button"

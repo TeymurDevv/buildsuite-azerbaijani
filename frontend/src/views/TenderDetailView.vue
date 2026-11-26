@@ -94,7 +94,7 @@ async function onDelete() {
 		<div v-if="loading" class="text-sm">{{ __("Loading tender…") }}</div>
 		<template v-else>
 			<div class="text-sm">
-				Tender <span class="font-mono">{{ id }}</span> not found.
+				{{ __('Tender') }} <span class="font-mono">{{ id }}</span> {{ __('not found.') }}
 			</div>
 			<DeskLink to="/tenders" class="text-sm mt-2 inline-block">{{
 				__("← Back to tenders")

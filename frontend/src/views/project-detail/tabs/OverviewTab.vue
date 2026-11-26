@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 import { ref, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useDataStore } from "@/stores";
@@ -134,7 +135,7 @@ function deviationColor(pct) {
 					>
 					<span class="ml-0.5"
 						>({{ costDeviationPct() > 0 ? "+" : ""
-						}}{{ costDeviationPct().toFixed(1) }}%)</span
+						}}{{ fixedNumber(costDeviationPct(), 1) }}%)</span
 					>
 					<span class="text-ink-400 ml-0.5">{{
 						costDeviationPct() > 0 ? __("over") : __("under")

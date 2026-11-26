@@ -41,7 +41,7 @@ const columns = [
 
 <template>
 	<DeskPage
-		title="Notifications"
+		:title="__('Notifications')"
 		subtitle="Assignments, mentions, shares and alerts addressed to you."
 		:breadcrumbs="breadcrumbs"
 	>
@@ -61,18 +61,18 @@ const columns = [
 		>
 			<template #filter-chips>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">Type</span>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{ __('Type') }}</span>
 					<DeskSelect v-model="typeFilter" class="!w-40">
-						<option value="">Any</option>
+						<option value="">{{ __('Any') }}</option>
 						<option v-for="t in NOTIFICATION_TYPES" :key="t.id" :value="t.id">{{ t.label }}</option>
 					</DeskSelect>
 				</label>
 				<label class="flex items-center gap-1.5">
-					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">Status</span>
+					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">{{ __('Status') }}</span>
 					<DeskSelect v-model="readFilter" class="!w-32">
-						<option value="">Any</option>
-						<option value="0">Unread</option>
-						<option value="1">Read</option>
+						<option value="">{{ __('Any') }}</option>
+						<option value="0">{{ __('Unread') }}</option>
+						<option value="1">{{ __('Read') }}</option>
 					</DeskSelect>
 				</label>
 			</template>
@@ -95,10 +95,10 @@ const columns = [
 					<span
 						v-if="!row.read"
 						class="inline-block w-1.5 h-1.5 rounded-full bg-brand-600 align-middle mr-1.5"
-						title="Unread"
+						:title="__('Unread')"
 					></span>{{ row.subject }}
 				</div>
-				<div v-if="row.from_user" class="text-[10px] text-ink-500 mt-0.5">from {{ row.from_user }}</div>
+				<div v-if="row.from_user" class="text-[10px] text-ink-500 mt-0.5">{{ __('from') }} {{ row.from_user }}</div>
 			</template>
 
 			<template #cell-document_type="{ row }">
@@ -113,9 +113,9 @@ const columns = [
 				<span
 					v-if="!row.read"
 					class="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-brand-50 text-brand-700"
-					>Unread</span
+					>{{ __('Unread') }}</span
 				>
-				<span v-else class="text-[11px] text-ink-400">Read</span>
+				<span v-else class="text-[11px] text-ink-400">{{ __('Read') }}</span>
 			</template>
 
 			<template #cell-creation="{ row }">

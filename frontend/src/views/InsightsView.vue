@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // Insights — ask a question, get a report built from live data, then reshape it
 // with follow-up prompts or the controls. Layout + styling match the prototype.
 //
@@ -256,10 +257,10 @@ const rangeEnd = computed(() => Math.min((page.value + 1) * pageSize.value, resu
 const title = computed(() => (spec.value ? describeSpec(spec.value) : ""));
 const isMoney = computed(() => result.value?.measure === "amount");
 function fmtValue(v) {
-	return isMoney.value ? fmtINR(v) : Number.isInteger(v) ? v : v.toFixed(1);
+	return isMoney.value ? fmtINR(v) : Number.isInteger(v) ? v : fixedNumber(v, 1);
 }
 function fmtValueShort(v) {
-	return isMoney.value ? fmtCompactINR(v) : Number.isInteger(v) ? String(v) : v.toFixed(1);
+	return isMoney.value ? fmtCompactINR(v) : Number.isInteger(v) ? String(v) : fixedNumber(v, 1);
 }
 
 // --- chart geometry -------------------------------------------------------
@@ -344,14 +345,14 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 <template>
 	<div class="bg-white min-h-full viz-root">
 		<div v-if="!canUseInsights" class="max-w-6xl mx-auto px-6 py-16 text-center text-sm text-ink-500">
-			Insights is available to leadership roles.
+			{{ __('Insights is available to leadership roles.') }}
 		</div>
 		<div v-else class="max-w-6xl mx-auto px-6 py-8">
 			<!-- Title -->
 			<div class="mb-6">
-				<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium mb-1">Insights</div>
-				<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">Ask your data</h1>
-				<p class="text-sm text-ink-500 mt-1">Describe the report you want. Reshape it afterwards in plain language.</p>
+				<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium mb-1">{{ __('Insights') }}</div>
+				<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __('Ask your data') }}</h1>
+				<p class="text-sm text-ink-500 mt-1">{{ __('Describe the report you want. Reshape it afterwards in plain language.') }}</p>
 			</div>
 
 			<!-- Prompt -->
@@ -376,10 +377,10 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 								v-model="prompt"
 								type="text"
 								class="flex-1 text-sm px-3 py-2 border border-ink-200 rounded-lg bg-white text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400"
-								placeholder="e.g. supplier bill value by supplier, top 5"
+								:placeholder="__('e.g. supplier bill value by supplier, top 5')"
 								@keyup.enter="ask"
 							/>
-							<button type="button" class="desk-save-btn !text-sm whitespace-nowrap" @click="ask">Build report</button>
+							<button type="button" class="desk-save-btn !text-sm whitespace-nowrap" @click="ask">{{ __('Build report') }}</button>
 						</div>
 						<!-- Examples are for finding your footing; once a report is on screen the
 						     refine box below it is the relevant control. -->
@@ -423,7 +424,7 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 
 			<!-- Data still loading on first arrival -->
 			<div v-else-if="spec && loading" class="bg-white border border-ink-200 rounded-xl p-6 mb-6 text-sm text-ink-500 italic">
-				Loading data…
+				{{ __('Loading data…') }}
 			</div>
 
 			<!-- ===== Report ===== -->
@@ -432,16 +433,16 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 					<div class="min-w-0">
 						<h2 class="text-sm font-semibold text-ink-900 capitalize">{{ title }}</h2>
 						<p class="text-[11px] text-ink-500 mt-0.5">
-							{{ result.recordCount }} record{{ result.recordCount === 1 ? "" : "s" }}
+							{{ result.recordCount }} {{ __('record') }}{{ result.recordCount === 1 ? "" : "s" }}
 							<template v-if="result.mode === 'aggregate'">
-								· {{ result.rows.length }} {{ result.dimensionLabel.toLowerCase() }} group{{ result.rows.length === 1 ? "" : "s" }}
+								· {{ result.rows.length }} {{ result.dimensionLabel.toLowerCase() }} {{ __('group') }}{{ result.rows.length === 1 ? "" : "s" }}
 							</template>
-							<template v-if="result.truncated"> · {{ result.truncated }} more not shown</template>
+							<template v-if="result.truncated"> · {{ result.truncated }} {{ __('more not shown') }}</template>
 						</p>
 					</div>
 					<div class="ml-auto flex items-center gap-2">
-						<button v-if="history.length" type="button" class="text-xs text-ink-600 hover:text-ink-900" @click="undo">Undo</button>
-						<button type="button" class="text-xs text-ink-500 hover:text-ink-900" @click="clearReport">Clear</button>
+						<button v-if="history.length" type="button" class="text-xs text-ink-600 hover:text-ink-900" @click="undo">{{ __('Undo') }}</button>
+						<button type="button" class="text-xs text-ink-500 hover:text-ink-900" @click="clearReport">{{ __('Clear') }}</button>
 					</div>
 				</header>
 
@@ -473,7 +474,7 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 						</button>
 					</div>
 					<div v-if="spec.mode === 'aggregate'" class="flex items-center gap-1.5">
-						<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">Group by</span>
+						<span class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">{{ __('Group by') }}</span>
 						<select
 							:value="spec.dimension"
 							class="text-xs px-2 py-1 border border-ink-200 rounded-md bg-white text-ink-900"
@@ -483,10 +484,10 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 						</select>
 					</div>
 					<div class="w-56">
-						<DeskSearchableSelect v-model="scopeProject" :options="projectOptions" allow-clear placeholder="All projects" search-placeholder="Search projects…" />
+						<DeskSearchableSelect v-model="scopeProject" :options="projectOptions" allow-clear :placeholder="__('All projects')" search-placeholder="Search projects…" />
 					</div>
 					<span class="ml-auto text-xs text-ink-600 tabular-nums">
-						Total <span class="font-semibold text-ink-900">{{ fmtValue(result.total) }}</span>
+						{{ __('Total') }} <span class="font-semibold text-ink-900">{{ fmtValue(result.total) }}</span>
 					</span>
 				</div>
 
@@ -496,21 +497,21 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 					<input
 						:value="spec.filters.q || ''"
 						type="text"
-						placeholder="Search records…"
+						:placeholder="__('Search records…')"
 						class="text-xs px-2.5 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900 w-44 focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400"
 						@change="patchFilters({ q: $event.target.value })"
 					/>
 					<input
 						:value="spec.filters.from || ''"
 						type="date"
-						title="From"
+						:title="__('From')"
 						class="text-xs px-2 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900"
 						@change="patchFilters({ from: $event.target.value })"
 					/>
 					<input
 						:value="spec.filters.to || ''"
 						type="date"
-						title="To"
+						:title="__('To')"
 						class="text-xs px-2 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900"
 						@change="patchFilters({ to: $event.target.value })"
 					/>
@@ -525,14 +526,14 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 					<!-- Filter on any dimension's actual values -->
 					<span class="flex items-center gap-1">
 						<select v-model="filterDim" class="text-xs px-2 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900">
-							<option value="">Field…</option>
+							<option value="">{{ __('Field…') }}</option>
 							<option v-for="(d, k) in dimValues" :key="k" :value="k">{{ d.label }}</option>
 						</select>
 						<select v-if="filterDim" v-model="filterVal" class="text-xs px-2 py-1.5 border border-ink-200 rounded-md bg-white text-ink-900 max-w-44">
-							<option value="">Value…</option>
+							<option value="">{{ __('Value…') }}</option>
 							<option v-for="v in dimValues[filterDim]?.values || []" :key="v" :value="v">{{ v }}</option>
 						</select>
-						<button v-if="filterDim && filterVal" type="button" class="text-xs px-2 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 rounded-md" @click="addValueFilter">Add</button>
+						<button v-if="filterDim && filterVal" type="button" class="text-xs px-2 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 rounded-md" @click="addValueFilter">{{ __('Add') }}</button>
 					</span>
 				</div>
 
@@ -546,13 +547,13 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 						{{ c.label }}
 						<button type="button" class="hover:text-brand-900" @click="removeChip(c.key)">✕</button>
 					</span>
-					<button type="button" class="text-[11px] text-ink-500 hover:text-ink-900 ml-1" @click="clearFilters">Clear all</button>
+					<button type="button" class="text-[11px] text-ink-500 hover:text-ink-900 ml-1" @click="clearFilters">{{ __('Clear all') }}</button>
 				</div>
 
 				<div class="p-4">
 					<!-- Record list — the dataset supplies its own columns. -->
 					<div v-if="result.mode === 'list'">
-						<div v-if="!result.records.length" class="py-12 text-center text-sm text-ink-400 italic">No records match this scope.</div>
+						<div v-if="!result.records.length" class="py-12 text-center text-sm text-ink-400 italic">{{ __('No records match this scope.') }}</div>
 						<div v-else class="border border-ink-200 rounded-lg overflow-x-auto">
 							<table class="w-full text-xs">
 								<thead class="bg-ink-50 text-ink-500 uppercase tracking-wider text-[10px]">
@@ -577,26 +578,26 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 						<!-- Paging — only the visible page is mapped and rendered. -->
 						<div v-if="result.recordCount" class="flex flex-wrap items-center gap-3 mt-3 text-[11px] text-ink-600">
 							<span class="flex items-center gap-1.5">
-								<span class="text-ink-500">Rows</span>
+								<span class="text-ink-500">{{ __('Rows') }}</span>
 								<select v-model.number="pageSize" class="text-[11px] px-1.5 py-1 border border-ink-200 rounded-md bg-white text-ink-900" @change="page = 0">
 									<option v-for="s in PAGE_SIZES" :key="s" :value="s">{{ s }}</option>
 								</select>
 							</span>
-							<span class="tabular-nums">Showing {{ rangeStart }}–{{ rangeEnd }} of {{ result.recordCount }}</span>
+							<span class="tabular-nums">{{ __('Showing') }} {{ rangeStart }}–{{ rangeEnd }} {{ __('of') }} {{ result.recordCount }}</span>
 							<span class="ml-auto flex items-center gap-1.5">
-								<button type="button" class="px-2 py-1 border border-ink-200 rounded-md bg-white hover:bg-ink-50 disabled:opacity-40 disabled:cursor-not-allowed" :disabled="page === 0" @click="page--">‹ Prev</button>
-								<span class="tabular-nums text-ink-500">Page {{ page + 1 }} of {{ pageCount }}</span>
-								<button type="button" class="px-2 py-1 border border-ink-200 rounded-md bg-white hover:bg-ink-50 disabled:opacity-40 disabled:cursor-not-allowed" :disabled="page + 1 >= pageCount" @click="page++">Next ›</button>
+								<button type="button" class="px-2 py-1 border border-ink-200 rounded-md bg-white hover:bg-ink-50 disabled:opacity-40 disabled:cursor-not-allowed" :disabled="page === 0" @click="page--">{{ __('‹ Prev') }}</button>
+								<span class="tabular-nums text-ink-500">{{ __('Page') }} {{ page + 1 }} {{ __('of') }} {{ pageCount }}</span>
+								<button type="button" class="px-2 py-1 border border-ink-200 rounded-md bg-white hover:bg-ink-50 disabled:opacity-40 disabled:cursor-not-allowed" :disabled="page + 1 >= pageCount" @click="page++">{{ __('Next ›') }}</button>
 							</span>
 						</div>
 					</div>
 
-					<div v-else-if="!result.rows.length" class="py-12 text-center text-sm text-ink-400 italic">No records match this scope.</div>
+					<div v-else-if="!result.rows.length" class="py-12 text-center text-sm text-ink-400 italic">{{ __('No records match this scope.') }}</div>
 
 					<!-- Figure — a single headline number is not a one-bar chart -->
 					<div v-else-if="spec.viz === 'kpi'" class="py-6 text-center">
 						<div class="text-4xl font-semibold text-ink-900 tabular-nums">{{ fmtValue(result.total) }}</div>
-						<div class="text-xs text-ink-500 mt-1.5">{{ result.measureLabel }} of {{ result.datasetLabel.toLowerCase() }}</div>
+						<div class="text-xs text-ink-500 mt-1.5">{{ result.measureLabel }} {{ __('of') }} {{ result.datasetLabel.toLowerCase() }}</div>
 					</div>
 
 					<!-- Bar — horizontal, best for long category names -->
@@ -675,7 +676,7 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 								<title>{{ s.label }}: {{ fmtValue(s.value) }}</title>
 							</path>
 							<text x="90" y="86" text-anchor="middle" class="viz-donut-value">{{ fmtValueShort(result.total) }}</text>
-							<text x="90" y="102" text-anchor="middle" class="viz-tick">total</text>
+							<text x="90" y="102" text-anchor="middle" class="viz-tick">{{ __('total') }}</text>
 						</svg>
 						<div class="flex-1 min-w-0 w-full space-y-1.5">
 							<div v-for="(s, i) in donutData" :key="s.label" class="flex items-center gap-2 text-xs" @mouseenter="hovered = i" @mouseleave="hovered = null">
@@ -694,17 +695,17 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 								<tr>
 									<th class="text-left px-3 py-2">{{ result.dimensionLabel }}</th>
 									<th class="text-right px-3 py-2">{{ result.measureLabel }}</th>
-									<th class="text-right px-3 py-2 w-20">Share</th>
+									<th class="text-right px-3 py-2 w-20">{{ __('Share') }}</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="r in result.rows" :key="r.label" class="border-t border-ink-100">
 									<td class="px-3 py-2 text-ink-900">{{ r.label }}</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-800">{{ fmtValue(r.value) }}</td>
-									<td class="px-3 py-2 text-right tabular-nums text-ink-500">{{ result.total ? ((r.value / result.total) * 100).toFixed(1) : "0.0" }}%</td>
+									<td class="px-3 py-2 text-right tabular-nums text-ink-500">{{ result.total ? fixedNumber(((r.value / result.total) * 100), 1) : fixedNumber(0, 1) }}%</td>
 								</tr>
 								<tr class="border-t border-ink-200 bg-ink-50 font-medium">
-									<td class="px-3 py-2 text-ink-900">Total</td>
+									<td class="px-3 py-2 text-ink-900">{{ __('Total') }}</td>
 									<td class="px-3 py-2 text-right tabular-nums text-ink-900">{{ fmtValue(result.total) }}</td>
 									<td></td>
 								</tr>
@@ -720,10 +721,10 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 							v-model="refinePrompt"
 							type="text"
 							class="flex-1 text-sm px-3 py-1.5 border border-ink-200 rounded-lg bg-white text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400"
-							placeholder="Change it — e.g. show as a pie, top 5, group by month, all projects"
+							:placeholder="__('Change it — e.g. show as a pie, top 5, group by month, all projects')"
 							@keyup.enter="refine"
 						/>
-						<button type="button" class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md whitespace-nowrap" @click="refine">Apply</button>
+						<button type="button" class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md whitespace-nowrap" @click="refine">{{ __('Apply') }}</button>
 					</div>
 				</footer>
 			</div>
@@ -731,7 +732,7 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 			<!-- ===== Presets — collapsed while a report is on screen ===== -->
 			<section data-tour="insights-presets">
 				<button type="button" class="w-full flex items-center gap-2 text-left mb-2 group" @click="presetsOpen = !presetsOpen">
-					<h2 class="text-[11px] font-semibold uppercase tracking-wider text-ink-700">Preset reports</h2>
+					<h2 class="text-[11px] font-semibold uppercase tracking-wider text-ink-700">{{ __('Preset reports') }}</h2>
 					<span class="text-[11px] text-ink-400 tabular-nums">{{ PRESETS.length }}</span>
 					<svg
 						class="w-3.5 h-3.5 text-ink-400 transition-transform"
@@ -762,7 +763,7 @@ const VIZ_LABEL = { bar: "Bar", column: "Column", line: "Line", donut: "Donut", 
 			</section>
 
 			<p v-if="!spec" class="text-[11px] text-ink-400 mt-6">
-				Prompts are matched against BuildSuite's own data — every figure here comes from your records, and a question it can't map says so rather than guessing.
+				{{ __('Prompts are matched against BuildSuite\'s own data — every figure here comes from your records, and a question it can\'t map says so rather than guessing.') }}
 			</p>
 		</div>
 	</div>

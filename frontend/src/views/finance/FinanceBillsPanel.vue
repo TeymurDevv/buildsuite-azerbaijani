@@ -592,9 +592,9 @@ async function saveAdvance() {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						Pay <span class="font-medium">{{ pay.row?.party }}</span> against
+						{{ __('Pay') }} <span class="font-medium">{{ pay.row?.party }}</span> {{ __('against') }}
 						<span class="font-mono text-xs">{{ pay.row?.name }}</span
-						>. Outstanding
+						>{{ __('. Outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtCurrency(pay.row?.outstanding, pay.row?.currency)
 						}}</span
@@ -638,7 +638,7 @@ async function saveAdvance() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="pay.open = false"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"
@@ -730,7 +730,7 @@ async function saveAdvance() {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="adv.open = false"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"

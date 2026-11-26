@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDateTime } from "@/utils/locale";
 // Project Progress Report — Daily / Weekly / Monthly (S167 / S258–S266). A Vue report
 // surface rendered inside DeskShell. All rollups are computed server-side against a
 // moving date window (buildsuite_core.api.progress_report); this view renders them.
@@ -270,7 +271,7 @@ const photoLayout = computed(() => {
 });
 
 function generatedOnLabel() {
-	return new Date().toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+	return calendarDateTime(new Date(), "en-IN", { dateStyle: "medium", timeStyle: "short" });
 }
 function printReport() {
 	window.print();
@@ -819,10 +820,10 @@ function backToProject() {
 								class="flex items-center justify-between text-[11px] text-ink-600 mt-1.5"
 							>
 								<span
-									>{{ s.done_count }} of {{ s.task_count }} activit{{
+									>{{ s.done_count }} {{ __('of') }} {{ s.task_count }} {{ __('activit') }}{{
 										s.task_count === 1 ? "y" : "ies"
 									}}
-									complete</span
+									{{ __('complete') }}</span
 								>
 								<span
 									:class="[
@@ -1168,15 +1169,14 @@ function backToProject() {
 				>
 					<p class="text-[11px] text-ink-500">
 						<template v-if="photosCurated">
-							Showing {{ shownPhotos.length }} of {{ photos.length }} photographs — a
-							spread across {{ photoActivityCount }} activit{{
+							{{ __('Showing') }} {{ shownPhotos.length }} {{ __('of') }} {{ photos.length }} {{ __('photographs — a spread across') }} {{ photoActivityCount }} {{ __('activit') }}{{
 								photoActivityCount === 1 ? "y" : "ies"
 							}}
-							recorded in this period.
+							{{ __('recorded in this period.') }}
 						</template>
 						<template v-else>
-							{{ photos.length }} photograph{{ photos.length === 1 ? "" : "s" }}
-							recorded in this period.
+							{{ photos.length }} {{ __('photograph') }}{{ photos.length === 1 ? "" : "s" }}
+							{{ __('recorded in this period.') }}
 						</template>
 					</p>
 					<button
@@ -1283,7 +1283,7 @@ function backToProject() {
 					class="mt-3 pt-3 border-t border-ink-100 text-center text-[10px] text-ink-400"
 				>
 					{{ __("Generated using") }}
-					<span class="font-semibold text-brand-600">BuildSuite</span>
+					<span class="font-semibold text-brand-600">{{ __('BuildSuite') }}</span>
 				</div>
 			</footer>
 		</main>

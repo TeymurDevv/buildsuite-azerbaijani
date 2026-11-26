@@ -69,7 +69,7 @@ const fields = computed(() =>
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="emit('close')"
 					>
 						×
@@ -96,7 +96,7 @@ const fields = computed(() =>
 				</div>
 
 				<footer class="px-5 py-3 border-t border-ink-200 flex justify-end">
-					<button type="button" class="desk-save-btn" @click="emit('close')">Done</button>
+					<button type="button" class="desk-save-btn" @click="emit('close')">{{ __('Done') }}</button>
 				</footer>
 			</div>
 		</div>

@@ -155,8 +155,7 @@ async function save() {
 						</h2>
 						<p class="text-[11px] text-ink-500 mt-0.5 truncate">
 							<template v-if="isGate"
-								>This stage appears to be delayed. Record the reason before opening
-								Stage Review.</template
+								>{{ __('This stage appears to be delayed. Record the reason before opening Stage Review.') }}</template
 							>
 							<template v-else>{{ stageName }}</template>
 						</p>
@@ -164,7 +163,7 @@ async function save() {
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none flex-shrink-0 ml-3 dark:text-ink-400 dark:hover:text-ink-200"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="cancel"
 					>
 						×
@@ -172,7 +171,7 @@ async function save() {
 				</header>
 
 				<div class="p-5 overflow-y-auto flex-1">
-					<DeskSection id="why-is-this-stage-delayed" title="Why is this stage delayed?">
+					<DeskSection id="why-is-this-stage-delayed" :title="__('Why is this stage delayed?')">
 						<DeskField
 							label="Reason"
 							required
@@ -180,18 +179,18 @@ async function save() {
 							hint="Pick a common reason or choose Custom to enter your own."
 						>
 							<DeskSelect v-model="form.reasonSelect">
-								<option value="">— Select reason —</option>
+								<option value="">{{ __('— Select reason —') }}</option>
 								<option v-for="r in REASON_PRESETS" :key="r" :value="r">
 									{{ r }}
 								</option>
 								<option disabled>──────────</option>
-								<option :value="CUSTOM_SENTINEL">Custom…</option>
+								<option :value="CUSTOM_SENTINEL">{{ __('Custom…') }}</option>
 							</DeskSelect>
 							<DeskInput
 								v-if="isCustomReason"
 								v-model="form.reasonCustom"
 								class="mt-2"
-								placeholder="Describe the delay"
+								:placeholder="__('Describe the delay')"
 							/>
 						</DeskField>
 						<DeskField
@@ -201,7 +200,7 @@ async function save() {
 							hint="Who is accountable for this delay — own team, subcontractor, client, etc."
 						>
 							<DeskSelect v-model="form.responsibleParty">
-								<option value="">— Select —</option>
+								<option value="">{{ __('— Select —') }}</option>
 								<option v-for="p in RESPONSIBLE_PARTIES" :key="p" :value="p">
 									{{ p }}
 								</option>
@@ -227,7 +226,7 @@ async function save() {
 							<DeskTextarea
 								v-model="form.note"
 								:rows="3"
-								placeholder="Optional context"
+								:placeholder="__('Optional context')"
 							/>
 						</DeskField>
 					</DeskSection>
@@ -244,7 +243,7 @@ async function save() {
 						:disabled="saving"
 						@click="cancel"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button type="button" class="desk-save-btn" :disabled="saving" @click="save">
 						{{ saving ? "Saving…" : "Save reason" }}

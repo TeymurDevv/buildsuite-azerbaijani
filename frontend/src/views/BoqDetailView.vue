@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber, numberLocale } from "@/utils/locale";
 import { usePageTitle } from "@/composables/usePageTitle";
 // BOQ Detail — backend-backed (data adapter + boqApi). The Desk template is kept
 // verbatim; only the data layer changed: the local store became adapter reads of
@@ -1472,7 +1473,7 @@ const breadcrumbs = computed(() => {
 <template>
 	<div v-if="!boq" class="px-6 py-12 text-center text-ink-500">
 		<div class="text-sm">
-			BOQ <span class="font-mono">{{ id }}</span> not found.
+			BOQ <span class="font-mono">{{ id }}</span> {{ __('not found.') }}
 		</div>
 		<DeskLink to="/boq" class="text-sm mt-2 inline-block">{{
 			__("← Back to BOQ list")
@@ -1663,7 +1664,7 @@ const breadcrumbs = computed(() => {
 						{{ fmtCompactINR(totals.actual) }}
 					</div>
 					<div class="text-[10px] text-ink-500 mt-0.5">
-						{{ pctOf(totals.actual, totals.planned).toFixed(1) }}% {{ __("of plan") }}
+						{{ fixedNumber(pctOf(totals.actual, totals.planned), 1) }}% {{ __("of plan") }}
 					</div>
 				</div>
 				<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 2px">
@@ -1674,7 +1675,7 @@ const breadcrumbs = computed(() => {
 						class="text-base font-semibold mt-0.5 tabular-nums"
 						:class="variancePill(totals.variancePct)"
 					>
-						{{ totals.variancePct > 0 ? "+" : "" }}{{ totals.variancePct.toFixed(1) }}%
+						{{ totals.variancePct > 0 ? "+" : "" }}{{ fixedNumber(totals.variancePct, 1) }}%
 					</div>
 					<div class="text-[10px] text-ink-500 mt-0.5 tabular-nums">
 						{{ fmtCompactINR(totals.variance) }} {{ __("delta") }}
@@ -1760,7 +1761,7 @@ const breadcrumbs = computed(() => {
 				</div>
 				<div class="ml-auto flex items-center gap-2">
 					<span v-if="!isEditable" class="text-[11px] text-ink-400 italic">
-						{{ __(boq.status) }} — read-only · use
+						{{ __(boq.status) }} {{ __('— read-only · use') }}
 						<button
 							v-if="canCreate('boq')"
 							type="button"
@@ -1769,7 +1770,7 @@ const breadcrumbs = computed(() => {
 						>
 							+ {{ __("Revision") }}
 						</button>
-						to make changes
+						{{ __('to make changes') }}
 					</span>
 					<button
 						v-if="isEditable && canEdit('boq')"
@@ -1918,12 +1919,11 @@ const breadcrumbs = computed(() => {
 						>
 							{{
 								groupTotals(g.id).planned
-									? (
+									? fixedNumber(
 											((groupActual(g) - groupTotals(g.id).planned) /
 												groupTotals(g.id).planned) *
-											100
-									  ).toFixed(1)
-									: "0.0"
+											100, 1)
+									: fixedNumber(0, 1)
 							}}%
 						</div>
 						<div></div>
@@ -2109,12 +2109,12 @@ const breadcrumbs = computed(() => {
 								<div
 									class="px-3 py-1.5 text-right tabular-nums text-sm text-ink-700"
 								>
-									{{ item.plannedQty.toLocaleString("en-IN") }}
+									{{ item.plannedQty.toLocaleString(numberLocale("en-IN")) }}
 								</div>
 								<div
 									class="px-3 py-1.5 text-right tabular-nums text-sm text-ink-700"
 								>
-									{{ item.rate.toLocaleString("en-IN") }}
+									{{ item.rate.toLocaleString(numberLocale("en-IN")) }}
 								</div>
 								<div
 									class="px-3 py-1.5 text-right tabular-nums text-sm text-ink-900"
@@ -2170,12 +2170,11 @@ const breadcrumbs = computed(() => {
 								>
 									{{
 										item.plannedAmount
-											? (
+											? fixedNumber(
 													((itemActual(item) - item.plannedAmount) /
 														item.plannedAmount) *
-													100
-											  ).toFixed(1)
-											: "0.0"
+													100, 1)
+											: fixedNumber(0, 1)
 									}}%
 								</div>
 								<div class="px-3 py-1.5">
@@ -2248,7 +2247,7 @@ const breadcrumbs = computed(() => {
 									<div
 										class="px-3 py-1 text-right tabular-nums text-xs text-ink-500"
 									>
-										{{ si.rate.toLocaleString("en-IN") }}
+										{{ si.rate.toLocaleString(numberLocale("en-IN")) }}
 									</div>
 									<div
 										class="px-3 py-1 text-right tabular-nums text-xs text-ink-700"

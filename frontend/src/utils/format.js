@@ -1,3 +1,4 @@
+import { calendarDate, compactNumber, displayLocale, numberLocale } from "./locale.js";
 // Formatting helpers used across views.
 import { ref } from 'vue'
 
@@ -20,10 +21,10 @@ export function getDisplayCurrency() {
   return displayCurrency.value
 }
 
-// INR groups in lakh/crore (en-IN); everything else uses en-US grouping. `narrowSymbol` forces the
+// Default currency grouping is unchanged outside the Azerbaijani UI. `narrowSymbol` forces the
 // symbol (₹, ₦, $, €) over the ISO code some locale/currency pairs would otherwise render.
 function localeFor(currency) {
-  return currency === 'INR' ? 'en-IN' : 'en-US'
+  return numberLocale(currency === 'INR' ? 'en-IN' : 'en-US')
 }
 
 // fmtCurrency(150000) -> the active company's currency, e.g. ₦150,000.00 ; fmtCurrency(150000, 'USD') -> $150,000.00
@@ -45,13 +46,7 @@ export function fmtCurrency(value, currency = displayCurrency.value, precision) 
 // Compact: ₹1.5Cr / $1.5M etc.
 export function fmtCompactCurrency(value, currency = displayCurrency.value) {
   if (value == null || value === '') value = 0
-  return new Intl.NumberFormat(localeFor(currency), {
-    style: 'currency',
-    currency,
-    currencyDisplay: 'narrowSymbol',
-    notation: 'compact',
-    maximumFractionDigits: 1,
-  }).format(Number(value) || 0)
+  return compactNumber(Number(value) || 0, currency === 'INR' ? 'en-IN' : 'en-US', currency)
 }
 
 // Just the currency symbol (₹, ₦, $, €…) for the active company — for field labels and input
@@ -79,7 +74,10 @@ export const fmtCompactINR = fmtCompactCurrency
 export function fmtDate(d) {
 	if (!d) return "—";
 	try {
-		return new Date(d).toLocaleDateString("en-IN", {
+		// A date-only Frappe field denotes a calendar day, independent of the viewer's UTC offset.
+		const localDate = displayLocale() && typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d)
+			? d + "T00:00:00" : d;
+		return calendarDate(new Date(localDate), "en-IN", {
 			day: "2-digit",
 			month: "short",
 			year: "numeric",

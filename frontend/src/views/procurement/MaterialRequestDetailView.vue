@@ -295,9 +295,7 @@ const breadcrumbs = computed(() => [
 			v-if="isCancelled"
 			class="mb-4 px-4 py-2.5 bg-ink-100 border border-ink-200 rounded-md text-xs text-ink-600"
 		>
-			This request is <span class="font-semibold">cancelled</span> — it's out of the
-			procurement queue. Click <span class="font-medium">Amend</span> to raise a corrected
-			draft.
+			{{ __('This request is') }} <span class="font-semibold">{{ __('cancelled') }}</span> {{ __('— it\'s out of the procurement queue. Click') }} <span class="font-medium">{{ __('Amend') }}</span> {{ __('to raise a corrected draft.') }}
 		</div>
 
 		<!-- Summary strip -->

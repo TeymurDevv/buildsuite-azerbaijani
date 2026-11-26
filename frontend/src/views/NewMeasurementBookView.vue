@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Measurement Book form — create + edit. Pre-fills the WO from
 // ?work_order=… on the URL. The entries editor records description +
 // WO line + Nos × L × B × D, with the quantity derived live (or typed
@@ -585,7 +586,7 @@ const breadcrumbs = computed(() => [
 								<td
 									class="px-3 py-2 text-right tabular-nums text-sm font-semibold text-info-700"
 								>
-									{{ measuredTotal.toLocaleString("en-IN") }}
+									{{ measuredTotal.toLocaleString(numberLocale("en-IN")) }}
 								</td>
 								<td colspan="3"></td>
 							</tr>

@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber, numberLocale } from "@/utils/locale";
 // The six Procurement reports, computed from live records via
 // buildsuite_core.api.procurement_report. One view, one section per :slug on
 // /procurement/report/:slug — matching the finance report pattern. An optional ?project=
@@ -296,7 +297,7 @@ const breadcrumbs = computed(() => [
 ]);
 
 const tone = (v) => (v > 0.5 ? "text-danger-700" : v < -0.5 ? "text-success-700" : "text-ink-700");
-const inr = (n) => (n || n === 0 ? Number(n).toLocaleString("en-IN") : n);
+const inr = (n) => (n || n === 0 ? Number(n).toLocaleString(numberLocale("en-IN")) : n);
 </script>
 
 <template>
@@ -811,7 +812,7 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString("en-IN") : n);
 										<template v-if="r.variance === null">—</template>
 										<template v-else
 											>{{ r.variance > 0 ? "+" : ""
-											}}{{ r.variance.toFixed(1) }}%</template
+											}}{{ fixedNumber(r.variance, 1) }}%</template
 										>
 									</td>
 								</tr>
@@ -843,11 +844,11 @@ const inr = (n) => (n || n === 0 ? Number(n).toLocaleString("en-IN") : n);
 										[rateUnlinked]
 								  )
 						}}
-						Linking the item to a Rate Master entry under
+						{{ __('Linking the item to a Rate Master entry under') }}
 						<RouterLink to="/items" class="text-brand-700 hover:underline"
-							>Items</RouterLink
+							>{{ __('Items') }}</RouterLink
 						>
-						brings it into this report.
+						{{ __('brings it into this report.') }}
 					</p>
 				</div>
 

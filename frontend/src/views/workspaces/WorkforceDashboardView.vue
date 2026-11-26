@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Workforce dashboard — workers, crews, man-days and labour cost at a glance. Mirrors the demo:
 // KPI strip + recent attendance + recent labour cost.
 
@@ -15,7 +16,7 @@ import { __, currentLang } from "@/utils/translate";
 const router = useRouter();
 
 const today = computed(() =>
-	new Date().toLocaleDateString(currentLang(), {
+	calendarDate(new Date(), currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

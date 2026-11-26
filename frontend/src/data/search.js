@@ -1,3 +1,5 @@
+import { __, currentLang } from "../utils/translate.js";
+
 // Command-palette search model (⌘K). Two kinds of answer, like the prototype (S363):
 //   · PLACES  — where to GO: a doctype's list, or a report. Client-side + permission-gated.
 //   · RECORDS — the documents themselves. Fetched from the permission-safe Frappe global-search
@@ -481,18 +483,18 @@ const REPORT_PLACES = {
 	},
 };
 
-const norm = (s) => (s || "").toLowerCase().trim();
+const norm = (s) => (s || "").toLocaleLowerCase(currentLang().replace(/_/g, "-")).trim();
 
 // Score a place against the query: prefix on the label wins, then a word match, then a substring.
 function scorePlace(q, place) {
-	const label = norm(place.label);
-	if (label.startsWith(q)) return 100;
+	const labels = [norm(place.label), norm(__(place.label))];
+	if (labels.some((label) => label.startsWith(q))) return 100;
 	for (const w of place.words) {
 		const nw = norm(w);
 		if (nw === q) return 90;
 		if (nw.startsWith(q)) return 70;
 	}
-	if (label.includes(q)) return 50;
+	if (labels.some((label) => label.includes(q))) return 50;
 	if (place.words.some((w) => norm(w).includes(q))) return 30;
 	return 0;
 }
@@ -517,6 +519,6 @@ export function searchPlaces(query, ctx) {
 	return gated
 		.map((p) => ({ ...p, kind: "place", key: p.to, score: scorePlace(q, p) }))
 		.filter((p) => p.score > 0)
-		.sort((a, b) => b.score - a.score || a.label.localeCompare(b.label))
+		.sort((a, b) => b.score - a.score || __(a.label).localeCompare(__(b.label)))
 		.slice(0, 6);
 }

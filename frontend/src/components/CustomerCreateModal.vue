@@ -60,11 +60,11 @@ async function save() {
 					class="px-5 py-3 border-b border-ink-200 flex items-center justify-between bg-white"
 					style="border-radius: 12px 12px 0 0"
 				>
-					<h2 class="text-sm font-semibold text-ink-900">New customer</h2>
+					<h2 class="text-sm font-semibold text-ink-900">{{ __('New customer') }}</h2>
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						@click="emit('close')"
 					>
 						x
@@ -74,15 +74,15 @@ async function save() {
 					<DeskField label="Customer name" required :error="error">
 						<DeskInput
 							v-model="name"
-							placeholder="e.g. Prestige Group"
+							:placeholder="__('e.g. Prestige Group')"
 							@keyup.enter="save"
 						/>
 					</DeskField>
 					<DeskField label="Customer type">
 						<DeskSelect v-model="type">
-							<option>Company</option>
-							<option>Individual</option>
-							<option>Partnership</option>
+							<option value="Company">{{ __('Company') }}</option>
+							<option value="Individual">{{ __('Individual') }}</option>
+							<option value="Partnership">{{ __('Partnership') }}</option>
 						</DeskSelect>
 					</DeskField>
 				</div>
@@ -96,7 +96,7 @@ async function save() {
 						style="border-radius: 6px"
 						@click="emit('close')"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"

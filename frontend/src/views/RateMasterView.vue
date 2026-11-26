@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 import { computed, ref, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores";
@@ -419,7 +420,7 @@ async function removeRate() {
 					class="text-[11px] tabular-nums font-medium"
 					:class="trend(row).up ? 'text-danger-700' : 'text-success-700'"
 				>
-					{{ trend(row).up ? "▲" : "▼" }} {{ Math.abs(trend(row).pct).toFixed(1) }}%
+					{{ trend(row).up ? "▲" : "▼" }} {{ fixedNumber(Math.abs(trend(row).pct), 1) }}%
 				</span>
 				<span v-else class="text-ink-300">—</span>
 			</template>

@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Estimation workspace — date + title, BOQ shortcut, and a "Setup" group.
 // Setup has Rate Master + Assembly for now (Estimate Templates come later).
 
@@ -9,7 +10,7 @@ import WorkspaceReportsSection from "@/components/workspaces/WorkspaceReportsSec
 import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() =>
-	new Date().toLocaleDateString(currentLang(), {
+	calendarDate(new Date(), currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

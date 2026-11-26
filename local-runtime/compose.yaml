@@ -1,0 +1,74 @@
+name: buildsuite-az
+
+x-app: &app
+  image: buildsuite-az-local:16.60
+  build:
+    context: ..
+    dockerfile: local-runtime/Containerfile
+  entrypoint: []
+  volumes:
+    - sites:/home/frappe/frappe-bench/sites
+    - logs:/home/frappe/frappe-bench/logs
+    - ../buildsuite_core:/home/frappe/frappe-bench/apps/buildsuite_core/buildsuite_core:ro
+  restart: unless-stopped
+
+services:
+  db:
+    image: mariadb:11.8
+    restart: unless-stopped
+    command: [--character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --skip-character-set-client-handshake, --innodb-snapshot-isolation=OFF]
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_password
+    secrets: [db_password]
+    volumes: [db:/var/lib/mysql]
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 3s
+      retries: 45
+      timeout: 5s
+  cache:
+    image: redis:alpine
+    restart: unless-stopped
+  queue:
+    image: redis:alpine
+    restart: unless-stopped
+    command: [redis-server, --appendonly, 'yes']
+    volumes: [queue:/data]
+  backend:
+    <<: *app
+    command: [start.sh]
+    depends_on: [db, cache, queue]
+  websocket:
+    <<: *app
+    command: [node, /home/frappe/frappe-bench/apps/frappe/socketio.js]
+    depends_on: [queue, cache]
+  worker:
+    <<: *app
+    command: [bench, worker, --queue, 'long,default,short']
+    depends_on: [db, queue, cache]
+  scheduler:
+    <<: *app
+    command: [bench, schedule]
+    depends_on: [db, queue, cache]
+  web:
+    <<: *app
+    command: [nginx-entrypoint.sh]
+    depends_on: [backend, websocket]
+    environment:
+      BACKEND: backend:8000
+      SOCKETIO: websocket:9000
+      FRAPPE_SITE_NAME_HEADER: buildsuite.localhost
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: 'off'
+      PROXY_READ_TIMEOUT: '120'
+      CLIENT_MAX_BODY_SIZE: 50m
+    ports: ['127.0.0.1:8765:8080']
+secrets:
+  db_password:
+    file: ./private/database-password
+volumes:
+  db:
+  sites:
+  logs:
+  queue:

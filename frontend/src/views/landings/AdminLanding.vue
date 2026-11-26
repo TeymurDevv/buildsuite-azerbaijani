@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -12,7 +13,7 @@ const role = ROLES.find((r) => r.id === ROLE_ID);
 const store = useDataStore();
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -111,13 +112,13 @@ const systemHealth = [
 					{{ role.shortName }} · System overview
 				</p>
 			</div>
-			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">All systems</h1>
+			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __("All systems") }}</h1>
 			<p class="text-sm text-ink-500 mt-1">
 				{{ todayLabel }} ·
 				<span class="text-ink-700 font-medium">{{ store.team.length }} users</span> ·
 				<span class="text-ink-700 font-medium">{{ store.projects.length }} projects</span>
 				·
-				<span class="text-ink-700 font-medium">12 workspaces installed</span>
+				<span class="text-ink-700 font-medium">{{ __("12 workspaces installed") }}</span>
 			</p>
 
 			<!-- Workspace launcher -->
@@ -163,7 +164,7 @@ const systemHealth = [
 			<section class="mt-8">
 				<div class="flex items-baseline justify-between mb-3">
 					<div>
-						<h2 class="text-sm font-semibold text-ink-500">ERPNext</h2>
+						<h2 class="text-sm font-semibold text-ink-500">{{ __("ERPNext") }}</h2>
 					</div>
 					<span class="text-[11px] text-ink-500"
 						>{{ erpnextTiles.length }} workspace{{
@@ -207,8 +208,8 @@ const systemHealth = [
 					class="lg:col-span-2 bg-white border border-ink-200 rounded-xl overflow-hidden"
 				>
 					<div class="px-4 py-3 border-b border-ink-200">
-						<h2 class="font-semibold text-ink-900 text-sm">Recent activity</h2>
-						<p class="text-[11px] text-ink-500 mt-0.5">Last 5 events from the store</p>
+						<h2 class="font-semibold text-ink-900 text-sm">{{ __("Recent activity") }}</h2>
+						<p class="text-[11px] text-ink-500 mt-0.5">{{ __("Last 5 events from the store") }}</p>
 					</div>
 					<div class="divide-y divide-ink-100">
 						<RouterLink
@@ -236,14 +237,14 @@ const systemHealth = [
 							v-if="!recentActivity.length"
 							class="px-4 py-8 text-center text-sm text-ink-400"
 						>
-							No activity yet.
+							{{ __("No activity yet.") }}
 						</div>
 					</div>
 				</div>
 
 				<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 					<div class="px-4 py-3 border-b border-ink-200">
-						<h2 class="font-semibold text-ink-900 text-sm">System health</h2>
+						<h2 class="font-semibold text-ink-900 text-sm">{{ __("System health") }}</h2>
 					</div>
 					<div class="divide-y divide-ink-100">
 						<div

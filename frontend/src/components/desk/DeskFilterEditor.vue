@@ -267,7 +267,7 @@ async function apply() {
 			<DeskSearchableSelect
 				v-model="fieldname"
 				:options="fieldOptions"
-				placeholder="Field"
+				:placeholder="__('Field')"
 				search-placeholder="Search fields…"
 				class="w-44 flex-shrink-0"
 			/>
@@ -288,13 +288,13 @@ async function apply() {
 					:doctype="selectedField.options"
 					:label-field="linkProps.labelField"
 					:search-fields="linkProps.searchFields"
-					placeholder="Select…"
+					:placeholder="__('Select…')"
 				/>
 				<input
 					v-else-if="valueKind === 'link' && selectedField?.options"
 					type="text"
 					class="desk-input w-full"
-					placeholder="Loading…"
+					:placeholder="__('Loading…')"
 					disabled
 				/>
 				<!-- Link field without a resolvable target doctype (e.g. Dynamic Link): fall back to text. -->
@@ -303,19 +303,19 @@ async function apply() {
 					v-model="value"
 					type="text"
 					class="desk-input w-full"
-					placeholder="Value"
+					:placeholder="__('Value')"
 				/>
 				<DeskSelect v-else-if="valueKind === 'select'" v-model="value">
 					<option value="">—</option>
 					<option v-for="o in selectOptions" :key="o" :value="o">{{ o }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'check'" v-model="value">
-					<option value="1">Yes</option>
-					<option value="0">No</option>
+					<option value="1">{{ __('Yes') }}</option>
+					<option value="0">{{ __('No') }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'isset'" v-model="value">
-					<option value="set">Set</option>
-					<option value="not set">Not Set</option>
+					<option value="set">{{ __('Set') }}</option>
+					<option value="not set">{{ __('Not Set') }}</option>
 				</DeskSelect>
 				<DeskSelect v-else-if="valueKind === 'timespan'" v-model="value">
 					<option value="">—</option>
@@ -343,7 +343,7 @@ async function apply() {
 					v-model="value"
 					type="number"
 					class="desk-input w-full"
-					placeholder="Value"
+					:placeholder="__('Value')"
 				/>
 				<div v-else-if="valueKind === 'multi'" class="space-y-1">
 					<div v-if="value.length" class="flex flex-wrap gap-1">
@@ -357,7 +357,7 @@ async function apply() {
 							<button
 								type="button"
 								class="text-ink-500 hover:text-ink-800 leading-none"
-								aria-label="Remove"
+								:aria-label="__('Remove')"
 								@click="removeMultiItem(i)"
 							>
 								×
@@ -372,7 +372,7 @@ async function apply() {
 						:doctype="selectedField.options"
 						:label-field="linkProps.labelField"
 						:search-fields="linkProps.searchFields"
-						placeholder="Add…"
+						:placeholder="__('Add…')"
 						@update:model-value="addMultiItem"
 					/>
 					<DeskSelect
@@ -380,14 +380,14 @@ async function apply() {
 						:model-value="''"
 						@update:model-value="addMultiItem"
 					>
-						<option value="">Add…</option>
+						<option value="">{{ __('Add…') }}</option>
 						<option v-for="o in selectOptions" :key="o" :value="o">{{ o }}</option>
 					</DeskSelect>
 					<input
 						v-else
 						type="text"
 						class="desk-input w-full"
-						placeholder="Type a value and press Enter"
+						:placeholder="__('Type a value and press Enter')"
 						@keyup.enter="addMultiFromInput"
 					/>
 				</div>
@@ -396,7 +396,7 @@ async function apply() {
 					v-model="value"
 					type="text"
 					class="desk-input w-full"
-					placeholder="Value"
+					:placeholder="__('Value')"
 					@keyup.enter="apply"
 				/>
 			</div>
@@ -408,7 +408,7 @@ async function apply() {
 				class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 				@click="emit('cancel')"
 			>
-				Cancel
+				{{ __('Cancel') }}
 			</button>
 			<button
 				type="button"
@@ -417,7 +417,7 @@ async function apply() {
 				:class="{ 'opacity-50 cursor-not-allowed': !canApply }"
 				@click="apply"
 			>
-				Apply
+				{{ __('Apply') }}
 			</button>
 		</div>
 	</div>

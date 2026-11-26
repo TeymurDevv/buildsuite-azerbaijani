@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Subcontract workspace landing — mirrors the prototype's
 // SubcontractorWorkspace: greeting strip, a prominent Subcontractor
 // Dashboard CTA, a DocType shortcuts grid, and a Reports group.
@@ -16,7 +17,7 @@ import { __, currentLang } from "@/utils/translate";
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), { weekday: "long", month: "short", day: "numeric" });
+	return calendarDate(d, currentLang(), { weekday: "long", month: "short", day: "numeric" });
 });
 
 const shortcuts = [

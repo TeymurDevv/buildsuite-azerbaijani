@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Project Dashboard — the Site Execution owner/PM view (S251). Live over
 // buildsuite_core.api.project_dashboard, scoped to the whole portfolio or one project:
 // KPIs + earned value, project health, cost booked by head, the decision queue, site
@@ -20,7 +21,7 @@ const loading = ref(true);
 const error = ref("");
 const scope = ref(""); // "" = portfolio, else a project id
 
-const todayLabel = new Date().toLocaleDateString(currentLang(), {
+const todayLabel = calendarDate(new Date(), currentLang(), {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",

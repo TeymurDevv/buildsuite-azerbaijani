@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // Project Finance › Bills › Supplier bill detail — a full page over one ERPNext Purchase
 // Invoice. Summary strip, item lines, payments, supplier-advance adjustment, and the docstatus
 // lifecycle: Submit/Delete/Edit (Draft), Pay/Cancel (Submitted). Pay = a real Payment Entry
@@ -447,7 +448,7 @@ function formatFileSize(bytes) {
 		n /= 1024;
 		i++;
 	}
-	return (i === 0 ? n : n.toFixed(n < 10 ? 1 : 0)) + " " + units[i];
+	return (i === 0 ? n : fixedNumber(n, n < 10 ? 1 : 0)) + " " + units[i];
 }
 </script>
 
@@ -1121,9 +1122,9 @@ function formatFileSize(bytes) {
 				</header>
 				<div class="px-4 py-4 space-y-3">
 					<div class="text-sm text-ink-700">
-						Pay <span class="font-medium">{{ bill.supplier_name }}</span> against
+						{{ __('Pay') }} <span class="font-medium">{{ bill.supplier_name }}</span> {{ __('against') }}
 						<span class="font-mono text-xs">{{ bill.name }}</span
-						>. Outstanding
+						>{{ __('. Outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtDoc(payment.outstanding)
 						}}</span
@@ -1169,7 +1170,7 @@ function formatFileSize(bytes) {
 						class="text-xs px-3 py-1.5 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 rounded-md"
 						@click="pay.open = false"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"
@@ -1209,13 +1210,13 @@ function formatFileSize(bytes) {
 				</header>
 				<div class="px-4 py-4 overflow-y-auto flex-1 space-y-3">
 					<div class="text-xs text-ink-600">
-						Unlinked advances paid to
+						{{ __('Unlinked advances paid to') }}
 						<span class="font-medium text-ink-900">{{ bill.supplier_name }}</span
-						>. Current outstanding
+						>{{ __('. Current outstanding') }}
 						<span class="font-semibold text-ink-900 tabular-nums">{{
 							fmtDoc(remainingOutstanding)
 						}}</span>
-						— the suggested allocation settles as much of it as each advance allows.
+						{{ __('— the suggested allocation settles as much of it as each advance allows.') }}
 					</div>
 					<div v-if="availableAdvances.length" class="space-y-2">
 						<div

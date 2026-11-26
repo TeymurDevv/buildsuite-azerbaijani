@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Site Execution workspace landing — Vue-styled per §12.4. M1 ships this as
 // one of the 3 Vue surfaces (locked by Block-A decision 2). Greeting + role-
 // filtered shortcuts grid, no Number Cards / Quick Lists / charts per §13.2.
@@ -44,7 +45,7 @@ const shortcutsLoaded = ref(false);
 
 const today = computed(() => {
 	const d = new Date();
-	return d.toLocaleDateString(currentLang(), {
+	return calendarDate(d, currentLang(), {
 		weekday: "long",
 		month: "short",
 		day: "numeric",

@@ -38,19 +38,19 @@ function removeRole(role) {
 				<button
 					type="button"
 					class="text-ink-400 hover:text-danger-600 leading-none"
-					aria-label="Remove role"
+					:aria-label="__('Remove role')"
 					@click="removeRole(role)"
 				>
 					×
 				</button>
 			</span>
 		</div>
-		<p v-else class="text-xs text-ink-400 mb-2">No roles yet — add at least one below.</p>
+		<p v-else class="text-xs text-ink-400 mb-2">{{ __('No roles yet — add at least one below.') }}</p>
 
 		<DeskSelect v-if="addable.length" :model-value="''" @update:model-value="addRole">
-			<option value="">+ Add role…</option>
+			<option value="">{{ __('+ Add role…') }}</option>
 			<option v-for="role in addable" :key="role" :value="role">{{ role }}</option>
 		</DeskSelect>
-		<p v-else class="text-xs text-ink-400">All assignable roles added.</p>
+		<p v-else class="text-xs text-ink-400">{{ __('All assignable roles added.') }}</p>
 	</div>
 </template>

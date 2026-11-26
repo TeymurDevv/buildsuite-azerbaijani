@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // Profit & Loss — our own account-tree variant (buildsuite_core.api.finance_report.
 // profit_and_loss), NOT the stock ERPNext financial statement, so the labels + layout are
 // ours: an Income / Direct Expenses / Indirect Expenses tree with a "Profit" line (the period
@@ -196,7 +197,7 @@ function indentStyle(level) {
 						{{ fmtINR(directTotal) }}
 					</div>
 					<div class="text-[10px] text-ink-400 mt-0.5 tabular-nums">
-						{{ incomeTotal ? __("{0}% of income", [((directTotal / incomeTotal) * 100).toFixed(1)]) : __("cost of sales") }}
+						{{ incomeTotal ? __("{0}% of income", [fixedNumber(((directTotal / incomeTotal) * 100), 1)]) : __("cost of sales") }}
 					</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-lg p-3">
@@ -218,7 +219,7 @@ function indentStyle(level) {
 						class="text-[10px] mt-0.5 tabular-nums"
 						:class="profit < 0 ? 'text-danger-600' : 'text-success-700'"
 					>
-						{{ incomeTotal ? __("{0}% margin", [marginPct.toFixed(1)]) : __("no income in period") }}
+						{{ incomeTotal ? __("{0}% margin", [fixedNumber(marginPct, 1)]) : __("no income in period") }}
 					</div>
 				</div>
 			</div>

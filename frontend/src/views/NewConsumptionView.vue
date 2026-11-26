@@ -191,7 +191,7 @@ const breadcrumbs = computed(() => [
 			class="px-3 py-2 bg-warning-50 border border-warning-100 text-xs text-warning-700 dark:bg-ink-800 dark:border-ink-700"
 			style="border-radius: 6px"
 		>
-			You don't have permission to {{ editing ? "edit this" : "record a" }} consumption.
+			{{ __('You don\'t have permission to') }} {{ editing ? "edit this" : "record a" }} {{ __('consumption.') }}
 		</div>
 		<DeskForm v-else>
 			<template #action-bar>
@@ -207,7 +207,7 @@ const breadcrumbs = computed(() => [
 			</template>
 			<ExtensionSlot :name="ext.slot('top')" :context="ext.context" />
 
-			<DeskSection id="booking" title="Booking" :cols="2">
+			<DeskSection id="booking" :title="__('Booking')" :cols="2">
 				<DeskField
 					name="project"
 					label="Project"
@@ -220,7 +220,7 @@ const breadcrumbs = computed(() => [
 						v-model="form.project"
 						:options="projectOptions"
 						:disabled="editing"
-						placeholder="— Select project —"
+						:placeholder="__('— Select project —')"
 						search-placeholder="Search projects…"
 					/>
 				</DeskField>
@@ -233,15 +233,15 @@ const breadcrumbs = computed(() => [
 					<CostCodePicker
 						v-model="form.cost_code"
 						:project-id="form.project"
-						placeholder="— Not cost-coded —"
+						:placeholder="__('— Not cost-coded —')"
 					/>
 				</DeskField>
 			</DeskSection>
 
-			<DeskSection id="items-consumed" v-if="form.project" title="Items consumed" :cols="1">
+			<DeskSection id="items-consumed" v-if="form.project" :title="__('Items consumed')" :cols="1">
 				<!-- No store: an empty picker would look like an empty store. -->
 				<p v-if="!warehouse && !loadingStock" class="text-sm text-danger-700">
-					This project has no store, so nothing can be issued from it.
+					{{ __('This project has no store, so nothing can be issued from it.') }}
 				</p>
 
 				<template v-else-if="stock.length">
@@ -249,7 +249,7 @@ const breadcrumbs = computed(() => [
 						<DeskSearchableSelect
 							:model-value="addPick"
 							:options="pickerOptions"
-							placeholder="+ Add item — search name or code…"
+							:placeholder="__('+ Add item — search name or code…')"
 							search-placeholder="Search site stock…"
 							@update:model-value="addItem"
 						/>
@@ -263,10 +263,10 @@ const breadcrumbs = computed(() => [
 						<div
 							class="grid grid-cols-[1fr_110px_140px_110px_44px] gap-2 items-center px-3 py-2 bg-ink-50 border-b border-ink-200 text-[10px] uppercase tracking-wider text-ink-500 font-medium"
 						>
-							<span>Item</span>
-							<span class="text-right">In stock</span>
-							<span class="text-right">Issue now</span>
-							<span class="text-right">Left after</span>
+							<span>{{ __('Item') }}</span>
+							<span class="text-right">{{ __('In stock') }}</span>
+							<span class="text-right">{{ __('Issue now') }}</span>
+							<span class="text-right">{{ __('Left after') }}</span>
 							<span></span>
 						</div>
 						<div
@@ -314,21 +314,19 @@ const breadcrumbs = computed(() => [
 					</div>
 
 					<p v-if="form.lines.length" class="text-[11px] text-ink-400 mt-2">
-						You can't issue more than is at site — quantities cap at receipts received
-						less what's already been consumed.
+						{{ __('You can\'t issue more than is at site — quantities cap at receipts received less what\'s already been consumed.') }}
 					</p>
 					<div
 						v-else
 						class="border border-dashed border-ink-200 py-6 text-center text-sm text-ink-500 mt-4"
 						style="border-radius: 8px"
 					>
-						Nothing added yet. Use the picker above to choose what left the store.
+						{{ __('Nothing added yet. Use the picker above to choose what left the store.') }}
 					</div>
 				</template>
 
 				<p v-else-if="!loadingStock" class="text-sm text-ink-500">
-					Nothing in site stock for this project — record deliveries first; received
-					material shows up here.
+					{{ __('Nothing in site stock for this project — record deliveries first; received material shows up here.') }}
 				</p>
 			</DeskSection>
 			<ExtensionSlot :name="ext.slot('bottom')" :context="ext.context" />

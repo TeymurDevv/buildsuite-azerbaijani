@@ -109,9 +109,9 @@ const breadcrumbs = [
 </script>
 
 <template>
-	<DeskPage title="Delay Analysis" :breadcrumbs="breadcrumbs" printable>
+	<DeskPage :title="__('Delay Analysis')" :breadcrumbs="breadcrumbs" printable>
 		<p class="text-xs text-ink-500 mb-3">
-			Stages slipping, what sits downstream, silent tasks and the weekly completion trend.
+			{{ __('Stages slipping, what sits downstream, silent tasks and the weekly completion trend.') }}
 		</p>
 
 		<!-- Scope + filters -->
@@ -124,7 +124,7 @@ const breadcrumbs = [
 		>
 			<label class="flex items-center gap-1.5">
 				<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-					>Project</span
+					>{{ __('Project') }}</span
 				>
 				<span class="w-56 inline-block">
 					<DeskLinkPicker
@@ -133,7 +133,7 @@ const breadcrumbs = [
 						label-field="project_name"
 						value-field="name"
 						:search-fields="['project_name', 'name']"
-						placeholder="Pick a project…"
+						:placeholder="__('Pick a project…')"
 					/>
 				</span>
 			</label>
@@ -161,17 +161,17 @@ const breadcrumbs = [
 				<!-- Weekly trend is a chart of everything — nothing to narrow. -->
 				<label v-if="delayView !== 'trend'" class="flex items-center gap-1.5">
 					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>Find</span
+						>{{ __('Find') }}</span
 					>
 					<DeskInput v-model="f.q" :placeholder="viewMeta.find" class="!w-52" />
 				</label>
 
 				<label v-if="delayView === 'stages'" class="flex items-center gap-1.5">
 					<span class="text-[11px] uppercase tracking-wider text-ink-500 font-medium"
-						>Planned end</span
+						>{{ __('Planned end') }}</span
 					>
 					<DeskInput v-model="f.from" type="date" class="!w-36" />
-					<span class="text-[11px] text-ink-400">to</span>
+					<span class="text-[11px] text-ink-400">{{ __('to') }}</span>
 					<DeskInput v-model="f.to" type="date" class="!w-36" />
 				</label>
 
@@ -180,13 +180,13 @@ const breadcrumbs = [
 					class="flex items-center gap-1.5 cursor-pointer"
 				>
 					<input v-model="f.lateOnly" type="checkbox" class="accent-brand-600" />
-					<span class="text-[11px] text-ink-600">Slipping only</span>
+					<span class="text-[11px] text-ink-600">{{ __('Slipping only') }}</span>
 				</label>
 			</template>
 		</ReportFilters>
 
 		<div v-if="!projectId" class="text-sm text-ink-500 italic py-10 text-center">
-			Pick a project to run this report.
+			{{ __('Pick a project to run this report.') }}
 		</div>
 
 		<template v-else>
@@ -198,11 +198,11 @@ const breadcrumbs = [
 				<table class="w-full text-xs" style="min-width: 720px">
 					<thead class="bg-ink-50 text-ink-500 uppercase tracking-wider text-[10px]">
 						<tr>
-							<th class="text-left px-3 py-2">Stage</th>
-							<th class="text-left px-3 py-2">Planned</th>
-							<th class="text-right px-3 py-2">Complete</th>
-							<th class="text-right px-3 py-2">Slip</th>
-							<th class="text-left px-3 py-2">Downstream</th>
+							<th class="text-left px-3 py-2">{{ __('Stage') }}</th>
+							<th class="text-left px-3 py-2">{{ __('Planned') }}</th>
+							<th class="text-right px-3 py-2">{{ __('Complete') }}</th>
+							<th class="text-right px-3 py-2">{{ __('Slip') }}</th>
+							<th class="text-left px-3 py-2">{{ __('Downstream') }}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -249,10 +249,10 @@ const breadcrumbs = [
 				<table class="w-full text-xs" style="min-width: 560px">
 					<thead class="bg-ink-50 text-ink-500 uppercase tracking-wider text-[10px]">
 						<tr>
-							<th class="text-left px-3 py-2">Task</th>
-							<th class="text-left px-3 py-2">Status</th>
-							<th class="text-left px-3 py-2">Last entry</th>
-							<th class="text-right px-3 py-2">Days silent</th>
+							<th class="text-left px-3 py-2">{{ __('Task') }}</th>
+							<th class="text-left px-3 py-2">{{ __('Status') }}</th>
+							<th class="text-left px-3 py-2">{{ __('Last entry') }}</th>
+							<th class="text-right px-3 py-2">{{ __('Days silent') }}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -304,12 +304,12 @@ const breadcrumbs = [
 							></div>
 						</div>
 						<span class="text-[11px] tabular-nums text-ink-700 w-32 text-right"
-							>{{ w.entries }} entries · {{ w.completed }} completed</span
+							>{{ w.entries }} {{ __('entries ·') }} {{ w.completed }} {{ __('completed') }}</span
 						>
 					</div>
 				</div>
 				<p class="text-[11px] text-ink-400 mt-3">
-					Progress entries filed per week, most recent last.
+					{{ __('Progress entries filed per week, most recent last.') }}
 				</p>
 			</div>
 		</template>

@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 // Role-aware Home. One live aggregate read (api.home.get_home_dashboard) returns the
 // logged-in user's snapshot tiles, primary CTA and alert cards — the same per-role content
 // as the prototype's HomeWorkspaceView. This view is a thin renderer of that payload.
@@ -44,21 +45,21 @@ const greeting = computed(() => {
 });
 const userName = computed(() => {
 	const id = session.user && session.user !== "Guest" ? session.user : null;
-	return (id && resolveUserName(id)) || store.user?.name || "Admin User";
+	return (id && resolveUserName(id)) || store.user?.name || __("Admin User");
 });
 const roleLabel = computed(() =>
-	store.isAdmin ? __("System Manager (Admin)") : store.currentRole?.name || __("User")
+	store.isAdmin ? __("System Manager (Admin)") : __(store.currentRole?.name || "User")
 );
 const greetingSub = computed(
-	() => dash.value?.greeting_sub || __("Here is a snapshot of your work today.")
+	() => __(dash.value?.greeting_sub || "Here is a snapshot of your work today.")
 );
 const dateLabel = computed(() =>
-	new Intl.DateTimeFormat("en-GB", {
+	calendarDate(now, "en-GB", {
 		weekday: "long",
 		day: "2-digit",
 		month: "short",
 		year: "numeric",
-	}).format(now)
+	})
 );
 const initials = computed(() => {
 	const name = userName.value || "A D";

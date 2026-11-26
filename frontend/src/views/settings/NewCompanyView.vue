@@ -97,9 +97,9 @@ const breadcrumbs = [
 					class="mb-3 px-3 py-2 bg-warning-50 border border-warning-100 text-xs text-warning-700"
 					style="border-radius: 2px"
 				>
-					You're viewing this form as
+					{{ __('You\'re viewing this form as') }}
 					<span class="font-medium">{{ store.currentRole?.name }}</span
-					>. Saving requires the System Manager role.
+					>{{ __('. Saving requires the System Manager role.') }}
 				</div>
 
 				<DeskSection id="identity" :title="__('Identity')">
@@ -141,10 +141,10 @@ const breadcrumbs = [
 						:label="__('Default currency')"
 						:hint="__('ISO code. Defaults to INR.')"
 					>
-						<DeskInput v-model="form.currency" placeholder="INR" class="font-mono" />
+						<DeskInput v-model="form.currency" :placeholder="__('INR')" class="font-mono" />
 					</DeskField>
 					<DeskField :label="__('Country')" :hint="__('Defaults to India.')">
-						<DeskInput v-model="form.country" placeholder="India" />
+						<DeskInput v-model="form.country" :placeholder="__('India')" />
 					</DeskField>
 				</DeskSection>
 			</div>

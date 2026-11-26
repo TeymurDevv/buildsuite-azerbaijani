@@ -453,7 +453,7 @@ const DANGER =
 	<div>
 		<div v-if="isEdit && submittable" class="mb-4 flex items-center gap-2">
 			<StatusBadge :status="statusLabel" />
-			<span v-if="isDraft" class="text-[11px] text-ink-500">Not submitted yet.</span>
+			<span v-if="isDraft" class="text-[11px] text-ink-500">{{ __('Not submitted yet.') }}</span>
 		</div>
 
 		<div
@@ -464,7 +464,7 @@ const DANGER =
 		</div>
 
 		<div v-if="metaLoading || loading" class="text-sm text-ink-500 py-10 text-center">
-			Loading…
+			{{ __('Loading…') }}
 		</div>
 
 		<form v-else @submit.prevent="onSave">
@@ -498,7 +498,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onSubmit"
 					>
-						Submit
+						{{ __('Submit') }}
 					</button>
 					<button
 						v-if="perms.delete && !single"
@@ -507,7 +507,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onDelete"
 					>
-						Delete
+						{{ __('Delete') }}
 					</button>
 				</template>
 
@@ -520,7 +520,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onCancel"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 				</template>
 
@@ -533,7 +533,7 @@ const DANGER =
 						:disabled="busy"
 						@click="onAmend"
 					>
-						Amend
+						{{ __('Amend') }}
 					</button>
 					<button
 						v-if="perms.delete"
@@ -542,11 +542,11 @@ const DANGER =
 						:disabled="busy"
 						@click="onDelete"
 					>
-						Delete
+						{{ __('Delete') }}
 					</button>
 				</template>
 
-				<button type="button" :class="SECONDARY" @click="goList">Back</button>
+				<button type="button" :class="SECONDARY" @click="goList">{{ __('Back') }}</button>
 			</div>
 
 			<!-- Tabs (Tab Break fields) -->

@@ -165,12 +165,12 @@ function closePicker() {
 			<span
 				v-if="displayType === 'item'"
 				class="text-[9px] px-1 py-0.5 bg-brand-50 text-brand-700 rounded font-medium uppercase tracking-wider flex-shrink-0"
-				>Item</span
+				>{{ __('Item') }}</span
 			>
 			<span
 				v-else-if="displayType === 'group'"
 				class="text-[9px] px-1 py-0.5 bg-info-50 text-info-700 rounded font-medium uppercase tracking-wider flex-shrink-0"
-				>Group</span
+				>{{ __('Group') }}</span
 			>
 		</button>
 
@@ -189,16 +189,16 @@ function closePicker() {
 						class="px-4 py-3 border-b border-ink-200 flex items-center justify-between gap-3 flex-shrink-0"
 					>
 						<div class="flex-1">
-							<h2 class="text-sm font-semibold text-ink-900">Pick cost code</h2>
+							<h2 class="text-sm font-semibold text-ink-900">{{ __('Pick cost code') }}</h2>
 							<p class="text-[11px] text-ink-500 mt-0.5">
-								Pick a group, or expand and drill to an item.
+								{{ __('Pick a group, or expand and drill to an item.') }}
 							</p>
 						</div>
 						<button
 							type="button"
 							class="text-ink-400 hover:text-ink-900"
 							@click="closePicker"
-							aria-label="Close"
+							:aria-label="__('Close')"
 						>
 							✕
 						</button>
@@ -208,7 +208,7 @@ function closePicker() {
 						<input
 							v-model="search"
 							type="text"
-							placeholder="Search code or description (e.g. slab, flooring, D.02)…"
+							:placeholder="__('Search code or description (e.g. slab, flooring, D.02)…')"
 							class="w-full text-xs px-2 py-1.5 border border-ink-200 rounded focus:outline-none focus:ring-2 focus:ring-brand-200 focus:border-brand-400"
 						/>
 					</div>
@@ -218,20 +218,19 @@ function closePicker() {
 							v-if="loading"
 							class="px-4 py-12 text-center text-xs text-ink-400 italic"
 						>
-							Loading cost codes…
+							{{ __('Loading cost codes…') }}
 						</div>
 						<div
 							v-else-if="!codes.length"
 							class="px-4 py-12 text-center text-xs text-ink-400 italic"
 						>
-							No BOQ found for this project yet. Cost coding is best done after the
-							BOQ lands.
+							{{ __('No BOQ found for this project yet. Cost coding is best done after the BOQ lands.') }}
 						</div>
 						<div
 							v-else-if="!filteredGroups.length"
 							class="px-4 py-12 text-center text-xs text-ink-400 italic"
 						>
-							No matching cost codes.
+							{{ __('No matching cost codes.') }}
 						</div>
 						<ul v-else>
 							<li
@@ -258,7 +257,7 @@ function closePicker() {
 										<span class="text-ink-900">{{ g.name }}</span>
 										<span
 											class="ml-auto text-[9px] text-info-700 bg-info-50 px-1.5 py-0.5 rounded uppercase tracking-wider"
-											>Group</span
+											>{{ __('Group') }}</span
 										>
 									</button>
 								</div>
@@ -281,7 +280,7 @@ function closePicker() {
 											}}</span>
 											<span
 												class="text-[9px] text-brand-700 bg-brand-50 px-1.5 py-0.5 rounded uppercase tracking-wider whitespace-nowrap"
-												>Item</span
+												>{{ __('Item') }}</span
 											>
 										</button>
 									</li>
@@ -289,7 +288,7 @@ function closePicker() {
 										v-if="!filteredItemsForGroup(g.code).length"
 										class="px-3 py-2 pl-12 text-[11px] text-ink-400 italic"
 									>
-										No items match
+										{{ __('No items match') }}
 									</li>
 								</ul>
 							</li>
@@ -300,7 +299,7 @@ function closePicker() {
 						class="px-4 py-2 border-t border-ink-200 flex items-center justify-between gap-3 bg-ink-50/40 flex-shrink-0"
 					>
 						<span class="text-[11px] text-ink-500"
-							>Group covers most cases. Items are optional precision.</span
+							>{{ __('Group covers most cases. Items are optional precision.') }}</span
 						>
 						<button
 							v-if="modelValue"
@@ -308,7 +307,7 @@ function closePicker() {
 							class="text-[11px] text-danger-700 hover:underline"
 							@click="clearSelection"
 						>
-							Clear selection
+							{{ __('Clear selection') }}
 						</button>
 					</footer>
 				</div>

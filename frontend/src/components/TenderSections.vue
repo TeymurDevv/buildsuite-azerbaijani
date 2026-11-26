@@ -109,7 +109,7 @@ async function swapTemplate(i, id) {
 			<div class="text-[11px] uppercase tracking-wider text-ink-600 font-medium">
 				{{ title }}
 				<span class="text-ink-400 normal-case tracking-normal">
-					· {{ sections.length }} section{{ sections.length === 1 ? "" : "s" }}
+					· {{ sections.length }} {{ __('section') }}{{ sections.length === 1 ? "" : "s" }}
 				</span>
 			</div>
 			<button v-if="editable" type="button"
@@ -124,26 +124,26 @@ async function swapTemplate(i, id) {
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 				<label class="block">
 					<span class="text-[10px] uppercase tracking-wider text-ink-600 font-medium">
-						Start from a template
+						{{ __('Start from a template') }}
 					</span>
 					<DeskLinkPicker v-model="draft.template" doctype="Terms and Conditions"
-						:filters="clauseFilters" placeholder="Blank section" />
+						:filters="clauseFilters" :placeholder="__('Blank section')" />
 				</label>
 				<label class="block">
 					<span class="text-[10px] uppercase tracking-wider text-ink-600 font-medium">
-						Heading
+						{{ __('Heading') }}
 					</span>
 					<DeskInput v-model="draft.heading"
-						placeholder="Takes the template's name if left blank" />
+						:placeholder="__('Takes the template\'s name if left blank')" />
 				</label>
 			</div>
 			<div class="flex justify-end gap-2">
 				<button type="button"
 					class="text-xs px-2.5 py-1 border border-ink-200 bg-white text-ink-700 hover:bg-ink-50"
 					style="border-radius: 6px" @click="newOpen = false">
-					Cancel
+					{{ __('Cancel') }}
 				</button>
-				<button type="button" class="desk-save-btn" @click="addSection">Add section</button>
+				<button type="button" class="desk-save-btn" @click="addSection">{{ __('Add section') }}</button>
 			</div>
 		</div>
 
@@ -159,7 +159,7 @@ async function swapTemplate(i, id) {
 						{{ s.template ? "Template" : "Manual" }}
 					</span>
 					<button v-if="editable" type="button" class="text-ink-400 hover:text-danger-700 px-1"
-						title="Remove section" @click="remove(i)">
+						:title="__('Remove section')" @click="remove(i)">
 						×
 					</button>
 				</div>
@@ -167,7 +167,7 @@ async function swapTemplate(i, id) {
 			<div class="p-4 space-y-2" @focusout="(e) => commitText(i, e)">
 				<div v-if="editable" class="max-w-md">
 					<DeskLinkPicker :model-value="s.template" doctype="Terms and Conditions"
-						:filters="clauseFilters" placeholder="Pull in a different clause…"
+						:filters="clauseFilters" :placeholder="__('Pull in a different clause…')"
 						@update:model-value="(v) => (v ? swapTemplate(i, v) : patch(i, { template: null }))" />
 				</div>
 				<RichTextEditor v-if="editable" :model-value="s.text"

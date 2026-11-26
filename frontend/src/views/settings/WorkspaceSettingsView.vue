@@ -219,11 +219,11 @@ onMounted(() => {
 
 				<DeskSection :title="__('{0} reports', [activeLabel])" :cols="1">
 					<p class="text-sm text-ink-500 -mt-1">
-						Tiles render in the {{ activeLabel }} workspace in the order below. Set a
-						<strong>Report</strong> (its Desk route is used) <em>or</em> a
-						<strong>Route</strong> (an in-app path like
-						<code>/subcontractor-work-orders</code>, or a Desk URL like
-						<code>/app/query-report/Stock Balance</code>). Route overrides Report.
+						{{ __('Tiles render in the') }} {{ activeLabel }} {{ __('workspace in the order below. Set a') }}
+						<strong>{{ __('Report') }}</strong> {{ __('(its Desk route is used)') }} <em>{{ __('or') }}</em> a
+						<strong>{{ __('Route') }}</strong> {{ __('(an in-app path like') }}
+						<code>{{ __('/subcontractor-work-orders') }}</code>{{ __(', or a Desk URL like') }}
+						<code>{{ __('/app/query-report/Stock Balance') }}</code>{{ __('). Route overrides Report.') }}
 					</p>
 					<div class="overflow-x-auto">
 						<table class="w-full text-sm">
@@ -275,7 +275,7 @@ onMounted(() => {
 										/>
 									</td>
 									<td class="py-1 pr-2">
-										<DeskInput v-model="r.icon" placeholder="file-text" />
+										<DeskInput v-model="r.icon" :placeholder="__('file-text')" />
 									</td>
 									<td class="py-1 pr-2">
 										<DeskInput
@@ -326,9 +326,8 @@ onMounted(() => {
 
 				<DeskSection :title="__('{0} records', [activeLabel])" :cols="1">
 					<p class="text-sm text-ink-500 -mt-1">
-						DocType tiles render in the {{ activeLabel }} workspace's
-						<strong>Records</strong> group. Each opens the generic list + add/edit form
-						for that DocType (columns and filters come from the DocType's own fields).
+						{{ __('DocType tiles render in the') }} {{ activeLabel }} {{ __('workspace\'s') }}
+						<strong>{{ __('Records') }}</strong> {{ __('group. Each opens the generic list + add/edit form for that DocType (columns and filters come from the DocType\'s own fields).') }}
 					</p>
 					<div class="overflow-x-auto">
 						<table class="w-full text-sm">
@@ -372,7 +371,7 @@ onMounted(() => {
 										/>
 									</td>
 									<td class="py-1 pr-2">
-										<DeskInput v-model="r.icon" placeholder="file-text" />
+										<DeskInput v-model="r.icon" :placeholder="__('file-text')" />
 									</td>
 									<td class="py-1 pr-2">
 										<DeskInput

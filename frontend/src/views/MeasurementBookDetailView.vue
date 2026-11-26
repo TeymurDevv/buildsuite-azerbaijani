@@ -1,4 +1,5 @@
 <script setup>
+import { numberLocale } from "@/utils/locale";
 // Measurement Book detail — header strip + entries table + running
 // measured total. Actions: Edit (Draft) / Certify / Revert to Draft /
 // Delete. Certified books are the source of measured-to-date on the WO.
@@ -250,7 +251,7 @@ const breadcrumbs = computed(() => [
 					{{ __("Measured total") }}
 				</div>
 				<div class="text-base font-semibold text-info-700 tabular-nums mt-0.5">
-					{{ Number(mb.measured_total || 0).toLocaleString("en-IN") }}
+					{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
 				</div>
 				<div class="text-[10px] text-ink-500">
 					{{
@@ -330,7 +331,7 @@ const breadcrumbs = computed(() => [
 						</td>
 						<td class="px-3 py-2 text-right tabular-nums text-ink-900 font-medium">
 							{{ e.is_deduction ? "−" : ""
-							}}{{ Number(e.quantity || 0).toLocaleString("en-IN") }}
+							}}{{ Number(e.quantity || 0).toLocaleString(numberLocale("en-IN")) }}
 						</td>
 						<td class="px-3 py-2 text-ink-500">{{ e.uom }}</td>
 						<td class="px-3 py-2 text-center">
@@ -358,7 +359,7 @@ const breadcrumbs = computed(() => [
 						<td
 							class="px-3 py-2 text-right tabular-nums text-sm font-semibold text-info-700"
 						>
-							{{ Number(mb.measured_total || 0).toLocaleString("en-IN") }}
+							{{ Number(mb.measured_total || 0).toLocaleString(numberLocale("en-IN")) }}
 						</td>
 						<td colspan="2"></td>
 					</tr>

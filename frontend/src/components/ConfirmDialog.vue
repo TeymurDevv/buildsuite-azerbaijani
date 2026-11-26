@@ -51,7 +51,7 @@ function confirm() {
 					<button
 						type="button"
 						class="text-ink-500 hover:text-ink-900 text-lg leading-none ml-3"
-						aria-label="Close"
+						:aria-label="__('Close')"
 						:disabled="loading"
 						@click="close"
 					>
@@ -77,7 +77,7 @@ function confirm() {
 						:disabled="loading"
 						@click="close"
 					>
-						Cancel
+						{{ __('Cancel') }}
 					</button>
 					<button
 						type="button"

@@ -55,7 +55,7 @@ function linkTo(match) {
 					class="desk-link ml-auto"
 					@click="emit('open', m)"
 				>
-					{{ __("Open") }}
+					{{ __("Open record") }}
 				</RouterLink>
 			</li>
 		</ul>

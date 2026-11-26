@@ -1,4 +1,5 @@
 <script setup>
+import { fixedNumber } from "@/utils/locale";
 // BOQ list — the generic DocTypeListView (server paging, sort, the Add-filter editor) over the BOQ
 // doctype. The KPI strip counts / sums on the server, and Actual + Variance are layered onto the
 // visible page from the cost-code actuals log (not the stored actual_amount).
@@ -253,7 +254,7 @@ const subtitle = computed(() =>
 				to="/rate-master"
 				class="text-xs px-2 py-1 border border-ink-200 bg-white hover:bg-ink-50"
 				style="border-radius: 2px"
-				>{{ currencySymbol() }} Rate Master</DeskLink
+				>{{ currencySymbol() }} {{ __('Rate Master') }}</DeskLink
 			>
 			<button v-if="canCreate('boq')" type="button" class="desk-save-btn" @click="openNew">
 				{{ __("+ New BOQ") }}
@@ -301,7 +302,7 @@ const subtitle = computed(() =>
 					class="text-base font-semibold mt-0.5 tabular-nums"
 					:class="variancePill(kpis.variancePct)"
 				>
-					{{ kpis.variancePct > 0 ? "+" : "" }}{{ kpis.variancePct.toFixed(1) }}%
+					{{ kpis.variancePct > 0 ? "+" : "" }}{{ fixedNumber(kpis.variancePct, 1) }}%
 				</div>
 				<div class="text-[10px] text-ink-500 mt-0.5">
 					{{ __("{0} delta", [fmtCompactINR(kpis.variance)]) }}
@@ -409,7 +410,7 @@ const subtitle = computed(() =>
 			<template #cell-variance="{ row }">
 				<span class="tabular-nums" :class="variancePill(boqTotals(row).variancePct)">
 					{{ boqTotals(row).variancePct > 0 ? "+" : ""
-					}}{{ boqTotals(row).variancePct.toFixed(1) }}%
+					}}{{ fixedNumber(boqTotals(row).variancePct, 1) }}%
 				</span>
 			</template>
 

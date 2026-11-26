@@ -43,7 +43,7 @@ const statusList = computed(() => {
 		<nav
 			v-if="breadcrumbs.length"
 			class="text-[11px] text-ink-500 flex items-center gap-1.5 flex-wrap mb-1.5"
-			aria-label="Breadcrumb"
+			:aria-label="__('Breadcrumb')"
 		>
 			<template v-for="(c, i) in breadcrumbs" :key="i">
 				<RouterLink v-if="c.to" :to="c.to" class="desk-link">{{ c.label }}</RouterLink>
@@ -75,7 +75,7 @@ const statusList = computed(() => {
 					type="button"
 					class="text-xs px-2.5 py-1 border border-ink-200 bg-white hover:bg-ink-50 text-ink-700 flex items-center gap-1.5"
 					style="border-radius: 6px"
-					title="Print, or save as PDF from the print dialog"
+					:title="__('Print, or save as PDF from the print dialog')"
 					@click="printPage"
 				>
 					<svg
@@ -93,7 +93,7 @@ const statusList = computed(() => {
 						/>
 						<path d="M6 14h12v8H6z" />
 					</svg>
-					Print
+					{{ __('Print') }}
 				</button>
 			</div>
 		</div>

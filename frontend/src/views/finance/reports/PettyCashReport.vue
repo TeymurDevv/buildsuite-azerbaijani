@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDateTime } from "@/utils/locale";
 // Petty Cash report — a LIVE personal statement per holder. Nothing renders until a
 // holder is picked (deep-linkable via ?holder=). One combined ledger over both legs:
 // Petty Cash Request disbursements (money in) and petty-cash Expense Entries (money
@@ -132,7 +133,7 @@ function exportCsv() {
 	if (projectFilter.value) lines.push([__("Project"), projectName(projectFilter.value)].map(csvCell).join(","));
 	if (accountFilter.value) lines.push([__("Expense account"), accountFilter.value].map(csvCell).join(","));
 	if (statusFilter.value) lines.push([__("Status"), statusFilter.value].map(csvCell).join(","));
-	lines.push([__("Generated"), new Date().toLocaleString("en-IN")].map(csvCell).join(","));
+	lines.push([__("Generated"), calendarDateTime(new Date(), "en-IN")].map(csvCell).join(","));
 	lines.push("");
 	lines.push([__("Disbursed (period)"), totalIn.value].map(csvCell).join(","));
 	lines.push([__("Submitted spend (period)"), verifiedOut.value].map(csvCell).join(","));

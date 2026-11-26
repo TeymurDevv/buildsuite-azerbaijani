@@ -424,7 +424,7 @@ const showPagination = computed(() => {
 					class="desk-link text-xs px-1.5"
 					@click="onAddFilter"
 				>
-					+ Add filter
+					{{ __('+ Add filter') }}
 				</button>
 
 				<div class="ml-auto flex items-center gap-1">
@@ -444,7 +444,7 @@ const showPagination = computed(() => {
 						style="border-radius: 6px"
 						@click="emit('toggle-columns')"
 					>
-						Columns ▾
+						{{ __('Columns ▾') }}
 					</button>
 					<!-- Consumer-supplied action button(s) sit at the far right, after
              Sort + Columns. Convention: primary "+ New / + Add" CTAs go here. -->
@@ -461,7 +461,7 @@ const showPagination = computed(() => {
 								<input
 									type="checkbox"
 									:checked="allSelected"
-									aria-label="Select all rows"
+									:aria-label="__('Select all rows')"
 									@change="toggleAll"
 								/>
 							</th>
@@ -542,7 +542,7 @@ const showPagination = computed(() => {
 								class="px-3 py-12 text-center"
 							>
 								<slot name="empty">
-									<div class="text-sm text-ink-500">No records found</div>
+									<div class="text-sm text-ink-500">{{ __('No records found') }}</div>
 								</slot>
 							</td>
 						</tr>
@@ -556,7 +556,7 @@ const showPagination = computed(() => {
 				class="border-t border-ink-200 px-3 py-2 flex items-center gap-3 flex-wrap text-xs text-ink-600"
 			>
 				<div class="flex items-center gap-2">
-					<span class="text-ink-500">Rows per page</span>
+					<span class="text-ink-500">{{ __('Rows per page') }}</span>
 					<select
 						data-test="pager-size"
 						:value="pageSizeValue"
@@ -571,9 +571,9 @@ const showPagination = computed(() => {
 				</div>
 
 				<div class="text-ink-500 tabular-nums">
-					Showing
+					{{ __('Showing') }}
 					<span class="text-ink-800 font-medium">{{ rangeStart }}–{{ rangeEnd }}</span>
-					of
+					{{ __('of') }}
 					<span class="text-ink-800 font-medium">{{ totalRowsValue }}</span>
 				</div>
 
@@ -586,10 +586,10 @@ const showPagination = computed(() => {
 						:disabled="pageValue <= 1"
 						@click="goPrev"
 					>
-						‹ Prev
+						{{ __('‹ Prev') }}
 					</button>
 					<span class="text-ink-500 tabular-nums px-2">
-						Page <span class="text-ink-800 font-medium">{{ pageValue }}</span> of
+						{{ __('Page') }} <span class="text-ink-800 font-medium">{{ pageValue }}</span> {{ __('of') }}
 						<span class="text-ink-800 font-medium">{{ totalPages }}</span>
 					</span>
 					<button
@@ -600,7 +600,7 @@ const showPagination = computed(() => {
 						:disabled="pageValue >= totalPages"
 						@click="goNext"
 					>
-						Next ›
+						{{ __('Next ›') }}
 					</button>
 				</div>
 			</div>

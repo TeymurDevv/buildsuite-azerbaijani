@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate, fixedNumber } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -12,7 +13,7 @@ const role = ROLES.find((r) => r.id === ROLE_ID);
 const store = useDataStore();
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -86,7 +87,7 @@ const topRisks = computed(() => {
 				key: `cost-${p.id}`,
 				dot: "bg-warning-500",
 				kind: "Cost / pace risk",
-				title: `${v.toFixed(1)}% behind expected pace`,
+				title: `${fixedNumber(v, 1)}% behind expected pace`,
 				project: p.name,
 				to: `/projects/${p.id}`,
 			});
@@ -130,14 +131,14 @@ const highValueApprovals = computed(() =>
 					{{ role.shortName }} · Portfolio overview
 				</p>
 			</div>
-			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">Good morning</h1>
+			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __("Good morning") }}</h1>
 			<p class="text-sm text-ink-500 mt-1">{{ todayLabel }}</p>
 
 			<!-- KPI strip -->
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Active projects
+						{{ __("Active projects") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">
 						{{ store.activeProjectsCount }}
@@ -145,7 +146,7 @@ const highValueApprovals = computed(() =>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Total order book
+						{{ __("Total order book") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">
 						{{ fmtCompactINR(store.totalOrderBook) }}
@@ -153,13 +154,13 @@ const highValueApprovals = computed(() =>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Avg variance
+						{{ __("Avg variance") }}
 					</div>
 					<div
 						class="text-2xl font-semibold mt-1 tabular-nums"
 						:class="variancePill(avgVariancePct)"
 					>
-						{{ avgVariancePct > 0 ? "+" : "" }}{{ avgVariancePct.toFixed(1) }}%
+						{{ avgVariancePct > 0 ? "+" : "" }}{{ fixedNumber(avgVariancePct, 1) }}%
 					</div>
 					<div class="text-[11px] text-ink-400 mt-0.5">
 						{{ avgVariancePct > 0 ? "behind" : "ahead of" }} plan, schedule basis
@@ -167,7 +168,7 @@ const highValueApprovals = computed(() =>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Open SCOs · value
+						{{ __("Open SCOs · value") }}
 					</div>
 					<div class="text-2xl font-semibold text-warning-700 mt-1">
 						{{ fmtCompactINR(pendingScosValue) }}
@@ -187,12 +188,12 @@ const highValueApprovals = computed(() =>
 					<div
 						class="px-4 py-3 border-b border-ink-200 flex items-center justify-between"
 					>
-						<h2 class="font-semibold text-ink-900 text-sm">Project health</h2>
+						<h2 class="font-semibold text-ink-900 text-sm">{{ __("Project health") }}</h2>
 						<RouterLink
 							v-if="showProjectsMore"
 							to="/projects"
 							class="text-xs text-brand-600 hover:underline"
-							>View all →</RouterLink
+							>{{ __("View all →") }}</RouterLink
 						>
 					</div>
 					<div class="divide-y divide-ink-100">
@@ -246,7 +247,7 @@ const highValueApprovals = computed(() =>
 										:class="variancePill(p.variancePct)"
 									>
 										{{ p.variancePct > 0 ? "+" : ""
-										}}{{ p.variancePct.toFixed(1) }}% variance
+										}}{{ fixedNumber(p.variancePct, 1) }}% variance
 									</div>
 								</div>
 							</div>
@@ -255,9 +256,9 @@ const highValueApprovals = computed(() =>
 							v-if="!projectHealthRows.length"
 							class="px-4 py-8 text-center text-sm text-ink-400"
 						>
-							No projects yet ·
+							{{ __("No projects yet ·") }}
 							<RouterLink to="/projects/new" class="text-brand-600 hover:underline"
-								>Create one →</RouterLink
+								>{{ __("Create one →") }}</RouterLink
 							>
 						</div>
 					</div>
@@ -266,8 +267,8 @@ const highValueApprovals = computed(() =>
 				<!-- Top risks -->
 				<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 					<div class="px-4 py-3 border-b border-ink-200">
-						<h2 class="font-semibold text-ink-900 text-sm">Top risks</h2>
-						<p class="text-[11px] text-ink-500 mt-0.5">Schedule · cost · decisions</p>
+						<h2 class="font-semibold text-ink-900 text-sm">{{ __("Top risks") }}</h2>
+						<p class="text-[11px] text-ink-500 mt-0.5">{{ __("Schedule · cost · decisions") }}</p>
 					</div>
 					<div class="divide-y divide-ink-100">
 						<RouterLink
@@ -298,9 +299,9 @@ const highValueApprovals = computed(() =>
 						</RouterLink>
 						<div v-if="!topRisks.length" class="px-4 py-8 text-center">
 							<div class="text-2xl mb-1">✓</div>
-							<div class="text-sm text-ink-700">No critical risks detected</div>
+							<div class="text-sm text-ink-700">{{ __("No critical risks detected") }}</div>
 							<p class="text-xs text-ink-500 mt-1">
-								Schedule, cost, and decisions all within tolerance.
+								{{ __("Schedule, cost, and decisions all within tolerance.") }}
 							</p>
 						</div>
 					</div>
@@ -310,7 +311,7 @@ const highValueApprovals = computed(() =>
 			<!-- High-value approvals -->
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden mt-6">
 				<div class="px-4 py-3 border-b border-ink-200 flex items-center justify-between">
-					<h2 class="font-semibold text-ink-900 text-sm">High-value approvals</h2>
+					<h2 class="font-semibold text-ink-900 text-sm">{{ __("High-value approvals") }}</h2>
 					<span class="text-[11px] text-ink-500">SCO impact &gt; {{ currencySymbol() }}10 L</span>
 				</div>
 				<div class="divide-y divide-ink-100">
@@ -341,13 +342,13 @@ const highValueApprovals = computed(() =>
 								{{ s.recoverable ? "recoverable" : "absorbed" }}
 							</div>
 						</div>
-						<span class="text-brand-600 text-sm flex-shrink-0">Review →</span>
+						<span class="text-brand-600 text-sm flex-shrink-0">{{ __("Review →") }}</span>
 					</RouterLink>
 					<div
 						v-if="!highValueApprovals.length"
 						class="px-4 py-8 text-center text-sm text-ink-400"
 					>
-						No high-value approvals pending.
+						{{ __("No high-value approvals pending.") }}
 					</div>
 				</div>
 			</div>

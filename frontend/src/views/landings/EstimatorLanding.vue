@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -19,7 +20,7 @@ const store = useDataStore();
 const ESTIMATOR_USER_ID = "USR-003";
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -69,7 +70,7 @@ const tiles = computed(() =>
 				</p>
 			</div>
 			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">
-				BOQs to estimate this week
+				{{ __("BOQs to estimate this week") }}
 			</h1>
 			<p class="text-sm text-ink-500 mt-1">
 				{{ todayLabel }} ·
@@ -82,42 +83,42 @@ const tiles = computed(() =>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Active estimates
+						{{ __("Active estimates") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">
 						{{ store.draftBoqsCount }}
 					</div>
 					<div class="text-[11px] text-ink-400 mt-0.5">
-						Draft BOQs awaiting submission
+						{{ __("Draft BOQs awaiting submission") }}
 					</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Tenders due
+						{{ __("Tenders due") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">—</div>
-					<div class="text-[11px] text-ink-400 mt-0.5">This week</div>
+					<div class="text-[11px] text-ink-400 mt-0.5">{{ __("This week") }}</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Avg win rate
+						{{ __("Avg win rate") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">62%</div>
-					<div class="text-[11px] text-ink-400 mt-0.5">Last 12 months</div>
+					<div class="text-[11px] text-ink-400 mt-0.5">{{ __("Last 12 months") }}</div>
 				</div>
 				<div class="bg-white border border-ink-200 rounded-xl p-4">
 					<div class="text-[11px] uppercase tracking-wider text-ink-500 font-medium">
-						Approved BOQs
+						{{ __("Approved BOQs") }}
 					</div>
 					<div class="text-2xl font-semibold text-ink-900 mt-1">
 						{{ store.activeBoqsCount }}
 					</div>
-					<div class="text-[11px] text-ink-400 mt-0.5">In execution as templates</div>
+					<div class="text-[11px] text-ink-400 mt-0.5">{{ __("In execution as templates") }}</div>
 				</div>
 			</div>
 
 			<!-- Recent estimates -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Recent estimates</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Recent estimates") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div class="divide-y divide-ink-100">
 					<RouterLink
@@ -150,9 +151,9 @@ const tiles = computed(() =>
 						v-if="!recentEstimates.length"
 						class="px-4 py-8 text-center text-sm text-ink-400"
 					>
-						No draft BOQs ·
+						{{ __("No draft BOQs ·") }}
 						<RouterLink to="/boq" class="text-brand-600 hover:underline"
-							>Open Estimation →</RouterLink
+							>{{ __("Open Estimation →") }}</RouterLink
 						>
 					</div>
 				</div>
@@ -160,7 +161,7 @@ const tiles = computed(() =>
 					v-if="draftValueTotal > 0"
 					class="px-4 py-2 bg-ink-50 text-[11px] text-ink-600 text-right"
 				>
-					Combined planned value across shown drafts:
+					{{ __("Combined planned value across shown drafts:") }}
 					<span class="font-medium tabular-nums">{{
 						fmtCompactINR(draftValueTotal)
 					}}</span>
@@ -168,7 +169,7 @@ const tiles = computed(() =>
 			</div>
 
 			<!-- Your workspaces -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Your workspaces</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Your workspaces") }}</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
 				<RouterLink
 					v-for="t in tiles"

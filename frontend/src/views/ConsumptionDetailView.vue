@@ -174,7 +174,7 @@ const breadcrumbs = computed(() => [
 				style="border-radius: 6px"
 				@click="router.push(`/material-consumption/${doc.name}/edit`)"
 			>
-				Edit
+				{{ __('Edit') }}
 			</button>
 			<button
 				v-if="(isDraft || isCancelled) && canDelete('materialConsumption')"
@@ -183,7 +183,7 @@ const breadcrumbs = computed(() => [
 				style="border-radius: 6px"
 				@click="onDelete"
 			>
-				Delete
+				{{ __('Delete') }}
 			</button>
 
 			<button
@@ -193,7 +193,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onSubmit"
 			>
-				Submit
+				{{ __('Submit') }}
 			</button>
 			<button
 				v-if="!wfActive && isSubmitted && canSubmit('materialConsumption')"
@@ -203,7 +203,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onCancelEntry"
 			>
-				Cancel
+				{{ __('Cancel') }}
 			</button>
 			<button
 				v-if="!wfActive && isCancelled && canCreate('materialConsumption')"
@@ -213,7 +213,7 @@ const breadcrumbs = computed(() => [
 				:disabled="busy"
 				@click="onAmend"
 			>
-				Amend
+				{{ __('Amend') }}
 			</button>
 
 			<!-- One button per allowed transition. -->
@@ -236,20 +236,18 @@ const breadcrumbs = computed(() => [
 			style="border-radius: 6px"
 		>
 			<template v-if="isDraft">
-				Draft — nothing has been deducted from site stock yet. Submit to post it.
+				{{ __('Draft — nothing has been deducted from site stock yet. Submit to post it.') }}
 			</template>
 			<template v-else-if="isCancelled">
-				This record is <span class="font-semibold">cancelled</span> — the quantities went
-				back to site stock. Click <span class="font-medium">Amend</span> to create a
-				corrected Draft.
+				{{ __('This record is') }} <span class="font-semibold">{{ __('cancelled') }}</span> {{ __('— the quantities went back to site stock. Click') }} <span class="font-medium">{{ __('Amend') }}</span> {{ __('to create a corrected Draft.') }}
 			</template>
 			<template v-else>
-				Posted — the quantities have left site stock. Cancel to reverse it.
+				{{ __('Posted — the quantities have left site stock. Cancel to reverse it.') }}
 			</template>
 		</div>
 
 		<div v-if="doc.amended_from" class="mb-4 text-xs text-ink-500">
-			Amended from
+			{{ __('Amended from') }}
 			<DeskLink :to="`/material-consumption/${doc.amended_from}`" class="font-mono">
 				{{ doc.amended_from }}
 			</DeskLink>
@@ -259,7 +257,7 @@ const breadcrumbs = computed(() => [
 		<div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					Project
+					{{ __('Project') }}
 				</div>
 				<DeskLink v-if="doc.project" :to="`/projects/${doc.project}`" class="text-sm">
 					{{ doc.project_name || projectLabel(doc.project) || doc.project }}
@@ -268,7 +266,7 @@ const breadcrumbs = computed(() => [
 			</div>
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					Cost code
+					{{ __('Cost code') }}
 				</div>
 				<span
 					v-if="doc.cost_code_label"
@@ -276,11 +274,11 @@ const breadcrumbs = computed(() => [
 					style="border-radius: 4px"
 					>{{ doc.cost_code_label }}</span
 				>
-				<div v-else class="text-sm text-ink-400 mt-0.5">Not cost-coded</div>
+				<div v-else class="text-sm text-ink-400 mt-0.5">{{ __('Not cost-coded') }}</div>
 			</div>
 			<div class="bg-white border border-ink-200 px-3 py-2" style="border-radius: 6px">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium">
-					Recorded by
+					{{ __('Recorded by') }}
 				</div>
 				<div class="mt-0.5">
 					<FrappeUserBadge v-if="doc.owner" :user-id="doc.owner" size="xs" />
@@ -293,8 +291,8 @@ const breadcrumbs = computed(() => [
 			<div
 				class="grid grid-cols-[1fr_140px_120px] gap-2 bg-ink-50 border-b border-ink-200 px-3 py-2 text-[10px] uppercase tracking-wider text-ink-500 font-medium"
 			>
-				<span>Item</span>
-				<span class="text-right">Qty consumed</span>
+				<span>{{ __('Item') }}</span>
+				<span class="text-right">{{ __('Qty consumed') }}</span>
 				<span>UOM</span>
 			</div>
 			<div
@@ -310,7 +308,7 @@ const breadcrumbs = computed(() => [
 				v-if="!doc.items.length"
 				class="px-3 py-6 text-center text-xs text-ink-400 italic"
 			>
-				No items on this entry.
+				{{ __('No items on this entry.') }}
 			</div>
 		</div>
 	</DeskPage>
@@ -319,8 +317,8 @@ const breadcrumbs = computed(() => [
 
 	<div v-else-if="!loading" class="desk-page">
 		<p class="text-sm text-ink-500">
-			Consumption record not found.
-			<DeskLink to="/material-consumption">Back to log →</DeskLink>
+			{{ __('Consumption record not found.') }}
+			<DeskLink to="/material-consumption">{{ __('Back to log →') }}</DeskLink>
 		</p>
 	</div>
 </template>

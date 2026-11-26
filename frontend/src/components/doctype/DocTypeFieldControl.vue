@@ -96,7 +96,7 @@ function onCheck(e) {
 		class="inline-flex items-center gap-2 text-xs text-ink-700 h-[34px]"
 	>
 		<input type="checkbox" :checked="!!modelValue" :disabled="disabled" @change="onCheck" />
-		<span v-if="!compact">Yes</span>
+		<span v-if="!compact">{{ __('Yes') }}</span>
 	</label>
 	<DeskInput v-else-if="kind === 'date'" v-model="val" type="date" :disabled="disabled" />
 	<DeskInput

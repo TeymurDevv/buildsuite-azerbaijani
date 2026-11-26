@@ -86,18 +86,18 @@ function openReference() {
 			<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 			</svg>
-			All notifications
+			{{ __('All notifications') }}
 		</RouterLink>
 
-		<div v-if="loading" class="text-sm text-ink-500 px-1 py-14 text-center">Loading…</div>
+		<div v-if="loading" class="text-sm text-ink-500 px-1 py-14 text-center">{{ __('Loading…') }}</div>
 
 		<div
 			v-else-if="notFound || !note"
 			class="border border-dashed border-ink-200 rounded-xl px-4 py-14 text-center"
 		>
-			<div class="text-sm text-ink-700">That notification is not here.</div>
+			<div class="text-sm text-ink-700">{{ __('That notification is not here.') }}</div>
 			<div class="text-xs text-ink-500 mt-1">
-				It may have been cleared, or it belongs to someone else.
+				{{ __('It may have been cleared, or it belongs to someone else.') }}
 			</div>
 		</div>
 
@@ -138,7 +138,7 @@ function openReference() {
 			<!-- Referenced record -->
 			<div v-if="reference" class="px-4 sm:px-5 py-3 border-t border-ink-100">
 				<div class="text-[10px] uppercase tracking-wider text-ink-500 font-medium mb-1.5">
-					Related record
+					{{ __('Related record') }}
 				</div>
 				<button
 					type="button"

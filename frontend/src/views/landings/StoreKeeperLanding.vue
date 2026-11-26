@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -18,7 +19,7 @@ const store = useDataStore();
 const STORE_KEEPER_USER_ID = "USR-007";
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -94,7 +95,7 @@ const tiles = computed(() =>
 					{{ role.shortName }} · Site stores
 				</p>
 			</div>
-			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">Stock status today</h1>
+			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __("Stock status today") }}</h1>
 			<p class="text-sm text-ink-500 mt-1">
 				{{ todayLabel }} ·
 				<span class="text-ink-700 font-medium"
@@ -119,7 +120,7 @@ const tiles = computed(() =>
 			</div>
 
 			<!-- Today's GRN list -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Today's GRN list</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Today's GRN list") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div class="divide-y divide-ink-100">
 					<RouterLink
@@ -149,7 +150,7 @@ const tiles = computed(() =>
 			</div>
 
 			<!-- Your workspaces -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Your workspaces</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Your workspaces") }}</h2>
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
 				<RouterLink
 					v-for="t in tiles"

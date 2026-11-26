@@ -1,3 +1,4 @@
+import { calendarDate, displayLocale } from "@/utils/locale";
 // Insights — the query model behind the prompt box (first layer).
 //
 // HONESTY NOTE, read before extending. There is no model call. A prompt is
@@ -23,6 +24,12 @@ const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 function monthOf(iso) {
 	if (!iso) return "—";
 	const [y, m] = String(iso).slice(0, 7).split("-");
+	const locale = displayLocale();
+	if (locale && /^\d{4}$/.test(y) && Number(m) >= 1 && Number(m) <= 12) {
+		return calendarDate(new Date(Number(y), Number(m) - 1, 1), locale, {
+			month: "short", year: "numeric",
+		});
+	}
 	return m ? `${MONTHS[Number(m) - 1]} ${y}` : "—";
 }
 const n = (v) => Number(v) || 0;

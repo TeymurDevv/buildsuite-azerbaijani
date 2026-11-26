@@ -1,4 +1,5 @@
 <script setup>
+import { calendarDate, fixedNumber } from "@/utils/locale";
 import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import { ROLES } from "@/data/roles";
@@ -18,7 +19,7 @@ const store = useDataStore();
 const PM_USER_ID = "USR-002";
 
 const today = new Date();
-const todayLabel = today.toLocaleDateString("en-IN", {
+const todayLabel = calendarDate(today, "en-IN", {
 	weekday: "long",
 	day: "2-digit",
 	month: "short",
@@ -123,7 +124,7 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 					{{ role.shortName }} · My projects
 				</p>
 			</div>
-			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">Good morning</h1>
+			<h1 class="text-2xl font-semibold text-ink-900 tracking-tight">{{ __("Good morning") }}</h1>
 			<p class="text-sm text-ink-500 mt-1">
 				{{ todayLabel }} ·
 				<span class="text-ink-700 font-medium"
@@ -138,7 +139,7 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 			</p>
 
 			<!-- My projects -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">My projects</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("My projects") }}</h2>
 			<div v-if="projectCards.length" class="grid grid-cols-1 md:grid-cols-2 gap-3">
 				<RouterLink
 					v-for="p in projectCards"
@@ -162,7 +163,7 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 								class="text-[11px] tabular-nums mt-0.5"
 								:class="variancePill(p.variancePct)"
 							>
-								{{ p.variancePct > 0 ? "+" : "" }}{{ p.variancePct.toFixed(1) }}%
+								{{ p.variancePct > 0 ? "+" : "" }}{{ fixedNumber(p.variancePct, 1) }}%
 							</div>
 						</div>
 					</div>
@@ -206,14 +207,14 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 				v-else
 				class="bg-white border border-ink-200 rounded-xl px-4 py-8 text-center text-sm text-ink-500"
 			>
-				No projects assigned to you.
+				{{ __("No projects assigned to you.") }}
 				<RouterLink to="/projects/new" class="text-brand-600 hover:underline"
-					>Create one →</RouterLink
+					>{{ __("Create one →") }}</RouterLink
 				>
 			</div>
 
 			<!-- Pending approvals -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Pending approvals</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Pending approvals") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div class="divide-y divide-ink-100">
 					<RouterLink
@@ -241,13 +242,13 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 							</div>
 						</div>
 						<UserAvatar :user-id="a.raisedBy" size="xs" />
-						<span class="text-brand-600 text-sm flex-shrink-0">Review →</span>
+						<span class="text-brand-600 text-sm flex-shrink-0">{{ __("Review →") }}</span>
 					</RouterLink>
 					<div
 						v-if="!approvals.length"
 						class="px-4 py-6 text-center text-sm text-ink-400"
 					>
-						No SCO approvals waiting on you.
+						{{ __("No SCO approvals waiting on you.") }}
 					</div>
 					<!-- Stubs for the other two approval kinds — flagged as not yet wired -->
 					<div class="flex items-center gap-3 px-4 py-3 bg-ink-50/50">
@@ -256,9 +257,9 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 							>MR</span
 						>
 						<div class="flex-1 min-w-0">
-							<div class="text-sm text-ink-500">Material requests</div>
+							<div class="text-sm text-ink-500">{{ __("Material requests") }}</div>
 							<div class="text-xs text-ink-400 mt-0.5">
-								0 pending · Procurement (M4) — coming soon
+								{{ __("0 pending · Procurement (M4) — coming soon") }}
 							</div>
 						</div>
 					</div>
@@ -268,9 +269,9 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 							>PC</span
 						>
 						<div class="flex-1 min-w-0">
-							<div class="text-sm text-ink-500">Petty cash requests</div>
+							<div class="text-sm text-ink-500">{{ __("Petty cash requests") }}</div>
 							<div class="text-xs text-ink-400 mt-0.5">
-								0 pending · Project Finance (M8) — coming soon
+								{{ __("0 pending · Project Finance (M8) — coming soon") }}
 							</div>
 						</div>
 					</div>
@@ -278,7 +279,7 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 			</div>
 
 			<!-- Today's critical tasks -->
-			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">Today's critical tasks</h2>
+			<h2 class="text-sm font-semibold text-ink-900 mt-10 mb-3">{{ __("Today's critical tasks") }}</h2>
 			<div class="bg-white border border-ink-200 rounded-xl overflow-hidden">
 				<div class="divide-y divide-ink-100">
 					<RouterLink
@@ -314,7 +315,7 @@ const pendingApprovalsCount = computed(() => approvals.value.length);
 						v-if="!criticalTasks.length"
 						class="px-4 py-8 text-center text-sm text-ink-400"
 					>
-						No critical tasks · you're caught up.
+						{{ __("No critical tasks · you're caught up.") }}
 					</div>
 				</div>
 			</div>
